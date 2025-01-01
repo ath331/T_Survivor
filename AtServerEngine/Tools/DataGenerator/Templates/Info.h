@@ -1,0 +1,37 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief {{ClassName}}Info class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#pragma once
+#include "Packet/Protocol.pb.h"
+#include "{{ClassName}}InfoTemplate.h"
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief {{ClassName}}Info class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+class {{ClassName}}Info
+	:
+	public {{ClassName}}InfoTemplate
+{
+public:
+	/// Constructor
+	{{ClassName}}Info();
+
+	/// Constructor
+	{{ClassName}}Info(
+{%- for member in memberList %}
+	{%- if loop.last %}
+	    {{member.valueType}} {{member.name}} );
+	{%- else %}
+	    {{member.valueType}} {{member.name}},
+	{%- endif -%}
+{%- endfor %}
+
+	/// Destructor
+	~{{ClassName}}Info();
+};
+
+/// SharedPointer
+using {{ClassName}}InfoPtr = std::shared_ptr< {{ClassName}}Info >;

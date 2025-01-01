@@ -1,0 +1,26 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif C_EnterGameHandler class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include "pch.h"
+#include "C_EnterGameHandler.h"
+#include "Logic/Utils/Log/AtLog.h"
+#include "Logic/Utils/ObjectUtils.h"
+#include "Logic/Room/Room.h"
+#include "Session/GameSession.h"
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif HandlerRun
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterGame& pkt )
+{
+	INFO_LOG( "C_EnterGamePkt : " + std::to_string( pkt.playerindex() ) );
+
+	// PlayerPtr player = ObjectUtils::CreatePlayer( static_pointer_cast< GameSession >( session ) );
+
+	// GRoom->DoAsync( &Room::HandleEnterPlayer, player );
+
+	return true;
+}

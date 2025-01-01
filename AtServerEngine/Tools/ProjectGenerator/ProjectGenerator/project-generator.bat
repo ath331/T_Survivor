@@ -1,0 +1,1 @@
+cmd/k call "ProjectGenerator.exe" ../../../GameServer/
