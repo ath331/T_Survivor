@@ -16,7 +16,8 @@ using System.Threading.Tasks;
 using Assets.Scripts.Network;
 using Assets.Scripts.Network.Handler;
 using Unity.VisualScripting;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Network
 {
@@ -27,6 +28,12 @@ namespace Assets.Scripts.Network
         private TcpClient     _socketConnection;
         private NetworkStream _stream;
         private bool          _isConnected = false;
+
+
+        // public Dropdown       mode;
+        // public InputField     inputIp;
+        // public InputField     inputPort;
+
 
         public static Network Instance
         {
@@ -55,28 +62,45 @@ namespace Assets.Scripts.Network
             }
         }
 
-        public async void Start()
+        public async void ConnectToTcpServer()
         {
-            _ConnectToTcpServer();
+            // if ( mode.options[ mode.value ].text == "Single" )
+            // {
+            //     Debug.Log( "SingleMode Start" );
+            //     return;
+            // }
 
             if ( _isConnected )
             {
-                Debug.Log( "서버 연결 성공, 수신 시작" );
-                _ = Task.Run( _ReadAsync );
+                Debug.Log( "Already Connected" );
+                return;
             }
-        }
 
-        private async void _ConnectToTcpServer()
-        {
             try
             {
-                _socketConnection = new TcpClient( "192.168.25.22", 3333 );
+               // string ip = inputIp.text;
+               // int port = 0;
+               // if ( int.TryParse( inputPort.text, out int intValue ) )
+               //     port = intValue;
+
+                string ip   = "192.168.25.22";
+                int    port = 3333;
+
+                _socketConnection = new TcpClient( ip, port );
                 _stream = _socketConnection.GetStream();
                 _isConnected = true;
             }
             catch ( Exception e )
             {
                 Debug.LogError( "On client connect exception " + e );
+            }
+
+            if ( _isConnected )
+            {
+                Debug.Log( "서버 연결 성공, 수신 시작" );
+                _ = Task.Run( _ReadAsync );
+
+                SceneManager.LoadScene( "Lobby" );
             }
         }
 
