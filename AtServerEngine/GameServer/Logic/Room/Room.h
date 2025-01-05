@@ -46,13 +46,14 @@ public:
 
 private:
 	/// 오브젝트를 추가한다.
-	AtBool AddObject( ObjectPtr object );
+	AtBool _AddObject( ObjectPtr object );
 
 	/// 오브젝트를 제거한다.
-	AtBool RemoveObject( uint64 objectId );
+	AtBool _RemoveObject( uint64 objectId );
 
 private:
-	AtVoid Broadcast( SendBufferPtr sendBuffer, uint64 exceptId = 0 );
+	/// 룸의 모든 유저에게 브로드 캐스팅 한다.
+	AtVoid _Broadcast( SendBufferPtr sendBuffer, uint64 exceptId = 0 );
 
 private:
 	unordered_map<uint64, ObjectPtr > m_objects;

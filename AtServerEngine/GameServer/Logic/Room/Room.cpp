@@ -34,7 +34,7 @@ Room::~Room()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 {
-	AtBool success = AddObject( object );
+	AtBool success = _AddObject( object );
 
 	if ( randPos )
 	{
@@ -69,7 +69,7 @@ AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 		objectInfo->CopyFrom( *object->objectInfo );
 
 		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
-		Broadcast( sendBuffer, object->objectInfo->id() );
+		_Broadcast( sendBuffer, object->objectInfo->id() );
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
@@ -103,7 +103,7 @@ AtBool Room::LeaveRoom( ObjectPtr object )
 		return false;
 
 	const uint64 objectId = object->objectInfo->id();
-	bool success = RemoveObject( objectId );
+	bool success = _RemoveObject( objectId );
 
 	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
 	if ( auto player = dynamic_pointer_cast<Player>( object ) )
@@ -121,7 +121,7 @@ AtBool Room::LeaveRoom( ObjectPtr object )
 		despawnPkt.add_ids( objectId );
 
 		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( despawnPkt );
-		Broadcast( sendBuffer, objectId );
+		_Broadcast( sendBuffer, objectId );
 
 		if ( auto player = dynamic_pointer_cast<Player>( object ) )
 		{
@@ -138,7 +138,7 @@ AtBool Room::LeaveRoom( ObjectPtr object )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool Room::HandleEnterPlayer( PlayerPtr player )
 {
-	AtBool success = AddObject( player );
+	AtBool success = _AddObject( player );
 
 	// 랜덤 위치
 	player->posInfo->set_x  ( Utils::GetRandom( 0.f, 500.f ) );
@@ -170,7 +170,7 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 		playerInfo->CopyFrom( *player->objectInfo );
 
 		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
-		Broadcast( sendBuffer, player->objectInfo->id() );
+		_Broadcast( sendBuffer, player->objectInfo->id() );
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
@@ -203,7 +203,7 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 		return false;
 	
 	const uint64 objectId = player->objectInfo->id();
-	bool success = RemoveObject( objectId );
+	bool success = _RemoveObject( objectId );
 	
 	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
 	{
@@ -220,7 +220,7 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 		despawnPkt.add_ids( objectId );
 	
 		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( despawnPkt );
-		Broadcast( sendBuffer, objectId );
+		_Broadcast( sendBuffer, objectId );
 	
 		if ( auto session = player->session.lock() )
 			session->Send( sendBuffer );
@@ -250,7 +250,7 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 	info->CopyFrom( pkt.info() );
 
 	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( movePkt );
-	Broadcast( sendBuffer, id );
+	_Broadcast( sendBuffer, id );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -274,7 +274,7 @@ RoomPtr Room::GetPtr()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 오브젝트를 추가한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::AddObject( ObjectPtr object )
+AtBool Room::_AddObject( ObjectPtr object )
 {
 	if ( m_objects.find( object->objectInfo->id() ) != m_objects.end() )
 		return false;
@@ -289,7 +289,7 @@ AtBool Room::AddObject( ObjectPtr object )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 오브젝트를 제거한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::RemoveObject( uint64 objectId )
+AtBool Room::_RemoveObject( uint64 objectId )
 {
 	if ( m_objects.find( objectId ) == m_objects.end() )
 		return false;
@@ -305,7 +305,10 @@ AtBool Room::RemoveObject( uint64 objectId )
 	return true;
 }
 
-AtVoid Room::Broadcast( SendBufferPtr sendBuffer, uint64 exceptId )
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 룸의 모든 유저에게 브로드 캐스팅 한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::_Broadcast( SendBufferPtr sendBuffer, uint64 exceptId )
 {
 	for ( auto& item : m_objects )
 	{

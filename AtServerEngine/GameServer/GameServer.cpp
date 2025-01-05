@@ -126,10 +126,5 @@ AtVoid main()
 	// 	this_thread::sleep_for( 3s );
 	// }
 
-	// Protocol::S_Login pkt;
-	// pkt.set_success( true );
-	// 
-	// auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt );
-
 	GThreadManager->Join();
 }
