@@ -23,6 +23,17 @@ message S_Login
 	//repeated ObjectInfo players = 2;
 }
 
+// path = Room
+message C_EnterLobby
+{
+}
+
+// path = Room
+message S_EnterLobby
+{
+	bool success = 1;
+}
+
 // path = Game
 message C_EnterGame
 {

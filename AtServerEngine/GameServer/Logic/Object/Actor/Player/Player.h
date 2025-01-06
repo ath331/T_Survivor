@@ -9,7 +9,7 @@
 
 class Player
 	:
-public Actor
+	public Actor
 {
 public:
 	/// 생성자
@@ -17,14 +17,6 @@ public:
 
 	/// 소멸자
 	virtual ~Player();
-
-	/// session을 세팅한다.
-	AtVoid SetSession( weak_ptr< GameSession > session );
-
-
-public:
-	/// 패킷을 전송한다.
-	AtVoid Send( const google::protobuf::Message& pkt );
 
 public:
 	/// 세션 정보

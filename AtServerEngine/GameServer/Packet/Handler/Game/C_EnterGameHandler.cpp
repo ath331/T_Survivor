@@ -18,9 +18,5 @@ AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterG
 {
 	INFO_LOG( "C_EnterGamePkt : " + std::to_string( pkt.playerindex() ) );
 
-	// PlayerPtr player = ObjectUtils::CreatePlayer( static_pointer_cast< GameSession >( session ) );
-
-	// GRoom->DoAsync( &Room::HandleEnterPlayer, player );
-
 	return true;
 }

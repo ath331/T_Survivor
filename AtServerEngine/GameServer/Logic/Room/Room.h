@@ -13,7 +13,6 @@
 class Room 
 	: 
 	public JobQueue
-
 {
 public:
 	/// 생성자
@@ -29,7 +28,7 @@ public:
 	AtBool LeaveRoom( ObjectPtr object );
 
 	/// 플레이어를 방에 입장시킨다.
-	AtBool HandleEnterPlayer( PlayerPtr player );
+	virtual AtBool HandleEnterPlayer( PlayerPtr player );
 
 	/// 플레이어를 방에서 내보낸다.
 	AtBool HandleLeavePlayer( PlayerPtr player );
@@ -38,24 +37,24 @@ public:
 	AtVoid HandlePlayerMove( Protocol::C_Move pkt );
 
 public:
-	/// 룸을 업데이트한다.
-	AtVoid UpdateTick();
-
 	/// Room객체를 반환한다.
 	RoomPtr GetPtr();
 
-private:
+public:
+	/// 룸을 업데이트한다.
+	virtual AtVoid UpdateTick();
+
+protected:
 	/// 오브젝트를 추가한다.
 	AtBool _AddObject( ObjectPtr object );
 
 	/// 오브젝트를 제거한다.
 	AtBool _RemoveObject( uint64 objectId );
 
-private:
 	/// 룸의 모든 유저에게 브로드 캐스팅 한다.
 	AtVoid _Broadcast( SendBufferPtr sendBuffer, uint64 exceptId = 0 );
 
-private:
+protected:
 	unordered_map<uint64, ObjectPtr > m_objects;
 };
 

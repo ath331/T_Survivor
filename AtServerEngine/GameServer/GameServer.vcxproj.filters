@@ -64,6 +64,9 @@
     <ClInclude Include="Logic\Object\Object.h">
       <Filter>Logic\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Room\Lobby.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Room\Room.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
@@ -108,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="Packet\Handler\Login\C_LoginHandler.h">
       <Filter>Packet\Handler\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
     <ClInclude Include="Packet\Protocol.pb.h">
       <Filter>Packet</Filter>
@@ -186,6 +192,9 @@
     <ClCompile Include="Logic\Object\Object.cpp">
       <Filter>Logic\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Room\Lobby.cpp">
+      <Filter>Logic\Room</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\Room\Room.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
@@ -222,6 +231,9 @@
     <ClCompile Include="Packet\Handler\C_EnterGameHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_EnterLobbyHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_LeaveGameHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
@@ -239,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="Packet\Handler\Login\C_LoginHandler.cpp">
       <Filter>Packet\Handler\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\C_EnterLobbyHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>..\..\..\GameServer</Filter>
@@ -321,6 +336,10 @@
     <Filter Include="Packet\Handler\Game">
     </Filter>
     <Filter Include="Packet\Handler\Login">
+    </Filter>
+    <Filter Include="Packet\Handler\Room">
+    </Filter>
+    <Filter Include="Packet\Handler\Test">
     </Filter>
     <Filter Include="Session">
     </Filter>

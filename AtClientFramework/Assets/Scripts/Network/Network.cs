@@ -1,23 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
 using UnityEngine;
-using Protocol;
 using Google.Protobuf;
-using System.Linq;
-using UnityEditor.PackageManager;
-using Google.Protobuf.WellKnownTypes;
-using System.Runtime.InteropServices;
-using TreeEditor;
 using System.Threading.Tasks;
-using Assets.Scripts.Network;
 using Assets.Scripts.Network.Handler;
 using Unity.VisualScripting;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using Assets.Scripts.Network.Packet.Room;
+
 
 namespace Assets.Scripts.Network
 {
@@ -100,7 +89,10 @@ namespace Assets.Scripts.Network
                 Debug.Log( "서버 연결 성공, 수신 시작" );
                 _ = Task.Run( _ReadAsync );
 
-                SceneManager.LoadScene( "Lobby" );
+                Packet_C_EnterLobby enterLobby = GetComponent< Packet_C_EnterLobby >();
+
+                if ( enterLobby != null )
+                    enterLobby.Send_C_EnterLobby();
             }
         }
 

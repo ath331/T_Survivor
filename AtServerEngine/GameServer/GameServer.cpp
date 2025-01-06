@@ -23,6 +23,9 @@
 #include "Data/InfoManagers.h"
 
 
+#include "Logic/Room/Lobby.h"
+
+
 /// 프로세스 틱 이넘
 enum
 {
@@ -111,7 +114,7 @@ AtVoid main()
 			} );
 	}
 
-	GRoom->DoAsync( &Room::UpdateTick );
+	GLobby->DoAsync( &Room::UpdateTick );
 
 	// Main Thread
 	// DoWorkerJob( service );
