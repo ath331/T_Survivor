@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Scripts.Network.Handler;
 using Unity.VisualScripting;
 using Assets.Scripts.Network.Packet.Room;
+using Cysharp.Threading.Tasks;
 
 
 namespace Assets.Scripts.Network
@@ -127,6 +128,9 @@ namespace Assets.Scripts.Network
                     int packetSize = totalSize - PacketHeader.GetHeaderSize();
                     byte[] dataBuffer = new byte[ packetSize ];
                     await _Read( _stream, dataBuffer, packetSize );
+
+                    // 패킷 처리는 MainThread 에서 실행
+                    await UniTask.SwitchToMainThread();
 
                     _ProcessPacket( packetId, dataBuffer );
                 }
