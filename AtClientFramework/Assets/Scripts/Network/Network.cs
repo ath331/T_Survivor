@@ -1,6 +1,8 @@
 using System;
 using System.Net.Sockets;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Google.Protobuf;
 using System.Threading.Tasks;
 using Assets.Scripts.Network.Handler;
@@ -19,6 +21,8 @@ namespace Assets.Scripts.Network
         private NetworkStream _stream;
         private bool          _isConnected = false;
 
+        [SerializeField] private TMP_InputField inputIp;
+        [SerializeField] private TMP_InputField inputPort;
 
         // public Dropdown       mode;
         // public InputField     inputIp;
@@ -73,10 +77,10 @@ namespace Assets.Scripts.Network
                // if ( int.TryParse( inputPort.text, out int intValue ) )
                //     port = intValue;
 
-                string ip   = "192.168.25.22";
-                int    port = 3333;
+                string ip   = inputIp.text;
+                int port = int.Parse(inputPort.text);
 
-                _socketConnection = new TcpClient( ip, port );
+                _socketConnection = new TcpClient(ip, port );
                 _stream = _socketConnection.GetStream();
                 _isConnected = true;
             }
