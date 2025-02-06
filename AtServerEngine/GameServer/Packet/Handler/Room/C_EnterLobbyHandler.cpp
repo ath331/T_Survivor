@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "C_EnterLobbyHandler.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Room/Lobby.h"
 #include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Utils/ObjectUtils.h"
@@ -16,7 +17,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_EnterLobbyHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterLobby& pkt )
 {
-	PlayerPtr player = ObjectUtils::CreatePlayer( static_pointer_cast< GameSession >( session ) );
+	auto gameSession = static_pointer_cast<GameSession>( session );
+	if ( !gameSession )
+		return false;
+
+	PlayerPtr player = ObjectUtils::CreatePlayer( gameSession );
 	GLobby->DoAsync( &Room::HandleEnterPlayer, player );
 
 	return true;

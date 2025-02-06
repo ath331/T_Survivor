@@ -6,8 +6,14 @@
 #include "Utils/String/StringUtils.h"
 
 
+static std::atomic< AtInt64 > GSessionId = 0;
+
+
 void GameSession::OnConnected()
 {
+	GSessionId++;
+
+	SetSessionId( GSessionId );
 	GSessionManager.Add( static_pointer_cast< GameSession >( shared_from_this() ) );
 
 	INFO_LOG( StringUtils::ConvertToString( GetAddress().GetIpAddress() ) + " Connected." );

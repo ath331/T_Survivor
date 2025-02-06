@@ -14,6 +14,9 @@ public:
 private:
 	USE_LOCK;
 	Set<GameSessionRef> _sessions;
+
+	/// Session 식별자별 Session 정보
+	Map< AtInt64, GameSessionRef > m_sessionMap;
 };
 
 extern GameSessionManager GSessionManager;
