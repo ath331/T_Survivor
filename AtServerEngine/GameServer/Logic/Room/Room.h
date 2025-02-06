@@ -36,6 +36,9 @@ public:
 	/// 플레이어의 움직임을 처리한다.
 	AtVoid HandlePlayerMove( Protocol::C_Move pkt );
 
+	/// 채팅을 브로드 캐스팅 한다.
+	AtVoid BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat );
+
 public:
 	/// Room객체를 반환한다.
 	RoomPtr GetPtr();
