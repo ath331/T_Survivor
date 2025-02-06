@@ -1,0 +1,3 @@
+GameServer.exe
+
+pause
