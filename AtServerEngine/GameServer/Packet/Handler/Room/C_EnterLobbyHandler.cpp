@@ -22,6 +22,8 @@ AtBool C_EnterLobbyHandler::Handle( PacketSessionPtr& session, Protocol::C_Enter
 		return false;
 
 	PlayerPtr player = ObjectUtils::CreatePlayer( gameSession );
+	player->objectInfo->set_id( gameSession->GetSessionId() );
+
 	GLobby->DoAsync( &Room::HandleEnterPlayer, player );
 
 	return true;
