@@ -24,6 +24,9 @@ public:
 	/// 플레이어 타입인지 확인한다.
 	AtBool IsPlayer() { return m_isPlayer; }
 
+	/// 식별자를 반환한다.
+	AtInt64 GetId() { return objectInfo->id(); }
+
 public:
 	/// 오브젝트 정보
 	Protocol::ObjectInfo* objectInfo;

@@ -7,20 +7,26 @@ using UnityEngine;
 using Assets.Scripts.Network;
 using Protocol;
 using Google.Protobuf;
+using TMPro;
+using UnityEngine.Windows;
 
 
 namespace Assets.Scripts.Network.Packet.Chat
 {
 	public class Packet_C_Chat : MonoBehaviour
 	{
-		// base.Start() block
-		public void Start() {}
+		[SerializeField] private TMP_InputField inputChat;
+
+        // base.Start() block
+        public void Start() {}
 
 		public void Send_C_Chat()
 		{
 			C_Chat pkt = new C_Chat();
 
-			Network.Instance.Send( pkt );
+            string msg = inputChat.text;
+
+            Network.Instance.Send( pkt );
 		}
 	}
 }

@@ -15,6 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_Chat_Handler( ushort protocolId, byte[] data )
 		{
 			S_Chat message = S_Chat.Parser.ParseFrom( data );
+
+
 		}
 	}
 }

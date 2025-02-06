@@ -260,7 +260,7 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 AtVoid Room::BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat )
 {
 	Protocol::S_Chat chatResult;
-	chatResult.set_playerid( 100 ); // 임시로 플레이어 식별자는 다 100으로 세팅중.
+	chatResult.set_playerid( sender->GetId() );
 	chatResult.set_msg( chat.msg() );
 
 	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( chatResult );
