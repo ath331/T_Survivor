@@ -16,5 +16,8 @@ public:
 	virtual void OnSend( int32 len ) override;
 
 public:
+	void Send( SendBufferPtr sendBuffer );
+
+public:
 	atomic< PlayerPtr > player;
 };

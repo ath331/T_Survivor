@@ -24,6 +24,13 @@ void GameSession::OnRecvPacket( BYTE* buffer, int32 len )
 {
 	PacketSessionPtr session = GetPacketSessionRef();
 	PacketHeader* header = reinterpret_cast< PacketHeader* >( buffer );
+	if ( !header )
+	{
+		WARNNING_LOG( "PacketHeader is null" );
+		return;
+	}
+
+	PKT_LOG( "[Recv] " + std::to_string( header->id ) );
 
 	// TODO : packetId 대역 체크
 	ClientPacketHandler::HandlePacket( session, buffer, len );
@@ -31,4 +38,25 @@ void GameSession::OnRecvPacket( BYTE* buffer, int32 len )
 
 void GameSession::OnSend(int32 len)
 {
+	// PKT_LOG( "[Send]" );
+}
+
+void GameSession::Send( SendBufferPtr sendBuffer )
+{
+	if ( !sendBuffer )
+	{
+		WARNNING_LOG( "SendBuffer is null" );
+		return;
+	}
+
+	PacketHeader* header = reinterpret_cast<PacketHeader*>( sendBuffer->Buffer() );
+	if ( !header )
+	{
+		WARNNING_LOG( "PacketHeader is null" );
+		return;
+	}
+
+	PKT_LOG( "[Send] " + std::to_string( header->id ) );
+
+	PacketSession::Send( sendBuffer );
 }
