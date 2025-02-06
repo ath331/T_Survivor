@@ -26,24 +26,24 @@ namespace Protocol {
           string.Concat(
             "Cg5Qcm90b2NvbC5wcm90bxIIUHJvdG9jb2waCkVudW0ucHJvdG8aDFN0cnVj",
             "dC5wcm90byIhCgdDX0xvZ2luEgoKAmlkGAEgASgJEgoKAnB3GAIgASgFIhoK",
-            "B1NfTG9naW4SDwoHc3VjY2VzcxgBIAEoCCIOCgxDX0VudGVyTG9iYnkiHwoM",
-            "U19FbnRlckxvYmJ5Eg8KB3N1Y2Nlc3MYASABKAgiIgoLQ19FbnRlckdhbWUS",
-            "EwoLcGxheWVySW5kZXgYASABKAQiRAoLU19FbnRlckdhbWUSDwoHc3VjY2Vz",
-            "cxgBIAEoCBIkCgZwbGF5ZXIYAiABKAsyFC5Qcm90b2NvbC5PYmplY3RJbmZv",
-            "Ig0KC0NfTGVhdmVHYW1lIg0KC1NfTGVhdmVHYW1lIikKBkNfTW92ZRIfCgRp",
-            "bmZvGAEgASgLMhEuUHJvdG9jb2wuUG9zSW5mbyIpCgZTX01vdmUSHwoEaW5m",
-            "bxgBIAEoCzIRLlByb3RvY29sLlBvc0luZm8iMAoHU19TcGF3bhIlCgdwbGF5",
-            "ZXJzGAEgAygLMhQuUHJvdG9jb2wuT2JqZWN0SW5mbyIYCglTX0RlU3Bhd24S",
-            "CwoDaWRzGAEgAygEIhUKBkNfQ2hhdBILCgNtc2cYASABKAkiJwoGU19DaGF0",
-            "EhAKCHBsYXllcklkGAEgASgEEgsKA21zZxgCIAEoCUILqgIIUHJvdG9jb2xi",
-            "BnByb3RvMw=="));
+            "B1NfTG9naW4SDwoHc3VjY2VzcxgBIAEoCCIOCgxDX0VudGVyTG9iYnkiMQoM",
+            "U19FbnRlckxvYmJ5Eg8KB3N1Y2Nlc3MYASABKAgSEAoIcGxheWVySWQYAiAB",
+            "KAQiIgoLQ19FbnRlckdhbWUSEwoLcGxheWVySW5kZXgYASABKAQiRAoLU19F",
+            "bnRlckdhbWUSDwoHc3VjY2VzcxgBIAEoCBIkCgZwbGF5ZXIYAiABKAsyFC5Q",
+            "cm90b2NvbC5PYmplY3RJbmZvIg0KC0NfTGVhdmVHYW1lIg0KC1NfTGVhdmVH",
+            "YW1lIikKBkNfTW92ZRIfCgRpbmZvGAEgASgLMhEuUHJvdG9jb2wuUG9zSW5m",
+            "byIpCgZTX01vdmUSHwoEaW5mbxgBIAEoCzIRLlByb3RvY29sLlBvc0luZm8i",
+            "MAoHU19TcGF3bhIlCgdwbGF5ZXJzGAEgAygLMhQuUHJvdG9jb2wuT2JqZWN0",
+            "SW5mbyIYCglTX0RlU3Bhd24SCwoDaWRzGAEgAygEIhUKBkNfQ2hhdBILCgNt",
+            "c2cYASABKAkiJwoGU19DaGF0EhAKCHBsYXllcklkGAEgASgEEgsKA21zZxgC",
+            "IAEoCUILqgIIUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protocol.EnumReflection.Descriptor, global::Protocol.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_Login), global::Protocol.C_Login.Parser, new[]{ "Id", "Pw" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_Login), global::Protocol.S_Login.Parser, new[]{ "Success" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_EnterLobby), global::Protocol.C_EnterLobby.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_EnterLobby), global::Protocol.S_EnterLobby.Parser, new[]{ "Success" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_EnterLobby), global::Protocol.S_EnterLobby.Parser, new[]{ "Success", "PlayerId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_EnterGame), global::Protocol.C_EnterGame.Parser, new[]{ "PlayerIndex" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_EnterGame), global::Protocol.S_EnterGame.Parser, new[]{ "Success", "Player" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_LeaveGame), global::Protocol.C_LeaveGame.Parser, null, null, null, null, null),
@@ -621,6 +621,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public S_EnterLobby(S_EnterLobby other) : this() {
       success_ = other.success_;
+      playerId_ = other.playerId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -640,6 +641,17 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 2;
+    private ulong playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ulong PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as S_EnterLobby);
@@ -654,6 +666,7 @@ namespace Protocol {
         return true;
       }
       if (Success != other.Success) return false;
+      if (PlayerId != other.PlayerId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -661,6 +674,7 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (Success != false) hash ^= Success.GetHashCode();
+      if (PlayerId != 0UL) hash ^= PlayerId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -681,6 +695,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
+      if (PlayerId != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(PlayerId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -694,6 +712,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
+      if (PlayerId != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(PlayerId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -705,6 +727,9 @@ namespace Protocol {
       int size = 0;
       if (Success != false) {
         size += 1 + 1;
+      }
+      if (PlayerId != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -719,6 +744,9 @@ namespace Protocol {
       }
       if (other.Success != false) {
         Success = other.Success;
+      }
+      if (other.PlayerId != 0UL) {
+        PlayerId = other.PlayerId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -738,6 +766,10 @@ namespace Protocol {
             Success = input.ReadBool();
             break;
           }
+          case 16: {
+            PlayerId = input.ReadUInt64();
+            break;
+          }
         }
       }
     #endif
@@ -754,6 +786,10 @@ namespace Protocol {
             break;
           case 8: {
             Success = input.ReadBool();
+            break;
+          }
+          case 16: {
+            PlayerId = input.ReadUInt64();
             break;
           }
         }

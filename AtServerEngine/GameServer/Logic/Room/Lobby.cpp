@@ -23,6 +23,7 @@ AtBool Lobby::HandleEnterPlayer( PlayerPtr player )
 
 	Protocol::S_EnterLobby pktEnterLobby;
 	pktEnterLobby.set_success( true );
+	pktEnterLobby.set_playerid( player->objectInfo->id() );
 
 	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( pktEnterLobby );
 	if ( auto session = player->session.lock() )

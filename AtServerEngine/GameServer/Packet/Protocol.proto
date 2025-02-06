@@ -32,6 +32,7 @@ message C_EnterLobby
 message S_EnterLobby
 {
 	bool success = 1;
+	uint64 playerId = 2;
 }
 
 // path = Game

@@ -626,8 +626,18 @@ class S_EnterLobby final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kPlayerIdFieldNumber = 2,
     kSuccessFieldNumber = 1,
   };
+  // uint64 playerId = 2;
+  void clear_playerid();
+  ::PROTOBUF_NAMESPACE_ID::uint64 playerid() const;
+  void set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_playerid() const;
+  void _internal_set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
   // bool success = 1;
   void clear_success();
   bool success() const;
@@ -644,6 +654,7 @@ class S_EnterLobby final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 playerid_;
   bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
@@ -2150,6 +2161,26 @@ inline void S_EnterLobby::_internal_set_success(bool value) {
 inline void S_EnterLobby::set_success(bool value) {
   _internal_set_success(value);
   // @@protoc_insertion_point(field_set:Protocol.S_EnterLobby.success)
+}
+
+// uint64 playerId = 2;
+inline void S_EnterLobby::clear_playerid() {
+  playerid_ = uint64_t{0u};
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 S_EnterLobby::_internal_playerid() const {
+  return playerid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 S_EnterLobby::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_EnterLobby.playerId)
+  return _internal_playerid();
+}
+inline void S_EnterLobby::_internal_set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  playerid_ = value;
+}
+inline void S_EnterLobby::set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_playerid(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_EnterLobby.playerId)
 }
 
 // -------------------------------------------------------------------
