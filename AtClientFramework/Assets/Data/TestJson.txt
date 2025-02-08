@@ -1,0 +1,45 @@
+{ 
+    "0" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "0",
+            "Desc" : "식별자"
+        },
+        "Type" : 
+        { 
+            "Type" : "EActorType",
+            "Value" : "None",
+            "Desc" : "타입"
+        },
+        "String" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "가나다",
+            "Desc" : "스트링"
+        }
+    },
+
+    "2" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "2",
+            "Desc" : "식별자"
+        },
+        "Type" : 
+        { 
+            "Type" : "EActorType",
+            "Value" : "Npc",
+            "Desc" : "타입"
+        },
+        "String" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "아자차",
+            "Desc" : "스트링"
+        }
+    }    
+}
