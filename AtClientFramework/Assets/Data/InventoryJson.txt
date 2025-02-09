@@ -1,0 +1,45 @@
+{ 
+    "0" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "0",
+            "Desc" : "식별자"
+        },
+        "IsNonUse" : 
+        { 
+            "Type" : "AtBool",
+            "Value" : "0",
+            "Desc" : "비사용 여부"
+        },
+        "BagType" : 
+        { 
+            "Type" : "EBagType",
+            "Value" : "Equipment",
+            "Desc" : "가방 타입"
+        }
+    },
+
+    "2" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "2",
+            "Desc" : "식별자"
+        },
+        "IsNonUse" : 
+        { 
+            "Type" : "AtBool",
+            "Value" : "0",
+            "Desc" : "비사용 여부"
+        },
+        "BagType" : 
+        { 
+            "Type" : "EBagType",
+            "Value" : "Useable",
+            "Desc" : "가방 타입"
+        }
+    }    
+}
