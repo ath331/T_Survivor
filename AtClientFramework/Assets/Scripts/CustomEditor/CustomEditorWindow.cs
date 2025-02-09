@@ -66,7 +66,7 @@ public class CustomEditorWindow : EditorWindow
 
     private List<string> _ExportToAllExcel( string sourcePath )
     {
-        List< string > excelFiles = new List< string >();
+        List<string> excelFiles = new List<string>();
 
         try
         {
@@ -109,118 +109,130 @@ public class CustomEditorWindow : EditorWindow
 
         string filePath = sourcePath + excelName + ".xlsx";
 
-        using ( var stream = File.Open( filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite ) )
+        try
         {
-            using ( var reader = ExcelReaderFactory.CreateReader( stream ) )
+            using ( var stream = File.Open( filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite ) )
             {
-                var result = reader.AsDataSet();
-
-                for ( int sheetCount = 0 ; sheetCount < result.Tables.Count ; sheetCount++ )
+                using ( var reader = ExcelReaderFactory.CreateReader( stream ) )
                 {
-                    if ( jsonToIndex.Length == 0 )
+                    var result = reader.AsDataSet();
+
+                    for ( int sheetCount = 0 ; sheetCount < result.Tables.Count ; sheetCount++ )
                     {
-                        JsonMaker.InsertBeginBrace( ref jsonToIndex );
-                        JsonMaker.InsertNewLine( ref jsonToIndex );
-                    }
-
-                    for ( int row = 0 ; row < result.Tables[ sheetCount ].Rows.Count ; row++ )
-                    {
-                        //  0, 1, 2, 3 row는 형식이 고정이므로 4부터 체크
-                        if ( row < 4 )
-                            continue;
-
-                        // Disable == 1인 row는 무시 ( 컬럼값 1은 항상 Disable )
-                        if ( result.Tables[ sheetCount ].Rows[ row ][ 1 ].ToString() == "1" )
-                            continue;
-
-                        string json = ""; // 식별자의 value json
-
-                        for ( int column = 0 ; column < result.Tables[ sheetCount ].Columns.Count ; column++ )
+                        if ( jsonToIndex.Length == 0 )
                         {
-                            if ( result.Tables[ sheetCount ].Rows[ 0 ][ column ].ToString() == "Disable" )
-                                continue;
-
-                            // 서버에서만 사용하는 컬럼이면 무시
-                            if ( result.Tables[ sheetCount ].Rows[ 2 ][ column ].ToString() == "S" ||
-                                 result.Tables[ sheetCount ].Rows[ 2 ][ column ].ToString() == "*S" ||
-                                 result.Tables[ sheetCount ].Rows[ 2 ][ column ].ToString() == "#S" )
-                                continue;
-
-                            if ( 0 < json.Length )
-                            {
-                                JsonMaker.InsertRest   ( ref json );
-                                JsonMaker.InsertNewLine( ref json );
-                            }
-
-                            JsonMaker.InsertSpace     ( ref json, depth );
-                            JsonMaker.InsertKey       ( ref json, result.Tables[ sheetCount ].Rows[ 0 ][ column ].ToString() );
-                            JsonMaker.InsertNewLine   ( ref json );
-                            JsonMaker.InsertSpace     ( ref json, depth );
-                            JsonMaker.InsertBeginBrace( ref json );
-                            JsonMaker.InsertNewLine   ( ref json );
-                            depth += 4;
-
-                            {
-                                JsonMaker.InsertSpace  ( ref json, depth  );
-                                JsonMaker.InsertKey    ( ref json, "Type" );
-                                JsonMaker.InsertValue  ( ref json, result.Tables[ sheetCount ].Rows[ 3 ][ column ].ToString() );
-                                JsonMaker.InsertRest   ( ref json );
-                                JsonMaker.InsertNewLine( ref json );
-
-                                JsonMaker.InsertSpace  ( ref json, depth   );
-                                JsonMaker.InsertKey    ( ref json, "Value" );
-                                JsonMaker.InsertValue  ( ref json, result.Tables[ sheetCount ].Rows[ row ][ column ].ToString() );
-                                JsonMaker.InsertRest   ( ref json );
-                                JsonMaker.InsertNewLine( ref json );
-
-                                JsonMaker.InsertSpace  ( ref json, depth  );
-                                JsonMaker.InsertKey    ( ref json, "Desc" );
-                                JsonMaker.InsertValue  ( ref json, result.Tables[ sheetCount ].Rows[ 1 ][ column ].ToString() );
-                                JsonMaker.InsertNewLine( ref json );
-                            }
-
-                            depth -= 4;
-                            JsonMaker.InsertSpace( ref json, depth );
-                            JsonMaker.InsertEndBrace( ref json );
-                        }
-
-                        JsonMaker.InsertSpace     ( ref jsonToIndex, 4    );
-                        JsonMaker.InsertKey       ( ref jsonToIndex, result.Tables[ sheetCount ].Rows[ row ][ 0 ].ToString() );
-                        JsonMaker.InsertNewLine   ( ref jsonToIndex       );
-                        JsonMaker.InsertSpace     ( ref jsonToIndex, 4    );
-                        JsonMaker.InsertBeginBrace( ref jsonToIndex       );
-                        JsonMaker.InsertNewLine   ( ref jsonToIndex       );
-                        JsonMaker.ConnectStr      ( ref jsonToIndex, json );
-                        JsonMaker.InsertNewLine   ( ref jsonToIndex       );
-                        JsonMaker.InsertSpace     ( ref jsonToIndex, 4    );
-                        JsonMaker.InsertEndBrace  ( ref jsonToIndex       );
-
-                        // 마지막 row가 아니라면
-                        if ( row != result.Tables[ sheetCount ].Rows.Count - 1 )
-                        {
-                            JsonMaker.InsertRest   ( ref jsonToIndex );
+                            JsonMaker.InsertBeginBrace( ref jsonToIndex );
+                            JsonMaker.InsertNewLine( ref jsonToIndex );
+                            JsonMaker.InsertSpace( ref jsonToIndex, 4 );
+                            JsonMaker.InsertKey( ref jsonToIndex, "IndexKeyType" );
+                            JsonMaker.InsertValue( ref jsonToIndex, result.Tables[ sheetCount ].Rows[ 3 ][ 0 ].ToString() );
+                            JsonMaker.InsertRest( ref jsonToIndex );
                             JsonMaker.InsertNewLine( ref jsonToIndex );
                             JsonMaker.InsertNewLine( ref jsonToIndex );
                         }
-                    }
 
-                    if ( jsonToIndex.Length != 0 )
-                    {
-                        JsonMaker.InsertSpace   ( ref jsonToIndex, 4 );
-                        JsonMaker.InsertNewLine ( ref jsonToIndex );
-                        JsonMaker.InsertEndBrace( ref jsonToIndex );
-                        JsonMaker.InsertNewLine ( ref jsonToIndex );
+                        for ( int row = 0 ; row < result.Tables[ sheetCount ].Rows.Count ; row++ )
+                        {
+                            //  0, 1, 2, 3 row는 형식이 고정이므로 4부터 체크
+                            if ( row < 4 )
+                                continue;
+
+                            // Disable == 1인 row는 무시 ( 컬럼값 1은 항상 Disable )
+                            if ( result.Tables[ sheetCount ].Rows[ row ][ 1 ].ToString() == "1" )
+                                continue;
+
+                            string json = ""; // 식별자의 value json
+
+                            for ( int column = 0 ; column < result.Tables[ sheetCount ].Columns.Count ; column++ )
+                            {
+                                if ( result.Tables[ sheetCount ].Rows[ 0 ][ column ].ToString() == "Disable" )
+                                    continue;
+
+                                // 서버에서만 사용하는 컬럼이면 무시
+                                if ( result.Tables[ sheetCount ].Rows[ 2 ][ column ].ToString() == "S" ||
+                                     result.Tables[ sheetCount ].Rows[ 2 ][ column ].ToString() == "*S" ||
+                                     result.Tables[ sheetCount ].Rows[ 2 ][ column ].ToString() == "#S" )
+                                    continue;
+
+                                if ( 0 < json.Length )
+                                {
+                                    JsonMaker.InsertRest( ref json );
+                                    JsonMaker.InsertNewLine( ref json );
+                                }
+
+                                JsonMaker.InsertSpace( ref json, depth );
+                                JsonMaker.InsertKey( ref json, result.Tables[ sheetCount ].Rows[ 0 ][ column ].ToString() );
+                                JsonMaker.InsertNewLine( ref json );
+                                JsonMaker.InsertSpace( ref json, depth );
+                                JsonMaker.InsertBeginBrace( ref json );
+                                JsonMaker.InsertNewLine( ref json );
+                                depth += 4;
+
+                                {
+                                    JsonMaker.InsertSpace( ref json, depth );
+                                    JsonMaker.InsertKey( ref json, "Type" );
+                                    JsonMaker.InsertValue( ref json, result.Tables[ sheetCount ].Rows[ 3 ][ column ].ToString() );
+                                    JsonMaker.InsertRest( ref json );
+                                    JsonMaker.InsertNewLine( ref json );
+
+                                    JsonMaker.InsertSpace( ref json, depth );
+                                    JsonMaker.InsertKey( ref json, "Value" );
+                                    JsonMaker.InsertValue( ref json, result.Tables[ sheetCount ].Rows[ row ][ column ].ToString() );
+                                    JsonMaker.InsertRest( ref json );
+                                    JsonMaker.InsertNewLine( ref json );
+
+                                    JsonMaker.InsertSpace( ref json, depth );
+                                    JsonMaker.InsertKey( ref json, "Desc" );
+                                    JsonMaker.InsertValue( ref json, result.Tables[ sheetCount ].Rows[ 1 ][ column ].ToString() );
+                                    JsonMaker.InsertNewLine( ref json );
+                                }
+
+                                depth -= 4;
+                                JsonMaker.InsertSpace( ref json, depth );
+                                JsonMaker.InsertEndBrace( ref json );
+                            }
+
+                            JsonMaker.InsertSpace( ref jsonToIndex, 4 );
+                            JsonMaker.InsertKey( ref jsonToIndex, result.Tables[ sheetCount ].Rows[ row ][ 0 ].ToString() );
+                            JsonMaker.InsertNewLine( ref jsonToIndex );
+                            JsonMaker.InsertSpace( ref jsonToIndex, 4 );
+                            JsonMaker.InsertBeginBrace( ref jsonToIndex );
+                            JsonMaker.InsertNewLine( ref jsonToIndex );
+                            JsonMaker.ConnectStr( ref jsonToIndex, json );
+                            JsonMaker.InsertNewLine( ref jsonToIndex );
+                            JsonMaker.InsertSpace( ref jsonToIndex, 4 );
+                            JsonMaker.InsertEndBrace( ref jsonToIndex );
+
+                            // 마지막 row가 아니라면
+                            if ( row != result.Tables[ sheetCount ].Rows.Count - 1 )
+                            {
+                                JsonMaker.InsertRest( ref jsonToIndex );
+                                JsonMaker.InsertNewLine( ref jsonToIndex );
+                                JsonMaker.InsertNewLine( ref jsonToIndex );
+                            }
+                        }
+
+                        if ( jsonToIndex.Length != 0 )
+                        {
+                            JsonMaker.InsertSpace( ref jsonToIndex, 4 );
+                            JsonMaker.InsertNewLine( ref jsonToIndex );
+                            JsonMaker.InsertEndBrace( ref jsonToIndex );
+                            JsonMaker.InsertNewLine( ref jsonToIndex );
+                        }
                     }
                 }
             }
+
+            string path = destPath + excelName + "Json.txt";
+
+            if ( File.Exists( path ) )
+                File.WriteAllText( path, "" );
+
+            File.WriteAllText( path, jsonToIndex );
         }
-
-        string path = destPath + excelName + "Json.txt";
-
-        if ( File.Exists( path ) )
-            File.WriteAllText( path, "" );
-
-        File.WriteAllText( path, jsonToIndex );
+        catch ( Exception e )
+        {
+        }
     }
 }
 #endif

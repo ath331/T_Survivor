@@ -1,4 +1,6 @@
 { 
+    "IndexKeyType" : "AtInt32",
+
     "0" : 
     { 
         "Id" : 
