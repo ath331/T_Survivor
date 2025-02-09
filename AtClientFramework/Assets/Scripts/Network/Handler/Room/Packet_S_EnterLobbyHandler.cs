@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Protocol;
 using UnityEngine.SceneManagement;
+using Cysharp.Threading.Tasks;
 
 
 namespace Assets.Scripts.Network.Handler
@@ -13,7 +14,7 @@ namespace Assets.Scripts.Network.Handler
 
 			if ( message.Success )
 			{
-                SceneManager.LoadScene( "Lobby" );
+				SwitchSceneManager.Instance.ChangeTo("Lobby").Forget();
 			}
         }
     }

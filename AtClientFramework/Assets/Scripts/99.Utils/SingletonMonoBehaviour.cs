@@ -59,11 +59,11 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
         {
             instance = this as T;
 
-            instance.Init();
+            instance.Initialize();
         }
     }
 
-    public virtual void Init() { }
+    public virtual void Initialize() { }
 
     private void OnApplicationQuit()
     {
