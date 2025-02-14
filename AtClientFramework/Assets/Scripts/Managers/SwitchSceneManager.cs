@@ -20,8 +20,10 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
 
     private const float MinLoadingTime = 1f;
 
-    private async void Awake()
+    protected override async void Awake()
     {
+        base.Awake();
+
         splashCanvas.SetActive(true);  // 스플래시 화면 활성화
         splashImage.color = new Color(0, 0, 0, 1);   // 시작 시 완전 어두움 (불투명)
 
