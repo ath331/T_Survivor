@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "C_ChatHandler.h"
 #include "Session/GameSession.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Room/Room.h"
 
@@ -15,6 +16,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_ChatHandler::Handle( PacketSessionPtr& session, Protocol::C_Chat& pkt )
 {
+	INFO_LOG( "msg : " + pkt.msg() );
+
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
 		return false;
