@@ -214,6 +214,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Packet\Handler\Game\C_EnterGameHandler.h" />
     <ClInclude Include="Packet\Handler\Game\C_LeaveGameHandler.h" />
     <ClInclude Include="Packet\Handler\Login\C_LoginHandler.h" />
+    <ClInclude Include="Packet\Handler\PacketId.h" />
     <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h" />
     <ClInclude Include="Packet\Protocol.pb.h" />
     <ClInclude Include="Packet\Struct.pb.h" />

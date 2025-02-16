@@ -1,4 +1,5 @@
 #pragma once
+#include "PacketId.h"
 #include "Packet/Protocol.pb.h"
 
 
@@ -10,13 +11,6 @@
 using PacketHandlerFunc = std::function<bool(PacketSessionPtr&, BYTE*, int32)>;
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
-
-enum : uint16
-{
-{%- for pkt in parser.total_pkt %}
-	PKT_{{pkt.name}} = {{pkt.id}},
-{%- endfor %}
-};
 
 // Custom Handlers
 bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
@@ -33,8 +27,9 @@ public:
 		for (int32 i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
 
+
 {%- for pkt in parser.recv_pkt %}
-		GPacketHandler[PKT_{{pkt.name}}] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::{{pkt.name}}>(Handle_{{pkt.name}}Template, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_{{pkt.name}} ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::{{pkt.name}}>(Handle_{{pkt.name}}Template, session, buffer, len); };
 {%- endfor %}
 	}
 
@@ -45,7 +40,7 @@ public:
 	}
 
 {%- for pkt in parser.send_pkt %}
-	static SendBufferPtr MakeSendBuffer(Protocol::{{pkt.name}}& pkt) { return MakeSendBuffer(pkt, PKT_{{pkt.name}}); }
+	static SendBufferPtr MakeSendBuffer(Protocol::{{pkt.name}}& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_{{pkt.name}} ) ); }
 {%- endfor %}
 
 private:

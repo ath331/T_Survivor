@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameSession.h"
 #include "GameSessionManager.h"
+#include "Packet/Handler/PacketId.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 #include "Utils/Log/AtLog.h"
 #include "Utils/String/StringUtils.h"
@@ -35,8 +36,6 @@ void GameSession::OnRecvPacket( BYTE* buffer, int32 len )
 		WARNNING_LOG( "PacketHeader is null" );
 		return;
 	}
-
-	PKT_LOG( "[Recv] " + std::to_string( header->id ) );
 
 	// TODO : packetId 대역 체크
 	ClientPacketHandler::HandlePacket( session, buffer, len );

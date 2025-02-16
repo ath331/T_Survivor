@@ -36,6 +36,15 @@ def main():
 
 		print(output)
 
+		packetId = env.get_template('PacketId.h')
+		packetIdOutput = packetId.render(parser=parser, output=args.output)
+
+		f = open('PacketId.h', 'w+')
+		f.write(packetIdOutput)
+		f.close()
+
+		print(packetIdOutput)
+
 		# Each RecvPacket Handler Make
 		if args.isRecvHandler:
 			for index, recvPacket in enumerate(parser.recv_pkt):

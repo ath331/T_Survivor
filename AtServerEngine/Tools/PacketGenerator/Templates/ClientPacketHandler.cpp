@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "{{pkt.name}}Handler.h"
+#include "Logic/Utils/Log/AtLog.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -12,6 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool {{pkt.name}}Handler::Handle( PacketSessionPtr& session, Protocol::{{pkt.name}}& pkt )
 {
+	PKT_LOG( "[Recv][ {{pkt.name}} ] " + pkt.ShortDebugString() );
 
 
 	return true;

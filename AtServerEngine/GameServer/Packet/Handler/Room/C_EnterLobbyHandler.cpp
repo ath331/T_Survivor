@@ -17,6 +17,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_EnterLobbyHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterLobby& pkt )
 {
+	PKT_LOG( "[Recv][ C_EnterLobby ] " + pkt.ShortDebugString() );
+
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
 		return false;

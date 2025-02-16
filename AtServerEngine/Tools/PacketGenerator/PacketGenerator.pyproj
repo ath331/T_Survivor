@@ -40,6 +40,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Templates\PacketHandlerInCS.h" />
+    <Content Include="Templates\PacketId.h" />
     <Content Include="Templates\PacketIdInCS.h" />
     <Content Include="Templates\ServerPacketHandler.cpp" />
     <Content Include="Templates\ServerPacketHandler.h" />

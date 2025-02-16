@@ -13,9 +13,6 @@ namespace Assets.Scripts.Network.Packet.{{pkt.path}}
 {
 	public class Packet_{{pkt.name}} : MonoBehaviour
 	{
-		// base.Start() block
-		public void Start() {}
-
 		public void Send_{{pkt.name}}()
 		{
 			{{pkt.name}} pkt = new {{pkt.name}}();

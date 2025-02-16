@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "C_MoveHandler.h"
 #include "Session/GameSession.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Room/Room.h"
 
@@ -15,6 +16,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_MoveHandler::Handle( PacketSessionPtr& session, Protocol::C_Move& pkt )
 {
+	PKT_LOG( "[Recv][ C_Move ] " + pkt.ShortDebugString() );
+
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
 		return false;

@@ -112,6 +112,9 @@
     <ClInclude Include="Packet\Handler\Login\C_LoginHandler.h">
       <Filter>Packet\Handler\Login</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\PacketId.h">
+      <Filter>Packet\Handler</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h">
       <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
