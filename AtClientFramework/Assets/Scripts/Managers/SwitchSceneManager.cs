@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using System.Linq;
 
 public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
 {
@@ -74,6 +75,8 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
 
         await LoadSceneWithProgress(sceneName);
 
+        await LoadSceneInitialize();
+
         await UniTask.Yield();
 
         await UniTask.WaitUntil(() => minTimeOk);
@@ -87,7 +90,7 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
     }
 
     /// <summary>
-    /// 비동기 씬 로드 + 진행률 콜백 제공
+    /// [1] 씬 로딩 단계 (전체 진행률의 0% ~ 50%) (비동기 씬 로드 + 진행률 콜백 제공)
     /// </summary>
     private async UniTask LoadSceneWithProgress(string sceneName)
     {
@@ -98,7 +101,7 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
-            progressBar.UpdateProgress(progress, 0.5f).Forget();
+            progressBar.UpdateProgress(progress * 0.5f, 0.5f).Forget();
 
             if (operation.progress >= 0.9f)
             {
@@ -109,6 +112,34 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
             }
 
             await UniTask.Yield();
+        }
+    }
+
+    /// <summary>
+    /// [2] 씬 내부 초기화 단계 (전체 진행률의 50% ~ 100%)
+    /// </summary>
+    /// <param name="sceneName"></param>
+    /// <returns></returns>
+    private async UniTask LoadSceneInitialize()
+    {
+        ISceneInitializer initializer = null;
+
+        // 초기화 컴포넌트가 등록될 때까지 대기
+        await UniTask.WaitUntil(() =>
+        {
+            initializer = SceneInitializerRegistry.GetInitializer<ISceneInitializer>();
+            return initializer != null;
+        });
+
+        if (initializer != null)
+        {
+            // progress 리포터: 초기화 진행률 0~1을 50~100%로 매핑
+            var sceneInitProgress = new Progress<float>(p =>
+            {
+                progressBar.UpdateProgress(0.5f + p * 0.5f, 0.5f).Forget();
+            });
+
+            await initializer.InitializeAsync(sceneInitProgress);
         }
     }
 }
