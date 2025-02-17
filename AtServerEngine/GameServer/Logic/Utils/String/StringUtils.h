@@ -16,12 +16,12 @@
 class StringUtils
 {
 public:
-	// string 문자열을 wstring으로 변환한다.
+	/// string 문자열을 wstring으로 변환한다.
 	static std::wstring ConvertToWString( const AtString& str );
 
-	// wstring 문자열을 string으로 변환한다.
+	/// wstring 문자열을 string으로 변환한다.
 	static AtString ConvertToString( const std::wstring& wstr );
 
-	// 문자열을 int64형으로 반환한다.
+	/// 문자열을 int64형으로 반환한다.
 	static AtInt64 GetAtInt64( AtString str );
 };

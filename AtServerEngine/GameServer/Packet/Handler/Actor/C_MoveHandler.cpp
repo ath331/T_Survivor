@@ -16,8 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_MoveHandler::Handle( PacketSessionPtr& session, Protocol::C_Move& pkt )
 {
-	PKT_LOG( "[Recv][ C_Move ] " + pkt.ShortDebugString() );
-
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
 		return false;

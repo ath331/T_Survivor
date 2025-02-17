@@ -4,6 +4,7 @@
 
 
 #include "pch.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
 #include "Game/C_EnterGameHandler.h"
 
@@ -13,5 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Handle_C_EnterGameTemplate( PacketSessionPtr& session, Protocol::C_EnterGame& pkt )
 {
+	PKT_LOG( pkt );
+
 	return C_EnterGameHandler::Handle( session, pkt );
 }

@@ -4,6 +4,7 @@
 
 
 #include "pch.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
 #include "Game/C_LeaveGameHandler.h"
 
@@ -13,5 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Handle_C_LeaveGameTemplate( PacketSessionPtr& session, Protocol::C_LeaveGame& pkt )
 {
+	PKT_LOG( pkt );
+
 	return C_LeaveGameHandler::Handle( session, pkt );
 }

@@ -4,6 +4,7 @@
 
 
 #include "pch.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
 #include "Actor/C_MoveHandler.h"
 
@@ -13,5 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Handle_C_MoveTemplate( PacketSessionPtr& session, Protocol::C_Move& pkt )
 {
+	PKT_LOG( pkt );
+
 	return C_MoveHandler::Handle( session, pkt );
 }

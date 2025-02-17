@@ -13,8 +13,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_LoginHandler::Handle( PacketSessionPtr& session, Protocol::C_Login& pkt )
 {
-	PKT_LOG( "[Recv][ C_Login ] " + pkt.ShortDebugString() );
-
 	// Test
 	{
 		INFO_LOG( "ID : " + pkt.id() + ", PW : " + std::to_string(  pkt.pw() ) );

@@ -4,6 +4,7 @@
 
 
 #include "pch.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
 #include "{{pkt.path}}/{{pkt.name}}Handler.h"
 
@@ -13,5 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Handle_{{pkt.name}}Template( PacketSessionPtr& session, Protocol::{{pkt.name}}& pkt )
 {
+	PKT_LOG( pkt );
+
 	return {{pkt.name}}Handler::Handle( session, pkt );
 }

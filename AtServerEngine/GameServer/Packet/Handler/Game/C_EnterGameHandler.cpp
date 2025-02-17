@@ -16,8 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterGame& pkt )
 {
-	PKT_LOG( "[Recv][ C_EnterGame ] " + pkt.ShortDebugString() );
-
 	INFO_LOG( "C_EnterGamePkt : " + std::to_string( pkt.playerindex() ) );
 
 	return true;

@@ -13,8 +13,13 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 std::wstring StringUtils::ConvertToWString( const AtString& str )
 {
-	std::wstring wstr( str.size(), L' ' );
-	mbstowcs( &wstr[ 0 ], str.c_str(), str.size() );
+	// std::wstring wstr( str.size(), L' ' );
+	// mbstowcs( &wstr[ 0 ], str.c_str(), str.size() );
+	// return wstr;
+
+	int sizeNeeded = MultiByteToWideChar( CP_UTF8, 0, str.c_str(), -1, NULL, 0 );
+	std::wstring wstr( sizeNeeded, 0 );
+	MultiByteToWideChar( CP_UTF8, 0, str.c_str(), -1, &wstr[ 0 ], sizeNeeded );
 	return wstr;
 }
 

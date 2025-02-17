@@ -16,8 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_ChatHandler::Handle( PacketSessionPtr& session, Protocol::C_Chat& pkt )
 {
-	PKT_LOG( "[Recv][ C_Chat ] " + pkt.ShortDebugString() );
-
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
 		return false;

@@ -4,6 +4,7 @@
 
 
 #include "pch.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
 #include "Login/C_LoginHandler.h"
 
@@ -13,5 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Handle_C_LoginTemplate( PacketSessionPtr& session, Protocol::C_Login& pkt )
 {
+	PKT_LOG( pkt );
+
 	return C_LoginHandler::Handle( session, pkt );
 }

@@ -16,8 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_LeaveGameHandler::Handle( PacketSessionPtr& session, Protocol::C_LeaveGame& pkt )
 {
-	PKT_LOG( "[Recv][ C_LeaveGame ] " + pkt.ShortDebugString() );
-
 	auto gameSession = static_pointer_cast< GameSession >( session );
 	if ( !gameSession )
 		return false;

@@ -58,6 +58,10 @@ void DoWorkerJob( ServerServicePtr& service )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid main()
 {
+#ifdef _WIN32
+	SetConsoleOutputCP( CP_UTF8 );
+#endif
+
 	if ( !Environment::Load( "../Binary/Release/GameServer.ini" ) )
 	{
 		if ( !Environment::Load( "GameServer.ini" ) )

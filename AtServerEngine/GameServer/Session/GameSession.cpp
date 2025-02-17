@@ -61,7 +61,7 @@ void GameSession::Send( SendBufferPtr sendBuffer )
 		return;
 	}
 
-	PKT_LOG( "[Send] " + std::to_string( header->id ) );
+	INFO_LOG_NO_LINE( "[Send] " + std::to_string( header->id ) );
 
 	PacketSession::Send( sendBuffer );
 }

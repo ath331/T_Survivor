@@ -7,13 +7,16 @@
 
 
 #pragma once
+#include <google/protobuf/message.h>
+#include <google/protobuf/any.pb.h>
 
 
 #define INFO_LOG( msg )    AtLog::PrintMsg( __FILE__, __LINE__, msg );
 #define INFO_LOG_GREEN( msg )    AtLog::PrintMsg( __FILE__, __LINE__, msg, AtStringColor::EColor::Green );
 #define WARNNING_LOG( msg ) AtLog::PrintMsg( __FILE__, __LINE__, msg, AtStringColor::EColor::Red );
 
-#define PKT_LOG( msg ) AtLog::PrintNoFileMsg( msg );
+#define INFO_LOG_NO_LINE( msg ) AtLog::PrintNoFileMsg( msg );
+#define PKT_LOG( pkt ) AtLog::PrintPacketData( pkt );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,17 +70,20 @@ private:
 class AtLog
 {
 public:
-	// msg를 출력한다.
+	/// msg를 출력한다.
 	static AtVoid PrintMsg(
 		const char*                 file,
 		      AtInt32               line,
 		      AtString              msg,
 		      AtStringColor::EColor color = AtStringColor::EColor::None );
 
-	// msg를 출력한다.
-	static AtVoid PrintNoFileMsg(  AtString msg, AtStringColor::EColor color = AtStringColor::EColor::None );
+	/// msg를 출력한다.
+	static AtVoid PrintNoFileMsg( AtString msg, AtStringColor::EColor color = AtStringColor::EColor::None );
+
+	/// PacketData를 출력한다.
+	static AtVoid PrintPacketData( google::protobuf::Message& pkt );
 
 private:
-	// 파일 경로에서 파일 이름만 추출하는 함수
+	/// 파일 경로에서 파일 이름만 추출하는 함수
 	static const char* extractFileName( const char* filePath );
 };

@@ -4,6 +4,7 @@
 
 
 #include "pch.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
 #include "Chat/C_ChatHandler.h"
 
@@ -13,5 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Handle_C_ChatTemplate( PacketSessionPtr& session, Protocol::C_Chat& pkt )
 {
+	PKT_LOG( pkt );
+
 	return C_ChatHandler::Handle( session, pkt );
 }

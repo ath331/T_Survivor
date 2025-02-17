@@ -4,6 +4,7 @@
 
 
 #include "pch.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
 #include "Room/C_EnterLobbyHandler.h"
 
@@ -13,5 +14,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool Handle_C_EnterLobbyTemplate( PacketSessionPtr& session, Protocol::C_EnterLobby& pkt )
 {
+	PKT_LOG( pkt );
+
 	return C_EnterLobbyHandler::Handle( session, pkt );
 }
