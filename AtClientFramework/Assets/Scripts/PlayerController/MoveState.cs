@@ -4,34 +4,34 @@ public class MoveState : IPlayerState
 {
     private PlayerController player;
     private Vector3 moveDirection;
+    private float moveSpeed = 5f;
+    private float rotationSpeed = 1440f;
 
     public void Enter(PlayerController player)
     {
         this.player = player;
-        Debug.Log("Move 상태 진입");
+        moveDirection = Vector3.zero;
+        Debug.Log("Entered Move State");
     }
 
     public void Exit()
     {
-        // 상태 종료 시 입력 초기화 등
         moveDirection = Vector3.zero;
+        player.rb.velocity = Vector3.zero;
     }
 
     public void HandleInput()
     {
-        // WASD 혹은 조이스틱 입력을 받음
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        moveDirection = new Vector3(h, 0f, v);
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        moveDirection = new Vector3(h, 0f, v).normalized;
 
-        // 입력이 없으면 Idle로 전환
-        if (moveDirection.magnitude < 0.1f)
+        if (moveDirection == Vector3.zero)
         {
             player.ChangeState(new IdleState());
             return;
         }
 
-        // 공격 입력이 들어오면 공격 상태로 전환
         if (Input.GetButtonDown("Fire1"))
         {
             player.ChangeState(new AttackState());
@@ -41,20 +41,23 @@ public class MoveState : IPlayerState
 
     public void UpdateState()
     {
-        // 이동 애니메이션 갱신 등 (예: blend tree 업데이트)
+        // 애니메이션?
     }
 
     public void FixedUpdateState()
     {
-        // Rigidbody를 사용해 물리 기반 이동
         if (moveDirection.magnitude >= 0.1f)
         {
-            Vector3 movement = moveDirection.normalized * player.moveSpeed * Time.fixedDeltaTime;
-            player.rb.MovePosition(player.rb.position + movement);
+            Vector3 targetDirection = moveDirection;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            player.rb.MoveRotation(Quaternion.RotateTowards(player.rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
 
-            // 이동 방향에 따라 캐릭터 회전
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            player.rb.MoveRotation(Quaternion.Slerp(player.rb.rotation, targetRotation, 0.1f));
+            Vector3 velocity = targetDirection * moveSpeed;
+            player.rb.velocity = new Vector3(velocity.x, player.rb.velocity.y, velocity.z);
+        }
+        else
+        {
+            player.rb.velocity = Vector3.zero;
         }
     }
 }
