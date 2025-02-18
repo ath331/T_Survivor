@@ -39,9 +39,18 @@ public:
 		return GPacketHandler[header->id](session, buffer, len);
 	}
 
+static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
+{
+	string packetTypeName = pkt.GetTypeName();
+	if ( packetTypeName.empty() )
+		return nullptr;
+
 {%- for pkt in parser.send_pkt %}
-	static SendBufferPtr MakeSendBuffer(Protocol::{{pkt.name}}& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_{{pkt.name}} ) ); }
+	else if ( packetTypeName == "Protocol.{{pkt.name}}" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_{{pkt.name}} ) );
 {%- endfor %}
+
+	return nullptr;
+}
 
 private:
 	template<typename PacketType, typename ProcessFunc>

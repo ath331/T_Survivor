@@ -57,9 +57,8 @@ AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 		enterGamePkt.set_allocated_player( playerInfo );
 		//enterGamePkt.release_player();
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( enterGamePkt );
 		if ( auto session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( enterGamePkt );
 	}
 
 	// 입장 사실을 다른 플레이어에게 알린다
@@ -69,8 +68,7 @@ AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
 		objectInfo->CopyFrom( *object->objectInfo );
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
-		_Broadcast( sendBuffer, object->objectInfo->id() );
+		_Broadcast( spawnPkt, object->objectInfo->id() );
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
@@ -87,9 +85,8 @@ AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 			playerInfo->CopyFrom( *item.second->objectInfo );
 		}
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
 		if ( auto session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( spawnPkt );
 	}
 
 	return success;
@@ -111,9 +108,8 @@ AtBool Room::LeaveRoom( ObjectPtr object )
 	{
 		Protocol::S_LeaveGame leaveGamePkt;
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( leaveGamePkt );
 		if ( auto session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( leaveGamePkt );
 	}
 
 	// 퇴장 사실을 알린다
@@ -121,13 +117,12 @@ AtBool Room::LeaveRoom( ObjectPtr object )
 		Protocol::S_DeSpawn despawnPkt;
 		despawnPkt.add_ids( objectId );
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( despawnPkt );
-		_Broadcast( sendBuffer, objectId );
+		_Broadcast( despawnPkt, objectId );
 
 		if ( auto player = dynamic_pointer_cast<Player>( object ) )
 		{
 			if ( auto session = player->session.lock() )
-				session->Send( sendBuffer );
+				session->Send( despawnPkt );
 		}
 	}
 
@@ -158,9 +153,8 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 		enterGamePkt.set_allocated_player( playerInfo );
 		//enterGamePkt.release_player();
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( enterGamePkt );
 		if ( auto session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( enterGamePkt );
 	}
 
 	// 입장 사실을 다른 플레이어에게 알린다
@@ -170,8 +164,7 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
 		playerInfo->CopyFrom( *player->objectInfo );
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
-		_Broadcast( sendBuffer, player->objectInfo->id() );
+		_Broadcast( spawnPkt, player->objectInfo->id() );
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
@@ -187,9 +180,8 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 			playerInfo->CopyFrom( *item.second->objectInfo );
 		}
 
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
 		if ( auto session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( spawnPkt );
 	}
 
 	return success;
@@ -210,9 +202,8 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 	{
 		Protocol::S_LeaveGame leaveGamePkt;
 	
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( leaveGamePkt );
 		if ( auto session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( leaveGamePkt );
 	}
 	
 	// 퇴장 사실을 알린다
@@ -220,11 +211,10 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 		Protocol::S_DeSpawn despawnPkt;
 		despawnPkt.add_ids( objectId );
 	
-		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( despawnPkt );
-		_Broadcast( sendBuffer, objectId );
+		_Broadcast( despawnPkt, objectId );
 	
 		if ( auto session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( despawnPkt );
 	}
 
 	return success;
@@ -250,8 +240,7 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 	auto* info =  movePkt.mutable_info();
 	info->CopyFrom( pkt.info() );
 
-	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( movePkt );
-	_Broadcast( sendBuffer, id );
+	_Broadcast( movePkt, id );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -263,8 +252,7 @@ AtVoid Room::BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat )
 	chatResult.set_playerid( sender->GetId() );
 	chatResult.set_msg( chat.msg() );
 
-	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( chatResult );
-	_Broadcast( sendBuffer );
+	_Broadcast( chatResult );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -320,8 +308,10 @@ AtBool Room::_RemoveObject( uint64 objectId )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 룸의 모든 유저에게 브로드 캐스팅 한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::_Broadcast( SendBufferPtr sendBuffer, uint64 exceptId )
+AtVoid Room::_Broadcast( google::protobuf::Message& pkt, uint64 exceptId )
 {
+	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt );
+
 	for ( auto& item : m_objects )
 	{
 		PlayerPtr player = dynamic_pointer_cast<Player>( item.second );
@@ -332,6 +322,6 @@ AtVoid Room::_Broadcast( SendBufferPtr sendBuffer, uint64 exceptId )
 			continue;
 
 		if ( GameSessionPtr session = player->session.lock() )
-			session->Send( sendBuffer );
+			session->Send( pkt );
 	}
 }

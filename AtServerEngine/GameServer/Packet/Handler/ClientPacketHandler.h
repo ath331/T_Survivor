@@ -41,14 +41,23 @@ public:
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->id](session, buffer, len);
 	}
-	static SendBufferPtr MakeSendBuffer(Protocol::S_Login& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_Login ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::S_EnterLobby& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_EnterLobby ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::S_EnterGame& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_EnterGame ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::S_LeaveGame& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_LeaveGame ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::S_Move& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_Move ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::S_Spawn& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_Spawn ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::S_DeSpawn& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_DeSpawn ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::S_Chat& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_S_Chat ) ); }
+
+static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
+{
+	string packetTypeName = pkt.GetTypeName();
+	if ( packetTypeName.empty() )
+		return nullptr;
+	else if ( packetTypeName == "Protocol.S_Login" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Login ) );
+	else if ( packetTypeName == "Protocol.S_EnterLobby" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_EnterLobby ) );
+	else if ( packetTypeName == "Protocol.S_EnterGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_EnterGame ) );
+	else if ( packetTypeName == "Protocol.S_LeaveGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_LeaveGame ) );
+	else if ( packetTypeName == "Protocol.S_Move" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Move ) );
+	else if ( packetTypeName == "Protocol.S_Spawn" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Spawn ) );
+	else if ( packetTypeName == "Protocol.S_DeSpawn" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_DeSpawn ) );
+	else if ( packetTypeName == "Protocol.S_Chat" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Chat ) );
+
+	return nullptr;
+}
 
 private:
 	template<typename PacketType, typename ProcessFunc>

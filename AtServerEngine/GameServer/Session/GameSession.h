@@ -27,7 +27,11 @@ public:
 	virtual void OnSend( int32 len ) override;
 
 public:
-	void Send( SendBufferPtr sendBuffer );
+	/// Send 한다.
+	AtVoid Send( google::protobuf::Message& pkt );
+
+	/// Send 한다.
+	AtVoid Send( SendBufferPtr sendBuffer );
 
 public:
 	atomic< PlayerPtr > player;

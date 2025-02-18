@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 
 enum class EPacketId : unsigned __int16
 {

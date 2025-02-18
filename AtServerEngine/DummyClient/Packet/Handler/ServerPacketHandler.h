@@ -45,12 +45,21 @@ public:
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->id](session, buffer, len);
 	}
-	static SendBufferPtr MakeSendBuffer(Protocol::C_Login& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_C_Login ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::C_EnterLobby& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_C_EnterLobby ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::C_EnterGame& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_C_EnterGame ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::C_LeaveGame& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_C_LeaveGame ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::C_Move& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_C_Move ) ); }
-	static SendBufferPtr MakeSendBuffer(Protocol::C_Chat& pkt) { return MakeSendBuffer(pkt, (uint16)( EPacketId::PKT_C_Chat ) ); }
+
+static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
+{
+	string packetTypeName = pkt.GetTypeName();
+	if ( packetTypeName.empty() )
+		return nullptr;
+	else if ( packetTypeName == "Protocol.C_Login" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_Login ) );
+	else if ( packetTypeName == "Protocol.C_EnterLobby" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_EnterLobby ) );
+	else if ( packetTypeName == "Protocol.C_EnterGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_EnterGame ) );
+	else if ( packetTypeName == "Protocol.C_LeaveGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_LeaveGame ) );
+	else if ( packetTypeName == "Protocol.C_Move" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_Move ) );
+	else if ( packetTypeName == "Protocol.C_Chat" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_Chat ) );
+
+	return nullptr;
+}
 
 private:
 	template<typename PacketType, typename ProcessFunc>

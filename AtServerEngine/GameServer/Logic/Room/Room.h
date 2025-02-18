@@ -55,7 +55,7 @@ protected:
 	AtBool _RemoveObject( uint64 objectId );
 
 	/// 룸의 모든 유저에게 브로드 캐스팅 한다.
-	AtVoid _Broadcast( SendBufferPtr sendBuffer, uint64 exceptId = 0 );
+	AtVoid _Broadcast( google::protobuf::Message& pkt, uint64 exceptId = 0 );
 
 protected:
 	unordered_map<uint64, ObjectPtr > m_objects;
