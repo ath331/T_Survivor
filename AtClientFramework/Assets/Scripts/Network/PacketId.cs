@@ -20,6 +20,8 @@ namespace Assets.Scripts.Network
         PKT_S_DeSpawn = 1011,
         PKT_C_Chat = 1012,
         PKT_S_Chat = 1013,
+        PKT_C_WaitingRoomEnter = 1014,
+        PKT_S_WaitingRoomEnter = 1015,
     }
 
     public class PacketIdFactory

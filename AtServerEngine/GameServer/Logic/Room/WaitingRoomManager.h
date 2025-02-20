@@ -7,6 +7,7 @@
 #pragma once
 #include "CoreMacro.h"
 #include "Logic/Core/Singleton.h"
+#include "Logic/Room/RoomTypes.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,5 +16,19 @@
 class WaitingRoomManager :
 	public Singleton< WaitingRoomManager >
 {
+private:
+	/// ¥Î±‚Ω« ∑Î ∏  ≈∏¿‘ ¡§¿«
+	using WaitingRoomMap = std::map<AtInt32, WaitingRoomPtr >;
 
+private:
+	/// Lock
+	USE_LOCK;
+
+private:
+	/// ¥Î±‚Ω« ∑Î ∏  ≈∏¿‘
+	WaitingRoomMap m_waitingRoomMap;
+
+public:
+	/// WaitingRoom¿ª π›»Ø«—¥Ÿ.
+	WaitingRoomPtr AcquireRoom( AtInt32 roomNum );
 };

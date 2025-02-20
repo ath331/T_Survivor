@@ -16,4 +16,6 @@ enum class EPacketId : unsigned __int16
 	PKT_S_DeSpawn = 1011,
 	PKT_C_Chat = 1012,
 	PKT_S_Chat = 1013,
+	PKT_C_WaitingRoomEnter = 1014,
+	PKT_S_WaitingRoomEnter = 1015,
 };

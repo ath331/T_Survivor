@@ -22,8 +22,3 @@ public:
 	/// 룸을 업데이트한다.
 	virtual AtVoid UpdateTick() override;
 };
-
-// 포인터 타입 정의
-USING_SHARED_PTR( WaitingRoom );
-
-extern WaitingRoomPtr GWaitingRoom;

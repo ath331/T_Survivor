@@ -56,6 +56,30 @@ PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
+enum EResultCode : int {
+  Success = 0,
+  EResultCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EResultCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EResultCode_IsValid(int value);
+constexpr EResultCode EResultCode_MIN = Success;
+constexpr EResultCode EResultCode_MAX = Success;
+constexpr int EResultCode_ARRAYSIZE = EResultCode_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EResultCode_descriptor();
+template<typename T>
+inline const std::string& EResultCode_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EResultCode>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EResultCode_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EResultCode_descriptor(), enum_t_value);
+}
+inline bool EResultCode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EResultCode* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EResultCode>(
+    EResultCode_descriptor(), name, value);
+}
 enum EObjectType : int {
   OBJECT_TYPE_NONE = 0,
   OBJECT_TYPE_ACTOR = 1,
@@ -215,6 +239,11 @@ inline bool EMoveState_Parse(
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::Protocol::EResultCode> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EResultCode>() {
+  return ::Protocol::EResultCode_descriptor();
+}
 template <> struct is_proto_enum< ::Protocol::EObjectType> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EObjectType>() {

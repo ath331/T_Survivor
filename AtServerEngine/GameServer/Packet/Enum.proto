@@ -4,6 +4,10 @@ package Protocol;
 
 option csharp_namespace = "Protocol";
 
+enum EResultCode
+{
+	Success = 0;
+}
 
 enum EObjectType
 {

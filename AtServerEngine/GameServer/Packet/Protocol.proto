@@ -94,3 +94,15 @@ message S_Chat
 	uint64 playerId = 1;
 	string msg = 2;
 }
+
+// path = Room
+message C_WaitingRoomEnter
+{
+	int32 roomNum = 1;
+}
+
+// path = Room
+message S_WaitingRoomEnter
+{
+	EResultCode result = 1;
+}

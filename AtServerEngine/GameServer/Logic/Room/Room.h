@@ -16,6 +16,10 @@ class Room
 	: 
 	public JobQueue
 {
+private:
+	/// 방 번호
+	static std::atomic< AtInt32 > roomNum;
+
 public:
 	/// 생성자
 	Room();
@@ -62,5 +66,3 @@ protected:
 protected:
 	unordered_map<uint64, ObjectPtr > m_objects;
 };
-
-extern RoomPtr GRoom;

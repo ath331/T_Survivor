@@ -127,6 +127,9 @@
     <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h">
       <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Protocol.pb.h">
       <Filter>Packet</Filter>
     </ClInclude>
@@ -264,6 +267,9 @@
     <ClCompile Include="Packet\Handler\C_MoveHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_WaitingRoomEnterHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\Game\C_EnterGameHandler.cpp">
       <Filter>Packet\Handler\Game</Filter>
     </ClCompile>
@@ -274,6 +280,9 @@
       <Filter>Packet\Handler\Login</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Room\C_EnterLobbyHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.cpp">
       <Filter>Packet\Handler\Room</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
