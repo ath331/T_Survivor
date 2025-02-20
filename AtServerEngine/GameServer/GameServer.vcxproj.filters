@@ -67,13 +67,22 @@
     <ClInclude Include="Logic\Room\Lobby.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Room\PlayRoom.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Room\PlayRoomManager.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Room\Room.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
-    <ClInclude Include="Logic\Room\RoomManager.h">
+    <ClInclude Include="Logic\Room\RoomTypes.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
-    <ClInclude Include="Logic\Room\RoomTypes.h">
+    <ClInclude Include="Logic\Room\WaitingRoom.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Room\WaitingRoomManager.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Utils\Log\AtLog.h">
@@ -198,10 +207,19 @@
     <ClCompile Include="Logic\Room\Lobby.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Room\PlayRoom.cpp">
+      <Filter>Logic\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Room\PlayRoomManager.cpp">
+      <Filter>Logic\Room</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\Room\Room.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
-    <ClCompile Include="Logic\Room\RoomManager.cpp">
+    <ClCompile Include="Logic\Room\WaitingRoom.cpp">
+      <Filter>Logic\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Room\WaitingRoomManager.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Utils\Log\AtLog.cpp">

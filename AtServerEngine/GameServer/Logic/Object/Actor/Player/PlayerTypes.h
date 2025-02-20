@@ -7,5 +7,8 @@
 #include "CoreMacro.h"
 
 
+class Player;
+
+
 // 플레이어 포인터 타입 정의
 USING_SHARED_PTR( Player );

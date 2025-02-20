@@ -7,5 +7,8 @@
 #include "CoreMacro.h"
 
 
+class Room;
+
+
 // 룸 포인터 타입 정의
 USING_SHARED_PTR( Room );
