@@ -9,15 +9,20 @@ public class MoveState : IPlayerState
 
     public void Enter(PlayerController player)
     {
-        this.player = player;
-        moveDirection = Vector3.zero;
         Debug.Log("Entered Move State");
+        this.player = player;
+
+        moveDirection = Vector3.zero;
+
+        player.animator.SetBool("IsMoving", true);
     }
 
     public void Exit()
     {
+        Debug.Log("Exit Move State");
         moveDirection = Vector3.zero;
         player.rb.velocity = Vector3.zero;
+        player.animator.SetBool("IsMoving", false);
     }
 
     public void HandleInput()
@@ -34,7 +39,7 @@ public class MoveState : IPlayerState
 
         if (Input.GetButtonDown("Fire1"))
         {
-            player.ChangeState(new AttackState());
+            //player.ChangeState(new AttackState());
             return;
         }
     }

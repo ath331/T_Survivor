@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     [Header("이동 설정")]
     public float moveSpeed = 5f;
     public Rigidbody rb { get; private set; }
+    public Animator animator { get; private set; }
 
     [Header("Weapon 설정")]
     public WeaponController weapon; // 인스펙터에서 할당
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
 
         // 초기 상태를 IdleState로 설정
         ChangeState(new IdleState());

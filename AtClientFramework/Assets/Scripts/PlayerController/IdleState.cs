@@ -6,9 +6,9 @@ public class IdleState : IPlayerState
 
     public void Enter(PlayerController player)
     {
-        this.player = player;
-        // Idle 애니메이션 전환 등 초기화 작업
         Debug.Log("Player Idle Enter");
+
+        this.player = player;
     }
 
     public void Exit()
@@ -20,7 +20,7 @@ public class IdleState : IPlayerState
     public void HandleInput()
     {
         // 이동 입력이 감지되면 이동 상태로 전환
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f)
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f)
         {
             player.ChangeState(new MoveState());
             return;
@@ -29,7 +29,7 @@ public class IdleState : IPlayerState
         // 공격 버튼 입력(Fire1)이 있으면 공격 상태로 전환
         if (Input.GetButtonDown("Fire1"))
         {
-            player.ChangeState(new AttackState());
+            //player.ChangeState(new AttackState());
             return;
         }
     }
