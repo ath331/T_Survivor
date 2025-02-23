@@ -112,6 +112,9 @@
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h">
       <Filter>Packet\Handler</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Game\C_EnterGameFinishHandler.h">
+      <Filter>Packet\Handler\Game</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\Game\C_EnterGameHandler.h">
       <Filter>Packet\Handler\Game</Filter>
     </ClInclude>
@@ -252,6 +255,9 @@
     <ClCompile Include="Packet\Handler\C_ChatHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_EnterGameFinishHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_EnterGameHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
@@ -269,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="Packet\Handler\C_WaitingRoomEnterHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Game\C_EnterGameFinishHandler.cpp">
+      <Filter>Packet\Handler\Game</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Game\C_EnterGameHandler.cpp">
       <Filter>Packet\Handler\Game</Filter>

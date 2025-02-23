@@ -48,6 +48,17 @@ message S_EnterGame
 }
 
 // path = Game
+message C_EnterGameFinish
+{
+}
+
+// path = Game
+message S_EnterGameFinish
+{
+	EResultCode result = 1;
+}
+
+// path = Game
 message C_LeaveGame
 {
 }

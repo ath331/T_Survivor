@@ -214,6 +214,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Packet\Handler\Actor\C_MoveHandler.h" />
     <ClInclude Include="Packet\Handler\Chat\C_ChatHandler.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
+    <ClInclude Include="Packet\Handler\Game\C_EnterGameFinishHandler.h" />
     <ClInclude Include="Packet\Handler\Game\C_EnterGameHandler.h" />
     <ClInclude Include="Packet\Handler\Game\C_LeaveGameHandler.h" />
     <ClInclude Include="Packet\Handler\Login\C_LoginHandler.h" />
@@ -262,12 +263,14 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Packet\Handler\Chat\C_ChatHandler.cpp" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
     <ClCompile Include="Packet\Handler\C_ChatHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\C_EnterGameFinishHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_EnterGameHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_EnterLobbyHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_LeaveGameHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_LoginHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_MoveHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_WaitingRoomEnterHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\Game\C_EnterGameFinishHandler.cpp" />
     <ClCompile Include="Packet\Handler\Game\C_EnterGameHandler.cpp" />
     <ClCompile Include="Packet\Handler\Game\C_LeaveGameHandler.cpp" />
     <ClCompile Include="Packet\Handler\Login\C_LoginHandler.cpp" />

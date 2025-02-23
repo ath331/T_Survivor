@@ -19,6 +19,7 @@ namespace Assets.Scripts.Network.Handler
 			case EPacketId.PKT_S_Login: { _Process_S_Login_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_EnterLobby: { _Process_S_EnterLobby_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_EnterGame: { _Process_S_EnterGame_Handler( protocolId, data ); } break;
+			case EPacketId.PKT_S_EnterGameFinish: { _Process_S_EnterGameFinish_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_LeaveGame: { _Process_S_LeaveGame_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_Move: { _Process_S_Move_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_Spawn: { _Process_S_Spawn_Handler( protocolId, data ); } break;
