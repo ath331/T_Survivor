@@ -13,6 +13,18 @@
     <ClInclude Include="Data\Character\CharacterInfoTemplate.h">
       <Filter>Data\Character</Filter>
     </ClInclude>
+    <ClInclude Include="Data\Character\ClassInfo.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Character\ClassInfoManager.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Character\ClassInfoManagerTemplate.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Character\ClassInfoTemplate.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
     <ClInclude Include="Data\InfoManagers.h">
       <Filter>Data</Filter>
     </ClInclude>
@@ -27,6 +39,18 @@
     </ClInclude>
     <ClInclude Include="Data\Inventory\InventoryInfoTemplate.h">
       <Filter>Data\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Item\ItemInfo.h">
+      <Filter>Data\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Item\ItemInfoManager.h">
+      <Filter>Data\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Item\ItemInfoManagerTemplate.h">
+      <Filter>Data\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Item\ItemInfoTemplate.h">
+      <Filter>Data\Item</Filter>
     </ClInclude>
     <ClInclude Include="Data\TestInfo.h">
       <Filter>Data</Filter>
@@ -165,6 +189,18 @@
     <ClCompile Include="Data\Character\CharacterInfoTemplate.cpp">
       <Filter>Data\Character</Filter>
     </ClCompile>
+    <ClCompile Include="Data\Character\ClassInfo.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Character\ClassInfoManager.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Character\ClassInfoManagerTemplate.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Character\ClassInfoTemplate.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
     <ClCompile Include="Data\Inventory\InventoryInfo.cpp">
       <Filter>Data\Inventory</Filter>
     </ClCompile>
@@ -176,6 +212,18 @@
     </ClCompile>
     <ClCompile Include="Data\Inventory\InventoryInfoTemplate.cpp">
       <Filter>Data\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Item\ItemInfo.cpp">
+      <Filter>Data\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Item\ItemInfoManager.cpp">
+      <Filter>Data\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Item\ItemInfoManagerTemplate.cpp">
+      <Filter>Data\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Item\ItemInfoTemplate.cpp">
+      <Filter>Data\Item</Filter>
     </ClCompile>
     <ClCompile Include="Data\TestInfo.cpp">
       <Filter>Data</Filter>
@@ -337,6 +385,8 @@
     <Filter Include="Data\Character">
     </Filter>
     <Filter Include="Data\Inventory">
+    </Filter>
+    <Filter Include="Data\Item">
     </Filter>
     <Filter Include="DB">
     </Filter>

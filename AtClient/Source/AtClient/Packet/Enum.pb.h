@@ -164,16 +164,17 @@ inline bool EBagType_Parse(
     EBagType_descriptor(), name, value);
 }
 enum EPlayerType : int {
-  PLAYER_TYPE_NONE = 0,
+  EPlayerTypeNone = 0,
   PLAYER_TYPE_KNIGHT = 1,
   PLAYER_TYPE_MAGE = 2,
   PLAYER_TYPE_ARCHER = 3,
+  EPlayerTypeMax = 4,
   EPlayerType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EPlayerType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EPlayerType_IsValid(int value);
-constexpr EPlayerType EPlayerType_MIN = PLAYER_TYPE_NONE;
-constexpr EPlayerType EPlayerType_MAX = PLAYER_TYPE_ARCHER;
+constexpr EPlayerType EPlayerType_MIN = EPlayerTypeNone;
+constexpr EPlayerType EPlayerType_MAX = EPlayerTypeMax;
 constexpr int EPlayerType_ARRAYSIZE = EPlayerType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EPlayerType_descriptor();
@@ -219,18 +220,20 @@ inline bool EMoveState_Parse(
     EMoveState_descriptor(), name, value);
 }
 enum EEquipSlotType : int {
-  Weapon = 0,
-  SubWeapon = 1,
-  Helmet = 2,
-  Armor = 3,
-  Gloves = 4,
-  Boots = 5,
+  EEquipSlotTypeNone = 0,
+  Weapon = 1,
+  SubWeapon = 2,
+  Helmet = 3,
+  Armor = 4,
+  Gloves = 5,
+  Boots = 6,
+  EEquipSlotTypeMax = 7,
   EEquipSlotType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EEquipSlotType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EEquipSlotType_IsValid(int value);
-constexpr EEquipSlotType EEquipSlotType_MIN = Weapon;
-constexpr EEquipSlotType EEquipSlotType_MAX = Boots;
+constexpr EEquipSlotType EEquipSlotType_MIN = EEquipSlotTypeNone;
+constexpr EEquipSlotType EEquipSlotType_MAX = EEquipSlotTypeMax;
 constexpr int EEquipSlotType_ARRAYSIZE = EEquipSlotType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EEquipSlotType_descriptor();
@@ -248,17 +251,18 @@ inline bool EEquipSlotType_Parse(
     EEquipSlotType_descriptor(), name, value);
 }
 enum EStat : int {
-  Strength = 0,
-  HP = 1,
-  MP = 2,
-  Defense = 3,
-  Speed = 4,
-  Intelligence = 5,
+  EStatNone = 0,
+  Strength = 1,
+  HP = 2,
+  MP = 3,
+  Defense = 4,
+  Speed = 5,
+  Intelligence = 6,
   EStat_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EStat_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EStat_IsValid(int value);
-constexpr EStat EStat_MIN = Strength;
+constexpr EStat EStat_MIN = EStatNone;
 constexpr EStat EStat_MAX = Intelligence;
 constexpr int EStat_ARRAYSIZE = EStat_MAX + 1;
 

@@ -32,22 +32,24 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\017OBJECT_TYPE_ENV\020\003*8\n\nEActorType\022\010\n\004None"
   "\020\000\022\n\n\006Player\020\001\022\013\n\007Monster\020\002\022\007\n\003Npc\020\003*P\n\010"
   "EBagType\022\017\n\013BagTypeNone\020\000\022\r\n\tEquipment\020\001"
-  "\022\007\n\003Etc\020\002\022\013\n\007Useable\020\003\022\016\n\nBagTypeMax\020\004*i"
-  "\n\013EPlayerType\022\024\n\020PLAYER_TYPE_NONE\020\000\022\026\n\022P"
-  "LAYER_TYPE_KNIGHT\020\001\022\024\n\020PLAYER_TYPE_MAGE\020"
-  "\002\022\026\n\022PLAYER_TYPE_ARCHER\020\003*u\n\nEMoveState\022"
-  "\023\n\017MOVE_STATE_NONE\020\000\022\023\n\017MOVE_STATE_IDLE\020"
-  "\001\022\022\n\016MOVE_STATE_RUN\020\002\022\023\n\017MOVE_STATE_JUMP"
-  "\020\003\022\024\n\020MOVE_STATE_SKILL\020\004*Y\n\016EEquipSlotTy"
-  "pe\022\n\n\006Weapon\020\000\022\r\n\tSubWeapon\020\001\022\n\n\006Helmet\020"
-  "\002\022\t\n\005Armor\020\003\022\n\n\006Gloves\020\004\022\t\n\005Boots\020\005*O\n\005E"
-  "Stat\022\014\n\010Strength\020\000\022\006\n\002HP\020\001\022\006\n\002MP\020\002\022\013\n\007De"
-  "fense\020\003\022\t\n\005Speed\020\004\022\020\n\014Intelligence\020\005B\013\252\002"
-  "\010Protocolb\006proto3"
+  "\022\007\n\003Etc\020\002\022\013\n\007Useable\020\003\022\016\n\nBagTypeMax\020\004*|"
+  "\n\013EPlayerType\022\023\n\017EPlayerTypeNone\020\000\022\026\n\022PL"
+  "AYER_TYPE_KNIGHT\020\001\022\024\n\020PLAYER_TYPE_MAGE\020\002"
+  "\022\026\n\022PLAYER_TYPE_ARCHER\020\003\022\022\n\016EPlayerTypeM"
+  "ax\020\004*u\n\nEMoveState\022\023\n\017MOVE_STATE_NONE\020\000\022"
+  "\023\n\017MOVE_STATE_IDLE\020\001\022\022\n\016MOVE_STATE_RUN\020\002"
+  "\022\023\n\017MOVE_STATE_JUMP\020\003\022\024\n\020MOVE_STATE_SKIL"
+  "L\020\004*\210\001\n\016EEquipSlotType\022\026\n\022EEquipSlotType"
+  "None\020\000\022\n\n\006Weapon\020\001\022\r\n\tSubWeapon\020\002\022\n\n\006Hel"
+  "met\020\003\022\t\n\005Armor\020\004\022\n\n\006Gloves\020\005\022\t\n\005Boots\020\006\022"
+  "\025\n\021EEquipSlotTypeMax\020\007*^\n\005EStat\022\r\n\tEStat"
+  "None\020\000\022\014\n\010Strength\020\001\022\006\n\002HP\020\002\022\006\n\002MP\020\003\022\013\n\007"
+  "Defense\020\004\022\t\n\005Speed\020\005\022\020\n\014Intelligence\020\006B\013"
+  "\252\002\010Protocolb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Enum_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Enum_2eproto = {
-  false, false, 737, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
+  false, false, 819, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
   &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
   schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
   nullptr, file_level_enum_descriptors_Enum_2eproto, file_level_service_descriptors_Enum_2eproto,
@@ -132,6 +134,7 @@ bool EPlayerType_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
@@ -167,6 +170,8 @@ bool EEquipSlotType_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
+    case 7:
       return true;
     default:
       return false;
@@ -185,6 +190,7 @@ bool EStat_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;

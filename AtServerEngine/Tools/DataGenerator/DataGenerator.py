@@ -73,12 +73,16 @@ def process_files_in_directory( file_path, destPath, defaultDestPath ):
 
     for row in rows:
         for i in range(len(row)):
+            dataType = data[3][i]
             if row[i] is None:
-                row[i] = 0;
+                if dataType.startswith("E"):
+                    row[i] = dataType + "Max"
+                elif dataType == "AtString":
+                    row[i] = "\"\""
+                else:
+                    row[i] = 0;
 
             if isinstance(row[i], str):
-                dataType = data[3][i]
-
                 if dataType.startswith("E"):
                     row[i] = "Protocol::" +dataType+ "::"+ row[i]
                 if dataType == "AtString":
@@ -186,6 +190,9 @@ def process_files_in_directory( file_path, destPath, defaultDestPath ):
 
 
     dataPryKeyType = data[3][0]
+    if dataPryKeyType.startswith("E"):
+        dataPryKeyType = "Protocol::" + dataPryKeyType
+
     dataPryKey     = data[0][0]
     dataPryKey     = dataPryKey[0].lower() + dataPryKey[1:]
 

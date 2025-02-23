@@ -38,10 +38,11 @@ enum EBagType
 
 enum EPlayerType
 {
-	PLAYER_TYPE_NONE = 0;
+	EPlayerTypeNone = 0;
 	PLAYER_TYPE_KNIGHT = 1;
 	PLAYER_TYPE_MAGE = 2;
 	PLAYER_TYPE_ARCHER = 3;
+	EPlayerTypeMax = 4;
 }
 
 enum EMoveState
@@ -55,20 +56,23 @@ enum EMoveState
 
 enum EEquipSlotType
 {
-	Weapon = 0;
-	SubWeapon = 1;
-	Helmet = 2;
-	Armor = 3;
-	Gloves = 4;
-	Boots = 5;
+	EEquipSlotTypeNone = 0;
+	Weapon = 1; // ÁÖ¹«±â
+	SubWeapon = 2; // º¸Á¶¹«±â
+	Helmet = 3; // Åõ±¸
+	Armor = 4; // °©¿Ê
+	Gloves = 5; // Àå°©
+	Boots = 6; // ½Å¹ß
+	EEquipSlotTypeMax = 7;
 }
 
 enum EStat
 {
-	Strength = 0;
-	HP = 1;
-	MP = 2;
-	Defense = 3;
-	Speed = 4;
-	Intelligence = 5;
+	EStatNone = 0;
+	Strength = 1;
+	HP = 2;
+	MP = 3;
+	Defense = 4;
+	Speed = 5;
+	Intelligence = 6;
 }
