@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,8 +8,11 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb { get; private set; }
     public Animator animator { get; private set; }
 
-    [Header("Weapon 설정")]
-    public WeaponController weapon; // 인스펙터에서 할당
+    [Header("정보 설정")]
+    public WeaponController weapon; // 일단 대충.. 나중에 지울것
+    public IJob CurrentJob { get; private set; }
+    public IWeapon EquippedWeapon { get; private set; }
+    public List<Skill> Skills { get; private set; } = new List<Skill>();
 
     // 현재 상태 (초기에는 Idle 상태)
     private IPlayerState currentState;
