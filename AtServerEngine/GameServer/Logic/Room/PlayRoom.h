@@ -16,14 +16,13 @@ class PlayRoom
 	public Room
 {
 public:
+	/// 생성자
+	PlayRoom();
+
+public:
 	/// 플레이어를 방에 입장시킨다.
 	virtual AtBool HandleEnterPlayer( PlayerPtr player ) override;
 
 	/// 룸을 업데이트한다.
 	virtual AtVoid UpdateTick() override;
 };
-
-// 포인터 타입 정의
-USING_SHARED_PTR( PlayRoom );
-
-extern PlayRoomPtr GPlayRoom;

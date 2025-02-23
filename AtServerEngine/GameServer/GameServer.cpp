@@ -24,6 +24,7 @@
 
 
 #include "Logic/Room/Lobby.h"
+#include "Logic/Room/PlayRoomManager.h"
 
 
 /// 프로세스 틱 이넘
@@ -125,6 +126,7 @@ AtVoid main()
 	}
 
 	GLobby->DoAsync( &Room::UpdateTick );
+
 
 	// Main Thread
 	// DoWorkerJob( service );
