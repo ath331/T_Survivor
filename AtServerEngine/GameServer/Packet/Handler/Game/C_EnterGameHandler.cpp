@@ -7,7 +7,9 @@
 #include "C_EnterGameHandler.h"
 #include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Utils/ObjectUtils.h"
-#include "Logic/Room/Room.h"
+#include "Logic/Room/PlayRoom.h"
+#include "Logic/Room/PlayRoomManager.h"
+#include "Logic/Object/Actor/Player/Player.h"
 #include "Session/GameSession.h"
 
 
@@ -16,7 +18,27 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterGame& pkt )
 {
-	INFO_LOG( "C_EnterGamePkt : " + std::to_string( pkt.playerindex() ) );
+	auto gameSession = static_pointer_cast<GameSession>( session );
+	if ( !gameSession )
+		return false;
+
+	PlayerPtr player = gameSession->player.load();
+	if ( !player )
+		return false;
+
+	RoomPtr room = player->room.load().lock();
+	if ( !room )
+		return false;
+
+	PlayRoomPtr playRoom = PlayRoomManager::GetInstance().CreateRoom();
+	if ( !playRoom )
+		return false;
+
+	room->ForeachPlayer(
+		[ playRoom ]( PlayerPtr player )
+		{
+			playRoom->DoAsync( &Room::HandleEnterPlayer, player );
+		} );
 
 	return true;
 }

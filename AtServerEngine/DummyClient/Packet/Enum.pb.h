@@ -58,12 +58,13 @@ namespace Protocol {
 
 enum EResultCode : int {
   Success = 0,
+  FailRoomEnter = 1,
   EResultCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EResultCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EResultCode_IsValid(int value);
 constexpr EResultCode EResultCode_MIN = Success;
-constexpr EResultCode EResultCode_MAX = Success;
+constexpr EResultCode EResultCode_MAX = FailRoomEnter;
 constexpr int EResultCode_ARRAYSIZE = EResultCode_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EResultCode_descriptor();

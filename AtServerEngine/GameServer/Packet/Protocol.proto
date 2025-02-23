@@ -38,13 +38,12 @@ message S_EnterLobby
 // path = Game
 message C_EnterGame
 {
-	uint64 playerIndex = 1;
 }
 
 // path = Game
 message S_EnterGame
 {
-	bool success = 1;
+	EResultCode result = 1;
 	ObjectInfo player = 2;
 }
 
@@ -67,7 +66,9 @@ message C_Move
 // path = Actor
 message S_Move
 {
-	PosInfo info = 1;
+	EResultCode result = 1;
+	uint64 playerId = 2;
+	PosInfo info = 3;
 }
 
 // path = Spawn

@@ -7,6 +7,7 @@
 #pragma once
 #include "CoreMacro.h"
 #include "Logic/Core/Singleton.h"
+#include "Logic/Room/RoomTypes.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,5 +16,22 @@
 class PlayRoomManager :
 	public Singleton< PlayRoomManager >
 {
+private:
+	/// ¥Î±‚Ω« ∑Î ∏  ≈∏¿‘ ¡§¿«
+	using PlayRoomMap = std::map<AtInt32, PlayRoomPtr >;
 
+private:
+	/// Lock
+	USE_LOCK;
+
+private:
+	/// ¥Î±‚Ω« ∑Î ∏  ≈∏¿‘
+	PlayRoomMap m_playRoomMap;
+
+public:
+	/// ∑Î¿ª ª˝º∫«—¥Ÿ.
+	PlayRoomPtr CreateRoom();
+
+	/// ∑Î¿ª π›»Ø«—¥Ÿ.
+	PlayRoomPtr AcquireRoom( AtInt32 roomNum );
 };

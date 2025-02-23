@@ -24,19 +24,19 @@ namespace Protocol {
     static EnumReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpFbnVtLnByb3RvEghQcm90b2NvbCoaCgtFUmVzdWx0Q29kZRILCgdTdWNj",
-            "ZXNzEAAqawoLRU9iamVjdFR5cGUSFAoQT0JKRUNUX1RZUEVfTk9ORRAAEhUK",
-            "EU9CSkVDVF9UWVBFX0FDVE9SEAESGgoWT0JKRUNUX1RZUEVfUFJPSkVDVElM",
-            "RRACEhMKD09CSkVDVF9UWVBFX0VOVhADKjgKCkVBY3RvclR5cGUSCAoETm9u",
-            "ZRAAEgoKBlBsYXllchABEgsKB01vbnN0ZXIQAhIHCgNOcGMQAypQCghFQmFn",
-            "VHlwZRIPCgtCYWdUeXBlTm9uZRAAEg0KCUVxdWlwbWVudBABEgcKA0V0YxAC",
-            "EgsKB1VzZWFibGUQAxIOCgpCYWdUeXBlTWF4EAQqaQoLRVBsYXllclR5cGUS",
-            "FAoQUExBWUVSX1RZUEVfTk9ORRAAEhYKElBMQVlFUl9UWVBFX0tOSUdIVBAB",
-            "EhQKEFBMQVlFUl9UWVBFX01BR0UQAhIWChJQTEFZRVJfVFlQRV9BUkNIRVIQ",
-            "Ayp1CgpFTW92ZVN0YXRlEhMKD01PVkVfU1RBVEVfTk9ORRAAEhMKD01PVkVf",
-            "U1RBVEVfSURMRRABEhIKDk1PVkVfU1RBVEVfUlVOEAISEwoPTU9WRV9TVEFU",
-            "RV9KVU1QEAMSFAoQTU9WRV9TVEFURV9TS0lMTBAEQguqAghQcm90b2NvbGIG",
-            "cHJvdG8z"));
+            "CgpFbnVtLnByb3RvEghQcm90b2NvbCotCgtFUmVzdWx0Q29kZRILCgdTdWNj",
+            "ZXNzEAASEQoNRmFpbFJvb21FbnRlchABKmsKC0VPYmplY3RUeXBlEhQKEE9C",
+            "SkVDVF9UWVBFX05PTkUQABIVChFPQkpFQ1RfVFlQRV9BQ1RPUhABEhoKFk9C",
+            "SkVDVF9UWVBFX1BST0pFQ1RJTEUQAhITCg9PQkpFQ1RfVFlQRV9FTlYQAyo4",
+            "CgpFQWN0b3JUeXBlEggKBE5vbmUQABIKCgZQbGF5ZXIQARILCgdNb25zdGVy",
+            "EAISBwoDTnBjEAMqUAoIRUJhZ1R5cGUSDwoLQmFnVHlwZU5vbmUQABINCglF",
+            "cXVpcG1lbnQQARIHCgNFdGMQAhILCgdVc2VhYmxlEAMSDgoKQmFnVHlwZU1h",
+            "eBAEKmkKC0VQbGF5ZXJUeXBlEhQKEFBMQVlFUl9UWVBFX05PTkUQABIWChJQ",
+            "TEFZRVJfVFlQRV9LTklHSFQQARIUChBQTEFZRVJfVFlQRV9NQUdFEAISFgoS",
+            "UExBWUVSX1RZUEVfQVJDSEVSEAMqdQoKRU1vdmVTdGF0ZRITCg9NT1ZFX1NU",
+            "QVRFX05PTkUQABITCg9NT1ZFX1NUQVRFX0lETEUQARISCg5NT1ZFX1NUQVRF",
+            "X1JVThACEhMKD01PVkVfU1RBVEVfSlVNUBADEhQKEE1PVkVfU1RBVEVfU0tJ",
+            "TEwQBEILqgIIUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), }, null, null));
@@ -47,6 +47,7 @@ namespace Protocol {
   #region Enums
   public enum EResultCode {
     [pbr::OriginalName("Success")] Success = 0,
+    [pbr::OriginalName("FailRoomEnter")] FailRoomEnter = 1,
   }
 
   public enum EObjectType {

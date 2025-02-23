@@ -50,7 +50,10 @@ AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 	if ( auto player = dynamic_pointer_cast<Player>( object ) )
 	{
 		Protocol::S_EnterGame enterGamePkt;
-		enterGamePkt.set_success( success );
+		if ( success )
+			enterGamePkt.set_result( Protocol::EResultCode::Success );
+		else
+			enterGamePkt.set_result( Protocol::EResultCode::FailRoomEnter );
 
 		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
 		playerInfo->CopyFrom( *player->objectInfo );
@@ -146,7 +149,7 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 	// 입장 사실을 신입 플레이어에게 알린다
 	{
 		Protocol::S_EnterGame enterGamePkt;
-		enterGamePkt.set_success( success );
+		success ? enterGamePkt.set_result( Protocol::EResultCode::Success ) : enterGamePkt.set_result( Protocol::EResultCode::FailRoomEnter );
 
 		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
 		playerInfo->CopyFrom( *player->objectInfo );
@@ -253,6 +256,26 @@ AtVoid Room::BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat )
 	chatResult.set_msg( chat.msg() );
 
 	_Broadcast( chatResult );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 플레이어들을 순회한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId )
+{
+	// TODO : 모든 오브젝트를 순회할 필요는 없으니 플레이어 컨테이너를 따로 만들기
+	for ( const auto& object : m_objects )
+	{
+		ObjectPtr objectPtr = object.second;
+		if ( !objectPtr )
+			continue;
+
+		PlayerPtr player = dynamic_pointer_cast<Player>( objectPtr );
+		if ( !player )
+			continue;
+
+		callback( player );
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

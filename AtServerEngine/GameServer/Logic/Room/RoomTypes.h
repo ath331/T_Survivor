@@ -9,7 +9,10 @@
 
 class Room;
 class WaitingRoom;
+class PlayRoom;
+
 
 // 룸 포인터 타입 정의
 USING_SHARED_PTR( Room );
 USING_SHARED_PTR( WaitingRoom );
+USING_SHARED_PTR( PlayRoom );

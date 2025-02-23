@@ -20,6 +20,9 @@ private:
 	/// 방 번호
 	static std::atomic< AtInt32 > roomNum;
 
+	/// 플레이어를 받는 콜백함수 타입 정의
+	using CallbackPlayer = std::function< AtVoid( PlayerPtr ) >;
+
 public:
 	/// 생성자
 	Room();
@@ -44,6 +47,12 @@ public:
 
 	/// 채팅을 브로드 캐스팅 한다.
 	AtVoid BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat );
+
+	/// 플레이어들을 순회한다.
+	AtVoid ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId = 0 );
+
+	/// 룸 넘버를 반환한다.
+	AtInt32 GetRoomNum() { return roomNum; }
 
 public:
 	/// Room객체를 반환한다.
