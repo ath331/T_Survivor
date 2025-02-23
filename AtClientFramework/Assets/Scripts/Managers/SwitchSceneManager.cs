@@ -21,6 +21,11 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
 
     private const float MinLoadingTime = 1f;
 
+    protected override void Awake()
+    {
+        Initialize();
+    }
+
     public override async void Initialize()
     {
         splashCanvas.SetActive(true);  // 스플래시 화면 활성화

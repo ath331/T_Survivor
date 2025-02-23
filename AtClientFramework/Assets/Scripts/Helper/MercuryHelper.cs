@@ -27,12 +27,14 @@ public class MercuryHelper
         }
     }
 
-    public static string mercuryId = "";
+    public static int mercuryId = -1;
 
-    public static bool IsReady => CurrentState == LoginState.Completed_Connect && !string.IsNullOrEmpty(mercuryId);
+    public static bool IsReady => CurrentState == LoginState.Completed_Connect && mercuryId == -1;
 
-    public static async void LoginProcess()
+    public static async UniTask LoginProcess(int id)
     {
+        mercuryId = id;
+
         await UniTask.Delay(100);
     }
 }

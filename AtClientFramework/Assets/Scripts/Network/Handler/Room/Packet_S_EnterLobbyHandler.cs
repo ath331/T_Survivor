@@ -14,7 +14,7 @@ namespace Assets.Scripts.Network.Handler
 
 			if ( message.Success )
 			{
-				SwitchSceneManager.Instance.ChangeTo("Lobby").Forget();
+				GameSupervisor.Instance.Test_ToLobby((int)message.PlayerId).Forget();
 			}
         }
     }
