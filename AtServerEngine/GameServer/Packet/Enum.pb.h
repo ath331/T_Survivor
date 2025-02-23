@@ -218,6 +218,64 @@ inline bool EMoveState_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EMoveState>(
     EMoveState_descriptor(), name, value);
 }
+enum EEquipSlotType : int {
+  Weapon = 0,
+  SubWeapon = 1,
+  Helmet = 2,
+  Armor = 3,
+  Gloves = 4,
+  Boots = 5,
+  EEquipSlotType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EEquipSlotType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EEquipSlotType_IsValid(int value);
+constexpr EEquipSlotType EEquipSlotType_MIN = Weapon;
+constexpr EEquipSlotType EEquipSlotType_MAX = Boots;
+constexpr int EEquipSlotType_ARRAYSIZE = EEquipSlotType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EEquipSlotType_descriptor();
+template<typename T>
+inline const std::string& EEquipSlotType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EEquipSlotType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EEquipSlotType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EEquipSlotType_descriptor(), enum_t_value);
+}
+inline bool EEquipSlotType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EEquipSlotType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EEquipSlotType>(
+    EEquipSlotType_descriptor(), name, value);
+}
+enum EStat : int {
+  Strength = 0,
+  HP = 1,
+  MP = 2,
+  Defense = 3,
+  Speed = 4,
+  Intelligence = 5,
+  EStat_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EStat_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EStat_IsValid(int value);
+constexpr EStat EStat_MIN = Strength;
+constexpr EStat EStat_MAX = Intelligence;
+constexpr int EStat_ARRAYSIZE = EStat_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EStat_descriptor();
+template<typename T>
+inline const std::string& EStat_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EStat>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EStat_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EStat_descriptor(), enum_t_value);
+}
+inline bool EStat_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EStat* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EStat>(
+    EStat_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -269,6 +327,16 @@ template <> struct is_proto_enum< ::Protocol::EMoveState> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EMoveState>() {
   return ::Protocol::EMoveState_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EEquipSlotType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EEquipSlotType>() {
+  return ::Protocol::EEquipSlotType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EStat> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EStat>() {
+  return ::Protocol::EStat_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

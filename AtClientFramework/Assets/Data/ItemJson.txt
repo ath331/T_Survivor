@@ -1,0 +1,371 @@
+{ 
+    "IndexKeyType" : "AtInt32",
+
+    "1000" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1000",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "PLAYER_TYPE_KNIGHT",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "나무 칼",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "Weapon",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "Strength",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "5",
+            "Desc" : "스탯 파람"
+        }
+    },
+
+    "1001" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1001",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "PLAYER_TYPE_KNIGHT",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "나무 방패",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "SubWeapon",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "Defense",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "10",
+            "Desc" : "스탯 파람"
+        }
+    },
+
+    "1002" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1002",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "가죽 투구",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "3",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "Helmet",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "Defense",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "5",
+            "Desc" : "스탯 파람"
+        }
+    },
+
+    "1003" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1003",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "가죽 갑옷",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "3",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "Armor",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "Defense",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "5",
+            "Desc" : "스탯 파람"
+        }
+    },
+
+    "1004" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1004",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "가죽 장갑",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "3",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "Gloves",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "Defense",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "5",
+            "Desc" : "스탯 파람"
+        }
+    },
+
+    "1005" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1005",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "가죽 신발",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "3",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "Boots",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "Speed",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "15",
+            "Desc" : "스탯 파람"
+        }
+    },
+
+    "1006" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1006",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "PLAYER_TYPE_MAGE",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "나무 지팡이",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "Weapon",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "Intelligence",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "20",
+            "Desc" : "스탯 파람"
+        }
+    },
+
+    "1007" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1007",
+            "Desc" : "식별자"
+        },
+        "Class" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "PLAYER_TYPE_MAGE",
+            "Desc" : "장착 직업"
+        },
+        "Name" : 
+        { 
+            "Type" : "AtString",
+            "Value" : "나무 구슬",
+            "Desc" : "이름"
+        },
+        "Level" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "1",
+            "Desc" : "레벨제한"
+        },
+        "EquipSlotType" : 
+        { 
+            "Type" : "EEquipSlotType",
+            "Value" : "SubWeapon",
+            "Desc" : "장착 부위"
+        },
+        "Stat" : 
+        { 
+            "Type" : "Estat",
+            "Value" : "MP",
+            "Desc" : "스탯"
+        },
+        "StatParam" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "10",
+            "Desc" : "스탯 파람"
+        }
+    }    
+}

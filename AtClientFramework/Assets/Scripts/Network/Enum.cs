@@ -36,10 +36,14 @@ namespace Protocol {
             "UExBWUVSX1RZUEVfQVJDSEVSEAMqdQoKRU1vdmVTdGF0ZRITCg9NT1ZFX1NU",
             "QVRFX05PTkUQABITCg9NT1ZFX1NUQVRFX0lETEUQARISCg5NT1ZFX1NUQVRF",
             "X1JVThACEhMKD01PVkVfU1RBVEVfSlVNUBADEhQKEE1PVkVfU1RBVEVfU0tJ",
-            "TEwQBEILqgIIUHJvdG9jb2xiBnByb3RvMw=="));
+            "TEwQBCpZCg5FRXF1aXBTbG90VHlwZRIKCgZXZWFwb24QABINCglTdWJXZWFw",
+            "b24QARIKCgZIZWxtZXQQAhIJCgVBcm1vchADEgoKBkdsb3ZlcxAEEgkKBUJv",
+            "b3RzEAUqTwoFRVN0YXQSDAoIU3RyZW5ndGgQABIGCgJIUBABEgYKAk1QEAIS",
+            "CwoHRGVmZW5zZRADEgkKBVNwZWVkEAQSEAoMSW50ZWxsaWdlbmNlEAVCC6oC",
+            "CFByb3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), }, null, null));
     }
     #endregion
 
@@ -85,6 +89,24 @@ namespace Protocol {
     [pbr::OriginalName("MOVE_STATE_RUN")] MoveStateRun = 2,
     [pbr::OriginalName("MOVE_STATE_JUMP")] MoveStateJump = 3,
     [pbr::OriginalName("MOVE_STATE_SKILL")] MoveStateSkill = 4,
+  }
+
+  public enum EEquipSlotType {
+    [pbr::OriginalName("Weapon")] Weapon = 0,
+    [pbr::OriginalName("SubWeapon")] SubWeapon = 1,
+    [pbr::OriginalName("Helmet")] Helmet = 2,
+    [pbr::OriginalName("Armor")] Armor = 3,
+    [pbr::OriginalName("Gloves")] Gloves = 4,
+    [pbr::OriginalName("Boots")] Boots = 5,
+  }
+
+  public enum EStat {
+    [pbr::OriginalName("Strength")] Strength = 0,
+    [pbr::OriginalName("HP")] Hp = 1,
+    [pbr::OriginalName("MP")] Mp = 2,
+    [pbr::OriginalName("Defense")] Defense = 3,
+    [pbr::OriginalName("Speed")] Speed = 4,
+    [pbr::OriginalName("Intelligence")] Intelligence = 5,
   }
 
   #endregion

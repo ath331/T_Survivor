@@ -52,3 +52,23 @@ enum EMoveState
 	MOVE_STATE_JUMP = 3;
 	MOVE_STATE_SKILL = 4;
 }
+
+enum EEquipSlotType
+{
+	Weapon = 0;
+	SubWeapon = 1;
+	Helmet = 2;
+	Armor = 3;
+	Gloves = 4;
+	Boots = 5;
+}
+
+enum EStat
+{
+	Strength = 0;
+	HP = 1;
+	MP = 2;
+	Defense = 3;
+	Speed = 4;
+	Intelligence = 5;
+}

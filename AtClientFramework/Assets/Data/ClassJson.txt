@@ -1,0 +1,73 @@
+{ 
+    "IndexKeyType" : "EPlayerType",
+
+    "PLAYER_TYPE_KNIGHT" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "PLAYER_TYPE_KNIGHT",
+            "Desc" : "식별자"
+        },
+        "HP" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "150",
+            "Desc" : "기본 체력"
+        },
+        "MP" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "100",
+            "Desc" : "기본 마나"
+        },
+        "Damage" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "100",
+            "Desc" : "기본 공격력"
+        },
+        "MagicDamage" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "30",
+            "Desc" : "기본 마력"
+        }
+    },
+
+    "PLAYER_TYPE_MAGE" : 
+    { 
+        "Id" : 
+        { 
+            "Type" : "EPlayerType",
+            "Value" : "PLAYER_TYPE_MAGE",
+            "Desc" : "식별자"
+        },
+        "HP" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "100",
+            "Desc" : "기본 체력"
+        },
+        "MP" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "150",
+            "Desc" : "기본 마나"
+        },
+        "Damage" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "30",
+            "Desc" : "기본 공격력"
+        },
+        "MagicDamage" : 
+        { 
+            "Type" : "AtInt32",
+            "Value" : "120",
+            "Desc" : "기본 마력"
+        }
+    },
+
+    
+}
