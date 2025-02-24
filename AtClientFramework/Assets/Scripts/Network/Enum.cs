@@ -24,25 +24,32 @@ namespace Protocol {
     static EnumReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpFbnVtLnByb3RvEghQcm90b2NvbCotCgtFUmVzdWx0Q29kZRILCgdTdWNj",
-            "ZXNzEAASEQoNRmFpbFJvb21FbnRlchABKmsKC0VPYmplY3RUeXBlEhQKEE9C",
-            "SkVDVF9UWVBFX05PTkUQABIVChFPQkpFQ1RfVFlQRV9BQ1RPUhABEhoKFk9C",
-            "SkVDVF9UWVBFX1BST0pFQ1RJTEUQAhITCg9PQkpFQ1RfVFlQRV9FTlYQAyo4",
-            "CgpFQWN0b3JUeXBlEggKBE5vbmUQABIKCgZQbGF5ZXIQARILCgdNb25zdGVy",
-            "EAISBwoDTnBjEAMqUAoIRUJhZ1R5cGUSDwoLQmFnVHlwZU5vbmUQABINCglF",
-            "cXVpcG1lbnQQARIHCgNFdGMQAhILCgdVc2VhYmxlEAMSDgoKQmFnVHlwZU1h",
-            "eBAEKnwKC0VQbGF5ZXJUeXBlEhMKD0VQbGF5ZXJUeXBlTm9uZRAAEhYKElBM",
-            "QVlFUl9UWVBFX0tOSUdIVBABEhQKEFBMQVlFUl9UWVBFX01BR0UQAhIWChJQ",
-            "TEFZRVJfVFlQRV9BUkNIRVIQAxISCg5FUGxheWVyVHlwZU1heBAEKnUKCkVN",
-            "b3ZlU3RhdGUSEwoPTU9WRV9TVEFURV9OT05FEAASEwoPTU9WRV9TVEFURV9J",
-            "RExFEAESEgoOTU9WRV9TVEFURV9SVU4QAhITCg9NT1ZFX1NUQVRFX0pVTVAQ",
-            "AxIUChBNT1ZFX1NUQVRFX1NLSUxMEAQqiAEKDkVFcXVpcFNsb3RUeXBlEhYK",
-            "EkVFcXVpcFNsb3RUeXBlTm9uZRAAEgoKBldlYXBvbhABEg0KCVN1YldlYXBv",
-            "bhACEgoKBkhlbG1ldBADEgkKBUFybW9yEAQSCgoGR2xvdmVzEAUSCQoFQm9v",
-            "dHMQBhIVChFFRXF1aXBTbG90VHlwZU1heBAHKl4KBUVTdGF0Eg0KCUVTdGF0",
-            "Tm9uZRAAEgwKCFN0cmVuZ3RoEAESBgoCSFAQAhIGCgJNUBADEgsKB0RlZmVu",
-            "c2UQBBIJCgVTcGVlZBAFEhAKDEludGVsbGlnZW5jZRAGQguqAghQcm90b2Nv",
-            "bGIGcHJvdG8z"));
+            "CgpFbnVtLnByb3RvEghQcm90b2NvbCpcCgtFUmVzdWx0Q29kZRIXChNSRVNV",
+            "TFRfQ09ERV9TVUNDRVNTEAASHwobUkVTVUxUX0NPREVfRkFJTF9ST09NX0VO",
+            "VEVSEAESEwoPUkVTVUxUX0NPREVfTUFYEAIqgAEKC0VPYmplY3RUeXBlEhQK",
+            "EE9CSkVDVF9UWVBFX05PTkUQABIVChFPQkpFQ1RfVFlQRV9BQ1RPUhABEhoK",
+            "Fk9CSkVDVF9UWVBFX1BST0pFQ1RJTEUQAhITCg9PQkpFQ1RfVFlQRV9FTlYQ",
+            "AxITCg9PQkpFQ1RfVFlQRV9NQVgQBCp4CgpFQWN0b3JUeXBlEhMKD0FDVE9S",
+            "X1RZUEVfTk9ORRAAEhUKEUFDVE9SX1RZUEVfUExBWUVSEAESFgoSQUNUT1Jf",
+            "VFlQRV9NT05TVEVSEAISEgoOQUNUT1JfVFlQRV9OUEMQAxISCg5BQ1RPUl9U",
+            "WVBFX01BWBAEKm8KCEVCYWdUeXBlEhEKDUJBR19UWVBFX05PTkUQABIWChJC",
+            "QUdfVFlQRV9FUVVJUE1FTlQQARIQCgxCQUdfVFlQRV9FVEMQAhIUChBCQUdf",
+            "VFlQRV9VU0VBQkxFEAMSEAoMQkFHX1RZUEVfTUFYEAQqfgoLRVBsYXllclR5",
+            "cGUSFAoQUExBWUVSX1RZUEVfTk9ORRAAEhYKElBMQVlFUl9UWVBFX0tOSUdI",
+            "VBABEhQKEFBMQVlFUl9UWVBFX01BR0UQAhIWChJQTEFZRVJfVFlQRV9BUkNI",
+            "RVIQAxITCg9QTEFZRVJfVFlQRV9NQVgQBCp1CgpFTW92ZVN0YXRlEhMKD01P",
+            "VkVfU1RBVEVfTk9ORRAAEhMKD01PVkVfU1RBVEVfSURMRRABEhIKDk1PVkVf",
+            "U1RBVEVfUlVOEAISEwoPTU9WRV9TVEFURV9KVU1QEAMSFAoQTU9WRV9TVEFU",
+            "RV9TS0lMTBAEKu0BCg5FRXF1aXBTbG90VHlwZRIYChRFUVVJUF9TTE9UX1RZ",
+            "UEVfTk9ORRAAEhoKFkVRVUlQX1NMT1RfVFlQRV9XRUFQT04QARIeChpFUVVJ",
+            "UF9TTE9UX1RZUEVfU1VCX1dFQVBPThACEhoKFkVRVUlQX1NMT1RfVFlQRV9I",
+            "RUxNQVQQAxIZChVFUVVJUF9TTE9UX1RZUEVfQVJNT1IQBBIaChZFUVVJUF9T",
+            "TE9UX1RZUEVfR0xPVkVTEAUSGQoVRVFVSVBfU0xPVF9UWVBFX0JPT1RTEAYS",
+            "FwoTRVFVSVBfU0xPVF9UWVBFX01BWBAHKooBCgVFU3RhdBINCglTVEFUX05P",
+            "TkUQABIRCg1TVEFUX1NUUkVOR1RIEAESCwoHU1RBVF9IUBACEgsKB1NUQVRf",
+            "TVAQAxIQCgxTVEFUX0RFRkVOU0UQBBIOCgpTVEFUX1NQRUVEEAUSFQoRU1RB",
+            "VF9JTlRFTExJR0VOQ0UQBhIMCghTVEFUX01BWBAHQguqAghQcm90b2NvbGIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), }, null, null));
@@ -52,85 +59,161 @@ namespace Protocol {
   }
   #region Enums
   public enum EResultCode {
-    [pbr::OriginalName("Success")] Success = 0,
-    [pbr::OriginalName("FailRoomEnter")] FailRoomEnter = 1,
+    /// <summary>
+    /// 성공
+    /// </summary>
+    [pbr::OriginalName("RESULT_CODE_SUCCESS")] ResultCodeSuccess = 0,
+    /// <summary>
+    /// 룸 입장 실패
+    /// </summary>
+    [pbr::OriginalName("RESULT_CODE_FAIL_ROOM_ENTER")] ResultCodeFailRoomEnter = 1,
+    [pbr::OriginalName("RESULT_CODE_MAX")] ResultCodeMax = 2,
   }
 
   public enum EObjectType {
     [pbr::OriginalName("OBJECT_TYPE_NONE")] ObjectTypeNone = 0,
+    /// <summary>
+    /// 엑터
+    /// </summary>
     [pbr::OriginalName("OBJECT_TYPE_ACTOR")] ObjectTypeActor = 1,
+    /// <summary>
+    /// 발사체
+    /// </summary>
     [pbr::OriginalName("OBJECT_TYPE_PROJECTILE")] ObjectTypeProjectile = 2,
+    /// <summary>
+    /// 환경 오브젝트
+    /// </summary>
     [pbr::OriginalName("OBJECT_TYPE_ENV")] ObjectTypeEnv = 3,
+    [pbr::OriginalName("OBJECT_TYPE_MAX")] ObjectTypeMax = 4,
   }
 
   public enum EActorType {
-    [pbr::OriginalName("None")] None = 0,
-    [pbr::OriginalName("Player")] Player = 1,
-    [pbr::OriginalName("Monster")] Monster = 2,
-    [pbr::OriginalName("Npc")] Npc = 3,
+    [pbr::OriginalName("ACTOR_TYPE_NONE")] ActorTypeNone = 0,
+    /// <summary>
+    /// 플레이어
+    /// </summary>
+    [pbr::OriginalName("ACTOR_TYPE_PLAYER")] ActorTypePlayer = 1,
+    /// <summary>
+    /// 몬스터
+    /// </summary>
+    [pbr::OriginalName("ACTOR_TYPE_MONSTER")] ActorTypeMonster = 2,
+    /// <summary>
+    /// NPC
+    /// </summary>
+    [pbr::OriginalName("ACTOR_TYPE_NPC")] ActorTypeNpc = 3,
+    [pbr::OriginalName("ACTOR_TYPE_MAX")] ActorTypeMax = 4,
   }
 
   public enum EBagType {
-    [pbr::OriginalName("BagTypeNone")] BagTypeNone = 0,
-    [pbr::OriginalName("Equipment")] Equipment = 1,
-    [pbr::OriginalName("Etc")] Etc = 2,
-    [pbr::OriginalName("Useable")] Useable = 3,
-    [pbr::OriginalName("BagTypeMax")] BagTypeMax = 4,
+    [pbr::OriginalName("BAG_TYPE_NONE")] BagTypeNone = 0,
+    /// <summary>
+    /// 장비
+    /// </summary>
+    [pbr::OriginalName("BAG_TYPE_EQUIPMENT")] BagTypeEquipment = 1,
+    /// <summary>
+    /// 기타
+    /// </summary>
+    [pbr::OriginalName("BAG_TYPE_ETC")] BagTypeEtc = 2,
+    /// <summary>
+    /// 사용품
+    /// </summary>
+    [pbr::OriginalName("BAG_TYPE_USEABLE")] BagTypeUseable = 3,
+    [pbr::OriginalName("BAG_TYPE_MAX")] BagTypeMax = 4,
   }
 
   public enum EPlayerType {
-    [pbr::OriginalName("EPlayerTypeNone")] None = 0,
+    [pbr::OriginalName("PLAYER_TYPE_NONE")] PlayerTypeNone = 0,
+    /// <summary>
+    /// 기사
+    /// </summary>
     [pbr::OriginalName("PLAYER_TYPE_KNIGHT")] PlayerTypeKnight = 1,
+    /// <summary>
+    /// 마법사
+    /// </summary>
     [pbr::OriginalName("PLAYER_TYPE_MAGE")] PlayerTypeMage = 2,
+    /// <summary>
+    /// 궁수
+    /// </summary>
     [pbr::OriginalName("PLAYER_TYPE_ARCHER")] PlayerTypeArcher = 3,
-    [pbr::OriginalName("EPlayerTypeMax")] Max = 4,
+    [pbr::OriginalName("PLAYER_TYPE_MAX")] PlayerTypeMax = 4,
   }
 
   public enum EMoveState {
     [pbr::OriginalName("MOVE_STATE_NONE")] MoveStateNone = 0,
+    /// <summary>
+    /// 기본상태
+    /// </summary>
     [pbr::OriginalName("MOVE_STATE_IDLE")] MoveStateIdle = 1,
+    /// <summary>
+    /// 달리기
+    /// </summary>
     [pbr::OriginalName("MOVE_STATE_RUN")] MoveStateRun = 2,
+    /// <summary>
+    /// 점프
+    /// </summary>
     [pbr::OriginalName("MOVE_STATE_JUMP")] MoveStateJump = 3,
+    /// <summary>
+    /// 스킬 사용
+    /// </summary>
     [pbr::OriginalName("MOVE_STATE_SKILL")] MoveStateSkill = 4,
   }
 
   public enum EEquipSlotType {
-    [pbr::OriginalName("EEquipSlotTypeNone")] None = 0,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_NONE")] EquipSlotTypeNone = 0,
     /// <summary>
     /// 주무기
     /// </summary>
-    [pbr::OriginalName("Weapon")] Weapon = 1,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_WEAPON")] EquipSlotTypeWeapon = 1,
     /// <summary>
     /// 보조무기
     /// </summary>
-    [pbr::OriginalName("SubWeapon")] SubWeapon = 2,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_SUB_WEAPON")] EquipSlotTypeSubWeapon = 2,
     /// <summary>
     /// 투구
     /// </summary>
-    [pbr::OriginalName("Helmet")] Helmet = 3,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_HELMAT")] EquipSlotTypeHelmat = 3,
     /// <summary>
     /// 갑옷
     /// </summary>
-    [pbr::OriginalName("Armor")] Armor = 4,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_ARMOR")] EquipSlotTypeArmor = 4,
     /// <summary>
     /// 장갑
     /// </summary>
-    [pbr::OriginalName("Gloves")] Gloves = 5,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_GLOVES")] EquipSlotTypeGloves = 5,
     /// <summary>
     /// 신발
     /// </summary>
-    [pbr::OriginalName("Boots")] Boots = 6,
-    [pbr::OriginalName("EEquipSlotTypeMax")] Max = 7,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_BOOTS")] EquipSlotTypeBoots = 6,
+    [pbr::OriginalName("EQUIP_SLOT_TYPE_MAX")] EquipSlotTypeMax = 7,
   }
 
   public enum EStat {
-    [pbr::OriginalName("EStatNone")] None = 0,
-    [pbr::OriginalName("Strength")] Strength = 1,
-    [pbr::OriginalName("HP")] Hp = 2,
-    [pbr::OriginalName("MP")] Mp = 3,
-    [pbr::OriginalName("Defense")] Defense = 4,
-    [pbr::OriginalName("Speed")] Speed = 5,
-    [pbr::OriginalName("Intelligence")] Intelligence = 6,
+    [pbr::OriginalName("STAT_NONE")] StatNone = 0,
+    /// <summary>
+    /// 힘
+    /// </summary>
+    [pbr::OriginalName("STAT_STRENGTH")] StatStrength = 1,
+    /// <summary>
+    /// HP
+    /// </summary>
+    [pbr::OriginalName("STAT_HP")] StatHp = 2,
+    /// <summary>
+    /// MP
+    /// </summary>
+    [pbr::OriginalName("STAT_MP")] StatMp = 3,
+    /// <summary>
+    /// 방어력
+    /// </summary>
+    [pbr::OriginalName("STAT_DEFENSE")] StatDefense = 4,
+    /// <summary>
+    /// 속도
+    /// </summary>
+    [pbr::OriginalName("STAT_SPEED")] StatSpeed = 5,
+    /// <summary>
+    /// 지능
+    /// </summary>
+    [pbr::OriginalName("STAT_INTELLIGENCE")] StatIntelligence = 6,
+    [pbr::OriginalName("STAT_MAX")] StatMax = 7,
   }
 
   #endregion

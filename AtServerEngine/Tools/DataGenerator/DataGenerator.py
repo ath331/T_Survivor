@@ -76,9 +76,24 @@ def process_files_in_directory( file_path, destPath, defaultDestPath ):
             dataType = data[3][i]
             if row[i] is None:
                 if dataType.startswith("E"):
-                    row[i] = dataType + "Max"
+                    s = dataType[1:]
+                    uppercase_count = 0
+                    result = ""
+                    inserted = False
+                    for char in s:
+                        if char.isupper():
+                            uppercase_count += 1
+                            if uppercase_count == 2 and not inserted:
+                                result += "_" + char.upper()
+                                inserted = True
+                                continue
+                        result += char.upper()
+
+                    row[i] = result.upper() + "_MAX"
+
                 elif dataType == "AtString":
                     row[i] = "\"\""
+
                 else:
                     row[i] = 0;
 

@@ -15,7 +15,7 @@
 Player::Player()
 {
 	m_isPlayer = true;
-	m_actorType = Protocol::Player;
+	m_actorType = Protocol::EActorType::ACTOR_TYPE_PLAYER;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

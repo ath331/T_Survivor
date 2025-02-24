@@ -57,14 +57,15 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
 enum EResultCode : int {
-  Success = 0,
-  FailRoomEnter = 1,
+  RESULT_CODE_SUCCESS = 0,
+  RESULT_CODE_FAIL_ROOM_ENTER = 1,
+  RESULT_CODE_MAX = 2,
   EResultCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EResultCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EResultCode_IsValid(int value);
-constexpr EResultCode EResultCode_MIN = Success;
-constexpr EResultCode EResultCode_MAX = FailRoomEnter;
+constexpr EResultCode EResultCode_MIN = RESULT_CODE_SUCCESS;
+constexpr EResultCode EResultCode_MAX = RESULT_CODE_MAX;
 constexpr int EResultCode_ARRAYSIZE = EResultCode_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EResultCode_descriptor();
@@ -86,12 +87,13 @@ enum EObjectType : int {
   OBJECT_TYPE_ACTOR = 1,
   OBJECT_TYPE_PROJECTILE = 2,
   OBJECT_TYPE_ENV = 3,
+  OBJECT_TYPE_MAX = 4,
   EObjectType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EObjectType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EObjectType_IsValid(int value);
 constexpr EObjectType EObjectType_MIN = OBJECT_TYPE_NONE;
-constexpr EObjectType EObjectType_MAX = OBJECT_TYPE_ENV;
+constexpr EObjectType EObjectType_MAX = OBJECT_TYPE_MAX;
 constexpr int EObjectType_ARRAYSIZE = EObjectType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EObjectType_descriptor();
@@ -109,16 +111,17 @@ inline bool EObjectType_Parse(
     EObjectType_descriptor(), name, value);
 }
 enum EActorType : int {
-  None = 0,
-  Player = 1,
-  Monster = 2,
-  Npc = 3,
+  ACTOR_TYPE_NONE = 0,
+  ACTOR_TYPE_PLAYER = 1,
+  ACTOR_TYPE_MONSTER = 2,
+  ACTOR_TYPE_NPC = 3,
+  ACTOR_TYPE_MAX = 4,
   EActorType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EActorType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EActorType_IsValid(int value);
-constexpr EActorType EActorType_MIN = None;
-constexpr EActorType EActorType_MAX = Npc;
+constexpr EActorType EActorType_MIN = ACTOR_TYPE_NONE;
+constexpr EActorType EActorType_MAX = ACTOR_TYPE_MAX;
 constexpr int EActorType_ARRAYSIZE = EActorType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EActorType_descriptor();
@@ -136,17 +139,17 @@ inline bool EActorType_Parse(
     EActorType_descriptor(), name, value);
 }
 enum EBagType : int {
-  BagTypeNone = 0,
-  Equipment = 1,
-  Etc = 2,
-  Useable = 3,
-  BagTypeMax = 4,
+  BAG_TYPE_NONE = 0,
+  BAG_TYPE_EQUIPMENT = 1,
+  BAG_TYPE_ETC = 2,
+  BAG_TYPE_USEABLE = 3,
+  BAG_TYPE_MAX = 4,
   EBagType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EBagType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EBagType_IsValid(int value);
-constexpr EBagType EBagType_MIN = BagTypeNone;
-constexpr EBagType EBagType_MAX = BagTypeMax;
+constexpr EBagType EBagType_MIN = BAG_TYPE_NONE;
+constexpr EBagType EBagType_MAX = BAG_TYPE_MAX;
 constexpr int EBagType_ARRAYSIZE = EBagType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EBagType_descriptor();
@@ -164,17 +167,17 @@ inline bool EBagType_Parse(
     EBagType_descriptor(), name, value);
 }
 enum EPlayerType : int {
-  EPlayerTypeNone = 0,
+  PLAYER_TYPE_NONE = 0,
   PLAYER_TYPE_KNIGHT = 1,
   PLAYER_TYPE_MAGE = 2,
   PLAYER_TYPE_ARCHER = 3,
-  EPlayerTypeMax = 4,
+  PLAYER_TYPE_MAX = 4,
   EPlayerType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EPlayerType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EPlayerType_IsValid(int value);
-constexpr EPlayerType EPlayerType_MIN = EPlayerTypeNone;
-constexpr EPlayerType EPlayerType_MAX = EPlayerTypeMax;
+constexpr EPlayerType EPlayerType_MIN = PLAYER_TYPE_NONE;
+constexpr EPlayerType EPlayerType_MAX = PLAYER_TYPE_MAX;
 constexpr int EPlayerType_ARRAYSIZE = EPlayerType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EPlayerType_descriptor();
@@ -220,20 +223,20 @@ inline bool EMoveState_Parse(
     EMoveState_descriptor(), name, value);
 }
 enum EEquipSlotType : int {
-  EEquipSlotTypeNone = 0,
-  Weapon = 1,
-  SubWeapon = 2,
-  Helmet = 3,
-  Armor = 4,
-  Gloves = 5,
-  Boots = 6,
-  EEquipSlotTypeMax = 7,
+  EQUIP_SLOT_TYPE_NONE = 0,
+  EQUIP_SLOT_TYPE_WEAPON = 1,
+  EQUIP_SLOT_TYPE_SUB_WEAPON = 2,
+  EQUIP_SLOT_TYPE_HELMAT = 3,
+  EQUIP_SLOT_TYPE_ARMOR = 4,
+  EQUIP_SLOT_TYPE_GLOVES = 5,
+  EQUIP_SLOT_TYPE_BOOTS = 6,
+  EQUIP_SLOT_TYPE_MAX = 7,
   EEquipSlotType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EEquipSlotType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EEquipSlotType_IsValid(int value);
-constexpr EEquipSlotType EEquipSlotType_MIN = EEquipSlotTypeNone;
-constexpr EEquipSlotType EEquipSlotType_MAX = EEquipSlotTypeMax;
+constexpr EEquipSlotType EEquipSlotType_MIN = EQUIP_SLOT_TYPE_NONE;
+constexpr EEquipSlotType EEquipSlotType_MAX = EQUIP_SLOT_TYPE_MAX;
 constexpr int EEquipSlotType_ARRAYSIZE = EEquipSlotType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EEquipSlotType_descriptor();
@@ -251,19 +254,20 @@ inline bool EEquipSlotType_Parse(
     EEquipSlotType_descriptor(), name, value);
 }
 enum EStat : int {
-  EStatNone = 0,
-  Strength = 1,
-  HP = 2,
-  MP = 3,
-  Defense = 4,
-  Speed = 5,
-  Intelligence = 6,
+  STAT_NONE = 0,
+  STAT_STRENGTH = 1,
+  STAT_HP = 2,
+  STAT_MP = 3,
+  STAT_DEFENSE = 4,
+  STAT_SPEED = 5,
+  STAT_INTELLIGENCE = 6,
+  STAT_MAX = 7,
   EStat_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EStat_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool EStat_IsValid(int value);
-constexpr EStat EStat_MIN = EStatNone;
-constexpr EStat EStat_MAX = Intelligence;
+constexpr EStat EStat_MIN = STAT_NONE;
+constexpr EStat EStat_MAX = STAT_MAX;
 constexpr int EStat_ARRAYSIZE = EStat_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EStat_descriptor();

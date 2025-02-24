@@ -7,72 +7,76 @@ option csharp_namespace = "Protocol";
 
 enum EResultCode
 {
-	Success = 0;
-	FailRoomEnter = 1;
+	RESULT_CODE_SUCCESS = 0; // 성공
+	RESULT_CODE_FAIL_ROOM_ENTER = 1; // 룸 입장 실패
+	RESULT_CODE_MAX = 2;
 }
 
 enum EObjectType
 {
 	OBJECT_TYPE_NONE = 0;
-	OBJECT_TYPE_ACTOR = 1;
-	OBJECT_TYPE_PROJECTILE = 2;
-	OBJECT_TYPE_ENV = 3;
+	OBJECT_TYPE_ACTOR = 1; // 엑터
+	OBJECT_TYPE_PROJECTILE = 2; // 발사체
+	OBJECT_TYPE_ENV = 3; // 환경 오브젝트
+	OBJECT_TYPE_MAX = 4;
 }
 
 enum EActorType
 {
-	None = 0;
-	Player = 1;
-	Monster = 2;
-	Npc = 3;
+	ACTOR_TYPE_NONE = 0;
+	ACTOR_TYPE_PLAYER = 1; // 플레이어
+	ACTOR_TYPE_MONSTER = 2; // 몬스터
+	ACTOR_TYPE_NPC = 3; // NPC
+	ACTOR_TYPE_MAX = 4;
 }
 
 enum EBagType
 {
-	BagTypeNone = 0;
-	Equipment = 1;
-	Etc = 2;
-	Useable = 3;
-	BagTypeMax = 4;
+	BAG_TYPE_NONE = 0;
+	BAG_TYPE_EQUIPMENT = 1; // 장비
+	BAG_TYPE_ETC = 2; // 기타
+	BAG_TYPE_USEABLE = 3; // 사용품
+	BAG_TYPE_MAX = 4;
 }
 
 enum EPlayerType
 {
-	EPlayerTypeNone = 0;
-	PLAYER_TYPE_KNIGHT = 1;
-	PLAYER_TYPE_MAGE = 2;
-	PLAYER_TYPE_ARCHER = 3;
-	EPlayerTypeMax = 4;
+	PLAYER_TYPE_NONE = 0;
+	PLAYER_TYPE_KNIGHT = 1; // 기사
+	PLAYER_TYPE_MAGE = 2; // 마법사
+	PLAYER_TYPE_ARCHER = 3; // 궁수
+	PLAYER_TYPE_MAX = 4;
 }
 
 enum EMoveState
 {
 	MOVE_STATE_NONE = 0;
-	MOVE_STATE_IDLE = 1;
-	MOVE_STATE_RUN  = 2;
-	MOVE_STATE_JUMP = 3;
-	MOVE_STATE_SKILL = 4;
+	MOVE_STATE_IDLE = 1; // 기본상태
+	MOVE_STATE_RUN  = 2; // 달리기
+	MOVE_STATE_JUMP = 3; // 점프
+	MOVE_STATE_SKILL = 4; // 스킬 사용
 }
 
 enum EEquipSlotType
 {
-	EEquipSlotTypeNone = 0;
-	Weapon = 1; // 주무기
-	SubWeapon = 2; // 보조무기
-	Helmet = 3; // 투구
-	Armor = 4; // 갑옷
-	Gloves = 5; // 장갑
-	Boots = 6; // 신발
-	EEquipSlotTypeMax = 7;
+	EQUIP_SLOT_TYPE_NONE = 0;
+	EQUIP_SLOT_TYPE_WEAPON = 1; // 주무기
+	EQUIP_SLOT_TYPE_SUB_WEAPON = 2; // 보조무기
+	EQUIP_SLOT_TYPE_HELMAT = 3; // 투구
+	EQUIP_SLOT_TYPE_ARMOR = 4; // 갑옷
+	EQUIP_SLOT_TYPE_GLOVES = 5; // 장갑
+	EQUIP_SLOT_TYPE_BOOTS = 6; // 신발
+	EQUIP_SLOT_TYPE_MAX = 7;
 }
 
 enum EStat
 {
-	EStatNone = 0;
-	Strength = 1;
-	HP = 2;
-	MP = 3;
-	Defense = 4;
-	Speed = 5;
-	Intelligence = 6;
+	STAT_NONE = 0;
+	STAT_STRENGTH = 1; // 힘
+	STAT_HP = 2; // HP
+	STAT_MP = 3; // MP
+	STAT_DEFENSE = 4; // 방어력
+	STAT_SPEED = 5; // 속도
+	STAT_INTELLIGENCE = 6; // 지능
+	STAT_MAX = 7;
 }

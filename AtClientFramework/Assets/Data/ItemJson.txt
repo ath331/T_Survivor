@@ -1,47 +1,47 @@
 { 
-    "IndexKeyType" : "AtInt32",
+    "IndexKeyType" : "int",
 
     "1000" : 
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1000",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "PLAYER_TYPE_KNIGHT",
+            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_KNIGHT",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "나무 칼",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Weapon",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeWeapon",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "Strength",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatStrength",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "5",
             "Desc" : "스탯 파람"
         }
@@ -51,43 +51,43 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1001",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "PLAYER_TYPE_KNIGHT",
+            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_KNIGHT",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "나무 방패",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "SubWeapon",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeSubWeapon",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "Defense",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatDefense",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "10",
             "Desc" : "스탯 파람"
         }
@@ -97,43 +97,43 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1002",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "",
+            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "가죽 투구",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "3",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Helmet",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeHelmet",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "Defense",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatDefense",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "5",
             "Desc" : "스탯 파람"
         }
@@ -143,43 +143,43 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1003",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "",
+            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "가죽 갑옷",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "3",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Armor",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeArmor",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "Defense",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatDefense",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "5",
             "Desc" : "스탯 파람"
         }
@@ -189,43 +189,43 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1004",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "",
+            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "가죽 장갑",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "3",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Gloves",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeGloves",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "Defense",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatDefense",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "5",
             "Desc" : "스탯 파람"
         }
@@ -235,43 +235,43 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1005",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "",
+            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "가죽 신발",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "3",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Boots",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeBoots",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "Speed",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatSpeed",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "15",
             "Desc" : "스탯 파람"
         }
@@ -281,43 +281,43 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1006",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "PLAYER_TYPE_MAGE",
+            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_MAGE",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "나무 지팡이",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Weapon",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeWeapon",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "Intelligence",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatIntelligence",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "20",
             "Desc" : "스탯 파람"
         }
@@ -327,43 +327,43 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1007",
             "Desc" : "식별자"
         },
-        "Class" : 
+        "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "PLAYER_TYPE_MAGE",
+            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_MAGE",
             "Desc" : "장착 직업"
         },
         "Name" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "나무 구슬",
             "Desc" : "이름"
         },
         "Level" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "1",
             "Desc" : "레벨제한"
         },
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "SubWeapon",
+            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeSubWeapon",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
-            "Type" : "Estat",
-            "Value" : "MP",
+            "Type" : "EStat",
+            "Value" : "Protocol::EStat::EStatMP",
             "Desc" : "스탯"
         },
         "StatParam" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "10",
             "Desc" : "스탯 파람"
         }

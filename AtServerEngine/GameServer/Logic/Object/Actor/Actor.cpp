@@ -13,7 +13,7 @@
 Actor::Actor()
 {
 	objectInfo->set_object_type( Protocol::OBJECT_TYPE_ACTOR );
-	m_actorType = Protocol::None;
+	m_actorType = Protocol::EActorType::ACTOR_TYPE_MAX;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

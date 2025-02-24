@@ -991,7 +991,7 @@ namespace Protocol {
 
     /// <summary>Field number for the "result" field.</summary>
     public const int ResultFieldNumber = 1;
-    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.Success;
+    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.ResultCodeSuccess;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protocol.EResultCode Result {
       get { return result_; }
@@ -1032,7 +1032,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Result != global::Protocol.EResultCode.Success) hash ^= Result.GetHashCode();
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) hash ^= Result.GetHashCode();
       if (player_ != null) hash ^= Player.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1050,7 +1050,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -1067,7 +1067,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -1084,7 +1084,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
       }
       if (player_ != null) {
@@ -1101,7 +1101,7 @@ namespace Protocol {
       if (other == null) {
         return;
       }
-      if (other.Result != global::Protocol.EResultCode.Success) {
+      if (other.Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         Result = other.Result;
       }
       if (other.player_ != null) {
@@ -1349,7 +1349,7 @@ namespace Protocol {
 
     /// <summary>Field number for the "result" field.</summary>
     public const int ResultFieldNumber = 1;
-    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.Success;
+    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.ResultCodeSuccess;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protocol.EResultCode Result {
       get { return result_; }
@@ -1378,7 +1378,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Result != global::Protocol.EResultCode.Success) hash ^= Result.GetHashCode();
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) hash ^= Result.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1395,7 +1395,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -1408,7 +1408,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -1421,7 +1421,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
       }
       if (_unknownFields != null) {
@@ -1435,7 +1435,7 @@ namespace Protocol {
       if (other == null) {
         return;
       }
-      if (other.Result != global::Protocol.EResultCode.Success) {
+      if (other.Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         Result = other.Result;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1988,7 +1988,7 @@ namespace Protocol {
 
     /// <summary>Field number for the "result" field.</summary>
     public const int ResultFieldNumber = 1;
-    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.Success;
+    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.ResultCodeSuccess;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protocol.EResultCode Result {
       get { return result_; }
@@ -2041,7 +2041,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Result != global::Protocol.EResultCode.Success) hash ^= Result.GetHashCode();
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) hash ^= Result.GetHashCode();
       if (PlayerId != 0UL) hash ^= PlayerId.GetHashCode();
       if (info_ != null) hash ^= Info.GetHashCode();
       if (_unknownFields != null) {
@@ -2060,7 +2060,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -2081,7 +2081,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -2102,7 +2102,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
       }
       if (PlayerId != 0UL) {
@@ -2122,7 +2122,7 @@ namespace Protocol {
       if (other == null) {
         return;
       }
-      if (other.Result != global::Protocol.EResultCode.Success) {
+      if (other.Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         Result = other.Result;
       }
       if (other.PlayerId != 0UL) {
@@ -3133,7 +3133,7 @@ namespace Protocol {
 
     /// <summary>Field number for the "result" field.</summary>
     public const int ResultFieldNumber = 1;
-    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.Success;
+    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.ResultCodeSuccess;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protocol.EResultCode Result {
       get { return result_; }
@@ -3162,7 +3162,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (Result != global::Protocol.EResultCode.Success) hash ^= Result.GetHashCode();
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) hash ^= Result.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3179,7 +3179,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -3192,7 +3192,7 @@ namespace Protocol {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         output.WriteRawTag(8);
         output.WriteEnum((int) Result);
       }
@@ -3205,7 +3205,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (Result != global::Protocol.EResultCode.Success) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
       }
       if (_unknownFields != null) {
@@ -3219,7 +3219,7 @@ namespace Protocol {
       if (other == null) {
         return;
       }
-      if (other.Result != global::Protocol.EResultCode.Success) {
+      if (other.Result != global::Protocol.EResultCode.ResultCodeSuccess) {
         Result = other.Result;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);

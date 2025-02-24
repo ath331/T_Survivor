@@ -125,7 +125,7 @@ public class CustomEditorWindow : EditorWindow
                             JsonMaker.InsertNewLine( ref jsonToIndex );
                             JsonMaker.InsertSpace( ref jsonToIndex, 4 );
                             JsonMaker.InsertKey( ref jsonToIndex, "IndexKeyType" );
-                            JsonMaker.InsertValue( ref jsonToIndex, result.Tables[ sheetCount ].Rows[ 3 ][ 0 ].ToString() );
+                            JsonMaker.InsertValue( ref jsonToIndex, "", result.Tables[ sheetCount ].Rows[ 3 ][ 0 ].ToString() );
                             JsonMaker.InsertRest( ref jsonToIndex );
                             JsonMaker.InsertNewLine( ref jsonToIndex );
                             JsonMaker.InsertNewLine( ref jsonToIndex );
@@ -171,19 +171,19 @@ public class CustomEditorWindow : EditorWindow
                                 {
                                     JsonMaker.InsertSpace( ref json, depth );
                                     JsonMaker.InsertKey( ref json, "Type" );
-                                    JsonMaker.InsertValue( ref json, result.Tables[ sheetCount ].Rows[ 3 ][ column ].ToString() );
+                                    JsonMaker.InsertValue( ref json, "", result.Tables[ sheetCount ].Rows[ 3 ][ column ].ToString() );
                                     JsonMaker.InsertRest( ref json );
                                     JsonMaker.InsertNewLine( ref json );
 
                                     JsonMaker.InsertSpace( ref json, depth );
                                     JsonMaker.InsertKey( ref json, "Value" );
-                                    JsonMaker.InsertValue( ref json, result.Tables[ sheetCount ].Rows[ row ][ column ].ToString() );
+                                    JsonMaker.InsertValue( ref json, result.Tables[ sheetCount ].Rows[ 3 ][ column ].ToString(), result.Tables[ sheetCount ].Rows[ row ][ column ].ToString() );
                                     JsonMaker.InsertRest( ref json );
                                     JsonMaker.InsertNewLine( ref json );
 
                                     JsonMaker.InsertSpace( ref json, depth );
                                     JsonMaker.InsertKey( ref json, "Desc" );
-                                    JsonMaker.InsertValue( ref json, result.Tables[ sheetCount ].Rows[ 1 ][ column ].ToString() );
+                                    JsonMaker.InsertValue( ref json, "", result.Tables[ sheetCount ].Rows[ 1 ][ column ].ToString() );
                                     JsonMaker.InsertNewLine( ref json );
                                 }
 

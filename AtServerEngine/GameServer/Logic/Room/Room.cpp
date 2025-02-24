@@ -51,9 +51,9 @@ AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 	{
 		Protocol::S_EnterGame enterGamePkt;
 		if ( success )
-			enterGamePkt.set_result( Protocol::EResultCode::Success );
+			enterGamePkt.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
 		else
-			enterGamePkt.set_result( Protocol::EResultCode::FailRoomEnter );
+			enterGamePkt.set_result( Protocol::EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
 
 		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
 		playerInfo->CopyFrom( *player->objectInfo );
@@ -149,7 +149,7 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 	// 입장 사실을 신입 플레이어에게 알린다
 	{
 		Protocol::S_EnterGame enterGamePkt;
-		success ? enterGamePkt.set_result( Protocol::EResultCode::Success ) : enterGamePkt.set_result( Protocol::EResultCode::FailRoomEnter );
+		success ? enterGamePkt.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS ) : enterGamePkt.set_result( Protocol::EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
 
 		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
 		playerInfo->CopyFrom( *player->objectInfo );

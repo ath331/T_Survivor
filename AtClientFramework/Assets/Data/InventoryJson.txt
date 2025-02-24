@@ -1,11 +1,11 @@
 { 
-    "IndexKeyType" : "AtInt32",
+    "IndexKeyType" : "int",
 
     "0" : 
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "0",
             "Desc" : "식별자"
         },
@@ -18,7 +18,7 @@
         "BagType" : 
         { 
             "Type" : "EBagType",
-            "Value" : "Equipment",
+            "Value" : "Protocol::EBagType::EBagTypeEquipment",
             "Desc" : "가방 타입"
         }
     },
@@ -27,7 +27,7 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "2",
             "Desc" : "식별자"
         },
@@ -40,7 +40,7 @@
         "BagType" : 
         { 
             "Type" : "EBagType",
-            "Value" : "Useable",
+            "Value" : "Protocol::EBagType::EBagTypeUseable",
             "Desc" : "가방 타입"
         }
     }    

@@ -1,23 +1,23 @@
 { 
-    "IndexKeyType" : "AtInt32",
+    "IndexKeyType" : "int",
 
     "0" : 
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "0",
             "Desc" : "식별자"
         },
         "Type" : 
         { 
             "Type" : "EActorType",
-            "Value" : "None",
+            "Value" : "Protocol::EActorType::EActorTypeNone",
             "Desc" : "타입"
         },
         "String" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "가나다",
             "Desc" : "스트링"
         }
@@ -27,19 +27,19 @@
     { 
         "Id" : 
         { 
-            "Type" : "AtInt32",
+            "Type" : "int",
             "Value" : "2",
             "Desc" : "식별자"
         },
         "Type" : 
         { 
             "Type" : "EActorType",
-            "Value" : "Npc",
+            "Value" : "Protocol::EActorType::EActorTypeNpc",
             "Desc" : "타입"
         },
         "String" : 
         { 
-            "Type" : "AtString",
+            "Type" : "string",
             "Value" : "아자차",
             "Desc" : "스트링"
         }
