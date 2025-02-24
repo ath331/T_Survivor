@@ -36,7 +36,7 @@ namespace Assets.Scripts.Network.Packet.Chat
 
 			inputChat.text = string.Empty;
 
-            Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }

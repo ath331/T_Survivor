@@ -20,7 +20,7 @@ namespace Assets.Scripts.Network.Packet.Room
 		{
 			C_WaitingRoomEnter pkt = new C_WaitingRoomEnter();
 
-			Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }

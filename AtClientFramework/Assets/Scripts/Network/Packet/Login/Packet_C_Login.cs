@@ -19,7 +19,7 @@ namespace Assets.Scripts.Network.Packet.Login
             pkt.Id = "ath331";
             pkt.Pw = 1234;
 
-            Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }

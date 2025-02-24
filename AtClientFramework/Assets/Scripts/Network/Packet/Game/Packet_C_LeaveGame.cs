@@ -20,7 +20,7 @@ namespace Assets.Scripts.Network.Packet.Game
 		{
 			C_LeaveGame pkt = new C_LeaveGame();
 
-			Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }

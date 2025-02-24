@@ -20,7 +20,7 @@ namespace Assets.Scripts.Network.Packet.Actor
 		{
 			C_Move pkt = new C_Move();
 
-			Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }

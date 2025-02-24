@@ -11,16 +11,13 @@ using Google.Protobuf;
 
 namespace Assets.Scripts.Network.Packet.Room
 {
-	public class Packet_C_EnterLobby : MonoBehaviour
+	public class Packet_C_EnterLobby
 	{
-		// base.Start() block
-		public void Start() {}
-
 		public void Send_C_EnterLobby()
 		{
 			C_EnterLobby pkt = new C_EnterLobby();
 
-			Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }

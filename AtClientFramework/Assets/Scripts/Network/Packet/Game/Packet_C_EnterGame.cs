@@ -20,7 +20,7 @@ namespace Assets.Scripts.Network.Packet.Game
 		{
 			C_EnterGame pkt = new C_EnterGame();
 
-			Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }

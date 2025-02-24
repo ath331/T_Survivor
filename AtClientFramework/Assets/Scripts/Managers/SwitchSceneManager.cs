@@ -54,6 +54,7 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
     private async UniTask LoadTitleScene()
     {
         await SceneManager.LoadSceneAsync("Title");
+
         splashCanvas.SetActive(false);
     }
 
