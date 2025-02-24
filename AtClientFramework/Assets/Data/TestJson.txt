@@ -12,7 +12,7 @@
         "Type" : 
         { 
             "Type" : "EActorType",
-            "Value" : "Protocol::EActorType::EActorTypeNone",
+            "Value" : "Protocol::EActorType::ACTOR_TYPE_NONE",
             "Desc" : "타입"
         },
         "String" : 
@@ -34,7 +34,7 @@
         "Type" : 
         { 
             "Type" : "EActorType",
-            "Value" : "Protocol::EActorType::EActorTypeNpc",
+            "Value" : "Protocol::EActorType::ACTOR_TYPE_NPC",
             "Desc" : "타입"
         },
         "String" : 

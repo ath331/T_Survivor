@@ -49,7 +49,7 @@ AtBool TestInfoManagerTemplate::_AddInfo(
 AtBool TestInfoManagerTemplate::_Initialize()
 {
 	INFO_LOG( "TestInfoManager Initialize()" );
-	if ( !_AddInfo( 0, Protocol::EActorType::ACTOR_TYPE_MAX, "가나다" ) ) return false;
+	if ( !_AddInfo( 0, Protocol::EActorType::ACTOR_TYPE_NONE, "가나다" ) ) return false;
 	if ( !_AddInfo( 2, Protocol::EActorType::ACTOR_TYPE_NPC, "아자차" ) ) return false;
 
 	return true;

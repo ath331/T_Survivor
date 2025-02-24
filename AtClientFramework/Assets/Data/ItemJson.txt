@@ -12,7 +12,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_KNIGHT",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_KNIGHT",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -30,13 +30,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeWeapon",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_WEAPON",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatStrength",
+            "Value" : "Protocol::EStat::STAT_STRENGTH",
             "Desc" : "스탯"
         },
         "StatParam" : 
@@ -58,7 +58,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_KNIGHT",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_KNIGHT",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -76,13 +76,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeSubWeapon",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_SUB_WEAPON",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatDefense",
+            "Value" : "Protocol::EStat::STAT_DEFENSE",
             "Desc" : "스탯"
         },
         "StatParam" : 
@@ -104,7 +104,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_MAX",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -122,13 +122,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeHelmet",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_HELMAT",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatDefense",
+            "Value" : "Protocol::EStat::STAT_DEFENSE",
             "Desc" : "스탯"
         },
         "StatParam" : 
@@ -150,7 +150,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_MAX",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -168,13 +168,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeArmor",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_ARMOR",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatDefense",
+            "Value" : "Protocol::EStat::STAT_DEFENSE",
             "Desc" : "스탯"
         },
         "StatParam" : 
@@ -196,7 +196,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_MAX",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -214,13 +214,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeGloves",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_GLOVES",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatDefense",
+            "Value" : "Protocol::EStat::STAT_DEFENSE",
             "Desc" : "스탯"
         },
         "StatParam" : 
@@ -242,7 +242,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypeMax",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_MAX",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -260,13 +260,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeBoots",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_BOOTS",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatSpeed",
+            "Value" : "Protocol::EStat::STAT_SPEED",
             "Desc" : "스탯"
         },
         "StatParam" : 
@@ -288,7 +288,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_MAGE",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_MAGE",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -306,13 +306,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeWeapon",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_WEAPON",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatIntelligence",
+            "Value" : "Protocol::EStat::STAT_INTELLIGENCE",
             "Desc" : "스탯"
         },
         "StatParam" : 
@@ -334,7 +334,7 @@
         "ClassType" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_MAGE",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_MAGE",
             "Desc" : "장착 직업"
         },
         "Name" : 
@@ -352,13 +352,13 @@
         "EquipSlotType" : 
         { 
             "Type" : "EEquipSlotType",
-            "Value" : "Protocol::EEquipSlotType::EEquipSlotTypeSubWeapon",
+            "Value" : "Protocol::EEquipSlotType::EQUIP_SLOT_TYPE_SUB_WEAPON",
             "Desc" : "장착 부위"
         },
         "Stat" : 
         { 
             "Type" : "EStat",
-            "Value" : "Protocol::EStat::EStatMP",
+            "Value" : "Protocol::EStat::STAT_MP",
             "Desc" : "스탯"
         },
         "StatParam" : 

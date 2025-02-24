@@ -18,7 +18,7 @@
         "BagType" : 
         { 
             "Type" : "EBagType",
-            "Value" : "Protocol::EBagType::EBagTypeEquipment",
+            "Value" : "Protocol::EBagType::BAG_TYPE_EQUIPMENT",
             "Desc" : "가방 타입"
         }
     },
@@ -40,7 +40,7 @@
         "BagType" : 
         { 
             "Type" : "EBagType",
-            "Value" : "Protocol::EBagType::EBagTypeUseable",
+            "Value" : "Protocol::EBagType::BAG_TYPE_USEABLE",
             "Desc" : "가방 타입"
         }
     }    

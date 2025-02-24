@@ -6,7 +6,7 @@
         "Id" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_KNIGHT",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_KNIGHT",
             "Desc" : "식별자"
         },
         "HP" : 
@@ -40,7 +40,7 @@
         "Id" : 
         { 
             "Type" : "EPlayerType",
-            "Value" : "Protocol::EPlayerType::EPlayerTypePLAYER_TYPE_MAGE",
+            "Value" : "Protocol::EPlayerType::PLAYER_TYPE_MAGE",
             "Desc" : "식별자"
         },
         "HP" : 

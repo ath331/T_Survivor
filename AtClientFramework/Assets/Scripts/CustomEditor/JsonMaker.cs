@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -56,10 +57,12 @@ public class JsonMaker : MonoBehaviour
     {
         if ( key.StartsWith( "E" ) )
         {
+            string resultString = _ProcessString( key );
+
             if ( value == "" )
-                return "Protocol::" + key + "::" + key + "Max";
+                return "Protocol::" + key + "::" + resultString + "_MAX";
             else
-                return "Protocol::" + key + "::" + key + value;
+                return "Protocol::" + key + "::" + value.ToUpper();
         }
         else
         {
@@ -72,5 +75,37 @@ public class JsonMaker : MonoBehaviour
         }
 
         return value;
+    }
+
+    private static string _ProcessString( string input )
+    {
+        // 입력 문자열의 길이가 1 이하라면 빈 문자열 반환
+        if ( string.IsNullOrEmpty( input ) || input.Length <= 1 )
+            return "";
+
+        // 1. 첫 번째 문자 제거
+        string str = input.Substring( 1 );
+
+        StringBuilder result = new StringBuilder();
+        int uppercaseCount = 0;
+        bool inserted = false;
+
+        // 2. 남은 문자열에서 두 번째 대문자 앞에 '_' 삽입
+        foreach ( char c in str )
+        {
+            if ( char.IsUpper( c ) )
+            {
+                uppercaseCount++;
+                if ( uppercaseCount == 2 && !inserted )
+                {
+                    result.Append( '_' );
+                    inserted = true;
+                }
+            }
+            result.Append( c );
+        }
+
+        // 3. 전체 문자열을 대문자로 변환하여 반환
+        return result.ToString().ToUpper();
     }
 }
