@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Assets.Scripts.Network;
+using System.Threading.Tasks;
+using Assets.Scripts.Network.Handler;
 
 public class LobbyController : MonoBehaviour, ISceneInitializer
 {
+    [SerializeField] private GameObject connectingPanel;
+
     private void Awake()
     {
         SceneInitializerRegistry.Register(this);
@@ -37,10 +42,33 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         // TODO : 초기화 완료 후 게임 시작 등 추가 작업 수행
         
+
     }
 
-    public void LoadPlayScene()
+    public void OnStartGameButtonClick()
     {
+        // 접속중임을 알리는 패널 활성화
+        connectingPanel.SetActive(true);
+
+        // S_EnterGame 성공 이벤트를 구독합니다.
+        PacketHandler.OnEnterGameSuccess += HandleEnterGameSuccess;
+
+        // Enter_Game 패킷 전송
+        NetworkManager.Instance.Enter_Game();
+    }
+
+    /// <summary>
+    /// S_EnterGame 성공 이벤트 핸들러
+    /// </summary>
+    private void HandleEnterGameSuccess()
+    {
+        // 이벤트 구독 해제
+        PacketHandler.OnEnterGameSuccess -= HandleEnterGameSuccess;
+
+        // 접속중 패널 비활성화
+        connectingPanel.SetActive(false);
+
+        // 게임 씬으로 전환
         SwitchSceneManager.Instance.ChangeTo("Game").Forget();
     }
 }

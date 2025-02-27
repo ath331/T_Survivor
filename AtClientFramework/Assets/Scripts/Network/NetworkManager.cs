@@ -9,6 +9,7 @@ using Assets.Scripts.Network.Handler;
 using Unity.VisualScripting;
 using Assets.Scripts.Network.Packet.Room;
 using Cysharp.Threading.Tasks;
+using Assets.Scripts.Network.Packet.Game;
 
 
 namespace Assets.Scripts.Network
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Network
         private bool _isInitialized = false;
 
         private Packet_C_EnterLobby enterLobbyPacket;
+        private Packet_C_EnterGame enterEnterGamePacket;
 
         /// <summary>
         /// 네트워크 매니저 초기화 메서드.
@@ -83,6 +85,14 @@ namespace Assets.Scripts.Network
 
                 if (enterLobbyPacket != null)
                     enterLobbyPacket.Send_C_EnterLobby();
+            }
+        }
+
+        public void Enter_Game()
+        {
+            if (enterEnterGamePacket != null)
+            {
+                enterEnterGamePacket.Send_C_EnterGame();
             }
         }
 
