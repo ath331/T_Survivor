@@ -113,7 +113,7 @@ AtVoid main()
 		return;
 	}
 
-	INFO_LOG_GREEN( "Server Start." );
+	INFO_LOG_GREEN( ip + ":" + port + " Server Start." );
 
 	int32 threadCount = 6;
 	for ( int32 i = 0; i < threadCount - 1; i++ )
@@ -126,20 +126,6 @@ AtVoid main()
 	}
 
 	GLobby->DoAsync( &Room::UpdateTick );
-
-
-	// Main Thread
-	// DoWorkerJob( service );
-
-	// while ( true )
-	// {
-	// 	Protocol::S_Chat pktChat;
-	// 	pktChat.set_msg( "HelloWorld" );
-	// 	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pktChat );
-	// 
-	// 	GSessionManager.Broadcast( sendBuffer );
-	// 	this_thread::sleep_for( 3s );
-	// }
 
 	GThreadManager->Join();
 }
