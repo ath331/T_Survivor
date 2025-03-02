@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Assets.Scripts.Network;
+using Protocol;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,8 +19,12 @@ public class PlayerController : MonoBehaviour
 
     public bool IsLocalPlayer { get; set; } // 내 캐릭터 여부 (NetworkManager에서 설정)
 
+    private ulong mercuryId = 0;
+
     // 현재 상태 (초기에는 Idle 상태)
     private IPlayerState currentState;
+
+    private Vector3 targetPosition;
 
     private void Awake()
     {
@@ -26,6 +33,10 @@ public class PlayerController : MonoBehaviour
 
         // 초기 상태를 IdleState로 설정
         ChangeState(new IdleState());
+
+        mercuryId = MercuryHelper.mercuryId;
+
+        Send_Move(transform.position);
     }
 
     private void Update()
@@ -60,5 +71,48 @@ public class PlayerController : MonoBehaviour
         // 다음 state Enter
         if (currentState != null)
             currentState.Enter(this);
+    }
+
+    public IPlayerState GetCurrentState()
+    {
+        return currentState;
+    }
+
+    public void Send_Move(Vector3 pos)
+    {
+        if (!IsLocalPlayer) return;
+
+        C_Move pkt = new C_Move
+        {
+            Info = new PosInfo
+            {
+                Id = mercuryId,
+
+                X = pos.x,
+                Y = pos.y,
+                Z = pos.z,
+            }
+        };
+
+        NetworkManager.Instance.Send(pkt);
+    }
+
+    /// <summary>
+    /// 네트워크에서 받은 위치 업데이트 (다른 플레이어 전용)
+    /// </summary>
+    public void UpdateNetworkPosition(Vector3 newPosition)
+    {
+        if (!IsLocalPlayer)
+        {
+            targetPosition = newPosition;
+        }
+    }
+
+    /// <summary>
+    /// 다른 플레이어의 위치를 서버 데이터로 부드럽게 보간 이동
+    /// </summary>
+    public void SyncWithNetwork()
+    {
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10f);
     }
 }

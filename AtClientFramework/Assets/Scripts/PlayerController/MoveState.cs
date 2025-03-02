@@ -24,9 +24,10 @@ public class MoveState : IPlayerState
         player.rb.velocity = Vector3.zero;
         player.animator.SetBool("IsMoving", false);
     }
-
     public void HandleInput()
     {
+        if (!player.IsLocalPlayer) return; // 내 캐릭터만 입력을 받음
+
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector3(h, 0f, v).normalized;
@@ -39,30 +40,39 @@ public class MoveState : IPlayerState
 
         if (Input.GetButtonDown("Fire1"))
         {
-            //player.ChangeState(new AttackState());
             return;
         }
     }
 
     public void UpdateState()
     {
-        // 애니메이션?
     }
 
     public void FixedUpdateState()
     {
-        if (moveDirection.magnitude >= 0.1f)
+        if (player.IsLocalPlayer)
         {
-            Vector3 targetDirection = moveDirection;
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-            player.rb.MoveRotation(Quaternion.RotateTowards(player.rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+            // 내 캐릭터는 직접 이동
+            if (moveDirection.magnitude >= 0.1f)
+            {
+                Vector3 targetDirection = moveDirection;
+                Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                player.rb.MoveRotation(Quaternion.RotateTowards(player.rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
 
-            Vector3 velocity = targetDirection * moveSpeed;
-            player.rb.velocity = new Vector3(velocity.x, player.rb.velocity.y, velocity.z);
+                Vector3 velocity = targetDirection * moveSpeed;
+                player.rb.velocity = new Vector3(velocity.x, player.rb.velocity.y, velocity.z);
+
+                player.Send_Move(player.transform.position);
+            }
+            else
+            {
+                player.rb.velocity = Vector3.zero;
+            }
         }
         else
         {
-            player.rb.velocity = Vector3.zero;
+            // 다른 플레이어는 네트워크에서 받은 위치를 따라 이동
+            player.SyncWithNetwork();
         }
     }
 }

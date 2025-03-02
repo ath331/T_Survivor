@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 using Assets.Scripts.Network;
 using System.Threading.Tasks;
 using Assets.Scripts.Network.Handler;
+using Protocol;
 
 public class LobbyController : MonoBehaviour, ISceneInitializer
 {
@@ -60,8 +61,9 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         // 접속중임을 알리는 패널 활성화
         connectingPanel.SetActive(true);
 
-        // Enter_Game 패킷 전송
-        NetworkManager.Instance.Enter_Game();
+        C_EnterGame pkt = new C_EnterGame();
+
+        NetworkManager.Instance.Send(pkt);
     }
 
     /// <summary>

@@ -11,6 +11,8 @@ using Assets.Scripts.Network.Packet.Room;
 using Cysharp.Threading.Tasks;
 using Assets.Scripts.Network.Packet.Game;
 using System.Collections.Generic;
+using Assets.Scripts.Network.Packet.Actor;
+using Protocol;
 
 
 namespace Assets.Scripts.Network
@@ -19,16 +21,13 @@ namespace Assets.Scripts.Network
     {
         private static readonly NetworkManager _instance = new NetworkManager();
         public static NetworkManager Instance => _instance;
-        private Dictionary<ulong, GameObject> _spawnedPlayers = new Dictionary<ulong, GameObject>();
+        private Dictionary<ulong, PlayerController> _spawnedPlayers = new Dictionary<ulong, PlayerController>();
 
         private TcpClient _socketConnection;
         private NetworkStream _stream;
         private bool _isConnected = false;
         private bool _isInitialized = false;
 
-        private Packet_C_EnterLobby enterLobbyPacket;
-        private Packet_C_EnterGame enterEnterGamePacket;
-        private Packet_C_EnterGameFinish enterEnterGameFinishPacket;
 
         /// <summary>
         /// 네트워크 매니저 초기화 메서드.
@@ -39,12 +38,7 @@ namespace Assets.Scripts.Network
             if (_isInitialized)
                 return;
 
-            // 필요한 초기화 작업 수행 (ex: 패킷 인스턴스 생성)
-            enterLobbyPacket = new Packet_C_EnterLobby();
-            enterEnterGamePacket = new Packet_C_EnterGame();
-            enterEnterGameFinishPacket = new Packet_C_EnterGameFinish();
-
-            _spawnedPlayers = new Dictionary<ulong, GameObject>();
+            _spawnedPlayers = new Dictionary<ulong, PlayerController>();
 
             _isInitialized = true;
 
@@ -71,7 +65,7 @@ namespace Assets.Scripts.Network
             controller.IsLocalPlayer = (playerId == MercuryHelper.mercuryId);
 
             // 생성된 플레이어 저장
-            _spawnedPlayers[playerId] = playerObject;
+            _spawnedPlayers[playerId] = controller;
             Debug.Log($"[NetworkManager] 플레이어 {playerId} 스폰됨.");
         }
 
@@ -80,11 +74,16 @@ namespace Assets.Scripts.Network
         {
             if (_spawnedPlayers.ContainsKey(playerId))
             {
-                GameObject playerObject = _spawnedPlayers[playerId];
-                ObjectPoolManager.Instance.Return("Character", playerObject); // 오브젝트 풀로 반환
+                PlayerController playerObject = _spawnedPlayers[playerId];
+                ObjectPoolManager.Instance.Return("Character", playerObject.gameObject); // 오브젝트 풀로 반환
                 _spawnedPlayers.Remove(playerId);
                 Debug.Log($"[NetworkManager] 플레이어 {playerId} 제거됨.");
             }
+        }
+
+        public bool TryGetPlayer(ulong playerId, out PlayerController player)
+        {
+            return _spawnedPlayers.TryGetValue(playerId, out player);
         }
 
         public async void ConnectToTcpServer(string inputIp, string inputPort)
@@ -126,24 +125,9 @@ namespace Assets.Scripts.Network
                 _ = Task.Run(_ReadAsync);
 
 
-                if (enterLobbyPacket != null)
-                    enterLobbyPacket.Send_C_EnterLobby();
-            }
-        }
+                C_EnterLobby pkt = new C_EnterLobby();
 
-        public void Enter_Game()
-        {
-            if (enterEnterGamePacket != null)
-            {
-                enterEnterGamePacket.Send_C_EnterGame();
-            }
-        }
-
-        public void Enter_Game_Finish()
-        {
-            if (enterEnterGameFinishPacket != null)
-            {
-                enterEnterGameFinishPacket.Send_C_EnterGameFinish();
+                Send(pkt);
             }
         }
 

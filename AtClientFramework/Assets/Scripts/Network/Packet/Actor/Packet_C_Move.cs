@@ -16,9 +16,10 @@ namespace Assets.Scripts.Network.Packet.Actor
 		// base.Start() block
 		public void Start() {}
 
-		public void Send_C_Move()
+		public void Send_C_Move(Vector3 pos)
 		{
 			C_Move pkt = new C_Move();
+			
 
 			NetworkManager.Instance.Send( pkt );
 		}
