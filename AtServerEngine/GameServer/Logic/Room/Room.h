@@ -16,12 +16,16 @@ class Room
 	: 
 	public JobQueue
 {
-private:
-	/// 방 번호
-	static std::atomic< AtInt32 > roomNum;
+public:
+	/// 콜백함수 타입 정의
+	using CallbackFunc = std::function< AtVoid() >;
 
 	/// 플레이어를 받는 콜백함수 타입 정의
 	using CallbackPlayer = std::function< AtVoid( PlayerPtr ) >;
+
+private:
+	/// 방 번호
+	static std::atomic< AtInt32 > roomNum;
 
 public:
 	/// 생성자
@@ -37,7 +41,7 @@ public:
 	AtBool LeaveRoom( ObjectPtr object );
 
 	/// 플레이어를 방에 입장시킨다.
-	virtual AtBool HandleEnterPlayer( PlayerPtr player );
+	virtual AtBool HandleEnterPlayer( PlayerPtr player, CallbackFunc callback = nullptr );
 
 	/// 플레이어를 방에서 내보낸다.
 	AtBool HandleLeavePlayer( PlayerPtr player );
@@ -50,6 +54,9 @@ public:
 
 	/// 플레이어들을 순회한다.
 	AtVoid ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId = 0 );
+
+	/// 플레이어끼리 싱크한다.
+	AtVoid SyncPlayers( PlayerPtr enterPlayer );
 
 	/// 룸 넘버를 반환한다.
 	AtInt32 GetRoomNum() { return roomNum; }

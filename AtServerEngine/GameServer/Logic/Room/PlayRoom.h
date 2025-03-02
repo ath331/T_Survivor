@@ -20,9 +20,6 @@ public:
 	PlayRoom();
 
 public:
-	/// 플레이어를 방에 입장시킨다.
-	virtual AtBool HandleEnterPlayer( PlayerPtr player ) override;
-
 	/// 룸을 업데이트한다.
 	virtual AtVoid UpdateTick() override;
 };

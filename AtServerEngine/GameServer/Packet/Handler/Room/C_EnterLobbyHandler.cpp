@@ -24,7 +24,18 @@ AtBool C_EnterLobbyHandler::Handle( PacketSessionPtr& session, Protocol::C_Enter
 	PlayerPtr player = ObjectUtils::CreatePlayer( gameSession );
 	player->objectInfo->set_id( gameSession->GetSessionId() );
 
-	GLobby->DoAsync( &Room::HandleEnterPlayer, player );
+	GLobby->DoAsync(
+		&Room::HandleEnterPlayer,
+		player,
+		(Room::CallbackFunc)( [ player ]()
+							  {
+								  Protocol::S_EnterLobby result;
+								  result.set_success( true );
+								  result.set_playerid( player->GetId() );
+
+								  if ( auto session = player->session.lock() )
+									  session->Send( result );
+							  } ) );
 
 	return true;
 }

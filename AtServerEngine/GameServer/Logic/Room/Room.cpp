@@ -135,10 +135,11 @@ AtBool Room::LeaveRoom( ObjectPtr object )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 플레이어를 방에 입장시킨다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::HandleEnterPlayer( PlayerPtr player )
+AtBool Room::HandleEnterPlayer( PlayerPtr player, CallbackFunc callback )
 {
 	AtBool success = _AddObject( player );
 
+	// TODO : S_EnterGame으로 옮기기 
 	// 랜덤 위치
 	player->posInfo->set_x  ( Utils::GetRandom( 0.f, 500.f ) );
 	player->posInfo->set_y  ( Utils::GetRandom( 0.f, 500.f ) );
@@ -146,48 +147,13 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 	player->posInfo->set_z  ( 100.f );
 	player->posInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
 
-	// 입장 사실을 신입 플레이어에게 알린다
-	{
-		Protocol::S_EnterGame enterGamePkt;
-		success ? enterGamePkt.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS ) : enterGamePkt.set_result( Protocol::EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
+	if ( !success )
+		return false;
 
-		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
-		playerInfo->CopyFrom( *player->objectInfo );
-		enterGamePkt.set_allocated_player( playerInfo );
-		//enterGamePkt.release_player();
+	if ( callback )
+		callback();
 
-		if ( auto session = player->session.lock() )
-			session->Send( enterGamePkt );
-	}
-
-	// 입장 사실을 다른 플레이어에게 알린다
-	{
-		Protocol::S_Spawn spawnPkt;
-
-		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
-		playerInfo->CopyFrom( *player->objectInfo );
-
-		_Broadcast( spawnPkt, player->objectInfo->id() );
-	}
-
-	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
-	{
-		Protocol::S_Spawn spawnPkt;
-
-		for ( auto& item : m_objects )
-		{
-			if ( !item.second->IsPlayer() )
-				continue;
-
-			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
-			playerInfo->CopyFrom( *item.second->objectInfo );
-		}
-
-		if ( auto session = player->session.lock() )
-			session->Send( spawnPkt );
-	}
-
-	return success;
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -275,6 +241,42 @@ AtVoid Room::ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId )
 			continue;
 
 		callback( player );
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 플레이어끼리 싱크한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::SyncPlayers( PlayerPtr enterPlayer )
+{
+	if ( !enterPlayer )
+		return;
+
+	// 입장 사실을 다른 플레이어에게 알린다
+	{
+		Protocol::S_Spawn spawnPkt;
+
+		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+		playerInfo->CopyFrom( *enterPlayer->objectInfo );
+
+		_Broadcast( spawnPkt, enterPlayer->objectInfo->id() );
+	}
+
+	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
+	{
+		Protocol::S_Spawn spawnPkt;
+
+		for ( auto& item : m_objects )
+		{
+			if ( !item.second->IsPlayer() )
+				continue;
+
+			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+			playerInfo->CopyFrom( *item.second->objectInfo );
+		}
+
+		if ( auto session = enterPlayer->session.lock() )
+			session->Send( spawnPkt );
 	}
 }
 
