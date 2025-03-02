@@ -16,8 +16,9 @@ namespace Assets.Scripts.Network.Handler
 		{
 			S_Spawn message = S_Spawn.Parser.ParseFrom( data );
 
-			// TODO : 성공 / 실패에 따라 분기
-			var infos = message.Players;
+			var playerInfos = message.Players;
+
+			
         }
 	}
 }

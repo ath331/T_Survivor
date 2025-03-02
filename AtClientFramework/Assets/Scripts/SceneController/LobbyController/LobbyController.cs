@@ -16,10 +16,20 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         SceneInitializerRegistry.Register(this);
     }
 
-
     private void OnDestroy()
     {
         SceneInitializerRegistry.Unregister(this);
+    }
+
+    private void OnEnable()
+    {
+        // S_EnterGame 성공 이벤트를 구독합니다.
+        PacketHandler.OnEnterGameSuccess += HandleEnterGameSuccess;
+    }
+
+    private void OnDisable()
+    {
+        PacketHandler.OnEnterGameSuccess -= HandleEnterGameSuccess;
     }
 
     /// <summary>
@@ -50,9 +60,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         // 접속중임을 알리는 패널 활성화
         connectingPanel.SetActive(true);
 
-        // S_EnterGame 성공 이벤트를 구독합니다.
-        PacketHandler.OnEnterGameSuccess += HandleEnterGameSuccess;
-
         // Enter_Game 패킷 전송
         NetworkManager.Instance.Enter_Game();
     }
@@ -62,9 +69,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     /// </summary>
     private void HandleEnterGameSuccess()
     {
-        // 이벤트 구독 해제
-        PacketHandler.OnEnterGameSuccess -= HandleEnterGameSuccess;
-
         // 접속중 패널 비활성화
         connectingPanel.SetActive(false);
 
