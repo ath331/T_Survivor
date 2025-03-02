@@ -15,6 +15,9 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_Spawn_Handler( ushort protocolId, byte[] data )
 		{
 			S_Spawn message = S_Spawn.Parser.ParseFrom( data );
-		}
+
+			// TODO : 성공 / 실패에 따라 분기
+			var infos = message.Players;
+        }
 	}
 }

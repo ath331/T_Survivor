@@ -11,11 +11,8 @@ using Google.Protobuf;
 
 namespace Assets.Scripts.Network.Packet.Game
 {
-	public class Packet_C_EnterGame : MonoBehaviour
+	public class Packet_C_EnterGame
 	{
-		// base.Start() block
-		public void Start() {}
-
 		public void Send_C_EnterGame()
 		{
 			C_EnterGame pkt = new C_EnterGame();

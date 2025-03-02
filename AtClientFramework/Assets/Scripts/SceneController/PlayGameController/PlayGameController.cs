@@ -24,6 +24,8 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
         Debug.Log("Game Started!");
 
         // 예시: 플레이어 스폰, 게임 상태 전환, 멀티플레이어 세션 시작 등
+
+        // C_EnterGameFinish 를 전송한다.
     }
 
     // 게임 종료 로직 구현

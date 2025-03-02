@@ -26,6 +26,7 @@ namespace Assets.Scripts.Network
 
         private Packet_C_EnterLobby enterLobbyPacket;
         private Packet_C_EnterGame enterEnterGamePacket;
+        private Packet_C_EnterGameFinish enterEnterGameFinishPacket;
 
         /// <summary>
         /// 네트워크 매니저 초기화 메서드.
@@ -38,6 +39,8 @@ namespace Assets.Scripts.Network
 
             // 필요한 초기화 작업 수행 (ex: 패킷 인스턴스 생성)
             enterLobbyPacket = new Packet_C_EnterLobby();
+            enterEnterGamePacket = new Packet_C_EnterGame();
+            enterEnterGameFinishPacket = new Packet_C_EnterGameFinish();
 
             _isInitialized = true;
 
@@ -93,6 +96,14 @@ namespace Assets.Scripts.Network
             if (enterEnterGamePacket != null)
             {
                 enterEnterGamePacket.Send_C_EnterGame();
+            }
+        }
+
+        public void Enter_Game_Finish()
+        {
+            if (enterEnterGameFinishPacket != null)
+            {
+                enterEnterGameFinishPacket.Send_C_EnterGameFinish();
             }
         }
 
