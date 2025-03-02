@@ -14,7 +14,7 @@ namespace Assets.Scripts.Network.Handler
 
 			if ( message.Success )
 			{
-				GameSupervisor.Instance.Test_ToLobby((int)message.PlayerId).Forget();
+				GameSupervisor.Instance.Test_ToLobby(message.PlayerId).Forget();
 			}
         }
     }

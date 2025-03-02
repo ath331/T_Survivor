@@ -27,11 +27,11 @@ public class MercuryHelper
         }
     }
 
-    public static int mercuryId = -1;
+    public static ulong mercuryId = 0;
 
-    public static bool IsReady => CurrentState == LoginState.Completed_Connect && mercuryId == -1;
+    public static bool IsReady => CurrentState == LoginState.Completed_Connect && mercuryId != 0;
 
-    public static async UniTask LoginProcess(int id)
+    public static async UniTask LoginProcess(ulong id)
     {
         mercuryId = id;
 

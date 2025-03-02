@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public IWeapon EquippedWeapon { get; private set; }
     public List<Skill> Skills { get; private set; } = new List<Skill>();
 
+    public bool IsLocalPlayer { get; set; } // 내 캐릭터 여부 (NetworkManager에서 설정)
+
     // 현재 상태 (초기에는 Idle 상태)
     private IPlayerState currentState;
 
@@ -28,8 +30,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // input update
-        currentState.HandleInput();
+        if (IsLocalPlayer)
+        {
+            // input update
+            currentState.HandleInput(); 
+        }
 
         // state update
         currentState.UpdateState();

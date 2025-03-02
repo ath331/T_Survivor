@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Assets.Scripts.Network;
 
 // 구체적인 게임 컨트롤러 구현: 실제 Play 씬에서 동작할 컨트롤러
 public class PlayGameController : AbstractPlayGameController, ISceneInitializer
@@ -26,6 +27,9 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
         // 예시: 플레이어 스폰, 게임 상태 전환, 멀티플레이어 세션 시작 등
 
         // C_EnterGameFinish 를 전송한다.
+        NetworkManager.Instance.Enter_Game_Finish();
+
+
     }
 
     // 게임 종료 로직 구현

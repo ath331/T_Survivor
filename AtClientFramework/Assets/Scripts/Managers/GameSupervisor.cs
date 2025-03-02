@@ -11,9 +11,11 @@ public class GameSupervisor : SingletonMonoBehaviour<GameSupervisor>
         base.Awake();
 
         NetworkManager.Instance.Initialize();
+
+        ObjectPoolManager.Instance.Initialize();
     }
 
-    public async UniTask Test_ToLobby(int id)
+    public async UniTask Test_ToLobby(ulong id)
     {
         // MercuryHelper를 통해 mercuryId 를 부여 받는다.
         await MercuryHelper.LoginProcess(id);
