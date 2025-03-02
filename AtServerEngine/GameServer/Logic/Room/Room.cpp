@@ -139,14 +139,6 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player, CallbackFunc callback )
 {
 	AtBool success = _AddObject( player );
 
-	// TODO : S_EnterGame으로 옮기기 
-	// 랜덤 위치
-	player->posInfo->set_x  ( Utils::GetRandom( 0.f, 500.f ) );
-	player->posInfo->set_y  ( Utils::GetRandom( 0.f, 500.f ) );
-	//player->playerInfo->set_z  ( Utils::GetRandom( 0.f, 500.f ) );
-	player->posInfo->set_z  ( 100.f );
-	player->posInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
-
 	if ( !success )
 		return false;
 

@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "C_EnterGameHandler.h"
+#include "Logic/Utils/Utils.h"
 #include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Utils/ObjectUtils.h"
 #include "Logic/Room/PlayRoom.h"
@@ -35,22 +36,26 @@ AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterG
 		return false;
 
 	room->ForeachPlayer(
-		[ playRoom ]( PlayerPtr player )
+		[ playRoom ]( PlayerPtr eachPlayer )
 		{
+			eachPlayer->posInfo->set_x( Utils::GetRandom( -15.f, 15.f ) );
+			eachPlayer->posInfo->set_z( Utils::GetRandom( -15.f, 15.f ) );
+			eachPlayer->posInfo->set_y( 0.0f );
+			//eachPlayer->posInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
+
 			playRoom->DoAsync(
 				&Room::HandleEnterPlayer,
-				player,
-				(Room::CallbackFunc)( [ player ]()
+				eachPlayer,
+				(Room::CallbackFunc)( [ eachPlayer ]()
 									  {
 										  Protocol::S_EnterGame enterGamePkt;
 										  enterGamePkt.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
 
 										  Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
-										  playerInfo->CopyFrom( *player->objectInfo );
+										  playerInfo->CopyFrom( *eachPlayer->objectInfo );
 										  enterGamePkt.set_allocated_player( playerInfo );
-										  //enterGamePkt.release_player();
 
-										  if ( auto session = player->session.lock() )
+										  if ( auto session = eachPlayer->session.lock() )
 											  session->Send( enterGamePkt );
 									  } ) );
 		} );
