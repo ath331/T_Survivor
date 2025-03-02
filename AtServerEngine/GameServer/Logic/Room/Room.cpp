@@ -229,14 +229,8 @@ AtVoid Room::BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid Room::ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId )
 {
-	// TODO : 모든 오브젝트를 순회할 필요는 없으니 플레이어 컨테이너를 따로 만들기
-	for ( const auto& object : m_objects )
+	for ( const auto& [ playerId, player ] : m_players )
 	{
-		ObjectPtr objectPtr = object.second;
-		if ( !objectPtr )
-			continue;
-
-		PlayerPtr player = dynamic_pointer_cast<Player>( objectPtr );
 		if ( !player )
 			continue;
 
@@ -307,6 +301,11 @@ AtBool Room::_AddObject( ObjectPtr object )
 	m_objects.insert( make_pair( object->objectInfo->id(), object ) );
 
 	object->room.store( GetPtr() );
+
+	if ( PlayerPtr player = std::dynamic_pointer_cast<Player>( object ) )
+	{
+		m_players[ player->GetId() ] = player;
+	}
 
 	return true;
 }

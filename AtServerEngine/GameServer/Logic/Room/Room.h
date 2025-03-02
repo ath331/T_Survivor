@@ -80,5 +80,9 @@ protected:
 	AtVoid _Broadcast( google::protobuf::Message& pkt, uint64 exceptId = 0 );
 
 protected:
+	/// 모든 오브젝트 맵
 	unordered_map<uint64, ObjectPtr > m_objects;
+
+	/// 플레이어 맵
+	unordered_map<uint64, PlayerPtr > m_players;
 };
