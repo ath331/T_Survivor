@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
 
         mercuryId = MercuryHelper.mercuryId;
 
+        targetPosition = Vector3.zero;
+        targetRotation = Quaternion.identity;
+
         Send_Move();
     }
 
