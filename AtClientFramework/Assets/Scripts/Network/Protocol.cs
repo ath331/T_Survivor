@@ -41,14 +41,15 @@ namespace Protocol {
             "CwoDbXNnGAEgASgJIicKBlNfQ2hhdBIQCghwbGF5ZXJJZBgBIAEoBBILCgNt",
             "c2cYAiABKAkiJQoSQ19XYWl0aW5nUm9vbUVudGVyEg8KB3Jvb21OdW0YASAB",
             "KAUiOwoSU19XYWl0aW5nUm9vbUVudGVyEiUKBnJlc3VsdBgBIAEoDjIVLlBy",
-            "b3RvY29sLkVSZXN1bHRDb2RlIm4KEENfQW5pbWF0aW9uRXZlbnQSFQoNYW5p",
-            "bWF0aW9uVHlwZRgBIAEoCRIwCglwYXJhbVR5cGUYAiABKA4yHS5Qcm90b2Nv",
-            "bC5FQW5pbWF0aW9uUGFyYW1UeXBlEhEKCWJvb2xWYWx1ZRgDIAEoCCKnAQoQ",
-            "U19BbmltYXRpb25FdmVudBIlCgZyZXN1bHQYASABKA4yFS5Qcm90b2NvbC5F",
-            "UmVzdWx0Q29kZRIQCghwbGF5ZXJJZBgCIAEoBBIVCg1hbmltYXRpb25UeXBl",
-            "GAMgASgJEjAKCXBhcmFtVHlwZRgEIAEoDjIdLlByb3RvY29sLkVBbmltYXRp",
-            "b25QYXJhbVR5cGUSEQoJYm9vbFZhbHVlGAUgASgIQguqAghQcm90b2NvbGIG",
-            "cHJvdG8z"));
+            "b3RvY29sLkVSZXN1bHRDb2RlIoIBChBDX0FuaW1hdGlvbkV2ZW50EhUKDWFu",
+            "aW1hdGlvblR5cGUYASABKAkSMAoJcGFyYW1UeXBlGAIgASgOMh0uUHJvdG9j",
+            "b2wuRUFuaW1hdGlvblBhcmFtVHlwZRIRCglib29sVmFsdWUYAyABKAgSEgoK",
+            "ZmxvYXRWYWx1ZRgEIAEoAiK7AQoQU19BbmltYXRpb25FdmVudBIlCgZyZXN1",
+            "bHQYASABKA4yFS5Qcm90b2NvbC5FUmVzdWx0Q29kZRIQCghwbGF5ZXJJZBgC",
+            "IAEoBBIVCg1hbmltYXRpb25UeXBlGAMgASgJEjAKCXBhcmFtVHlwZRgEIAEo",
+            "DjIdLlByb3RvY29sLkVBbmltYXRpb25QYXJhbVR5cGUSEQoJYm9vbFZhbHVl",
+            "GAUgASgIEhIKCmZsb2F0VmFsdWUYBiABKAJCC6oCCFByb3RvY29sYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protocol.EnumReflection.Descriptor, global::Protocol.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -70,8 +71,8 @@ namespace Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_Chat), global::Protocol.S_Chat.Parser, new[]{ "PlayerId", "Msg" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_WaitingRoomEnter), global::Protocol.C_WaitingRoomEnter.Parser, new[]{ "RoomNum" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_WaitingRoomEnter), global::Protocol.S_WaitingRoomEnter.Parser, new[]{ "Result" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_AnimationEvent), global::Protocol.C_AnimationEvent.Parser, new[]{ "AnimationType", "ParamType", "BoolValue" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_AnimationEvent), global::Protocol.S_AnimationEvent.Parser, new[]{ "Result", "PlayerId", "AnimationType", "ParamType", "BoolValue" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_AnimationEvent), global::Protocol.C_AnimationEvent.Parser, new[]{ "AnimationType", "ParamType", "BoolValue", "FloatValue" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_AnimationEvent), global::Protocol.S_AnimationEvent.Parser, new[]{ "Result", "PlayerId", "AnimationType", "ParamType", "BoolValue", "FloatValue" }, null, null, null, null)
           }));
     }
     #endregion
@@ -3309,6 +3310,7 @@ namespace Protocol {
       animationType_ = other.animationType_;
       paramType_ = other.paramType_;
       boolValue_ = other.boolValue_;
+      floatValue_ = other.floatValue_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3350,6 +3352,20 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "floatValue" field.</summary>
+    public const int FloatValueFieldNumber = 4;
+    private float floatValue_;
+    /// <summary>
+    /// SetFloat 용 값
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float FloatValue {
+      get { return floatValue_; }
+      set {
+        floatValue_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as C_AnimationEvent);
@@ -3366,6 +3382,7 @@ namespace Protocol {
       if (AnimationType != other.AnimationType) return false;
       if (ParamType != other.ParamType) return false;
       if (BoolValue != other.BoolValue) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(FloatValue, other.FloatValue)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3375,6 +3392,7 @@ namespace Protocol {
       if (AnimationType.Length != 0) hash ^= AnimationType.GetHashCode();
       if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) hash ^= ParamType.GetHashCode();
       if (BoolValue != false) hash ^= BoolValue.GetHashCode();
+      if (FloatValue != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(FloatValue);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3403,6 +3421,10 @@ namespace Protocol {
         output.WriteRawTag(24);
         output.WriteBool(BoolValue);
       }
+      if (FloatValue != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(FloatValue);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3424,6 +3446,10 @@ namespace Protocol {
         output.WriteRawTag(24);
         output.WriteBool(BoolValue);
       }
+      if (FloatValue != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(FloatValue);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3441,6 +3467,9 @@ namespace Protocol {
       }
       if (BoolValue != false) {
         size += 1 + 1;
+      }
+      if (FloatValue != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3461,6 +3490,9 @@ namespace Protocol {
       }
       if (other.BoolValue != false) {
         BoolValue = other.BoolValue;
+      }
+      if (other.FloatValue != 0F) {
+        FloatValue = other.FloatValue;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3488,6 +3520,10 @@ namespace Protocol {
             BoolValue = input.ReadBool();
             break;
           }
+          case 37: {
+            FloatValue = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -3512,6 +3548,10 @@ namespace Protocol {
           }
           case 24: {
             BoolValue = input.ReadBool();
+            break;
+          }
+          case 37: {
+            FloatValue = input.ReadFloat();
             break;
           }
         }
@@ -3558,6 +3598,7 @@ namespace Protocol {
       animationType_ = other.animationType_;
       paramType_ = other.paramType_;
       boolValue_ = other.boolValue_;
+      floatValue_ = other.floatValue_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3621,6 +3662,20 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "floatValue" field.</summary>
+    public const int FloatValueFieldNumber = 6;
+    private float floatValue_;
+    /// <summary>
+    /// SetFloat 용 값
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float FloatValue {
+      get { return floatValue_; }
+      set {
+        floatValue_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as S_AnimationEvent);
@@ -3639,6 +3694,7 @@ namespace Protocol {
       if (AnimationType != other.AnimationType) return false;
       if (ParamType != other.ParamType) return false;
       if (BoolValue != other.BoolValue) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(FloatValue, other.FloatValue)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3650,6 +3706,7 @@ namespace Protocol {
       if (AnimationType.Length != 0) hash ^= AnimationType.GetHashCode();
       if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) hash ^= ParamType.GetHashCode();
       if (BoolValue != false) hash ^= BoolValue.GetHashCode();
+      if (FloatValue != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(FloatValue);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3686,6 +3743,10 @@ namespace Protocol {
         output.WriteRawTag(40);
         output.WriteBool(BoolValue);
       }
+      if (FloatValue != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(FloatValue);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3715,6 +3776,10 @@ namespace Protocol {
         output.WriteRawTag(40);
         output.WriteBool(BoolValue);
       }
+      if (FloatValue != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(FloatValue);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3738,6 +3803,9 @@ namespace Protocol {
       }
       if (BoolValue != false) {
         size += 1 + 1;
+      }
+      if (FloatValue != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3764,6 +3832,9 @@ namespace Protocol {
       }
       if (other.BoolValue != false) {
         BoolValue = other.BoolValue;
+      }
+      if (other.FloatValue != 0F) {
+        FloatValue = other.FloatValue;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3799,6 +3870,10 @@ namespace Protocol {
             BoolValue = input.ReadBool();
             break;
           }
+          case 53: {
+            FloatValue = input.ReadFloat();
+            break;
+          }
         }
       }
     #endif
@@ -3831,6 +3906,10 @@ namespace Protocol {
           }
           case 40: {
             BoolValue = input.ReadBool();
+            break;
+          }
+          case 53: {
+            FloatValue = input.ReadFloat();
             break;
           }
         }
