@@ -220,6 +220,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Utils\Utils.h" />
     <ClInclude Include="Packet\Enum.pb.h" />
     <ClInclude Include="Packet\Handler\Actor\C_MoveHandler.h" />
+    <ClInclude Include="Packet\Handler\Anim\C_AnimationEventHandler.h" />
     <ClInclude Include="Packet\Handler\Chat\C_ChatHandler.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
     <ClInclude Include="Packet\Handler\Game\C_EnterGameFinishHandler.h" />
@@ -276,8 +277,10 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Utils\Time\AtTime.cpp" />
     <ClCompile Include="Logic\Utils\Utils.cpp" />
     <ClCompile Include="Packet\Handler\Actor\C_MoveHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Anim\C_AnimationEventHandler.cpp" />
     <ClCompile Include="Packet\Handler\Chat\C_ChatHandler.cpp" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
+    <ClCompile Include="Packet\Handler\C_AnimationEventHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_ChatHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_EnterGameFinishHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_EnterGameHandlerTemplate.cpp" />

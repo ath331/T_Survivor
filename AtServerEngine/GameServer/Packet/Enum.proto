@@ -80,3 +80,10 @@ enum EStat
 	STAT_INTELLIGENCE = 6; // Áö´É
 	STAT_MAX = 7;
 }
+
+enum EAnimationParamType
+{
+	ANIM_PARAM_TYPE_BOOL = 0;
+	ANIM_PARAM_TYPE_FLOAT = 1;
+	ANIM_PARAM_TYPE_TRIGGER = 2;
+}

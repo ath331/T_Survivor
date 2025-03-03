@@ -41,7 +41,14 @@ namespace Protocol {
             "CwoDbXNnGAEgASgJIicKBlNfQ2hhdBIQCghwbGF5ZXJJZBgBIAEoBBILCgNt",
             "c2cYAiABKAkiJQoSQ19XYWl0aW5nUm9vbUVudGVyEg8KB3Jvb21OdW0YASAB",
             "KAUiOwoSU19XYWl0aW5nUm9vbUVudGVyEiUKBnJlc3VsdBgBIAEoDjIVLlBy",
-            "b3RvY29sLkVSZXN1bHRDb2RlQguqAghQcm90b2NvbGIGcHJvdG8z"));
+            "b3RvY29sLkVSZXN1bHRDb2RlIm4KEENfQW5pbWF0aW9uRXZlbnQSFQoNYW5p",
+            "bWF0aW9uVHlwZRgBIAEoCRIwCglwYXJhbVR5cGUYAiABKA4yHS5Qcm90b2Nv",
+            "bC5FQW5pbWF0aW9uUGFyYW1UeXBlEhEKCWJvb2xWYWx1ZRgDIAEoCCKnAQoQ",
+            "U19BbmltYXRpb25FdmVudBIlCgZyZXN1bHQYASABKA4yFS5Qcm90b2NvbC5F",
+            "UmVzdWx0Q29kZRIQCghwbGF5ZXJJZBgCIAEoBBIVCg1hbmltYXRpb25UeXBl",
+            "GAMgASgJEjAKCXBhcmFtVHlwZRgEIAEoDjIdLlByb3RvY29sLkVBbmltYXRp",
+            "b25QYXJhbVR5cGUSEQoJYm9vbFZhbHVlGAUgASgIQguqAghQcm90b2NvbGIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protocol.EnumReflection.Descriptor, global::Protocol.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -62,7 +69,9 @@ namespace Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_Chat), global::Protocol.C_Chat.Parser, new[]{ "Msg" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_Chat), global::Protocol.S_Chat.Parser, new[]{ "PlayerId", "Msg" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_WaitingRoomEnter), global::Protocol.C_WaitingRoomEnter.Parser, new[]{ "RoomNum" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_WaitingRoomEnter), global::Protocol.S_WaitingRoomEnter.Parser, new[]{ "Result" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_WaitingRoomEnter), global::Protocol.S_WaitingRoomEnter.Parser, new[]{ "Result" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_AnimationEvent), global::Protocol.C_AnimationEvent.Parser, new[]{ "AnimationType", "ParamType", "BoolValue" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_AnimationEvent), global::Protocol.S_AnimationEvent.Parser, new[]{ "Result", "PlayerId", "AnimationType", "ParamType", "BoolValue" }, null, null, null, null)
           }));
     }
     #endregion
@@ -3256,6 +3265,572 @@ namespace Protocol {
             break;
           case 8: {
             Result = (global::Protocol.EResultCode) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// path = Anim
+  /// </summary>
+  public sealed partial class C_AnimationEvent : pb::IMessage<C_AnimationEvent>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<C_AnimationEvent> _parser = new pb::MessageParser<C_AnimationEvent>(() => new C_AnimationEvent());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C_AnimationEvent> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Protocol.ProtocolReflection.Descriptor.MessageTypes[18]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C_AnimationEvent() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C_AnimationEvent(C_AnimationEvent other) : this() {
+      animationType_ = other.animationType_;
+      paramType_ = other.paramType_;
+      boolValue_ = other.boolValue_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C_AnimationEvent Clone() {
+      return new C_AnimationEvent(this);
+    }
+
+    /// <summary>Field number for the "animationType" field.</summary>
+    public const int AnimationTypeFieldNumber = 1;
+    private string animationType_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string AnimationType {
+      get { return animationType_; }
+      set {
+        animationType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "paramType" field.</summary>
+    public const int ParamTypeFieldNumber = 2;
+    private global::Protocol.EAnimationParamType paramType_ = global::Protocol.EAnimationParamType.AnimParamTypeBool;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Protocol.EAnimationParamType ParamType {
+      get { return paramType_; }
+      set {
+        paramType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "boolValue" field.</summary>
+    public const int BoolValueFieldNumber = 3;
+    private bool boolValue_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool BoolValue {
+      get { return boolValue_; }
+      set {
+        boolValue_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as C_AnimationEvent);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(C_AnimationEvent other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (AnimationType != other.AnimationType) return false;
+      if (ParamType != other.ParamType) return false;
+      if (BoolValue != other.BoolValue) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (AnimationType.Length != 0) hash ^= AnimationType.GetHashCode();
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) hash ^= ParamType.GetHashCode();
+      if (BoolValue != false) hash ^= BoolValue.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (AnimationType.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(AnimationType);
+      }
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) ParamType);
+      }
+      if (BoolValue != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(BoolValue);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (AnimationType.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(AnimationType);
+      }
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        output.WriteRawTag(16);
+        output.WriteEnum((int) ParamType);
+      }
+      if (BoolValue != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(BoolValue);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (AnimationType.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AnimationType);
+      }
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ParamType);
+      }
+      if (BoolValue != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(C_AnimationEvent other) {
+      if (other == null) {
+        return;
+      }
+      if (other.AnimationType.Length != 0) {
+        AnimationType = other.AnimationType;
+      }
+      if (other.ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        ParamType = other.ParamType;
+      }
+      if (other.BoolValue != false) {
+        BoolValue = other.BoolValue;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            AnimationType = input.ReadString();
+            break;
+          }
+          case 16: {
+            ParamType = (global::Protocol.EAnimationParamType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            BoolValue = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            AnimationType = input.ReadString();
+            break;
+          }
+          case 16: {
+            ParamType = (global::Protocol.EAnimationParamType) input.ReadEnum();
+            break;
+          }
+          case 24: {
+            BoolValue = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// path = Anim
+  /// </summary>
+  public sealed partial class S_AnimationEvent : pb::IMessage<S_AnimationEvent>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<S_AnimationEvent> _parser = new pb::MessageParser<S_AnimationEvent>(() => new S_AnimationEvent());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<S_AnimationEvent> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Protocol.ProtocolReflection.Descriptor.MessageTypes[19]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public S_AnimationEvent() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public S_AnimationEvent(S_AnimationEvent other) : this() {
+      result_ = other.result_;
+      playerId_ = other.playerId_;
+      animationType_ = other.animationType_;
+      paramType_ = other.paramType_;
+      boolValue_ = other.boolValue_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public S_AnimationEvent Clone() {
+      return new S_AnimationEvent(this);
+    }
+
+    /// <summary>Field number for the "result" field.</summary>
+    public const int ResultFieldNumber = 1;
+    private global::Protocol.EResultCode result_ = global::Protocol.EResultCode.ResultCodeSuccess;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Protocol.EResultCode Result {
+      get { return result_; }
+      set {
+        result_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "playerId" field.</summary>
+    public const int PlayerIdFieldNumber = 2;
+    private ulong playerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ulong PlayerId {
+      get { return playerId_; }
+      set {
+        playerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "animationType" field.</summary>
+    public const int AnimationTypeFieldNumber = 3;
+    private string animationType_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string AnimationType {
+      get { return animationType_; }
+      set {
+        animationType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "paramType" field.</summary>
+    public const int ParamTypeFieldNumber = 4;
+    private global::Protocol.EAnimationParamType paramType_ = global::Protocol.EAnimationParamType.AnimParamTypeBool;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Protocol.EAnimationParamType ParamType {
+      get { return paramType_; }
+      set {
+        paramType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "boolValue" field.</summary>
+    public const int BoolValueFieldNumber = 5;
+    private bool boolValue_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool BoolValue {
+      get { return boolValue_; }
+      set {
+        boolValue_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as S_AnimationEvent);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(S_AnimationEvent other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Result != other.Result) return false;
+      if (PlayerId != other.PlayerId) return false;
+      if (AnimationType != other.AnimationType) return false;
+      if (ParamType != other.ParamType) return false;
+      if (BoolValue != other.BoolValue) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) hash ^= Result.GetHashCode();
+      if (PlayerId != 0UL) hash ^= PlayerId.GetHashCode();
+      if (AnimationType.Length != 0) hash ^= AnimationType.GetHashCode();
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) hash ^= ParamType.GetHashCode();
+      if (BoolValue != false) hash ^= BoolValue.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Result);
+      }
+      if (PlayerId != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(PlayerId);
+      }
+      if (AnimationType.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(AnimationType);
+      }
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) ParamType);
+      }
+      if (BoolValue != false) {
+        output.WriteRawTag(40);
+        output.WriteBool(BoolValue);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
+        output.WriteRawTag(8);
+        output.WriteEnum((int) Result);
+      }
+      if (PlayerId != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(PlayerId);
+      }
+      if (AnimationType.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(AnimationType);
+      }
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) ParamType);
+      }
+      if (BoolValue != false) {
+        output.WriteRawTag(40);
+        output.WriteBool(BoolValue);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Result != global::Protocol.EResultCode.ResultCodeSuccess) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Result);
+      }
+      if (PlayerId != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerId);
+      }
+      if (AnimationType.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(AnimationType);
+      }
+      if (ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ParamType);
+      }
+      if (BoolValue != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(S_AnimationEvent other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Result != global::Protocol.EResultCode.ResultCodeSuccess) {
+        Result = other.Result;
+      }
+      if (other.PlayerId != 0UL) {
+        PlayerId = other.PlayerId;
+      }
+      if (other.AnimationType.Length != 0) {
+        AnimationType = other.AnimationType;
+      }
+      if (other.ParamType != global::Protocol.EAnimationParamType.AnimParamTypeBool) {
+        ParamType = other.ParamType;
+      }
+      if (other.BoolValue != false) {
+        BoolValue = other.BoolValue;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Result = (global::Protocol.EResultCode) input.ReadEnum();
+            break;
+          }
+          case 16: {
+            PlayerId = input.ReadUInt64();
+            break;
+          }
+          case 26: {
+            AnimationType = input.ReadString();
+            break;
+          }
+          case 32: {
+            ParamType = (global::Protocol.EAnimationParamType) input.ReadEnum();
+            break;
+          }
+          case 40: {
+            BoolValue = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Result = (global::Protocol.EResultCode) input.ReadEnum();
+            break;
+          }
+          case 16: {
+            PlayerId = input.ReadUInt64();
+            break;
+          }
+          case 26: {
+            AnimationType = input.ReadString();
+            break;
+          }
+          case 32: {
+            ParamType = (global::Protocol.EAnimationParamType) input.ReadEnum();
+            break;
+          }
+          case 40: {
+            BoolValue = input.ReadBool();
             break;
           }
         }
