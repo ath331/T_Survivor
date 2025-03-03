@@ -1,5 +1,5 @@
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using Protocol;
 
 public class MoveState : IPlayerState
 {
@@ -12,10 +12,9 @@ public class MoveState : IPlayerState
     {
         Debug.Log("Entered Move State");
         this.player = player;
-
         moveDirection = Vector3.zero;
 
-        player.animator.SetBool("IsMoving", true);
+        player.Send_Anim(EAnimationParamType.AnimParamTypeBool, "IsMoving", true);
     }
 
     public void Exit()
@@ -23,7 +22,8 @@ public class MoveState : IPlayerState
         Debug.Log("Exit Move State");
         moveDirection = Vector3.zero;
         player.rb.velocity = Vector3.zero;
-        player.animator.SetBool("IsMoving", false);
+
+        player.Send_Anim(EAnimationParamType.AnimParamTypeBool, "IsMoving", false);
     }
     public void HandleInput()
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
+using Google.Protobuf.WellKnownTypes;
 
 public class PlayerController : MonoBehaviour
 {
@@ -111,6 +112,39 @@ public class PlayerController : MonoBehaviour
         NetworkManager.Instance.Send(pkt);
     }
 
+    public void Send_Anim<T>(EAnimationParamType paramType, string animationType, T value = default)
+    {
+        C_AnimationEvent pkt = new C_AnimationEvent
+        {
+            ParamType = paramType,
+            AnimationType = animationType
+        };
+
+        switch (paramType)
+        {
+            case EAnimationParamType.AnimParamTypeBool:
+                if (value is bool boolVal)
+                {
+                    pkt.BoolValue = boolVal;
+                    animator.SetBool(animationType, boolVal);
+                }
+                break;
+            case EAnimationParamType.AnimParamTypeFloat:
+                if (value is float floatVal)
+                {
+                    //pkt.FloatValue = floatVal;
+                    animator.SetFloat(animationType, floatVal);
+                }
+                break;
+
+            case EAnimationParamType.AnimParamTypeTrigger:
+                animator.SetTrigger(animationType);
+                break;
+        }
+
+        NetworkManager.Instance.Send(pkt);
+    }
+
     /// <summary>
     /// 네트워크에서 받은 위치 업데이트 (다른 플레이어 전용)
     /// </summary>
@@ -142,24 +176,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public void PlayNetworkAnimation(string animationType, AnimationParamType paramType, bool boolValue, float floatValue)
-    //{
-    //    if (!IsLocalPlayer && animator != null)
-    //    {
-    //        switch (paramType)
-    //        {
-    //            case AnimationParamType.BOOL:
-    //                animator.SetBool(animationType, boolValue);
-    //                break;
+    public void PlayNetworkAnimation(string animationType, EAnimationParamType paramType, bool boolValue)
+    {
+        if (!IsLocalPlayer && animator != null)
+        {
+            switch (paramType)
+            {
+                case EAnimationParamType.AnimParamTypeBool:
+                    animator.SetBool(animationType, boolValue);
+                    break;
+                    // TODO : float 추가시 고쳐야함
+                case EAnimationParamType.AnimParamTypeFloat:
+                    animator.SetFloat(animationType, 0f);
+                    break;
 
-    //            case AnimationParamType.FLOAT:
-    //                animator.SetFloat(animationType, floatValue);
-    //                break;
-
-    //            case AnimationParamType.TRIGGER:
-    //                animator.SetTrigger(animationType);
-    //                break;
-    //        }
-    //    }
-    //}
+                case EAnimationParamType.AnimParamTypeTrigger:
+                    animator.SetTrigger(animationType);
+                    break;
+            }
+        }
+    }
 }

@@ -20,7 +20,7 @@ namespace Assets.Scripts.Network.Packet.Anim
 		{
 			C_AnimationEvent pkt = new C_AnimationEvent();
 
-			Network.Instance.Send( pkt );
+			NetworkManager.Instance.Send( pkt );
 		}
 	}
 }
