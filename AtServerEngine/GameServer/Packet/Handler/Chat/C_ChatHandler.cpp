@@ -28,7 +28,20 @@ AtBool C_ChatHandler::Handle( PacketSessionPtr& session, Protocol::C_Chat& pkt )
 	if ( !room )
 		return false;
 
-	room->DoAsync( &Room::BroadcastChat, player, pkt );
+	AtInt64 senderId = player->GetId();
+
+	room->ForeachPlayer(
+		[ senderId, pkt ]( PlayerPtr eachPlayer )
+		{
+			if ( !eachPlayer )
+				return;
+
+			Protocol::S_Chat result;
+			result.set_playerid( senderId  );
+			result.set_msg     ( pkt.msg() );
+
+			eachPlayer->Send( result );
+		} );
 
 	return true;
 }

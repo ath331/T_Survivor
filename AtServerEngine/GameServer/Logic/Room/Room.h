@@ -54,9 +54,6 @@ public:
 	/// 플레이어의 움직임을 처리한다.
 	AtVoid HandlePlayerMove( Protocol::C_Move pkt );
 
-	/// 채팅을 브로드 캐스팅 한다.
-	AtVoid BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat );
-
 	/// 플레이어들을 순회한다.
 	AtVoid ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId = 0 );
 
