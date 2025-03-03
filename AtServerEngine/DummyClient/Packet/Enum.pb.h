@@ -284,6 +284,32 @@ inline bool EStat_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EStat>(
     EStat_descriptor(), name, value);
 }
+enum EAnimationParamType : int {
+  ANIM_PARAM_TYPE_BOOL = 0,
+  ANIM_PARAM_TYPE_FLOAT = 1,
+  ANIM_PARAM_TYPE_TRIGGER = 2,
+  EAnimationParamType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EAnimationParamType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EAnimationParamType_IsValid(int value);
+constexpr EAnimationParamType EAnimationParamType_MIN = ANIM_PARAM_TYPE_BOOL;
+constexpr EAnimationParamType EAnimationParamType_MAX = ANIM_PARAM_TYPE_TRIGGER;
+constexpr int EAnimationParamType_ARRAYSIZE = EAnimationParamType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EAnimationParamType_descriptor();
+template<typename T>
+inline const std::string& EAnimationParamType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EAnimationParamType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EAnimationParamType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EAnimationParamType_descriptor(), enum_t_value);
+}
+inline bool EAnimationParamType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EAnimationParamType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EAnimationParamType>(
+    EAnimationParamType_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -345,6 +371,11 @@ template <> struct is_proto_enum< ::Protocol::EStat> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EStat>() {
   return ::Protocol::EStat_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EAnimationParamType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EAnimationParamType>() {
+  return ::Protocol::EAnimationParamType_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

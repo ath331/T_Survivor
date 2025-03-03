@@ -122,18 +122,17 @@ message S_WaitingRoomEnter
 // path = Anim
 message C_AnimationEvent 
 {
-    string animationType = 1;    // 애니메이션 파라미터 이름 (예: "IsMoving", "Speed", "Attack")
-    AnimationParamType paramType = 2; // 어떤 타입의 파라미터인지 (SetBool, SetFloat, SetTrigger)
-    bool boolValue = 3;          // SetBool 용 값
-    float floatValue = 4;        // SetFloat 용 값
+    string animationType = 1;
+    EAnimationParamType paramType = 2;
+    bool boolValue = 3;
 }
 
 // path = Anim
 message S_AnimationEvent 
 {
-    uint64 playerId = 1;         // 플레이어 ID
-    string animationType = 2;    // 애니메이션 파라미터 이름 (예: "IsMoving", "Speed", "Attack")
-    AnimationParamType paramType = 3; // 어떤 타입의 파라미터인지 (SetBool, SetFloat, SetTrigger)
-    bool boolValue = 4;          // SetBool 용 값
-    float floatValue = 5;        // SetFloat 용 값
+	EResultCode result = 1;
+    uint64 playerId = 2;
+    string animationType = 3;
+    EAnimationParamType paramType = 4;
+    bool boolValue = 5;
 }
