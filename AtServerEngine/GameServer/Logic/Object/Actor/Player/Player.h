@@ -18,6 +18,9 @@ public:
 	/// 소멸자
 	virtual ~Player();
 
+	/// 패킷을 전송한다.
+	AtVoid Send( google::protobuf::Message& pkt );
+
 public:
 	/// 세션 정보
 	weak_ptr< GameSession > session;

@@ -71,7 +71,7 @@ AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
 		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
 		objectInfo->CopyFrom( *object->objectInfo );
 
-		_Broadcast( spawnPkt, object->objectInfo->id() );
+		Broadcast( spawnPkt, object->objectInfo->id() );
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
@@ -120,7 +120,7 @@ AtBool Room::LeaveRoom( ObjectPtr object )
 		Protocol::S_DeSpawn despawnPkt;
 		despawnPkt.add_ids( objectId );
 
-		_Broadcast( despawnPkt, objectId );
+		Broadcast( despawnPkt, objectId );
 
 		if ( auto player = dynamic_pointer_cast<Player>( object ) )
 		{
@@ -172,7 +172,7 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 		Protocol::S_DeSpawn despawnPkt;
 		despawnPkt.add_ids( objectId );
 	
-		_Broadcast( despawnPkt, objectId );
+		Broadcast( despawnPkt, objectId );
 	
 		if ( auto session = player->session.lock() )
 			session->Send( despawnPkt );
@@ -201,19 +201,7 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 	auto* info =  movePkt.mutable_info();
 	info->CopyFrom( pkt.info() );
 
-	_Broadcast( movePkt, id );
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 채팅을 브로드 캐스팅 한다.
-////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat )
-{
-	Protocol::S_Chat chatResult;
-	chatResult.set_playerid( sender->GetId() );
-	chatResult.set_msg( chat.msg() );
-
-	_Broadcast( chatResult );
+	Broadcast( movePkt, id );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,6 +209,8 @@ AtVoid Room::BroadcastChat( PlayerPtr sender, Protocol::C_Chat chat )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid Room::ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId )
 {
+	//READ_LOCK;
+
 	for ( const auto& [ playerId, player ] : m_players )
 	{
 		if ( !player )
@@ -245,7 +235,7 @@ AtVoid Room::SyncPlayers( PlayerPtr enterPlayer )
 		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
 		playerInfo->CopyFrom( *enterPlayer->objectInfo );
 
-		_Broadcast( spawnPkt, enterPlayer->objectInfo->id() );
+		Broadcast( spawnPkt, enterPlayer->objectInfo->id() );
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
@@ -280,6 +270,27 @@ RoomPtr Room::GetPtr()
 AtVoid Room::UpdateTick()
 {
 	DoAsync( &Room::UpdateTick );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 룸의 모든 유저에게 브로드 캐스팅 한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::Broadcast( google::protobuf::Message& pkt, uint64 exceptId )
+{
+	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt );
+
+	ForeachPlayer(
+		[ sendBuffer, exceptId ]( PlayerPtr eachPlayer )
+		{
+			if ( !eachPlayer )
+				return;
+
+			if ( eachPlayer->objectInfo->id() == exceptId )
+				return;
+
+			if ( GameSessionPtr session = eachPlayer->session.lock() )
+				session->Send( sendBuffer );
+		} );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -319,25 +330,4 @@ AtBool Room::_RemoveObject( uint64 objectId )
 	m_objects.erase( objectId );
 
 	return true;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 룸의 모든 유저에게 브로드 캐스팅 한다.
-////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::_Broadcast( google::protobuf::Message& pkt, uint64 exceptId )
-{
-	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt );
-
-	for ( auto& item : m_objects )
-	{
-		PlayerPtr player = dynamic_pointer_cast<Player>( item.second );
-		if ( !player )
-			continue;
-
-		if ( player->objectInfo->id() == exceptId )
-			continue;
-
-		if ( GameSessionPtr session = player->session.lock() )
-			session->Send( pkt );
-	}
 }

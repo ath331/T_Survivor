@@ -244,7 +244,8 @@ constexpr C_AnimationEvent::C_AnimationEvent(
   : animationtype_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , paramtype_(0)
 
-  , boolvalue_(false){}
+  , boolvalue_(false)
+  , floatvalue_(0){}
 struct C_AnimationEventDefaultTypeInternal {
   constexpr C_AnimationEventDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -262,7 +263,8 @@ constexpr S_AnimationEvent::S_AnimationEvent(
 
   , paramtype_(0)
 
-  , boolvalue_(false){}
+  , boolvalue_(false)
+  , floatvalue_(0){}
 struct S_AnimationEventDefaultTypeInternal {
   constexpr S_AnimationEventDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -395,6 +397,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Protocol_2eproto::offsets[] PR
   PROTOBUF_FIELD_OFFSET(::Protocol::C_AnimationEvent, animationtype_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_AnimationEvent, paramtype_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_AnimationEvent, boolvalue_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::C_AnimationEvent, floatvalue_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_AnimationEvent, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -405,6 +408,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Protocol_2eproto::offsets[] PR
   PROTOBUF_FIELD_OFFSET(::Protocol::S_AnimationEvent, animationtype_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_AnimationEvent, paramtype_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_AnimationEvent, boolvalue_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_AnimationEvent, floatvalue_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Protocol::C_Login)},
@@ -426,7 +430,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 97, -1, sizeof(::Protocol::C_WaitingRoomEnter)},
   { 103, -1, sizeof(::Protocol::S_WaitingRoomEnter)},
   { 109, -1, sizeof(::Protocol::C_AnimationEvent)},
-  { 117, -1, sizeof(::Protocol::S_AnimationEvent)},
+  { 118, -1, sizeof(::Protocol::S_AnimationEvent)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -472,15 +476,16 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "(\t\"\'\n\006S_Chat\022\020\n\010playerId\030\001 \001(\004\022\013\n\003msg\030\002 "
   "\001(\t\"%\n\022C_WaitingRoomEnter\022\017\n\007roomNum\030\001 \001"
   "(\005\";\n\022S_WaitingRoomEnter\022%\n\006result\030\001 \001(\016"
-  "2\025.Protocol.EResultCode\"n\n\020C_AnimationEv"
-  "ent\022\025\n\ranimationType\030\001 \001(\t\0220\n\tparamType\030"
-  "\002 \001(\0162\035.Protocol.EAnimationParamType\022\021\n\t"
-  "boolValue\030\003 \001(\010\"\247\001\n\020S_AnimationEvent\022%\n\006"
-  "result\030\001 \001(\0162\025.Protocol.EResultCode\022\020\n\010p"
-  "layerId\030\002 \001(\004\022\025\n\ranimationType\030\003 \001(\t\0220\n\t"
-  "paramType\030\004 \001(\0162\035.Protocol.EAnimationPar"
-  "amType\022\021\n\tboolValue\030\005 \001(\010B\013\252\002\010Protocolb\006"
-  "proto3"
+  "2\025.Protocol.EResultCode\"\202\001\n\020C_AnimationE"
+  "vent\022\025\n\ranimationType\030\001 \001(\t\0220\n\tparamType"
+  "\030\002 \001(\0162\035.Protocol.EAnimationParamType\022\021\n"
+  "\tboolValue\030\003 \001(\010\022\022\n\nfloatValue\030\004 \001(\002\"\273\001\n"
+  "\020S_AnimationEvent\022%\n\006result\030\001 \001(\0162\025.Prot"
+  "ocol.EResultCode\022\020\n\010playerId\030\002 \001(\004\022\025\n\ran"
+  "imationType\030\003 \001(\t\0220\n\tparamType\030\004 \001(\0162\035.P"
+  "rotocol.EAnimationParamType\022\021\n\tboolValue"
+  "\030\005 \001(\010\022\022\n\nfloatValue\030\006 \001(\002B\013\252\002\010Protocolb"
+  "\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_Protocol_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -488,7 +493,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Protocol_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocol_2eproto = {
-  false, false, 1086, descriptor_table_protodef_Protocol_2eproto, "Protocol.proto", 
+  false, false, 1127, descriptor_table_protodef_Protocol_2eproto, "Protocol.proto", 
   &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 2, 20,
   schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
   file_level_metadata_Protocol_2eproto, file_level_enum_descriptors_Protocol_2eproto, file_level_service_descriptors_Protocol_2eproto,
@@ -4092,8 +4097,8 @@ C_AnimationEvent::C_AnimationEvent(const C_AnimationEvent& from)
       GetArenaForAllocation());
   }
   ::memcpy(&paramtype_, &from.paramtype_,
-    static_cast<size_t>(reinterpret_cast<char*>(&boolvalue_) -
-    reinterpret_cast<char*>(&paramtype_)) + sizeof(boolvalue_));
+    static_cast<size_t>(reinterpret_cast<char*>(&floatvalue_) -
+    reinterpret_cast<char*>(&paramtype_)) + sizeof(floatvalue_));
   // @@protoc_insertion_point(copy_constructor:Protocol.C_AnimationEvent)
 }
 
@@ -4101,8 +4106,8 @@ void C_AnimationEvent::SharedCtor() {
 animationtype_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&paramtype_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&boolvalue_) -
-    reinterpret_cast<char*>(&paramtype_)) + sizeof(boolvalue_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&floatvalue_) -
+    reinterpret_cast<char*>(&paramtype_)) + sizeof(floatvalue_));
 }
 
 C_AnimationEvent::~C_AnimationEvent() {
@@ -4134,8 +4139,8 @@ void C_AnimationEvent::Clear() {
 
   animationtype_.ClearToEmpty();
   ::memset(&paramtype_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&boolvalue_) -
-      reinterpret_cast<char*>(&paramtype_)) + sizeof(boolvalue_));
+      reinterpret_cast<char*>(&floatvalue_) -
+      reinterpret_cast<char*>(&paramtype_)) + sizeof(floatvalue_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4167,6 +4172,13 @@ const char* C_AnimationEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           boolvalue_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float floatValue = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+          floatvalue_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
       default: {
@@ -4221,6 +4233,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_boolvalue(), target);
   }
 
+  // float floatValue = 4;
+  if (!(this->floatvalue() <= 0 && this->floatvalue() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_floatvalue(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4253,6 +4271,11 @@ size_t C_AnimationEvent::ByteSizeLong() const {
   // bool boolValue = 3;
   if (this->boolvalue() != 0) {
     total_size += 1 + 1;
+  }
+
+  // float floatValue = 4;
+  if (!(this->floatvalue() <= 0 && this->floatvalue() >= 0)) {
+    total_size += 1 + 4;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4295,6 +4318,9 @@ void C_AnimationEvent::MergeFrom(const C_AnimationEvent& from) {
   if (from.boolvalue() != 0) {
     _internal_set_boolvalue(from._internal_boolvalue());
   }
+  if (!(from.floatvalue() <= 0 && from.floatvalue() >= 0)) {
+    _internal_set_floatvalue(from._internal_floatvalue());
+  }
 }
 
 void C_AnimationEvent::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -4324,8 +4350,8 @@ void C_AnimationEvent::InternalSwap(C_AnimationEvent* other) {
       &other->animationtype_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_AnimationEvent, boolvalue_)
-      + sizeof(C_AnimationEvent::boolvalue_)
+      PROTOBUF_FIELD_OFFSET(C_AnimationEvent, floatvalue_)
+      + sizeof(C_AnimationEvent::floatvalue_)
       - PROTOBUF_FIELD_OFFSET(C_AnimationEvent, paramtype_)>(
           reinterpret_cast<char*>(&paramtype_),
           reinterpret_cast<char*>(&other->paramtype_));
@@ -4358,8 +4384,8 @@ S_AnimationEvent::S_AnimationEvent(const S_AnimationEvent& from)
       GetArenaForAllocation());
   }
   ::memcpy(&playerid_, &from.playerid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&boolvalue_) -
-    reinterpret_cast<char*>(&playerid_)) + sizeof(boolvalue_));
+    static_cast<size_t>(reinterpret_cast<char*>(&floatvalue_) -
+    reinterpret_cast<char*>(&playerid_)) + sizeof(floatvalue_));
   // @@protoc_insertion_point(copy_constructor:Protocol.S_AnimationEvent)
 }
 
@@ -4367,8 +4393,8 @@ void S_AnimationEvent::SharedCtor() {
 animationtype_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&playerid_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&boolvalue_) -
-    reinterpret_cast<char*>(&playerid_)) + sizeof(boolvalue_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&floatvalue_) -
+    reinterpret_cast<char*>(&playerid_)) + sizeof(floatvalue_));
 }
 
 S_AnimationEvent::~S_AnimationEvent() {
@@ -4400,8 +4426,8 @@ void S_AnimationEvent::Clear() {
 
   animationtype_.ClearToEmpty();
   ::memset(&playerid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&boolvalue_) -
-      reinterpret_cast<char*>(&playerid_)) + sizeof(boolvalue_));
+      reinterpret_cast<char*>(&floatvalue_) -
+      reinterpret_cast<char*>(&playerid_)) + sizeof(floatvalue_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -4448,6 +4474,13 @@ const char* S_AnimationEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
           boolvalue_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float floatValue = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+          floatvalue_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
       default: {
@@ -4515,6 +4548,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_boolvalue(), target);
   }
 
+  // float floatValue = 6;
+  if (!(this->floatvalue() <= 0 && this->floatvalue() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(6, this->_internal_floatvalue(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -4560,6 +4599,11 @@ size_t S_AnimationEvent::ByteSizeLong() const {
   // bool boolValue = 5;
   if (this->boolvalue() != 0) {
     total_size += 1 + 1;
+  }
+
+  // float floatValue = 6;
+  if (!(this->floatvalue() <= 0 && this->floatvalue() >= 0)) {
+    total_size += 1 + 4;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4608,6 +4652,9 @@ void S_AnimationEvent::MergeFrom(const S_AnimationEvent& from) {
   if (from.boolvalue() != 0) {
     _internal_set_boolvalue(from._internal_boolvalue());
   }
+  if (!(from.floatvalue() <= 0 && from.floatvalue() >= 0)) {
+    _internal_set_floatvalue(from._internal_floatvalue());
+  }
 }
 
 void S_AnimationEvent::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -4637,8 +4684,8 @@ void S_AnimationEvent::InternalSwap(S_AnimationEvent* other) {
       &other->animationtype_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_AnimationEvent, boolvalue_)
-      + sizeof(S_AnimationEvent::boolvalue_)
+      PROTOBUF_FIELD_OFFSET(S_AnimationEvent, floatvalue_)
+      + sizeof(S_AnimationEvent::floatvalue_)
       - PROTOBUF_FIELD_OFFSET(S_AnimationEvent, playerid_)>(
           reinterpret_cast<char*>(&playerid_),
           reinterpret_cast<char*>(&other->playerid_));

@@ -2696,6 +2696,7 @@ class C_AnimationEvent final :
     kAnimationTypeFieldNumber = 1,
     kParamTypeFieldNumber = 2,
     kBoolValueFieldNumber = 3,
+    kFloatValueFieldNumber = 4,
   };
   // string animationType = 1;
   void clear_animationtype();
@@ -2729,6 +2730,15 @@ class C_AnimationEvent final :
   void _internal_set_boolvalue(bool value);
   public:
 
+  // float floatValue = 4;
+  void clear_floatvalue();
+  float floatvalue() const;
+  void set_floatvalue(float value);
+  private:
+  float _internal_floatvalue() const;
+  void _internal_set_floatvalue(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.C_AnimationEvent)
  private:
   class _Internal;
@@ -2739,6 +2749,7 @@ class C_AnimationEvent final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr animationtype_;
   int paramtype_;
   bool boolvalue_;
+  float floatvalue_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
 };
@@ -2857,6 +2868,7 @@ class S_AnimationEvent final :
     kResultFieldNumber = 1,
     kParamTypeFieldNumber = 4,
     kBoolValueFieldNumber = 5,
+    kFloatValueFieldNumber = 6,
   };
   // string animationType = 3;
   void clear_animationtype();
@@ -2908,6 +2920,15 @@ class S_AnimationEvent final :
   void _internal_set_boolvalue(bool value);
   public:
 
+  // float floatValue = 6;
+  void clear_floatvalue();
+  float floatvalue() const;
+  void set_floatvalue(float value);
+  private:
+  float _internal_floatvalue() const;
+  void _internal_set_floatvalue(float value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.S_AnimationEvent)
  private:
   class _Internal;
@@ -2920,6 +2941,7 @@ class S_AnimationEvent final :
   int result_;
   int paramtype_;
   bool boolvalue_;
+  float floatvalue_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
 };
@@ -3766,6 +3788,26 @@ inline void C_AnimationEvent::set_boolvalue(bool value) {
   // @@protoc_insertion_point(field_set:Protocol.C_AnimationEvent.boolValue)
 }
 
+// float floatValue = 4;
+inline void C_AnimationEvent::clear_floatvalue() {
+  floatvalue_ = 0;
+}
+inline float C_AnimationEvent::_internal_floatvalue() const {
+  return floatvalue_;
+}
+inline float C_AnimationEvent::floatvalue() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_AnimationEvent.floatValue)
+  return _internal_floatvalue();
+}
+inline void C_AnimationEvent::_internal_set_floatvalue(float value) {
+  
+  floatvalue_ = value;
+}
+inline void C_AnimationEvent::set_floatvalue(float value) {
+  _internal_set_floatvalue(value);
+  // @@protoc_insertion_point(field_set:Protocol.C_AnimationEvent.floatValue)
+}
+
 // -------------------------------------------------------------------
 
 // S_AnimationEvent
@@ -3893,6 +3935,26 @@ inline void S_AnimationEvent::_internal_set_boolvalue(bool value) {
 inline void S_AnimationEvent::set_boolvalue(bool value) {
   _internal_set_boolvalue(value);
   // @@protoc_insertion_point(field_set:Protocol.S_AnimationEvent.boolValue)
+}
+
+// float floatValue = 6;
+inline void S_AnimationEvent::clear_floatvalue() {
+  floatvalue_ = 0;
+}
+inline float S_AnimationEvent::_internal_floatvalue() const {
+  return floatvalue_;
+}
+inline float S_AnimationEvent::floatvalue() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_AnimationEvent.floatValue)
+  return _internal_floatvalue();
+}
+inline void S_AnimationEvent::_internal_set_floatvalue(float value) {
+  
+  floatvalue_ = value;
+}
+inline void S_AnimationEvent::set_floatvalue(float value) {
+  _internal_set_floatvalue(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_AnimationEvent.floatValue)
 }
 
 #ifdef __GNUC__

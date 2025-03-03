@@ -125,6 +125,7 @@ message C_AnimationEvent
     string animationType = 1;
     EAnimationParamType paramType = 2;
     bool boolValue = 3;
+	float floatValue = 4;        // SetFloat 용 값
 }
 
 // path = Anim
@@ -135,4 +136,5 @@ message S_AnimationEvent
     string animationType = 3;
     EAnimationParamType paramType = 4;
     bool boolValue = 5;
+	float floatValue = 6;        // SetFloat 용 값
 }
