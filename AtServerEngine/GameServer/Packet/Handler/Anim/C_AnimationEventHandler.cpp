@@ -23,7 +23,7 @@ AtBool C_AnimationEventHandler::Handle( PacketSessionPtr& session, Protocol::C_A
 	if ( !player )
 		return false;
 
-	RoomPtr room = player->room.load().lock();
+	RoomPtr room = player->GetRoomPtr();
 	if ( !room )
 		return false;
 

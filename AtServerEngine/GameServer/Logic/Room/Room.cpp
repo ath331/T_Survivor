@@ -5,8 +5,10 @@
 
 #include "pch.h"
 #include "Room.h"
+#include "CoreMacro.h"
 #include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Utils/Log/AtLog.h"
+#include "Lock.h"
 #include "Session/GameSession.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 
@@ -209,8 +211,6 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid Room::ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId )
 {
-	//READ_LOCK;
-
 	for ( const auto& [ playerId, player ] : m_players )
 	{
 		if ( !player )
