@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerListManager : MonoBehaviour
+public class PlayerListManager
 {
     private static readonly PlayerListManager _instance = new PlayerListManager();
     public static PlayerListManager Instance => _instance;
