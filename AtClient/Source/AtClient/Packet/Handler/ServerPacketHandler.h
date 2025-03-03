@@ -24,6 +24,7 @@ bool Handle_S_SpawnTemplate(PacketSessionPtr& session, Protocol::S_Spawn& pkt);
 bool Handle_S_DeSpawnTemplate(PacketSessionPtr& session, Protocol::S_DeSpawn& pkt);
 bool Handle_S_ChatTemplate(PacketSessionPtr& session, Protocol::S_Chat& pkt);
 bool Handle_S_WaitingRoomEnterTemplate(PacketSessionPtr& session, Protocol::S_WaitingRoomEnter& pkt);
+bool Handle_S_AnimationEventTemplate(PacketSessionPtr& session, Protocol::S_AnimationEvent& pkt);
 
 class ServerPacketHandler
 {
@@ -42,6 +43,7 @@ public:
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_DeSpawn ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_DeSpawn>(Handle_S_DeSpawnTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_Chat ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Chat>(Handle_S_ChatTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_WaitingRoomEnter ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_WaitingRoomEnter>(Handle_S_WaitingRoomEnterTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_S_AnimationEvent ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_AnimationEvent>(Handle_S_AnimationEventTemplate, session, buffer, len); };
 	}
 
 	static bool HandlePacket(PacketSessionPtr& session, BYTE* buffer, int32 len)
@@ -63,6 +65,7 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 	else if ( packetTypeName == "Protocol.C_Move" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_Move ) );
 	else if ( packetTypeName == "Protocol.C_Chat" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_Chat ) );
 	else if ( packetTypeName == "Protocol.C_WaitingRoomEnter" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_WaitingRoomEnter ) );
+	else if ( packetTypeName == "Protocol.C_AnimationEvent" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_AnimationEvent ) );
 
 	return nullptr;
 }
