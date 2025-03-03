@@ -13,6 +13,8 @@ public class GameSupervisor : SingletonMonoBehaviour<GameSupervisor>
         NetworkManager.Instance.Initialize();
 
         ObjectPoolManager.Instance.Initialize();
+
+        PlayerListManager.Instance.Initialize();
     }
 
     public async UniTask Test_ToLobby(ulong id)

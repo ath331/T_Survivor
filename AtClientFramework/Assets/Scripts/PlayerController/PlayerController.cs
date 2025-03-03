@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
+using Google.Protobuf.WellKnownTypes;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private IPlayerState currentState;
 
     private Vector3 targetPosition;
+    private Quaternion targetRotation;
 
     private void Awake()
     {
@@ -36,7 +38,10 @@ public class PlayerController : MonoBehaviour
 
         mercuryId = MercuryHelper.mercuryId;
 
-        Send_Move(transform.position);
+        targetPosition = Vector3.zero;
+        targetRotation = Quaternion.identity;
+
+        Send_Move();
     }
 
     private void Update()
@@ -44,17 +49,28 @@ public class PlayerController : MonoBehaviour
         if (IsLocalPlayer)
         {
             // input update
-            currentState.HandleInput(); 
-        }
+            currentState.HandleInput();
 
-        // state update
-        currentState.UpdateState();
+            // state update
+            currentState.UpdateState();
+        }
+        else
+        {
+
+        }
     }
 
     private void FixedUpdate()
     {
-        // physics update
-        currentState.FixedUpdateState();
+        if (IsLocalPlayer)
+        {
+            // physics update
+            currentState.FixedUpdateState();
+        }
+        else
+        {
+            Sync_Move();
+        }
     }
 
     /// <summary>
@@ -78,7 +94,7 @@ public class PlayerController : MonoBehaviour
         return currentState;
     }
 
-    public void Send_Move(Vector3 pos)
+    public void Send_Move()
     {
         if (!IsLocalPlayer) return;
 
@@ -88,11 +104,46 @@ public class PlayerController : MonoBehaviour
             {
                 Id = mercuryId,
 
-                X = pos.x,
-                Y = pos.y,
-                Z = pos.z,
+                X = transform.position.x,
+                Y = transform.position.y,
+                Z = transform.position.z,
+
+                Yaw = transform.eulerAngles.y // (0 ~ 360)
             }
         };
+
+        NetworkManager.Instance.Send(pkt);
+    }
+
+    public void Send_Anim<T>(EAnimationParamType paramType, string animationType, T value = default)
+    {
+        C_AnimationEvent pkt = new C_AnimationEvent
+        {
+            ParamType = paramType,
+            AnimationType = animationType
+        };
+
+        switch (paramType)
+        {
+            case EAnimationParamType.AnimParamTypeBool:
+                if (value is bool boolVal)
+                {
+                    pkt.BoolValue = boolVal;
+                    animator.SetBool(animationType, boolVal);
+                }
+                break;
+            case EAnimationParamType.AnimParamTypeFloat:
+                if (value is float floatVal)
+                {
+                    //pkt.FloatValue = floatVal;
+                    animator.SetFloat(animationType, floatVal);
+                }
+                break;
+
+            case EAnimationParamType.AnimParamTypeTrigger:
+                animator.SetTrigger(animationType);
+                break;
+        }
 
         NetworkManager.Instance.Send(pkt);
     }
@@ -100,19 +151,52 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 네트워크에서 받은 위치 업데이트 (다른 플레이어 전용)
     /// </summary>
-    public void UpdateNetworkPosition(Vector3 newPosition)
+    public void UpdateNetworkPosition(Vector3 newPosition, float newYaw)
     {
-        if (!IsLocalPlayer)
-        {
-            targetPosition = newPosition;
-        }
+        if (IsLocalPlayer) return;
+
+        targetPosition = newPosition;
+        targetRotation = Quaternion.Euler(0, newYaw, 0);
     }
 
     /// <summary>
     /// 다른 플레이어의 위치를 서버 데이터로 부드럽게 보간 이동
     /// </summary>
-    public void SyncWithNetwork()
+    public void Sync_Move()
     {
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10f);
+        if (IsLocalPlayer) return;
+
+        // Rigidbody가 있을 경우 MovePosition 사용
+        if (rb != null)
+        {
+            rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * 10f));
+            rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 20f)); // 회전 보간
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * 10f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 20f); // 회전 보간
+        }
+    }
+
+    public void PlayNetworkAnimation(string animationType, EAnimationParamType paramType, bool boolValue)
+    {
+        if (!IsLocalPlayer && animator != null)
+        {
+            switch (paramType)
+            {
+                case EAnimationParamType.AnimParamTypeBool:
+                    animator.SetBool(animationType, boolValue);
+                    break;
+                    // TODO : float 추가시 고쳐야함
+                case EAnimationParamType.AnimParamTypeFloat:
+                    animator.SetFloat(animationType, 0f);
+                    break;
+
+                case EAnimationParamType.AnimParamTypeTrigger:
+                    animator.SetTrigger(animationType);
+                    break;
+            }
+        }
     }
 }
