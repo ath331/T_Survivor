@@ -28,14 +28,17 @@ AtBool C_AnimationEventHandler::Handle( PacketSessionPtr& session, Protocol::C_A
 		return false;
 
 	room->ForeachPlayer(
-		[ pkt ]( PlayerPtr eachPlayer )
+		[ pkt, player ]( PlayerPtr eachPlayer )
 		{
 			if ( !eachPlayer )
 				return;
 
+			if ( player->GetId() == eachPlayer->GetId() )
+				return;
+
 			Protocol::S_AnimationEvent result;
 			result.set_result       ( Protocol::EResultCode::RESULT_CODE_SUCCESS );
-			result.set_playerid     ( eachPlayer->GetId() );
+			result.set_playerid     ( player->GetId()     );
 			result.set_animationtype( pkt.animationtype() );
 			result.set_paramtype    ( pkt.paramtype()     );
 			result.set_boolvalue    ( pkt.boolvalue()     );
