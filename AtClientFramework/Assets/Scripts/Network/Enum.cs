@@ -48,11 +48,13 @@ namespace Protocol {
             "FwoTRVFVSVBfU0xPVF9UWVBFX01BWBAHKooBCgVFU3RhdBINCglTVEFUX05P",
             "TkUQABIRCg1TVEFUX1NUUkVOR1RIEAESCwoHU1RBVF9IUBACEgsKB1NUQVRf",
             "TVAQAxIQCgxTVEFUX0RFRkVOU0UQBBIOCgpTVEFUX1NQRUVEEAUSFQoRU1RB",
-            "VF9JTlRFTExJR0VOQ0UQBhIMCghTVEFUX01BWBAHQguqAghQcm90b2NvbGIG",
-            "cHJvdG8z"));
+            "VF9JTlRFTExJR0VOQ0UQBhIMCghTVEFUX01BWBAHKmcKE0VBbmltYXRpb25Q",
+            "YXJhbVR5cGUSGAoUQU5JTV9QQVJBTV9UWVBFX0JPT0wQABIZChVBTklNX1BB",
+            "UkFNX1RZUEVfRkxPQVQQARIbChdBTklNX1BBUkFNX1RZUEVfVFJJR0dFUhAC",
+            "QguqAghQcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), }, null, null));
     }
     #endregion
 
@@ -214,6 +216,12 @@ namespace Protocol {
     /// </summary>
     [pbr::OriginalName("STAT_INTELLIGENCE")] StatIntelligence = 6,
     [pbr::OriginalName("STAT_MAX")] StatMax = 7,
+  }
+
+  public enum EAnimationParamType {
+    [pbr::OriginalName("ANIM_PARAM_TYPE_BOOL")] AnimParamTypeBool = 0,
+    [pbr::OriginalName("ANIM_PARAM_TYPE_FLOAT")] AnimParamTypeFloat = 1,
+    [pbr::OriginalName("ANIM_PARAM_TYPE_TRIGGER")] AnimParamTypeTrigger = 2,
   }
 
   #endregion
