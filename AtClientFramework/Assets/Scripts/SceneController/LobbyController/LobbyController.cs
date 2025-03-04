@@ -41,7 +41,10 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         Debug.Log("LobbyScene 초기화 시작");
 
-        int steps = 10;
+        int steps = 5;
+
+        ObjectPoolManager.Instance.Initialize();
+
         for (int i = 0; i <= steps; i++)
         {
             // 진행 상황 갱신 (0~1 사이)

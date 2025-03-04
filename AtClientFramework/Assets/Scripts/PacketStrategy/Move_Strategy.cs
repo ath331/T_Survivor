@@ -10,7 +10,7 @@ public class Move_Strategy
 
     private void OnMovePacketReceived(S_Move message)
     {
-        ulong playerId = message.PlayerId;
+        ulong playerId = message.Info.Id;
         Vector3 newPosition = new Vector3(message.Info.X, message.Info.Y, message.Info.Z);
         float newYaw = message.Info.Yaw;
 

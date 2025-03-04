@@ -16,8 +16,6 @@ public class GameSupervisor : SingletonMonoBehaviour<GameSupervisor>
 
         NetworkManager.Instance.Initialize();
 
-        ObjectPoolManager.Instance.Initialize();
-
         PlayerListManager.Instance.Initialize();
     }
 
