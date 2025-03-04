@@ -39,12 +39,6 @@ public:
 	/// 소멸자
 	virtual ~Room();
 
-	/// 오브젝트를 입장시킨다.
-	AtBool EnterRoom( ObjectPtr object, AtBool randPos = true );
-
-	/// 오브젝트를 퇴장시킨다.
-	AtBool LeaveRoom( ObjectPtr object );
-
 	/// 플레이어를 방에 입장시킨다.
 	virtual AtBool HandleEnterPlayer( PlayerPtr player, CallbackFunc callback = nullptr );
 
