@@ -102,8 +102,6 @@ public class PlayerController : MonoBehaviour
         {
             Info = new PosInfo
             {
-                Id = mercuryId,
-
                 X = transform.position.x,
                 Y = transform.position.y,
                 Z = transform.position.z,

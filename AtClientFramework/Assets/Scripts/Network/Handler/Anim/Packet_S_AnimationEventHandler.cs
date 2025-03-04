@@ -16,15 +16,7 @@ namespace Assets.Scripts.Network.Handler
 		{
 			S_AnimationEvent message = S_AnimationEvent.Parser.ParseFrom( data );
 
-			var playerId = message.PlayerId;
-			string animationType = message.AnimationType;
-			EAnimationParamType paramType = message.ParamType;
-			bool boolVal = message.BoolValue;
-
-            if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
-            {
-                player.PlayNetworkAnimation(animationType, paramType, boolVal);
-            }
+            PacketEventManager.Invoke(message);
         }
 	}
 }
