@@ -27,8 +27,8 @@ namespace Assets.Scripts.Network.Handler
             {
                 ulong playerId = playerInfo.Id;
 
-                // 네트워크 매니저에서 플레이어 생성 (중복 체크 포함)
-                NetworkManager.Instance.ProcessSpawnHandler(playerId);
+                // 매니저에서 플레이어 생성 (중복 체크 포함)
+                PlayerListManager.Instance.ProcessSpawnHandler(playerId);
             }
         }
 	}

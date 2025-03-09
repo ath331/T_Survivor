@@ -71,21 +71,21 @@ message S_LeaveGame
 // path = Actor
 message C_Move
 {
-	PosInfo info = 1;
+	ObjectInfo objectInfo = 1;
 }
 
 // path = Actor
 message S_Move
 {
 	EResultCode result = 1;
-	uint64 playerId = 2;
-	PosInfo info = 3;
+	ObjectInfo objectInfo = 2;
 }
 
 // path = Spawn
 message S_Spawn
 {
-	repeated ObjectInfo players = 1;
+	EResultCode result = 1;
+	repeated ObjectInfo objectList = 2;
 }
 
 // path = Spawn
@@ -117,4 +117,24 @@ message C_WaitingRoomEnter
 message S_WaitingRoomEnter
 {
 	EResultCode result = 1;
+}
+
+// path = Anim
+message C_AnimationEvent 
+{
+    string animationType = 1;
+    EAnimationParamType paramType = 2;
+    bool boolValue = 3;
+	float floatValue = 4;        // SetFloat 용 값
+}
+
+// path = Anim
+message S_AnimationEvent 
+{
+	EResultCode result = 1;
+    uint64 playerId = 2;
+    string animationType = 3;
+    EAnimationParamType paramType = 4;
+    bool boolValue = 5;
+	float floatValue = 6;        // SetFloat 용 값
 }

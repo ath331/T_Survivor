@@ -24,6 +24,8 @@ namespace Assets.Scripts.Network
         PKT_S_Chat = 1015,
         PKT_C_WaitingRoomEnter = 1016,
         PKT_S_WaitingRoomEnter = 1017,
+        PKT_C_AnimationEvent = 1018,
+        PKT_S_AnimationEvent = 1019,
     }
 
     public class PacketIdFactory

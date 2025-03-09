@@ -130,6 +130,9 @@
     <ClInclude Include="Packet\Handler\Actor\C_MoveHandler.h">
       <Filter>Packet\Handler\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Anim\C_AnimationEventHandler.h">
+      <Filter>Packet\Handler\Anim</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\Chat\C_ChatHandler.h">
       <Filter>Packet\Handler\Chat</Filter>
     </ClInclude>
@@ -294,10 +297,16 @@
     <ClCompile Include="Packet\Handler\Actor\C_MoveHandler.cpp">
       <Filter>Packet\Handler\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\Anim\C_AnimationEventHandler.cpp">
+      <Filter>Packet\Handler\Anim</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\Chat\C_ChatHandler.cpp">
       <Filter>Packet\Handler\Chat</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\C_AnimationEventHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\C_ChatHandlerTemplate.cpp">
@@ -419,6 +428,8 @@
     <Filter Include="Packet\Handler">
     </Filter>
     <Filter Include="Packet\Handler\Actor">
+    </Filter>
+    <Filter Include="Packet\Handler\Anim">
     </Filter>
     <Filter Include="Packet\Handler\Chat">
     </Filter>
