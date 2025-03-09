@@ -27,15 +27,16 @@ namespace Protocol {
             "CgxTdHJ1Y3QucHJvdG8SCFByb3RvY29sGgpFbnVtLnByb3RvIm0KB1Bvc0lu",
             "Zm8SCgoCaWQYASABKAQSCQoBeBgCIAEoAhIJCgF5GAMgASgCEgkKAXoYBCAB",
             "KAISCwoDeWF3GAUgASgCEigKCm1vdmVfU3RhdGUYBiABKA4yFC5Qcm90b2Nv",
-            "bC5FTW92ZVN0YXRlImkKCk9iamVjdEluZm8SCgoCaWQYASABKAQSKgoLb2Jq",
-            "ZWN0X3R5cGUYAiABKA4yFS5Qcm90b2NvbC5FT2JqZWN0VHlwZRIjCghwb3Nf",
-            "aW5mbxgDIAEoCzIRLlByb3RvY29sLlBvc0luZm9CC6oCCFByb3RvY29sYgZw",
-            "cm90bzM="));
+            "bC5FTW92ZVN0YXRlIqMBCgpPYmplY3RJbmZvEgoKAmlkGAEgASgEEg4KBmlu",
+            "Zm9JZBgCIAEoBRIqCgtvYmplY3RfdHlwZRgDIAEoDjIVLlByb3RvY29sLkVP",
+            "YmplY3RUeXBlEigKCmFjdG9yX3R5cGUYBCABKA4yFC5Qcm90b2NvbC5FQWN0",
+            "b3JUeXBlEiMKCHBvc19pbmZvGAUgASgLMhEuUHJvdG9jb2wuUG9zSW5mb0IL",
+            "qgIIUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protocol.EnumReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.PosInfo), global::Protocol.PosInfo.Parser, new[]{ "Id", "X", "Y", "Z", "Yaw", "MoveState" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.ObjectInfo), global::Protocol.ObjectInfo.Parser, new[]{ "Id", "ObjectType", "PosInfo" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.ObjectInfo), global::Protocol.ObjectInfo.Parser, new[]{ "Id", "InfoId", "ObjectType", "ActorType", "PosInfo" }, null, null, null, null)
           }));
     }
     #endregion
@@ -424,7 +425,9 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ObjectInfo(ObjectInfo other) : this() {
       id_ = other.id_;
+      infoId_ = other.infoId_;
       objectType_ = other.objectType_;
+      actorType_ = other.actorType_;
       posInfo_ = other.posInfo_ != null ? other.posInfo_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -445,8 +448,19 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "infoId" field.</summary>
+    public const int InfoIdFieldNumber = 2;
+    private int infoId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int InfoId {
+      get { return infoId_; }
+      set {
+        infoId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "object_type" field.</summary>
-    public const int ObjectTypeFieldNumber = 2;
+    public const int ObjectTypeFieldNumber = 3;
     private global::Protocol.EObjectType objectType_ = global::Protocol.EObjectType.ObjectTypeNone;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protocol.EObjectType ObjectType {
@@ -456,8 +470,19 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "actor_type" field.</summary>
+    public const int ActorTypeFieldNumber = 4;
+    private global::Protocol.EActorType actorType_ = global::Protocol.EActorType.ActorTypeNone;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Protocol.EActorType ActorType {
+      get { return actorType_; }
+      set {
+        actorType_ = value;
+      }
+    }
+
     /// <summary>Field number for the "pos_info" field.</summary>
-    public const int PosInfoFieldNumber = 3;
+    public const int PosInfoFieldNumber = 5;
     private global::Protocol.PosInfo posInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::Protocol.PosInfo PosInfo {
@@ -481,7 +506,9 @@ namespace Protocol {
         return true;
       }
       if (Id != other.Id) return false;
+      if (InfoId != other.InfoId) return false;
       if (ObjectType != other.ObjectType) return false;
+      if (ActorType != other.ActorType) return false;
       if (!object.Equals(PosInfo, other.PosInfo)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -490,7 +517,9 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0UL) hash ^= Id.GetHashCode();
+      if (InfoId != 0) hash ^= InfoId.GetHashCode();
       if (ObjectType != global::Protocol.EObjectType.ObjectTypeNone) hash ^= ObjectType.GetHashCode();
+      if (ActorType != global::Protocol.EActorType.ActorTypeNone) hash ^= ActorType.GetHashCode();
       if (posInfo_ != null) hash ^= PosInfo.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -512,12 +541,20 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteUInt64(Id);
       }
-      if (ObjectType != global::Protocol.EObjectType.ObjectTypeNone) {
+      if (InfoId != 0) {
         output.WriteRawTag(16);
+        output.WriteInt32(InfoId);
+      }
+      if (ObjectType != global::Protocol.EObjectType.ObjectTypeNone) {
+        output.WriteRawTag(24);
         output.WriteEnum((int) ObjectType);
       }
+      if (ActorType != global::Protocol.EActorType.ActorTypeNone) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) ActorType);
+      }
       if (posInfo_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(42);
         output.WriteMessage(PosInfo);
       }
       if (_unknownFields != null) {
@@ -533,12 +570,20 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteUInt64(Id);
       }
-      if (ObjectType != global::Protocol.EObjectType.ObjectTypeNone) {
+      if (InfoId != 0) {
         output.WriteRawTag(16);
+        output.WriteInt32(InfoId);
+      }
+      if (ObjectType != global::Protocol.EObjectType.ObjectTypeNone) {
+        output.WriteRawTag(24);
         output.WriteEnum((int) ObjectType);
       }
+      if (ActorType != global::Protocol.EActorType.ActorTypeNone) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) ActorType);
+      }
       if (posInfo_ != null) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(42);
         output.WriteMessage(PosInfo);
       }
       if (_unknownFields != null) {
@@ -553,8 +598,14 @@ namespace Protocol {
       if (Id != 0UL) {
         size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Id);
       }
+      if (InfoId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(InfoId);
+      }
       if (ObjectType != global::Protocol.EObjectType.ObjectTypeNone) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ObjectType);
+      }
+      if (ActorType != global::Protocol.EActorType.ActorTypeNone) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ActorType);
       }
       if (posInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PosInfo);
@@ -573,8 +624,14 @@ namespace Protocol {
       if (other.Id != 0UL) {
         Id = other.Id;
       }
+      if (other.InfoId != 0) {
+        InfoId = other.InfoId;
+      }
       if (other.ObjectType != global::Protocol.EObjectType.ObjectTypeNone) {
         ObjectType = other.ObjectType;
+      }
+      if (other.ActorType != global::Protocol.EActorType.ActorTypeNone) {
+        ActorType = other.ActorType;
       }
       if (other.posInfo_ != null) {
         if (posInfo_ == null) {
@@ -601,10 +658,18 @@ namespace Protocol {
             break;
           }
           case 16: {
+            InfoId = input.ReadInt32();
+            break;
+          }
+          case 24: {
             ObjectType = (global::Protocol.EObjectType) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 32: {
+            ActorType = (global::Protocol.EActorType) input.ReadEnum();
+            break;
+          }
+          case 42: {
             if (posInfo_ == null) {
               PosInfo = new global::Protocol.PosInfo();
             }
@@ -630,10 +695,18 @@ namespace Protocol {
             break;
           }
           case 16: {
+            InfoId = input.ReadInt32();
+            break;
+          }
+          case 24: {
             ObjectType = (global::Protocol.EObjectType) input.ReadEnum();
             break;
           }
-          case 26: {
+          case 32: {
+            ActorType = (global::Protocol.EActorType) input.ReadEnum();
+            break;
+          }
+          case 42: {
             if (posInfo_ == null) {
               PosInfo = new global::Protocol.PosInfo();
             }

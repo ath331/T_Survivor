@@ -21,6 +21,8 @@ message PosInfo
 message ObjectInfo
 {
 	uint64 id = 1;
-	EObjectType object_type = 2;
-	PosInfo pos_info = 3;
+	int32 infoId = 2;
+	EObjectType object_type = 3;
+	EActorType actor_type = 4;
+	PosInfo pos_info = 5;
 }
