@@ -25,12 +25,12 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     private void OnEnable()
     {
         // S_EnterGame 성공 이벤트를 구독합니다.
-        PacketHandler.OnEnterGameSuccess += HandleEnterGameSuccess;
+        EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
     }
 
     private void OnDisable()
     {
-        PacketHandler.OnEnterGameSuccess -= HandleEnterGameSuccess;
+        EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
     }
 
     /// <summary>
