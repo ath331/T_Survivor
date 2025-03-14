@@ -67,6 +67,30 @@
     <ClInclude Include="DB\GenProcedures.h">
       <Filter>DB</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\AI\AI.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\AI\AIAttackAction.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\AI\AIChaseAction.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\AI\AICondition.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\AI\AIMoveAction.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\AI\AINode.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\AI\AISelector.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\AI\AISequence.h">
+      <Filter>Logic\AI</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Core\Environment.h">
       <Filter>Logic\Core</Filter>
     </ClInclude>
@@ -108,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="Logic\Room\WaitingRoomManager.h">
       <Filter>Logic\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Spawn\MonsterSpawnManager.h">
+      <Filter>Logic\Spawn</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Utils\Log\AtLog.h">
       <Filter>Logic\Utils\Log</Filter>
@@ -243,6 +270,27 @@
     <ClCompile Include="GameServer.cpp">
       <Filter>..\..\..\GameServer</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\AI\AI.cpp">
+      <Filter>Logic\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\AI\AIAttackAction.cpp">
+      <Filter>Logic\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\AI\AIChaseAction.cpp">
+      <Filter>Logic\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\AI\AICondition.cpp">
+      <Filter>Logic\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\AI\AIMoveAction.cpp">
+      <Filter>Logic\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\AI\AISelector.cpp">
+      <Filter>Logic\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\AI\AISequence.cpp">
+      <Filter>Logic\AI</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\Core\Environment.cpp">
       <Filter>Logic\Core</Filter>
     </ClCompile>
@@ -278,6 +326,9 @@
     </ClCompile>
     <ClCompile Include="Logic\Room\WaitingRoomManager.cpp">
       <Filter>Logic\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Spawn\MonsterSpawnManager.cpp">
+      <Filter>Logic\Spawn</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Utils\Log\AtLog.cpp">
       <Filter>Logic\Utils\Log</Filter>
@@ -403,6 +454,8 @@
     </Filter>
     <Filter Include="Logic">
     </Filter>
+    <Filter Include="Logic\AI">
+    </Filter>
     <Filter Include="Logic\Core">
     </Filter>
     <Filter Include="Logic\Object">
@@ -414,6 +467,8 @@
     <Filter Include="Logic\Object\Actor\Player">
     </Filter>
     <Filter Include="Logic\Room">
+    </Filter>
+    <Filter Include="Logic\Spawn">
     </Filter>
     <Filter Include="Logic\Utils">
     </Filter>

@@ -86,7 +86,7 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 {
-	const AtInt64 id = pkt.info().id();
+	const AtInt64 id = pkt.objectinfo().id();
 	if ( m_objects.find( id ) == m_objects.end() )
 		return;
 
@@ -95,11 +95,11 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 	if ( !player )
 		return;
 
-	player->posInfo->CopyFrom( pkt.info() );
+	player->posInfo->CopyFrom( pkt.objectinfo().pos_info() );
 
 	Protocol::S_Move movePkt;
-	auto* info =  movePkt.mutable_info();
-	info->CopyFrom( pkt.info() );
+	auto* info =  movePkt.mutable_objectinfo();
+	info->CopyFrom( pkt.objectinfo() );
 
 	Broadcast( movePkt, id );
 }
@@ -132,7 +132,7 @@ AtVoid Room::SyncPlayers( PlayerPtr enterPlayer )
 	{
 		Protocol::S_Spawn spawnPkt;
 
-		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+		Protocol::ObjectInfo* playerInfo = spawnPkt.add_objectlist();
 		playerInfo->CopyFrom( *enterPlayer->objectInfo );
 
 		Broadcast( spawnPkt, enterPlayer->objectInfo->id() );
@@ -147,7 +147,7 @@ AtVoid Room::SyncPlayers( PlayerPtr enterPlayer )
 			if ( !item.second->IsPlayer() )
 				continue;
 
-			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+			Protocol::ObjectInfo* playerInfo = spawnPkt.add_objectlist();
 			playerInfo->CopyFrom( *item.second->objectInfo );
 		}
 

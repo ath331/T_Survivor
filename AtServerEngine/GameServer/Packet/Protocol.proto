@@ -71,21 +71,21 @@ message S_LeaveGame
 // path = Actor
 message C_Move
 {
-	PosInfo info = 1;
+	ObjectInfo objectInfo = 1;
 }
 
 // path = Actor
 message S_Move
 {
 	EResultCode result = 1;
-	uint64 playerId = 2;
-	PosInfo info = 3;
+	ObjectInfo objectInfo = 2;
 }
 
 // path = Spawn
 message S_Spawn
 {
-	repeated ObjectInfo players = 1;
+	EResultCode result = 1;
+	repeated ObjectInfo objectList = 2;
 }
 
 // path = Spawn
