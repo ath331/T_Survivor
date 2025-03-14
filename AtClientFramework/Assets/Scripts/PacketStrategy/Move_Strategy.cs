@@ -1,11 +1,22 @@
+using System;
 using Protocol;
 using UnityEngine;
 
-public class Move_Strategy
+public class Move_Strategy : IStrategy
 {
     public Move_Strategy()
     {
+        Register();
+    }
+
+    public void Register()
+    {
         PacketEventManager.Subscribe<S_Move>(OnMovePacketReceived);
+    }
+
+    public void Unregister()
+    {
+        PacketEventManager.Unsubscribe<S_Move>(OnMovePacketReceived);
     }
 
     private void OnMovePacketReceived(S_Move message)

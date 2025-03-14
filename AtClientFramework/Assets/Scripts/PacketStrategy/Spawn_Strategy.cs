@@ -1,11 +1,21 @@
 using Protocol;
 using UnityEngine;
 
-public class Spawn_Strategy
+public class Spawn_Strategy : IStrategy
 {
     public Spawn_Strategy()
     {
+        Register();
+    }
+
+    public void Register()
+    {
         PacketEventManager.Subscribe<S_Spawn>(OnSpawnPacketReceived);
+    }
+
+    public void Unregister()
+    {
+        PacketEventManager.Unsubscribe<S_Spawn>(OnSpawnPacketReceived);
     }
 
     private void OnSpawnPacketReceived(S_Spawn message)
