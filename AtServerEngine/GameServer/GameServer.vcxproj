@@ -199,6 +199,14 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Data\TestInfoManagerTemplate.h" />
     <ClInclude Include="Data\TestInfoTemplate.h" />
     <ClInclude Include="DB\GenProcedures.h" />
+    <ClInclude Include="Logic\AI\AI.h" />
+    <ClInclude Include="Logic\AI\AIAttackAction.h" />
+    <ClInclude Include="Logic\AI\AIChaseAction.h" />
+    <ClInclude Include="Logic\AI\AICondition.h" />
+    <ClInclude Include="Logic\AI\AIMoveAction.h" />
+    <ClInclude Include="Logic\AI\AINode.h" />
+    <ClInclude Include="Logic\AI\AISelector.h" />
+    <ClInclude Include="Logic\AI\AISequence.h" />
     <ClInclude Include="Logic\Core\Environment.h" />
     <ClInclude Include="Logic\Core\Singleton.h" />
     <ClInclude Include="Logic\Object\Actor\Actor.h" />
@@ -213,6 +221,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Room\RoomTypes.h" />
     <ClInclude Include="Logic\Room\WaitingRoom.h" />
     <ClInclude Include="Logic\Room\WaitingRoomManager.h" />
+    <ClInclude Include="Logic\Spawn\MonsterSpawnManager.h" />
     <ClInclude Include="Logic\Utils\Log\AtLog.h" />
     <ClInclude Include="Logic\Utils\ObjectUtils.h" />
     <ClInclude Include="Logic\Utils\String\StringUtils.h" />
@@ -259,6 +268,13 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Data\TestInfoManagerTemplate.cpp" />
     <ClCompile Include="Data\TestInfoTemplate.cpp" />
     <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="Logic\AI\AI.cpp" />
+    <ClCompile Include="Logic\AI\AIAttackAction.cpp" />
+    <ClCompile Include="Logic\AI\AIChaseAction.cpp" />
+    <ClCompile Include="Logic\AI\AICondition.cpp" />
+    <ClCompile Include="Logic\AI\AIMoveAction.cpp" />
+    <ClCompile Include="Logic\AI\AISelector.cpp" />
+    <ClCompile Include="Logic\AI\AISequence.cpp" />
     <ClCompile Include="Logic\Core\Environment.cpp" />
     <ClCompile Include="Logic\Core\Singleton.cpp" />
     <ClCompile Include="Logic\Object\Actor\Actor.cpp" />
@@ -271,6 +287,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Room\Room.cpp" />
     <ClCompile Include="Logic\Room\WaitingRoom.cpp" />
     <ClCompile Include="Logic\Room\WaitingRoomManager.cpp" />
+    <ClCompile Include="Logic\Spawn\MonsterSpawnManager.cpp" />
     <ClCompile Include="Logic\Utils\Log\AtLog.cpp" />
     <ClCompile Include="Logic\Utils\ObjectUtils.cpp" />
     <ClCompile Include="Logic\Utils\String\StringUtils.cpp" />

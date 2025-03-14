@@ -1,0 +1,24 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif AISequence class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#pragma once
+#include "AINode.h"
+
+
+class AISequence : public AINode
+{
+private:
+	std::vector< AINode* > children;
+
+public:
+	/// 생성자
+	AISequence( const std::vector< AINode* >& nodes );
+
+	/// 소멸자
+	virtual ~AISequence();
+
+	/// 실행한다.
+	virtual AIStatus Execute( Actor* actor ) override;
+};
