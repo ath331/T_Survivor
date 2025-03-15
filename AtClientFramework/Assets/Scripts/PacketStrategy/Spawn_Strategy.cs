@@ -20,7 +20,7 @@ public class Spawn_Strategy : IStrategy
 
     private void OnSpawnPacketReceived(S_Spawn message)
     {
-        var playerInfos = message.Players;
+        var playerInfos = message.ObjectList;
 
         foreach (var playerInfo in playerInfos)
         {

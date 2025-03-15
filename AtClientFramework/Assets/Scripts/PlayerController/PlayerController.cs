@@ -94,15 +94,18 @@ public class PlayerController : MonoBehaviour
 
         C_Move pkt = new C_Move
         {
-            Info = new PosInfo
+            ObjectInfo = new ObjectInfo
             {
                 Id = MercuryHelper.mercuryId,
 
-                X = transform.position.x,
-                Y = transform.position.y,
-                Z = transform.position.z,
+                PosInfo = new PosInfo
+                {
+                    X = transform.position.x,
+                    Y = transform.position.y,
+                    Z = transform.position.z,
 
-                Yaw = transform.eulerAngles.y // (0 ~ 360)
+                    Yaw = transform.eulerAngles.y // (0 ~ 360)
+                }
             }
         };
 

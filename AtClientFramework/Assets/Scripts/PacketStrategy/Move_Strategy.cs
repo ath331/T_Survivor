@@ -21,9 +21,9 @@ public class Move_Strategy : IStrategy
 
     private void OnMovePacketReceived(S_Move message)
     {
-        ulong playerId = message.Info.Id;
-        Vector3 newPosition = new Vector3(message.Info.X, message.Info.Y, message.Info.Z);
-        float newYaw = message.Info.Yaw;
+        ulong playerId = message.ObjectInfo.Id;
+        Vector3 newPosition = new Vector3(message.ObjectInfo.PosInfo.X, message.ObjectInfo.PosInfo.Y, message.ObjectInfo.PosInfo.Z);
+        float newYaw = message.ObjectInfo.PosInfo.Yaw;
 
         if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
         {
