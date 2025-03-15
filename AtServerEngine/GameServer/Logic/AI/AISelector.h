@@ -1,0 +1,24 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif AISelector class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#pragma once
+#include "AINode.h"
+
+
+class AISelector : public AINode
+{
+private:
+	std::vector< AINode* > children;
+
+public:
+	/// 생성자
+	AISelector( const std::vector< AINode* >& nodes );
+
+	/// 소멸자
+	virtual ~AISelector();
+
+	/// 실행한다.
+	virtual AIStatus Execute( Actor* actor ) override;
+};

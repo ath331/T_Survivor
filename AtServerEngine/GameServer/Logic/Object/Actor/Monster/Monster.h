@@ -3,13 +3,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#include "Packet/Protocol.pb.h"
 #include "Logic/Object/Actor/Actor.h"
+
+
+class AI;
 
 
 class Monster
 	:
-public Actor
+	public Actor
 {
 public:
 	/// 생성자
@@ -17,6 +19,13 @@ public:
 
 	/// 소멸자
 	virtual ~Monster();
+
+private:
+	AI* m_ai;
+
+public:
+	/// 업데이트
+	AtVoid Update();
 };
 
 // 포인터 타입 정의

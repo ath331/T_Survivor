@@ -1,0 +1,27 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif MonsterSpawnManager class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#pragma once
+#include "Packet/Protocol.pb.h"
+
+
+class Room;
+
+
+class MonsterSpawnManager
+{
+public:
+	/// 생성자
+	MonsterSpawnManager( Room* room );
+
+	/// 소멸자
+	virtual ~MonsterSpawnManager();
+
+	/// 업데이트
+	AtVoid Update();
+
+private:
+	/// 룸
+	Room* m_room;
+};

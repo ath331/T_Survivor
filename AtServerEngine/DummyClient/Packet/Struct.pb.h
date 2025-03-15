@@ -365,11 +365,13 @@ class ObjectInfo final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPosInfoFieldNumber = 3,
+    kPosInfoFieldNumber = 5,
     kIdFieldNumber = 1,
-    kObjectTypeFieldNumber = 2,
+    kInfoIdFieldNumber = 2,
+    kObjectTypeFieldNumber = 3,
+    kActorTypeFieldNumber = 4,
   };
-  // .Protocol.PosInfo pos_info = 3;
+  // .Protocol.PosInfo pos_info = 5;
   bool has_pos_info() const;
   private:
   bool _internal_has_pos_info() const;
@@ -396,13 +398,31 @@ class ObjectInfo final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // .Protocol.EObjectType object_type = 2;
+  // int32 infoId = 2;
+  void clear_infoid();
+  ::PROTOBUF_NAMESPACE_ID::int32 infoid() const;
+  void set_infoid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_infoid() const;
+  void _internal_set_infoid(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // .Protocol.EObjectType object_type = 3;
   void clear_object_type();
   ::Protocol::EObjectType object_type() const;
   void set_object_type(::Protocol::EObjectType value);
   private:
   ::Protocol::EObjectType _internal_object_type() const;
   void _internal_set_object_type(::Protocol::EObjectType value);
+  public:
+
+  // .Protocol.EActorType actor_type = 4;
+  void clear_actor_type();
+  ::Protocol::EActorType actor_type() const;
+  void set_actor_type(::Protocol::EActorType value);
+  private:
+  ::Protocol::EActorType _internal_actor_type() const;
+  void _internal_set_actor_type(::Protocol::EActorType value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.ObjectInfo)
@@ -414,7 +434,9 @@ class ObjectInfo final :
   typedef void DestructorSkippable_;
   ::Protocol::PosInfo* pos_info_;
   ::PROTOBUF_NAMESPACE_ID::uint64 id_;
+  ::PROTOBUF_NAMESPACE_ID::int32 infoid_;
   int object_type_;
+  int actor_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Struct_2eproto;
 };
@@ -573,7 +595,27 @@ inline void ObjectInfo::set_id(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.id)
 }
 
-// .Protocol.EObjectType object_type = 2;
+// int32 infoId = 2;
+inline void ObjectInfo::clear_infoid() {
+  infoid_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ObjectInfo::_internal_infoid() const {
+  return infoid_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ObjectInfo::infoid() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.infoId)
+  return _internal_infoid();
+}
+inline void ObjectInfo::_internal_set_infoid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  infoid_ = value;
+}
+inline void ObjectInfo::set_infoid(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_infoid(value);
+  // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.infoId)
+}
+
+// .Protocol.EObjectType object_type = 3;
 inline void ObjectInfo::clear_object_type() {
   object_type_ = 0;
 }
@@ -593,7 +635,27 @@ inline void ObjectInfo::set_object_type(::Protocol::EObjectType value) {
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.object_type)
 }
 
-// .Protocol.PosInfo pos_info = 3;
+// .Protocol.EActorType actor_type = 4;
+inline void ObjectInfo::clear_actor_type() {
+  actor_type_ = 0;
+}
+inline ::Protocol::EActorType ObjectInfo::_internal_actor_type() const {
+  return static_cast< ::Protocol::EActorType >(actor_type_);
+}
+inline ::Protocol::EActorType ObjectInfo::actor_type() const {
+  // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.actor_type)
+  return _internal_actor_type();
+}
+inline void ObjectInfo::_internal_set_actor_type(::Protocol::EActorType value) {
+  
+  actor_type_ = value;
+}
+inline void ObjectInfo::set_actor_type(::Protocol::EActorType value) {
+  _internal_set_actor_type(value);
+  // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.actor_type)
+}
+
+// .Protocol.PosInfo pos_info = 5;
 inline bool ObjectInfo::_internal_has_pos_info() const {
   return this != internal_default_instance() && pos_info_ != nullptr;
 }
