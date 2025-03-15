@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClInclude Include="Data\AI\AIInfo.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\AI\AIInfoManager.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\AI\AIInfoManagerTemplate.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\AI\AIInfoTemplate.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
     <ClInclude Include="Data\Character\CharacterInfo.h">
       <Filter>Data\Character</Filter>
     </ClInclude>
@@ -51,6 +63,30 @@
     </ClInclude>
     <ClInclude Include="Data\Item\ItemInfoTemplate.h">
       <Filter>Data\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfo.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfoManager.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfoManagerTemplate.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfoTemplate.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfo.h">
+      <Filter>Data\Spawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoManager.h">
+      <Filter>Data\Spawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoManagerTemplate.h">
+      <Filter>Data\Spawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoTemplate.h">
+      <Filter>Data\Spawn</Filter>
     </ClInclude>
     <ClInclude Include="Data\TestInfo.h">
       <Filter>Data</Filter>
@@ -207,6 +243,18 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data\AI\AIInfo.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\AI\AIInfoManager.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\AI\AIInfoManagerTemplate.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\AI\AIInfoTemplate.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
     <ClCompile Include="Data\Character\CharacterInfo.cpp">
       <Filter>Data\Character</Filter>
     </ClCompile>
@@ -254,6 +302,30 @@
     </ClCompile>
     <ClCompile Include="Data\Item\ItemInfoTemplate.cpp">
       <Filter>Data\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfo.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfoManager.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfoManagerTemplate.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfoTemplate.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfo.cpp">
+      <Filter>Data\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoManager.cpp">
+      <Filter>Data\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoManagerTemplate.cpp">
+      <Filter>Data\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoTemplate.cpp">
+      <Filter>Data\Spawn</Filter>
     </ClCompile>
     <ClCompile Include="Data\TestInfo.cpp">
       <Filter>Data</Filter>
@@ -442,11 +514,17 @@
   <ItemGroup>
     <Filter Include="Data">
     </Filter>
+    <Filter Include="Data\AI">
+    </Filter>
     <Filter Include="Data\Character">
     </Filter>
     <Filter Include="Data\Inventory">
     </Filter>
     <Filter Include="Data\Item">
+    </Filter>
+    <Filter Include="Data\Monster">
+    </Filter>
+    <Filter Include="Data\Spawn">
     </Filter>
     <Filter Include="DB">
     </Filter>

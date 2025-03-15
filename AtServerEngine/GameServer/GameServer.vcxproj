@@ -177,6 +177,10 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Data\AI\AIInfo.h" />
+    <ClInclude Include="Data\AI\AIInfoManager.h" />
+    <ClInclude Include="Data\AI\AIInfoManagerTemplate.h" />
+    <ClInclude Include="Data\AI\AIInfoTemplate.h" />
     <ClInclude Include="Data\Character\CharacterInfo.h" />
     <ClInclude Include="Data\Character\CharacterInfoManager.h" />
     <ClInclude Include="Data\Character\CharacterInfoManagerTemplate.h" />
@@ -194,6 +198,14 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Data\Item\ItemInfoManager.h" />
     <ClInclude Include="Data\Item\ItemInfoManagerTemplate.h" />
     <ClInclude Include="Data\Item\ItemInfoTemplate.h" />
+    <ClInclude Include="Data\Monster\MonsterInfo.h" />
+    <ClInclude Include="Data\Monster\MonsterInfoManager.h" />
+    <ClInclude Include="Data\Monster\MonsterInfoManagerTemplate.h" />
+    <ClInclude Include="Data\Monster\MonsterInfoTemplate.h" />
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfo.h" />
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoManager.h" />
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoManagerTemplate.h" />
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoTemplate.h" />
     <ClInclude Include="Data\TestInfo.h" />
     <ClInclude Include="Data\TestInfoManager.h" />
     <ClInclude Include="Data\TestInfoManagerTemplate.h" />
@@ -247,6 +259,10 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Session\GameSessionTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data\AI\AIInfo.cpp" />
+    <ClCompile Include="Data\AI\AIInfoManager.cpp" />
+    <ClCompile Include="Data\AI\AIInfoManagerTemplate.cpp" />
+    <ClCompile Include="Data\AI\AIInfoTemplate.cpp" />
     <ClCompile Include="Data\Character\CharacterInfo.cpp" />
     <ClCompile Include="Data\Character\CharacterInfoManager.cpp" />
     <ClCompile Include="Data\Character\CharacterInfoManagerTemplate.cpp" />
@@ -263,6 +279,14 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Data\Item\ItemInfoManager.cpp" />
     <ClCompile Include="Data\Item\ItemInfoManagerTemplate.cpp" />
     <ClCompile Include="Data\Item\ItemInfoTemplate.cpp" />
+    <ClCompile Include="Data\Monster\MonsterInfo.cpp" />
+    <ClCompile Include="Data\Monster\MonsterInfoManager.cpp" />
+    <ClCompile Include="Data\Monster\MonsterInfoManagerTemplate.cpp" />
+    <ClCompile Include="Data\Monster\MonsterInfoTemplate.cpp" />
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfo.cpp" />
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoManager.cpp" />
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoManagerTemplate.cpp" />
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoTemplate.cpp" />
     <ClCompile Include="Data\TestInfo.cpp" />
     <ClCompile Include="Data\TestInfoManager.cpp" />
     <ClCompile Include="Data\TestInfoManagerTemplate.cpp" />
