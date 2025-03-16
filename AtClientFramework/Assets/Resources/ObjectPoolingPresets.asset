@@ -16,3 +16,6 @@ MonoBehaviour:
   - name: Character
     prefab: {fileID: 564008150529913243, guid: 662b64018d8fb804b83ade0500639ff9, type: 3}
     initialCount: 1
+  - name: ChatText
+    prefab: {fileID: 1522144649589350288, guid: 56642b0b6621faf49b634a211246a718, type: 3}
+    initialCount: 10
