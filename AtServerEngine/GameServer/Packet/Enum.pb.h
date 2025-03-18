@@ -310,6 +310,33 @@ inline bool EAnimationParamType_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EAnimationParamType>(
     EAnimationParamType_descriptor(), name, value);
 }
+enum ERoomState : int {
+  ROOM_STATE_NONE = 0,
+  ROOM_STATE_WAITING = 1,
+  ROOM_STATE_PLAY = 2,
+  ROOM_STATE_MAX = 3,
+  ERoomState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  ERoomState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool ERoomState_IsValid(int value);
+constexpr ERoomState ERoomState_MIN = ROOM_STATE_NONE;
+constexpr ERoomState ERoomState_MAX = ROOM_STATE_MAX;
+constexpr int ERoomState_ARRAYSIZE = ERoomState_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ERoomState_descriptor();
+template<typename T>
+inline const std::string& ERoomState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ERoomState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ERoomState_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    ERoomState_descriptor(), enum_t_value);
+}
+inline bool ERoomState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ERoomState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ERoomState>(
+    ERoomState_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -376,6 +403,11 @@ template <> struct is_proto_enum< ::Protocol::EAnimationParamType> : ::std::true
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EAnimationParamType>() {
   return ::Protocol::EAnimationParamType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::ERoomState> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ERoomState>() {
+  return ::Protocol::ERoomState_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

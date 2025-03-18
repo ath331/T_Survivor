@@ -16,12 +16,14 @@ extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
 bool Handle_C_LoginTemplate(PacketSessionPtr& session, Protocol::C_Login& pkt);
 bool Handle_C_EnterLobbyTemplate(PacketSessionPtr& session, Protocol::C_EnterLobby& pkt);
+bool Handle_C_WaitingRoomEnterTemplate(PacketSessionPtr& session, Protocol::C_WaitingRoomEnter& pkt);
+bool Handle_C_MakeRoomTemplate(PacketSessionPtr& session, Protocol::C_MakeRoom& pkt);
+bool Handle_C_RequestAllRoomInfoTemplate(PacketSessionPtr& session, Protocol::C_RequestAllRoomInfo& pkt);
 bool Handle_C_EnterGameTemplate(PacketSessionPtr& session, Protocol::C_EnterGame& pkt);
 bool Handle_C_EnterGameFinishTemplate(PacketSessionPtr& session, Protocol::C_EnterGameFinish& pkt);
 bool Handle_C_LeaveGameTemplate(PacketSessionPtr& session, Protocol::C_LeaveGame& pkt);
 bool Handle_C_MoveTemplate(PacketSessionPtr& session, Protocol::C_Move& pkt);
 bool Handle_C_ChatTemplate(PacketSessionPtr& session, Protocol::C_Chat& pkt);
-bool Handle_C_WaitingRoomEnterTemplate(PacketSessionPtr& session, Protocol::C_WaitingRoomEnter& pkt);
 bool Handle_C_AnimationEventTemplate(PacketSessionPtr& session, Protocol::C_AnimationEvent& pkt);
 
 class ClientPacketHandler
@@ -33,12 +35,14 @@ public:
 			GPacketHandler[i] = Handle_INVALID;
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_Login ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Login>(Handle_C_LoginTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_EnterLobby ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EnterLobby>(Handle_C_EnterLobbyTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_C_WaitingRoomEnter ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_WaitingRoomEnter>(Handle_C_WaitingRoomEnterTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_C_MakeRoom ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_MakeRoom>(Handle_C_MakeRoomTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_C_RequestAllRoomInfo ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_RequestAllRoomInfo>(Handle_C_RequestAllRoomInfoTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_EnterGame ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EnterGame>(Handle_C_EnterGameTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_EnterGameFinish ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EnterGameFinish>(Handle_C_EnterGameFinishTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_LeaveGame ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_LeaveGame>(Handle_C_LeaveGameTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_Move ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Move>(Handle_C_MoveTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_Chat ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Chat>(Handle_C_ChatTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_WaitingRoomEnter ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_WaitingRoomEnter>(Handle_C_WaitingRoomEnterTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_AnimationEvent ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_AnimationEvent>(Handle_C_AnimationEventTemplate, session, buffer, len); };
 	}
 
@@ -55,6 +59,11 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 		return nullptr;
 	else if ( packetTypeName == "Protocol.S_Login" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Login ) );
 	else if ( packetTypeName == "Protocol.S_EnterLobby" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_EnterLobby ) );
+	else if ( packetTypeName == "Protocol.S_WaitingRoomEnter" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_WaitingRoomEnter ) );
+	else if ( packetTypeName == "Protocol.S_MakeRoom" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_MakeRoom ) );
+	else if ( packetTypeName == "Protocol.S_DestroyRoom" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_DestroyRoom ) );
+	else if ( packetTypeName == "Protocol.S_RequestRoomInfo" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_RequestRoomInfo ) );
+	else if ( packetTypeName == "Protocol.S_RequestAllRoomInfo" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_RequestAllRoomInfo ) );
 	else if ( packetTypeName == "Protocol.S_EnterGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_EnterGame ) );
 	else if ( packetTypeName == "Protocol.S_EnterGameFinish" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_EnterGameFinish ) );
 	else if ( packetTypeName == "Protocol.S_LeaveGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_LeaveGame ) );
@@ -62,7 +71,6 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 	else if ( packetTypeName == "Protocol.S_Spawn" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Spawn ) );
 	else if ( packetTypeName == "Protocol.S_DeSpawn" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_DeSpawn ) );
 	else if ( packetTypeName == "Protocol.S_Chat" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Chat ) );
-	else if ( packetTypeName == "Protocol.S_WaitingRoomEnter" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_WaitingRoomEnter ) );
 	else if ( packetTypeName == "Protocol.S_AnimationEvent" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_AnimationEvent ) );
 
 	return nullptr;

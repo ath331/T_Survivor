@@ -136,6 +136,9 @@
     <ClInclude Include="Logic\Object\Actor\Actor.h">
       <Filter>Logic\Object\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Object\Actor\ActorTypes.h">
+      <Filter>Logic\Object\Actor</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Object\Actor\Monster\Monster.h">
       <Filter>Logic\Object\Actor\Monster</Filter>
     </ClInclude>
@@ -149,6 +152,9 @@
       <Filter>Logic\Object\Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Object\Object.h">
+      <Filter>Logic\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Object\ObjectTypes.h">
       <Filter>Logic\Object</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Room\Lobby.h">
@@ -221,6 +227,12 @@
       <Filter>Packet\Handler</Filter>
     </ClInclude>
     <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\C_MakeRoomHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.h">
       <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
     <ClInclude Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.h">
@@ -453,7 +465,13 @@
     <ClCompile Include="Packet\Handler\C_LoginHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_MakeRoomHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_MoveHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\C_RequestAllRoomInfoHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\C_WaitingRoomEnterHandlerTemplate.cpp">
@@ -472,6 +490,12 @@
       <Filter>Packet\Handler\Login</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Room\C_EnterLobbyHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\C_MakeRoomHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.cpp">
       <Filter>Packet\Handler\Room</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.cpp">
