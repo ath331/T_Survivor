@@ -87,3 +87,11 @@ enum EAnimationParamType
 	ANIM_PARAM_TYPE_FLOAT = 1;
 	ANIM_PARAM_TYPE_TRIGGER = 2;
 }
+
+enum ERoomState
+{
+	ROOM_STATE_NONE = 0;
+	ROOM_STATE_WAITING = 1; // 대기중
+	ROOM_STATE_PLAY = 2; // 진행중
+	ROOM_STATE_MAX = 3;
+}

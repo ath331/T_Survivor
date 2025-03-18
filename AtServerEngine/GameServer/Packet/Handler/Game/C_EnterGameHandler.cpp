@@ -35,6 +35,8 @@ AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterG
 	if ( !playRoom )
 		return false;
 
+	playRoom->UpdateTick();
+
 	room->ForeachPlayer(
 		[ playRoom ]( PlayerPtr eachPlayer )
 		{
@@ -42,8 +44,6 @@ AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterG
 			eachPlayer->posInfo->set_z( Utils::GetRandom( -15.f, 15.f ) );
 			eachPlayer->posInfo->set_y( 0.0f );
 			//eachPlayer->posInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
-
-			playRoom->UpdateTick();
 
 			playRoom->DoAsync(
 				&Room::HandleEnterPlayer,

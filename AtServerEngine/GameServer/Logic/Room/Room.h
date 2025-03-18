@@ -7,7 +7,10 @@
 #include "JobQueue.h"
 #include "CoreMacro.h"
 #include "Logic/Room/RoomTypes.h"
+#include "Logic/Object/ObjectTypes.h"
 #include "Logic/Object/Actor/Player/PlayerTypes.h"
+#include "Logic/Object/Actor/ActorTypes.h"
+#include "Logic/Object/Actor/Monster/MonsterTypes.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +44,9 @@ public:
 
 	/// 플레이어를 방에 입장시킨다.
 	virtual AtBool HandleEnterPlayer( PlayerPtr player, CallbackFunc callback = nullptr );
+
+	/// 오브젝트를 소환한다.
+	virtual AtBool HandleSpawnObject( ObjectPtr object, CallbackFunc callback = nullptr );
 
 	/// 플레이어를 방에서 내보낸다.
 	AtBool HandleLeavePlayer( PlayerPtr player );
@@ -76,9 +82,12 @@ protected:
 	AtBool _RemoveObject( uint64 objectId );
 
 protected:
-	/// 모든 오브젝트 맵
+	/// 모든 오브젝트 컨테이너
 	unordered_map<uint64, ObjectPtr > m_objects;
 
-	/// 플레이어 맵
+	/// 플레이어 컨테이너
 	unordered_map<uint64, PlayerPtr > m_players;
+
+	/// 몬스터 컨테이너
+	unordered_map<uint64, MonsterPtr > m_monsters;
 };

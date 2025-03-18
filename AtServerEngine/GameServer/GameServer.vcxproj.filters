@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClInclude Include="Data\AI\AIInfo.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\AI\AIInfoManager.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\AI\AIInfoManagerTemplate.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\AI\AIInfoTemplate.h">
+      <Filter>Data\AI</Filter>
+    </ClInclude>
     <ClInclude Include="Data\Character\CharacterInfo.h">
       <Filter>Data\Character</Filter>
     </ClInclude>
@@ -52,6 +64,30 @@
     <ClInclude Include="Data\Item\ItemInfoTemplate.h">
       <Filter>Data\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfo.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfoManager.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfoManagerTemplate.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Monster\MonsterInfoTemplate.h">
+      <Filter>Data\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfo.h">
+      <Filter>Data\Spawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoManager.h">
+      <Filter>Data\Spawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoManagerTemplate.h">
+      <Filter>Data\Spawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Spawn\MonsterSpawnInfoTemplate.h">
+      <Filter>Data\Spawn</Filter>
+    </ClInclude>
     <ClInclude Include="Data\TestInfo.h">
       <Filter>Data</Filter>
     </ClInclude>
@@ -100,7 +136,13 @@
     <ClInclude Include="Logic\Object\Actor\Actor.h">
       <Filter>Logic\Object\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Object\Actor\ActorTypes.h">
+      <Filter>Logic\Object\Actor</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Object\Actor\Monster\Monster.h">
+      <Filter>Logic\Object\Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Object\Actor\Monster\MonsterTypes.h">
       <Filter>Logic\Object\Actor\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Object\Actor\Player\Player.h">
@@ -110,6 +152,9 @@
       <Filter>Logic\Object\Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Object\Object.h">
+      <Filter>Logic\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Object\ObjectTypes.h">
       <Filter>Logic\Object</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Room\Lobby.h">
@@ -184,6 +229,12 @@
     <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h">
       <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\C_MakeRoomHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.h">
       <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
@@ -207,6 +258,18 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data\AI\AIInfo.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\AI\AIInfoManager.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\AI\AIInfoManagerTemplate.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\AI\AIInfoTemplate.cpp">
+      <Filter>Data\AI</Filter>
+    </ClCompile>
     <ClCompile Include="Data\Character\CharacterInfo.cpp">
       <Filter>Data\Character</Filter>
     </ClCompile>
@@ -254,6 +317,30 @@
     </ClCompile>
     <ClCompile Include="Data\Item\ItemInfoTemplate.cpp">
       <Filter>Data\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfo.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfoManager.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfoManagerTemplate.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Monster\MonsterInfoTemplate.cpp">
+      <Filter>Data\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfo.cpp">
+      <Filter>Data\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoManager.cpp">
+      <Filter>Data\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoManagerTemplate.cpp">
+      <Filter>Data\Spawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Spawn\MonsterSpawnInfoTemplate.cpp">
+      <Filter>Data\Spawn</Filter>
     </ClCompile>
     <ClCompile Include="Data\TestInfo.cpp">
       <Filter>Data</Filter>
@@ -378,7 +465,13 @@
     <ClCompile Include="Packet\Handler\C_LoginHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_MakeRoomHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_MoveHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\C_RequestAllRoomInfoHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\C_WaitingRoomEnterHandlerTemplate.cpp">
@@ -397,6 +490,12 @@
       <Filter>Packet\Handler\Login</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Room\C_EnterLobbyHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\C_MakeRoomHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.cpp">
       <Filter>Packet\Handler\Room</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.cpp">
@@ -442,11 +541,17 @@
   <ItemGroup>
     <Filter Include="Data">
     </Filter>
+    <Filter Include="Data\AI">
+    </Filter>
     <Filter Include="Data\Character">
     </Filter>
     <Filter Include="Data\Inventory">
     </Filter>
     <Filter Include="Data\Item">
+    </Filter>
+    <Filter Include="Data\Monster">
+    </Filter>
+    <Filter Include="Data\Spawn">
     </Filter>
     <Filter Include="DB">
     </Filter>
