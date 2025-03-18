@@ -30,6 +30,7 @@ private:
 	/// AddInfo
 	AtBool _AddInfo(
 	    AtInt32 id,
+	    AtInt32 groupId,
 	    AtInt32 monsterInfoId,
 	    AtInt32 aIInfoId );
 

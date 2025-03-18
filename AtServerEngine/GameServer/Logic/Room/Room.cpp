@@ -7,6 +7,7 @@
 #include "Room.h"
 #include "CoreMacro.h"
 #include "Logic/Object/Actor/Player/Player.h"
+#include "Logic/Object/Actor/Monster/Monster.h"
 #include "Logic/Utils/Log/AtLog.h"
 #include "Lock.h"
 #include "Session/GameSession.h"
@@ -41,6 +42,29 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player, CallbackFunc callback )
 
 	if ( !success )
 		return false;
+
+	if ( callback )
+		callback();
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 오브젝트를 소환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool Room::HandleSpawnObject( ObjectPtr object, CallbackFunc callback )
+{
+	AtBool success = _AddObject( object );
+
+	if ( !success )
+		return false;
+
+	Protocol::S_Spawn spawn;
+	spawn.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
+	auto objectInfo = spawn.add_objectlist();
+	objectInfo->CopyFrom( *object->objectInfo );
+
+	Broadcast( spawn );
 
 	if ( callback )
 		callback();
@@ -207,9 +231,13 @@ AtBool Room::_AddObject( ObjectPtr object )
 
 	object->room.store( GetPtr() );
 
-	if ( PlayerPtr player = std::dynamic_pointer_cast<Player>( object ) )
+	if ( PlayerPtr player = std::dynamic_pointer_cast< Player >( object ) )
 	{
 		m_players[ player->GetId() ] = player;
+	}
+	else if ( MonsterPtr monster = std::dynamic_pointer_cast< Monster >( object ) )
+	{
+		m_monsters[ monster->GetId() ] = monster;
 	}
 
 	return true;
@@ -233,8 +261,11 @@ AtBool Room::_RemoveObject( uint64 objectId )
 
 	m_objects.erase( objectId );
 
-	auto iter = m_players.find( objectId );
-	m_players.erase( iter );
+	auto pIter = m_players.find( objectId );
+	m_players.erase( pIter );
+
+	auto mIter = m_monsters.find( objectId );
+	m_monsters.erase( mIter );
 
 	return true;
 }

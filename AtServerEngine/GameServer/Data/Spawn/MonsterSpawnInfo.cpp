@@ -22,11 +22,13 @@ MonsterSpawnInfo::MonsterSpawnInfo()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 MonsterSpawnInfo::MonsterSpawnInfo(
 	AtInt32 id,
+	AtInt32 groupId,
 	AtInt32 monsterInfoId,
 	AtInt32 aIInfoId )
 	:
 	MonsterSpawnInfoTemplate(
 		id,
+		groupId,
 		monsterInfoId,
 		aIInfoId )
 {

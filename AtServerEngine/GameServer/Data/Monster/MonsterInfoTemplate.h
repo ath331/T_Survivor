@@ -28,7 +28,7 @@ public:
 
 public:
 	/// GetId.
-	AtInt32 GetId() { return m_id; }
+	AtInt32 GetId() const { return m_id; }
 
 	/// GetString.
 	AtString GetString() { return m_string; }

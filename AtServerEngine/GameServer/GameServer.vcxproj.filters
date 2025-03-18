@@ -139,6 +139,9 @@
     <ClInclude Include="Logic\Object\Actor\Monster\Monster.h">
       <Filter>Logic\Object\Actor\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Object\Actor\Monster\MonsterTypes.h">
+      <Filter>Logic\Object\Actor\Monster</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Object\Actor\Player\Player.h">
       <Filter>Logic\Object\Actor\Player</Filter>
     </ClInclude>

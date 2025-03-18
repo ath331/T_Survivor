@@ -26,6 +26,7 @@ const MonsterSpawnInfo* MonsterSpawnInfoManagerTemplate::GetInfo( AtInt32 id )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool MonsterSpawnInfoManagerTemplate::_AddInfo(
 	    AtInt32 id,
+	    AtInt32 groupId,
 	    AtInt32 monsterInfoId,
 	    AtInt32 aIInfoId )
 {
@@ -35,6 +36,7 @@ AtBool MonsterSpawnInfoManagerTemplate::_AddInfo(
 
 	MonsterSpawnInfo info = MonsterSpawnInfo(
 	    id,
+	    groupId,
 	    monsterInfoId,
 	    aIInfoId );
 
@@ -49,9 +51,9 @@ AtBool MonsterSpawnInfoManagerTemplate::_AddInfo(
 AtBool MonsterSpawnInfoManagerTemplate::_Initialize()
 {
 	INFO_LOG( "MonsterSpawnInfoManager Initialize()" );
-	if ( !_AddInfo( 1, 1001, 101 ) ) return false;
-	if ( !_AddInfo( 2, 1002, 102 ) ) return false;
-	if ( !_AddInfo( 3, 1003, 103 ) ) return false;
+	if ( !_AddInfo( 1, 100, 1001, 101 ) ) return false;
+	if ( !_AddInfo( 2, 100, 1002, 102 ) ) return false;
+	if ( !_AddInfo( 3, 100, 1003, 103 ) ) return false;
 
 	return true;
 }

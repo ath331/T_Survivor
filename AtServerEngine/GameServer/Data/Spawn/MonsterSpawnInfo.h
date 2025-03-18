@@ -21,7 +21,8 @@ public:
 
 	/// Constructor
 	MonsterSpawnInfo(
-	    AtInt32 id,
+		AtInt32 id,
+		AtInt32 groupId,
 	    AtInt32 monsterInfoId,
 	    AtInt32 aIInfoId );
 

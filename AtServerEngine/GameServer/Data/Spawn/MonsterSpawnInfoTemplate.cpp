@@ -14,6 +14,7 @@
 MonsterSpawnInfoTemplate::MonsterSpawnInfoTemplate()
 {
 	m_id = AtInt32( 0 );
+	m_groupId = AtInt32( 0 );
 	m_monsterInfoId = AtInt32( 0 );
 	m_aIInfoId = AtInt32( 0 );
 }
@@ -23,10 +24,12 @@ MonsterSpawnInfoTemplate::MonsterSpawnInfoTemplate()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 MonsterSpawnInfoTemplate::MonsterSpawnInfoTemplate(
 	AtInt32 id,
+	AtInt32 groupId,
 	AtInt32 monsterInfoId,
 	AtInt32 aIInfoId )
 {
 	m_id = id;
+	m_groupId = groupId;
 	m_monsterInfoId = monsterInfoId;
 	m_aIInfoId = aIInfoId;
 }

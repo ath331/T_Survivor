@@ -20,6 +20,8 @@
 #include "Logic/Core/Environment.h"
 
 
+#include "Logic/Object/ObjectTypes.h"
+
 
 //#include "Packet/Enum.pb.h"
 #include "Packet/Protocol.pb.h"
@@ -33,11 +35,6 @@
 #include "Logic/Object/Actor/Player/PlayerTypes.h"
 #include "Logic/Room/RoomTypes.h"
 #include "Session/GameSessionTypes.h"
-
-
-
-// 포인터 타입 정의
-USING_SHARED_PTR( Object );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
