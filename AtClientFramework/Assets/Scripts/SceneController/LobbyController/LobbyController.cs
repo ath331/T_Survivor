@@ -53,11 +53,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         ObjectPoolManager.Instance.Initialize();
 
-        // 전체 방 갱신 요청
-        C_RequestAllRoomInfo requestAllRoomInfo = new C_RequestAllRoomInfo();
-
-        NetworkManager.Instance.Send(requestAllRoomInfo);
-
         for (int i = 0; i <= steps; i++)
         {
             // 진행 상황 갱신 (0~1 사이)

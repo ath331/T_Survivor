@@ -19,6 +19,9 @@ MonoBehaviour:
   - name: ChatText
     prefab: {fileID: 1522144649589350288, guid: 56642b0b6621faf49b634a211246a718, type: 3}
     initialCount: 10
+  - name: RoomHolder
+    prefab: {fileID: 3033638390746579019, guid: b5b1aeb8d69dfbe4680dfbb5bdd5d2a5, type: 3}
+    initialCount: 10
   - name: Knight
     prefab: {fileID: 2244014083398086627, guid: d035779bf520f38499966b00a58bd75f, type: 3}
     initialCount: 5
