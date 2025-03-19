@@ -51,10 +51,12 @@ namespace Protocol {
             "VF9JTlRFTExJR0VOQ0UQBhIMCghTVEFUX01BWBAHKmcKE0VBbmltYXRpb25Q",
             "YXJhbVR5cGUSGAoUQU5JTV9QQVJBTV9UWVBFX0JPT0wQABIZChVBTklNX1BB",
             "UkFNX1RZUEVfRkxPQVQQARIbChdBTklNX1BBUkFNX1RZUEVfVFJJR0dFUhAC",
-            "QguqAghQcm90b2NvbGIGcHJvdG8z"));
+            "KmIKCkVSb29tU3RhdGUSEwoPUk9PTV9TVEFURV9OT05FEAASFgoSUk9PTV9T",
+            "VEFURV9XQUlUSU5HEAESEwoPUk9PTV9TVEFURV9QTEFZEAISEgoOUk9PTV9T",
+            "VEFURV9NQVgQA0ILqgIIUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), }, null, null));
     }
     #endregion
 
@@ -222,6 +224,19 @@ namespace Protocol {
     [pbr::OriginalName("ANIM_PARAM_TYPE_BOOL")] AnimParamTypeBool = 0,
     [pbr::OriginalName("ANIM_PARAM_TYPE_FLOAT")] AnimParamTypeFloat = 1,
     [pbr::OriginalName("ANIM_PARAM_TYPE_TRIGGER")] AnimParamTypeTrigger = 2,
+  }
+
+  public enum ERoomState {
+    [pbr::OriginalName("ROOM_STATE_NONE")] RoomStateNone = 0,
+    /// <summary>
+    /// 대기중
+    /// </summary>
+    [pbr::OriginalName("ROOM_STATE_WAITING")] RoomStateWaiting = 1,
+    /// <summary>
+    /// 진행중
+    /// </summary>
+    [pbr::OriginalName("ROOM_STATE_PLAY")] RoomStatePlay = 2,
+    [pbr::OriginalName("ROOM_STATE_MAX")] RoomStateMax = 3,
   }
 
   #endregion

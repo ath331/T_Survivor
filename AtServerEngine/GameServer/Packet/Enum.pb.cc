@@ -18,7 +18,7 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace Protocol {
 }  // namespace Protocol
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[9];
+static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_Enum_2eproto[10];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_Enum_2eproto = nullptr;
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Enum_2eproto::offsets[1] = {};
 static constexpr ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema* schemas = nullptr;
@@ -55,11 +55,14 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "T_INTELLIGENCE\020\006\022\014\n\010STAT_MAX\020\007*g\n\023EAnima"
   "tionParamType\022\030\n\024ANIM_PARAM_TYPE_BOOL\020\000\022"
   "\031\n\025ANIM_PARAM_TYPE_FLOAT\020\001\022\033\n\027ANIM_PARAM"
-  "_TYPE_TRIGGER\020\002B\013\252\002\010Protocolb\006proto3"
+  "_TYPE_TRIGGER\020\002*b\n\nERoomState\022\023\n\017ROOM_ST"
+  "ATE_NONE\020\000\022\026\n\022ROOM_STATE_WAITING\020\001\022\023\n\017RO"
+  "OM_STATE_PLAY\020\002\022\022\n\016ROOM_STATE_MAX\020\003B\013\252\002\010"
+  "Protocolb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Enum_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Enum_2eproto = {
-  false, false, 1236, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
+  false, false, 1336, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
   &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
   schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
   nullptr, file_level_enum_descriptors_Enum_2eproto, file_level_service_descriptors_Enum_2eproto,
@@ -220,6 +223,22 @@ bool EAnimationParamType_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ERoomState_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_Enum_2eproto);
+  return file_level_enum_descriptors_Enum_2eproto[9];
+}
+bool ERoomState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
       return true;
     default:
       return false;
