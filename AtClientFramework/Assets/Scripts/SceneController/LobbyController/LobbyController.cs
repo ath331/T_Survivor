@@ -8,9 +8,18 @@ using System.Threading.Tasks;
 using Assets.Scripts.Network.Handler;
 using Protocol;
 
+public enum LobbyStatus
+{
+    WaitRoom,
+    GameRoom,
+}
+
 public class LobbyController : MonoBehaviour, ISceneInitializer
 {
     [SerializeField] private GameObject connectingPanel;
+    [SerializeField] private GameRoomHandler gameRoomHandler;
+    [SerializeField] private WaitingRoomHandler waitingRoomHandler;
+        
 
     private void Awake()
     {
@@ -24,7 +33,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     private void OnEnable()
     {
-        // S_EnterGame 성공 이벤트를 구독합니다.
         EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
     }
 
@@ -44,6 +52,11 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         int steps = 5;
 
         ObjectPoolManager.Instance.Initialize();
+
+        // 전체 방 갱신 요청
+        C_RequestAllRoomInfo requestAllRoomInfo = new C_RequestAllRoomInfo();
+
+        NetworkManager.Instance.Send(requestAllRoomInfo);
 
         for (int i = 0; i <= steps; i++)
         {
