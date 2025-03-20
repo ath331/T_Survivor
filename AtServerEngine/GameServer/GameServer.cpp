@@ -57,7 +57,7 @@ void DoWorkerJob( ServerServicePtr& service )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief ServerMain 함수
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid main()
+AtInt32 main()
 {
 #ifdef _WIN32
 	SetConsoleOutputCP( CP_UTF8 );
@@ -68,7 +68,7 @@ AtVoid main()
 		if ( !Environment::Load( "GameServer.ini" ) )
 		{
 			WARNNING_LOG( "Failed to load config.ini" );
-			return;
+			return -1;
 		}
 	}
 
@@ -110,7 +110,7 @@ AtVoid main()
 	if ( !service->Start() )
 	{
 		WARNNING_LOG( AtString( "ERROR :" + std::to_string( WSAGetLastError() ) ) );
-		return;
+		return -1;
 	}
 
 	INFO_LOG_GREEN( ip + ":" + port + " Server Start." );
@@ -128,4 +128,6 @@ AtVoid main()
 	GLobby->DoAsync( &Room::UpdateTick );
 
 	GThreadManager->Join();
+
+	return 0;
 }
