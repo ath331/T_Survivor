@@ -21,5 +21,10 @@ public class Chat_Strategy : IStrategy
     private void OnChatPacketReceived(S_Chat message)
     {
         Debug.Log(message.Msg);
+
+        if (ChatController.Instance != null)
+        {
+            ChatController.Instance.UpdateChatUI(message.Msg);
+        }
     }
 }
