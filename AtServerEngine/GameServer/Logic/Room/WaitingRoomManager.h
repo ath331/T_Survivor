@@ -8,6 +8,7 @@
 #include "CoreMacro.h"
 #include "Logic/Core/Singleton.h"
 #include "Logic/Room/RoomTypes.h"
+#include "Logic/Room/WaitingRoom.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,4 +32,7 @@ private:
 public:
 	/// WaitingRoom을 반환한다.
 	WaitingRoomPtr AcquireRoom( AtInt32 roomNum );
+
+	/// WaitingRoom을 반환한다.
+	WaitingRoomPtr AcquireRoom( const Protocol::RoomInfo& roomInfo );
 };

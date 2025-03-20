@@ -15,7 +15,29 @@ class WaitingRoom
 	:
 	public Room
 {
+private:
+	/// 최대 인원
+	AtInt32 m_maxUserCount;
+
+	/// 방 제목
+	AtString m_name;
+
+	/// 비공개 여부
+	AtBool m_isPrivate;
+
+	/// 비밀번호
+	AtInt32 m_pw;
+
 public:
+	/// 생성자
+	WaitingRoom(
+		AtInt32  maxUserCount = 3,
+		AtString name = "Default",
+		AtInt32  pw = 0 );
+
 	/// 룸을 업데이트한다.
-	virtual AtVoid UpdateTick() override;
+	AtVoid UpdateTick() override;
+
+	/// 정보를 내보낸다.
+	AtVoid ExportTo( Protocol::RoomInfo& roomInfo );
 };
