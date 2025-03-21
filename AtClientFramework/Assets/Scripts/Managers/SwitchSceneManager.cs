@@ -98,21 +98,22 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
     /// </summary>
     private async UniTask LoadSceneWithProgress(string sceneName)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-        operation.allowSceneActivation = false;
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        op.allowSceneActivation = false;
 
-        while (!operation.isDone)
+        while (!op.isDone)
         {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            float progress = Mathf.Clamp01(op.progress / 0.9f);
 
-            progressBar.UpdateProgress(progress * 0.5f, 0.5f).Forget();
+            // progressBar 업데이트
+            await progressBar.UpdateProgress(progress * 0.5f, 0.5f);
 
-            if (operation.progress >= 0.9f)
+            if (op.progress >= 0.9f)
             {
-                // 씬 전환이 거의 완료되면 1초 대기 후 씬 활성화
-                await UniTask.Delay(TimeSpan.FromSeconds(1));
+                // 로딩이 거의 끝났으면 1초 대기 후 씬 활성화
+                await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
-                operation.allowSceneActivation = true;
+                op.allowSceneActivation = true;
             }
 
             await UniTask.Yield();
@@ -137,10 +138,11 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
 
         if (initializer != null)
         {
-            // progress 리포터: 초기화 진행률 0~1을 50~100%로 매핑
+            // Progress<float>를 생성하여 p (0~1)를 0.5~1.0으로 매핑
             var sceneInitProgress = new Progress<float>(p =>
             {
-                progressBar.UpdateProgress(0.5f + p * 0.5f, 0.5f).Forget();
+                float mappedProgress = 0.5f + p * 0.5f;
+                progressBar.UpdateProgress(mappedProgress, 0.1f).Forget();
             });
 
             await initializer.InitializeAsync(sceneInitProgress);

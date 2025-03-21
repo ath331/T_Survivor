@@ -43,7 +43,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     /// <summary>
     /// 씬 내부 초기화를 진행합니다.
-    /// 이 예제에서는 1초 간격으로 10단계 진행하며, 총 1초 동안 초기화가 진행된다고 가정합니다.
     /// </summary>
     public async UniTask InitializeAsync(IProgress<float> progress)
     {
@@ -72,10 +71,13 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         waitingRoomHandler.gameObject.SetActive(true);
 
-        currentProgress += 0.5f;
+        currentProgress += 0.3f;
         progress.Report(currentProgress);
 
         await UniTask.Delay(100);
+
+        currentProgress += 0.2f;
+        progress.Report(currentProgress);
 
         Debug.Log("LobbyScene 초기화 완료");
     }
@@ -108,6 +110,8 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         {
             if (res is true)
             {
+                waitingRoomHandler.gameObject.SetActive(false);
+
                 gameRoomHandler.gameObject.SetActive(true);
             }
         });

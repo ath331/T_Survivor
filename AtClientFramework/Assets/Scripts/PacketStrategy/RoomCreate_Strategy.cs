@@ -24,6 +24,8 @@ public class RoomCreate_Strategy : IStrategy
 
     private void OnCreateRoomPacketReceived(S_MakeRoom message)
     {
-        
+        var d = message.MadeRoomInfo;
+
+        int a = 3;
     }
 }
