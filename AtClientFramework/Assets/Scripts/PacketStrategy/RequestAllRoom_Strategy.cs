@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Protocol;
 using UnityEngine;
 
 public class RequestAllRoom_Strategy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public RequestAllRoom_Strategy()
     {
-        
+        Register();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Register()
     {
-        
+        PacketEventManager.Subscribe<S_RequestAllRoomInfo>(ORequestAllRoomInfoPacketReceived);
+    }
+
+    public void Unregister()
+    {
+        PacketEventManager.Unsubscribe<S_RequestAllRoomInfo>(ORequestAllRoomInfoPacketReceived);
+    }
+
+    private void ORequestAllRoomInfoPacketReceived(S_RequestAllRoomInfo message)
+    {
+        WaitingRoomHandler.OnRequestAllRoomInfo?.Invoke(message);
     }
 }

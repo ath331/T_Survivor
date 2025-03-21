@@ -67,6 +67,30 @@ public class ObjectPoolManager : MonoBehaviour
         return null;
     }
 
+    public T Get<T>(string prefabName, Transform parent = null) where T : Component
+    {
+        GameObject obj = Get(prefabName);
+
+        if (obj != null)
+        {
+            if (parent != null)
+            {
+                obj.transform.SetParent(parent, false);
+            }
+
+            T component = obj.GetComponent<T>();
+
+            if (component == null)
+            {
+                Debug.LogError($"[ObjectPoolManager] '{prefabName}' 오브젝트에 {typeof(T)} 컴포넌트가 없습니다!");
+            }
+
+            return component;
+        }
+
+        return null;
+    }
+
     /// <summary> 오브젝트 반환 </summary>
     public void Return(string prefabName, GameObject obj)
     {
