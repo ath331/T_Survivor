@@ -35,4 +35,7 @@ public:
 
 	/// WaitingRoom을 반환한다.
 	WaitingRoomPtr AcquireRoom( const Protocol::RoomInfo& roomInfo );
+
+	/// 대기실의 모든 룸의 정보를 내보낸다.
+	AtVoid ExportToAllRoomInfo( Protocol::S_RequestAllRoomInfo& s_requestAllRoomInfo );
 };

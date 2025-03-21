@@ -39,7 +39,7 @@ AtBool C_MakeRoomHandler::Handle( PacketSessionPtr& session, Protocol::C_MakeRoo
 	WaitingRoomPtr waitingRoom = WaitingRoomManager::GetInstance().AcquireRoom( pkt.roominfo() );
 
 	waitingRoom->DoAsync(
-		&Room::HandleEnterPlayer, 
+		&Room::HandleEnterPlayer,
 		player,
 		(Room::CallbackFunc)( [ oldRoom, waitingRoom, player ]()
 							  {
