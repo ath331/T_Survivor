@@ -22,9 +22,6 @@ public class Chat_Strategy : IStrategy
     {
         Debug.Log(message.Msg);
 
-        if (ChatController.Instance != null)
-        {
-            ChatController.Instance.UpdateChatUI(message.Msg);
-        }
+        ChatController.OnChatReceived?.Invoke(message.Msg);
     }
 }

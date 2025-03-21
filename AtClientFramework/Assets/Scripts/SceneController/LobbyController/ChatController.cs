@@ -1,12 +1,13 @@
 using Assets.Scripts.Network;
 using Protocol;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatController : MonoBehaviour
 {
-    public static ChatController Instance { get; private set; }
+    public static Action<string> OnChatReceived;
 
     [SerializeField] private GameObject content;
     [SerializeField] private TMP_InputField inputField;
@@ -14,24 +15,14 @@ public class ChatController : MonoBehaviour
     private const int LimitChatPrefab = 20;
     private const int LimitChatLength = 50;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     // 해야 될 것 inputfield에 입력해서 엔터/입력 버튼을 누를 때 채팅을 전송하고 content안에 자식 프리팹을 생성해서 넣어야 한다!
 
     private void Start()
     {
         inputField.characterLimit = LimitChatLength;
         inputField.onEndEdit.AddListener(OnEndEdit);
+
+        OnChatReceived += UpdateChatUI;
     }
 
     private void OnEndEdit(string input)
@@ -69,6 +60,11 @@ public class ChatController : MonoBehaviour
         inputField.ActivateInputField();
 
         NetworkManager.Instance.Send(pkt);
+    }
+
+    private void OnDestroy()
+    {
+        OnChatReceived -= UpdateChatUI;
     }
 
     public void UpdateChatUI(string message)
