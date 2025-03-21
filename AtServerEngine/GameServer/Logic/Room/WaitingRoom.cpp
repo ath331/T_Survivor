@@ -48,3 +48,14 @@ AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo& roomInfo )
 	roomInfo.set_cur_count( GetPlayerCount() );
 	roomInfo.set_max_count( m_maxUserCount   );
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 방에 입장할 수 있는지 확인한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool WaitingRoom::CheckEnterRoom() const
+{
+	if ( m_maxUserCount <= GetPlayerCount() )
+		return false;
+
+	return true;
+}

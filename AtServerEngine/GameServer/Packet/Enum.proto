@@ -9,7 +9,8 @@ enum EResultCode
 {
 	RESULT_CODE_SUCCESS = 0; // 성공
 	RESULT_CODE_FAIL_ROOM_ENTER = 1; // 룸 입장 실패
-	RESULT_CODE_MAX = 2;
+	RESULT_CODE_NO_HAVE_ROOM = 2; // 룸이 존재하지않음.
+	RESULT_CODE_MAX = 3;
 }
 
 enum EObjectType

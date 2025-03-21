@@ -19,6 +19,7 @@ namespace Assets.Scripts.Network.Handler
 			case EPacketId.PKT_S_Login: { _Process_S_Login_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_EnterLobby: { _Process_S_EnterLobby_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_WaitingRoomEnter: { _Process_S_WaitingRoomEnter_Handler( protocolId, data ); } break;
+			case EPacketId.PKT_S_WaitingRoomEnterNotify: { _Process_S_WaitingRoomEnterNotify_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_MakeRoom: { _Process_S_MakeRoom_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_DestroyRoom: { _Process_S_DestroyRoom_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_RequestRoomInfo: { _Process_S_RequestRoomInfo_Handler( protocolId, data ); } break;

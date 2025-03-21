@@ -60,6 +60,7 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 	else if ( packetTypeName == "Protocol.S_Login" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Login ) );
 	else if ( packetTypeName == "Protocol.S_EnterLobby" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_EnterLobby ) );
 	else if ( packetTypeName == "Protocol.S_WaitingRoomEnter" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_WaitingRoomEnter ) );
+	else if ( packetTypeName == "Protocol.S_WaitingRoomEnterNotify" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_WaitingRoomEnterNotify ) );
 	else if ( packetTypeName == "Protocol.S_MakeRoom" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_MakeRoom ) );
 	else if ( packetTypeName == "Protocol.S_DestroyRoom" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_DestroyRoom ) );
 	else if ( packetTypeName == "Protocol.S_RequestRoomInfo" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_RequestRoomInfo ) );

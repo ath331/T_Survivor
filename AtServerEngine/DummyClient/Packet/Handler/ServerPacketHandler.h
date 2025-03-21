@@ -17,6 +17,7 @@ bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
 bool Handle_S_LoginTemplate(PacketSessionPtr& session, Protocol::S_Login& pkt);
 bool Handle_S_EnterLobbyTemplate(PacketSessionPtr& session, Protocol::S_EnterLobby& pkt);
 bool Handle_S_WaitingRoomEnterTemplate(PacketSessionPtr& session, Protocol::S_WaitingRoomEnter& pkt);
+bool Handle_S_WaitingRoomEnterNotifyTemplate(PacketSessionPtr& session, Protocol::S_WaitingRoomEnterNotify& pkt);
 bool Handle_S_MakeRoomTemplate(PacketSessionPtr& session, Protocol::S_MakeRoom& pkt);
 bool Handle_S_DestroyRoomTemplate(PacketSessionPtr& session, Protocol::S_DestroyRoom& pkt);
 bool Handle_S_RequestRoomInfoTemplate(PacketSessionPtr& session, Protocol::S_RequestRoomInfo& pkt);
@@ -40,6 +41,7 @@ public:
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_Login ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Login>(Handle_S_LoginTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_EnterLobby ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_EnterLobby>(Handle_S_EnterLobbyTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_WaitingRoomEnter ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_WaitingRoomEnter>(Handle_S_WaitingRoomEnterTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_S_WaitingRoomEnterNotify ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_WaitingRoomEnterNotify>(Handle_S_WaitingRoomEnterNotifyTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_MakeRoom ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_MakeRoom>(Handle_S_MakeRoomTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_DestroyRoom ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_DestroyRoom>(Handle_S_DestroyRoomTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_RequestRoomInfo ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_RequestRoomInfo>(Handle_S_RequestRoomInfoTemplate, session, buffer, len); };
