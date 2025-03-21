@@ -28,7 +28,26 @@ AtBool C_LeaveGameHandler::Handle( PacketSessionPtr& session, Protocol::C_LeaveG
 	if ( !room )
 		return false;
 
-	room->DoAsync( &Room::HandleLeavePlayer, player );
+	room->DoAsync( 
+		&Room::HandleLeavePlayer, 
+		player, 
+		(Room::CallbackFunc)( [ player, room ]()
+							  {
+								  // 퇴장 사실을 퇴장하는 플레이어에게 알린다
+								  {
+									  Protocol::S_LeaveGame leaveGamePkt;
+									  player->Send( leaveGamePkt );
+								  }
+
+								  // 퇴장 사실을 알린다
+								  {
+									  Protocol::S_DeSpawn despawnPkt;
+									  despawnPkt.add_ids( player->GetId() );
+
+									  room->Broadcast( despawnPkt, player->GetId() );
+									  player->Send( despawnPkt );
+								  }
+							  } ) );
 
 	return true;
 }

@@ -29,7 +29,10 @@ public:
 
 private:
 	/// 방 번호
-	static std::atomic< AtInt32 > roomNum;
+	static std::atomic< AtInt32 > g_roomNum;
+
+	/// 방 번호
+	AtInt32 m_roomNum;
 
 protected:
 	/// Lock
@@ -49,7 +52,7 @@ public:
 	virtual AtBool HandleSpawnObject( ObjectPtr object, CallbackFunc callback = nullptr );
 
 	/// 플레이어를 방에서 내보낸다.
-	AtBool HandleLeavePlayer( PlayerPtr player );
+	AtBool HandleLeavePlayer( PlayerPtr player, CallbackFunc callback = nullptr );
 
 	/// 플레이어의 움직임을 처리한다.
 	AtVoid HandlePlayerMove( Protocol::C_Move pkt );
@@ -61,11 +64,17 @@ public:
 	AtVoid SyncPlayers( PlayerPtr enterPlayer );
 
 	/// 룸 넘버를 반환한다.
-	AtInt32 GetRoomNum() { return roomNum; }
+	AtInt32 GetRoomNum() { return m_roomNum; }
 
 public:
 	/// Room객체를 반환한다.
 	RoomPtr GetPtr();
+
+	/// 방 번호를 반환한다.
+	AtInt32 GetRoomNum() const;
+
+	/// 유저 수를 반환한다.
+	AtInt32 GetPlayerCount() const;
 
 public:
 	/// 룸을 업데이트한다.
