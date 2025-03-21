@@ -8,9 +8,18 @@ using System.Threading.Tasks;
 using Assets.Scripts.Network.Handler;
 using Protocol;
 
+public enum LobbyStatus
+{
+    WaitRoom,
+    GameRoom,
+}
+
 public class LobbyController : MonoBehaviour, ISceneInitializer
 {
     [SerializeField] private GameObject connectingPanel;
+    [SerializeField] private GameRoomHandler gameRoomHandler;
+    [SerializeField] private WaitingRoomHandler waitingRoomHandler;
+
 
     private void Awake()
     {
@@ -24,13 +33,12 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     private void OnEnable()
     {
-        // S_EnterGame 성공 이벤트를 구독합니다.
-        PacketHandler.OnEnterGameSuccess += HandleEnterGameSuccess;
+        EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
     }
 
     private void OnDisable()
     {
-        PacketHandler.OnEnterGameSuccess -= HandleEnterGameSuccess;
+        EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
     }
 
     /// <summary>
@@ -41,19 +49,35 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         Debug.Log("LobbyScene 초기화 시작");
 
-        int steps = 10;
-        for (int i = 0; i <= steps; i++)
-        {
-            // 진행 상황 갱신 (0~1 사이)
-            progress.Report(i / (float)steps);
-            await UniTask.Delay(100);  // 실제 초기화 작업 대신 100ms 대기
-        }
+        float currentProgress = 0f;
+
+        // 1. ObjectPoolManager 초기화 (가중치 0.2)
+        ObjectPoolManager.Instance.Initialize();
+        currentProgress += 0.2f;
+        progress.Report(currentProgress);
+
+        await UniTask.Delay(100);
+
+        // 2. Lobby UI 에셋 로드 (가중치 0.3)
+        waitingRoomHandler.gameObject.SetActive(false);
+        gameRoomHandler.gameObject.SetActive(false);
+        currentProgress += 0.3f;
+        progress.Report(currentProgress);
+
+        await UniTask.Delay(100);
+
+        // 3. 네트워크 연결/초기화 (가중치 0.2)
+
+        // 4. Lobby 데이터 초기화 (가중치 0.3)
+
+        waitingRoomHandler.gameObject.SetActive(true);
+
+        currentProgress += 0.5f;
+        progress.Report(currentProgress);
+
+        await UniTask.Delay(100);
 
         Debug.Log("LobbyScene 초기화 완료");
-
-        // TODO : 초기화 완료 후 게임 시작 등 추가 작업 수행
-        
-
     }
 
     public void OnStartGameButtonClick()
@@ -76,5 +100,16 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         // 게임 씬으로 전환
         SwitchSceneManager.Instance.ChangeTo("Game").Forget();
+    }
+
+    public void OnClickMakeRoom()
+    {
+        PopupManager.ShowPopup(nameof(MakeRoomPopup), null, (res) =>
+        {
+            if (res is true)
+            {
+                gameRoomHandler.gameObject.SetActive(true);
+            }
+        });
     }
 }

@@ -19,17 +19,7 @@ namespace Assets.Scripts.Network.Handler
 		{
 			S_Spawn message = S_Spawn.Parser.ParseFrom( data );
 
-			var playerInfos = message.Players;
-
-			ulong myMecuryId = MercuryHelper.mercuryId;
-
-            foreach (var playerInfo in playerInfos)
-            {
-                ulong playerId = playerInfo.Id;
-
-                // 매니저에서 플레이어 생성 (중복 체크 포함)
-                PlayerListManager.Instance.ProcessSpawnHandler(playerId);
-            }
+            PacketEventManager.Invoke(message);
         }
 	}
 }

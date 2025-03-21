@@ -6,13 +6,16 @@ using Assets.Scripts.Network;
 
 public class GameSupervisor : SingletonMonoBehaviour<GameSupervisor>
 {
+    private StrategyManager strategyManager;
+
     protected override void Awake()
     {
         base.Awake();
 
-        NetworkManager.Instance.Initialize();
+        strategyManager = new StrategyManager();
+        strategyManager.RegisterAllStrategies();
 
-        ObjectPoolManager.Instance.Initialize();
+        NetworkManager.Instance.Initialize();
 
         PlayerListManager.Instance.Initialize();
     }

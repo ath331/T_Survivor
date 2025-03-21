@@ -20,7 +20,6 @@ namespace Assets.Scripts.Network.Packet.Room
 		{
 			C_RequestAllRoomInfo pkt = new C_RequestAllRoomInfo();
 
-			Network.Instance.Send( pkt );
 		}
 	}
 }

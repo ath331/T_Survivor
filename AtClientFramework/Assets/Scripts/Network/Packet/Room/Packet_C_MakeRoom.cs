@@ -20,7 +20,6 @@ namespace Assets.Scripts.Network.Packet.Room
 		{
 			C_MakeRoom pkt = new C_MakeRoom();
 
-			Network.Instance.Send( pkt );
 		}
 	}
 }

@@ -20,8 +20,6 @@ public class PlayerController : MonoBehaviour
 
     public bool IsLocalPlayer { get; set; } // 내 캐릭터 여부 (NetworkManager에서 설정)
 
-    private ulong mercuryId = 0;
-
     // 현재 상태 (초기에는 Idle 상태)
     private IPlayerState currentState;
 
@@ -36,12 +34,8 @@ public class PlayerController : MonoBehaviour
         // 초기 상태를 IdleState로 설정
         ChangeState(new IdleState());
 
-        mercuryId = MercuryHelper.mercuryId;
-
         targetPosition = Vector3.zero;
         targetRotation = Quaternion.identity;
-
-        Send_Move();
     }
 
     private void Update()
@@ -100,15 +94,18 @@ public class PlayerController : MonoBehaviour
 
         C_Move pkt = new C_Move
         {
-            Info = new PosInfo
+            ObjectInfo = new ObjectInfo
             {
-                Id = mercuryId,
+                Id = MercuryHelper.mercuryId,
 
-                X = transform.position.x,
-                Y = transform.position.y,
-                Z = transform.position.z,
+                PosInfo = new PosInfo
+                {
+                    X = transform.position.x,
+                    Y = transform.position.y,
+                    Z = transform.position.z,
 
-                Yaw = transform.eulerAngles.y // (0 ~ 360)
+                    Yaw = transform.eulerAngles.y // (0 ~ 360)
+                }
             }
         };
 

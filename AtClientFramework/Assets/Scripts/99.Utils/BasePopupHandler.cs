@@ -123,7 +123,7 @@ public class BasePopupHandler : MonoBehaviour
 
     public virtual void OnClickClose()
     {
-
+        PopupManager.ClosePopup();
     }
 
     public virtual void OnClickCloseReturnBool(bool b)
