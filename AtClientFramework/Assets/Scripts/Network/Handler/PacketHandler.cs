@@ -24,6 +24,8 @@ namespace Assets.Scripts.Network.Handler
 			case EPacketId.PKT_S_DestroyRoom: { _Process_S_DestroyRoom_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_RequestRoomInfo: { _Process_S_RequestRoomInfo_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_RequestAllRoomInfo: { _Process_S_RequestAllRoomInfo_Handler( protocolId, data ); } break;
+			case EPacketId.PKT_S_WaitingRoomOut: { _Process_S_WaitingRoomOut_Handler( protocolId, data ); } break;
+			case EPacketId.PKT_S_WaitingRoomOutNotify: { _Process_S_WaitingRoomOutNotify_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_EnterGame: { _Process_S_EnterGame_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_EnterGameFinish: { _Process_S_EnterGameFinish_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_LeaveGame: { _Process_S_LeaveGame_Handler( protocolId, data ); } break;
