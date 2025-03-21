@@ -25,6 +25,6 @@ public class GameSupervisor : SingletonMonoBehaviour<GameSupervisor>
         // MercuryHelper를 통해 mercuryId 를 부여 받는다.
         await MercuryHelper.LoginProcess(id);
 
-        await SwitchSceneManager.Instance.ChangeTo("Lobby2");
+        await SwitchSceneManager.Instance.ChangeTo("Lobby");
     }
 }
