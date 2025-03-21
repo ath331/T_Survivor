@@ -40,4 +40,7 @@ public:
 
 	/// 정보를 내보낸다.
 	AtVoid ExportTo( Protocol::RoomInfo& roomInfo );
+
+	/// 방에 입장할 수 있는지 확인한다.
+	AtBool CheckEnterRoom() const;
 };

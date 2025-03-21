@@ -36,12 +36,18 @@ message S_EnterLobby
 
 message C_WaitingRoomEnter
 {
-	int32 roomNum = 1;
+	RoomInfo roomInfo = 1;
 }
 
 message S_WaitingRoomEnter
 {
 	EResultCode result = 1;
+	RoomInfo roomInfo = 2;
+}
+
+message S_WaitingRoomEnterNotify
+{
+	ObjectInfo player = 1;
 }
 
 message C_MakeRoom
@@ -75,6 +81,20 @@ message S_RequestAllRoomInfo
 {
 	EResultCode result = 1;
 	repeated RoomInfo roomList = 2;
+}
+
+message C_WaitingRoomOut
+{
+}
+
+message S_WaitingRoomOut
+{
+	EResultCode result = 1;
+}
+
+message S_WaitingRoomOutNotify
+{
+	ObjectInfo player = 1;
 }
 
 // path = Game
