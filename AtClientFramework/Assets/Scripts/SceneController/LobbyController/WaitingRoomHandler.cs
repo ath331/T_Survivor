@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Network;
 using Protocol;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class WaitingRoomHandler : MonoBehaviour
