@@ -1,41 +1,52 @@
 using Assets.Scripts.Network;
 using Protocol;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatController : MonoBehaviour
-{
-    public static Action<string> OnChatReceived;
-
+{ 
     [SerializeField] private GameObject content;
     [SerializeField] private TMP_InputField inputField;
 
     private const int LimitChatPrefab = 20;
     private const int LimitChatLength = 50;
 
-    // 해야 될 것 inputfield에 입력해서 엔터/입력 버튼을 누를 때 채팅을 전송하고 content안에 자식 프리팹을 생성해서 넣어야 한다!
+    private List<ChatText> chatTexts = new List<ChatText>();
+
+    private void OnEnable()
+    {
+        Chat_Strategy.OnChatReceived += UpdateChatUI;
+    }
 
     private void Start()
     {
         inputField.characterLimit = LimitChatLength;
         inputField.onEndEdit.AddListener(OnEndEdit);
+    }
 
-        OnChatReceived += UpdateChatUI;
+    private void OnDisable()
+    {
+        Chat_Strategy.OnChatReceived -= UpdateChatUI;
+    }
+
+    private void OnDestroy()
+    {
+        foreach(var chatText in chatTexts)
+        {
+            if(chatText != null)
+            {
+                ObjectPoolManager.Instance.Return("ChatText", chatText.gameObject);
+            }
+        }
+        chatTexts.Clear();
     }
 
     private void OnEndEdit(string input)
     {
         if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Send_Message(input);
-        }
-    }
-
-    private void Submit(string input)
-    {
-        if (inputField.isFocused && Input.GetKeyDown(KeyCode.Return))   // 채팅창을 누르고 엔터키를 누를 시
         {
             Send_Message(input);
         }
@@ -62,25 +73,23 @@ public class ChatController : MonoBehaviour
         NetworkManager.Instance.Send(pkt);
     }
 
-    private void OnDestroy()
-    {
-        OnChatReceived -= UpdateChatUI;
-    }
-
     public void UpdateChatUI(string message)
     {
         if (content.transform.childCount >= LimitChatPrefab)
         {
-            GameObject oldestChat = content.transform.GetChild(0).gameObject;
-            oldestChat.SetActive(false);  // 먼저 비활성화
-            ObjectPoolManager.Instance.Return("ChatText", oldestChat); // 비활성화 후 오브젝트 풀로 반환
-            //Destroy(oldestChat) 이거 했다가 오류났음
+            ChatText oldestChat = chatTexts[0];
+            oldestChat.gameObject.SetActive(false);  // 먼저 비활성화
+            ObjectPoolManager.Instance.Return("ChatText", oldestChat.gameObject); // 비활성화 후 오브젝트 풀로 반환
+            chatTexts.RemoveAt(0);
         }
 
-        GameObject chatText = ObjectPoolManager.Instance.Get("ChatText");
-        chatText.transform.parent = content.transform;
-        chatText.SetActive(true);
+        GameObject chatTextObj = ObjectPoolManager.Instance.Get("ChatText");
+        chatTextObj.transform.parent = content.transform;
+        chatTextObj.SetActive(true);
 
-        chatText.GetComponent<ChatText>().ReceiveMessage(message);
+        ChatText chatText = chatTextObj.GetComponent<ChatText>();
+        chatText.ReceiveMessage(message);
+
+        chatTexts.Add(chatText);
     }
 }
