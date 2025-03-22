@@ -51,7 +51,7 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, Protocol::C
 									  {
 										  Protocol::S_WaitingRoomEnter result;
 										  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
-										  waitingRoom->ExportTo( *result.release_roominfo() );
+										  waitingRoom->ExportTo( result.mutable_roominfo() );
 										  player->Send( result );
 
 										  Protocol::S_WaitingRoomEnterNotify notify;

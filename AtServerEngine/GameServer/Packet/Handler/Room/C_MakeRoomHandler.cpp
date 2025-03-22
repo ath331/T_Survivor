@@ -45,7 +45,8 @@ AtBool C_MakeRoomHandler::Handle( PacketSessionPtr& session, Protocol::C_MakeRoo
 							  {
 								  Protocol::S_MakeRoom result;
 								  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
-								  waitingRoom->ExportTo( *result.release_maderoominfo() );
+								  waitingRoom->ExportTo( result.mutable_maderoominfo() );
+
 								  player->Send( result );
 
 								  oldRoom->DoAsync(
