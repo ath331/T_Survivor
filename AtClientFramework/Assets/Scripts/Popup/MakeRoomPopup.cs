@@ -16,15 +16,10 @@ public class MakeRoomPopup : BasePopupHandler
         
     }
 
-    /// <summary>
-    /// TODO : PopupManager 완공되면 여기서 초기화
-    /// </summary>
     /// <param name="param"></param>
     public override void OnBeforeEnter(object param)
     {
         base.OnBeforeEnter(param);
-
-
     }
 
     public void OnClickMakeRoom()
@@ -69,6 +64,6 @@ public class MakeRoomPopup : BasePopupHandler
 
         NetworkManager.Instance.Send(makeRoomPkt);
 
-        PopupManager.ClosePopup(true);
+        PopupManager.ClosePopup(makeRoomPkt);
     }
 }

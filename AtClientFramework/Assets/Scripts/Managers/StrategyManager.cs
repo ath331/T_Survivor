@@ -15,6 +15,7 @@ public class StrategyManager
         strategies.Add(new Move_Strategy());
         strategies.Add(new Animation_Strategy());
         strategies.Add(new Spawn_Strategy());
+        strategies.Add(new RoomCreate_Strategy());
     }
 
     // 필요 시 특정 전략 접근 및 관리 기능 추가

@@ -14,7 +14,7 @@
 #include "Packet/Handler/ClientPacketHandler.h"
 
 
-std::atomic< AtInt32 > Room::roomNum( 0 );
+std::atomic< AtInt32 > Room::g_roomNum( 0 );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ std::atomic< AtInt32 > Room::roomNum( 0 );
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Room::Room()
 {
-	roomNum.fetch_add( 1 );
+	m_roomNum = g_roomNum.fetch_add( 1 ) + 1;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ AtBool Room::HandleSpawnObject( ObjectPtr object, CallbackFunc callback )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 플레이어를 방에서 내보낸다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::HandleLeavePlayer( PlayerPtr player )
+AtBool Room::HandleLeavePlayer( PlayerPtr player, CallbackFunc callback )
 {
 	if ( player == nullptr )
 		return false;
@@ -83,24 +83,11 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 	const uint64 objectId = player->objectInfo->id();
 	bool success = _RemoveObject( objectId );
 	
-	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
-	{
-		Protocol::S_LeaveGame leaveGamePkt;
-	
-		if ( auto session = player->session.lock() )
-			session->Send( leaveGamePkt );
-	}
-	
-	// 퇴장 사실을 알린다
-	{
-		Protocol::S_DeSpawn despawnPkt;
-		despawnPkt.add_ids( objectId );
-	
-		Broadcast( despawnPkt, objectId );
-	
-		if ( auto session = player->session.lock() )
-			session->Send( despawnPkt );
-	}
+	if ( !success )
+		return false;
+
+	if ( callback )
+		callback();
 
 	return success;
 }
@@ -186,6 +173,25 @@ AtVoid Room::SyncPlayers( PlayerPtr enterPlayer )
 RoomPtr Room::GetPtr()
 {
 	return static_pointer_cast<Room>( shared_from_this() );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 방 번호를 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtInt32 Room::GetRoomNum() const
+{
+	return m_roomNum;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 유저 수를 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtInt32 Room::GetPlayerCount() const
+{
+	if ( m_players.empty() )
+		return 0;
+
+	return (AtInt32)( m_players.size() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

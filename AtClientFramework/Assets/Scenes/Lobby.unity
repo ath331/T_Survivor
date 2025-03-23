@@ -1790,7 +1790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000004318032}
+  m_AnchoredPosition: {x: 0, y: 0.00059940264}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &638442294
@@ -1847,6 +1847,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a41edfc23efcdb40bd9ef6b4e003fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleText: {fileID: 1617458414}
+  spawnTransform:
+  - {fileID: 966243013}
+  - {fileID: 970703153}
+  - {fileID: 482519490}
 --- !u!1 &755658700
 GameObject:
   m_ObjectHideFlags: 0
@@ -3670,7 +3675,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1119291697}
   - component: {fileID: 1119291699}
-  - component: {fileID: 1119291698}
   m_Layer: 5
   m_Name: RenderCam
   m_TagString: Untagged
@@ -3699,14 +3703,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!81 &1119291698
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1119291696}
-  m_Enabled: 1
 --- !u!20 &1119291699
 Camera:
   m_ObjectHideFlags: 0
@@ -3966,7 +3962,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1218867106}
   - component: {fileID: 1218867108}
-  - component: {fileID: 1218867107}
   m_Layer: 5
   m_Name: RenderCam
   m_TagString: Untagged
@@ -3995,14 +3990,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!81 &1218867107
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218867105}
-  m_Enabled: 1
 --- !u!20 &1218867108
 Camera:
   m_ObjectHideFlags: 0
@@ -4878,7 +4865,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1399082272}
   - component: {fileID: 1399082274}
-  - component: {fileID: 1399082273}
   m_Layer: 5
   m_Name: RenderCam
   m_TagString: Untagged
@@ -4907,14 +4893,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!81 &1399082273
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1399082271}
-  m_Enabled: 1
 --- !u!20 &1399082274
 Camera:
   m_ObjectHideFlags: 0
@@ -5676,7 +5654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -323.17032}
+  m_AnchoredPosition: {x: 0, y: -323.1703}
   m_SizeDelta: {x: -1250.27, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1509636408

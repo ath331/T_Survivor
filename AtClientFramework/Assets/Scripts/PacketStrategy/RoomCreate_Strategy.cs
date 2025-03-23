@@ -24,6 +24,6 @@ public class RoomCreate_Strategy : IStrategy
 
     private void OnCreateRoomPacketReceived(S_MakeRoom message)
     {
-        
+        LobbyController.OnRoomCreateAction?.Invoke(message);
     }
 }

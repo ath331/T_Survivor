@@ -34,7 +34,9 @@
 #include "CoreMacro.h"
 #include "Logic/Object/Actor/Player/PlayerTypes.h"
 #include "Logic/Room/RoomTypes.h"
+#include "Session/GameSession.h"
 #include "Session/GameSessionTypes.h"
+#include "Logic/Object/Actor/Player/Player.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
