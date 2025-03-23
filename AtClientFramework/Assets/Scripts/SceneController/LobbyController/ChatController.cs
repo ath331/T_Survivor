@@ -38,7 +38,7 @@ public class ChatController : MonoBehaviour
         {
             if(chatText != null)
             {
-                ObjectPoolManager.Instance.Return("ChatText", chatText.gameObject);
+                ObjectPoolManager.Instance.Return(chatText.gameObject);
             }
         }
         chatTexts.Clear();
