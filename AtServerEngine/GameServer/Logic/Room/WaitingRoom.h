@@ -28,6 +28,9 @@ private:
 	/// 비밀번호
 	AtInt32 m_pw;
 
+	/// 현재 상태
+	Protocol::ERoomState m_state;
+
 public:
 	/// 생성자
 	WaitingRoom(
