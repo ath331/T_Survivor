@@ -43,26 +43,12 @@ AtVoid WaitingRoom::UpdateTick()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo& roomInfo )
 {
-	roomInfo.set_num       ( GetRoomNum()     );
+	Room::ExportTo( roomInfo );
+
 	roomInfo.set_name      ( m_name           );
 	roomInfo.set_pw        ( m_pw             );
-	roomInfo.set_cur_count ( GetPlayerCount() );
 	roomInfo.set_max_count ( m_maxUserCount   );
 	roomInfo.set_room_state( m_state          );
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 정보를 내보낸다.
-////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo* roomInfo )
-{
-	if ( !roomInfo )
-	{
-		WARNNING_LOG( "RoomInfo is Null" );
-		return;
-	}
-
-	ExportTo( *roomInfo );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
