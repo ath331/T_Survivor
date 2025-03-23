@@ -23,6 +23,7 @@ WaitingRoom::WaitingRoom(
 	m_name( name ),
 	m_pw( pw )
 {
+	m_state = Protocol::ERoomState::ROOM_STATE_WAITING;
 	m_isPrivate = false;
 
 	if ( 0 < pw )
@@ -42,11 +43,12 @@ AtVoid WaitingRoom::UpdateTick()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo& roomInfo )
 {
-	roomInfo.set_num      ( GetRoomNum()     );
-	roomInfo.set_name     ( m_name           );
-	roomInfo.set_pw       ( m_pw             );
-	roomInfo.set_cur_count( GetPlayerCount() );
-	roomInfo.set_max_count( m_maxUserCount   );
+	roomInfo.set_num       ( GetRoomNum()     );
+	roomInfo.set_name      ( m_name           );
+	roomInfo.set_pw        ( m_pw             );
+	roomInfo.set_cur_count ( GetPlayerCount() );
+	roomInfo.set_max_count ( m_maxUserCount   );
+	roomInfo.set_room_state( m_state          );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,11 +62,12 @@ AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo* roomInfo )
 		return;
 	}
 
-	roomInfo->set_num      ( GetRoomNum()     );
-	roomInfo->set_name     ( m_name           );
-	roomInfo->set_pw       ( m_pw             );
-	roomInfo->set_cur_count( GetPlayerCount() );
-	roomInfo->set_max_count( m_maxUserCount   );
+	roomInfo->set_num       ( GetRoomNum()     );
+	roomInfo->set_name      ( m_name           );
+	roomInfo->set_pw        ( m_pw             );
+	roomInfo->set_cur_count ( GetPlayerCount() );
+	roomInfo->set_max_count ( m_maxUserCount   );
+	roomInfo->set_room_state( m_state          );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

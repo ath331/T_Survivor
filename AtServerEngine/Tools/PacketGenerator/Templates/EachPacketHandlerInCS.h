@@ -15,6 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_{{pkt.name}}_Handler( ushort protocolId, byte[] data )
 		{
 			{{pkt.name}} message = {{pkt.name}}.Parser.ParseFrom( data );
+
+			PacketEventManager.Invoke( message );
 		}
 	}
 }
