@@ -1,7 +1,61 @@
 #include "pch.h"
 #include "WaitingRoomManager.h"
 #include "Logic/Room/WaitingRoom.h"
+#include "Logic/Room/Lobby.h"
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 업데이트 한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid WaitingRoomManager::Update()
+{
+	//INFO_LOG( "WaitingRoomManager::Update()" );
+
+	WaitingRoomMap cacheWaitingRoomMap;
+	{
+		WRITE_LOCK;
+		cacheWaitingRoomMap = m_waitingRoomMap;
+	}
+
+	for ( auto iter = cacheWaitingRoomMap.begin(); iter != cacheWaitingRoomMap.end(); )
+	{
+		WaitingRoomPtr room = iter->second;
+		if ( !room )
+		{
+			WRITE_LOCK;
+			iter = m_waitingRoomMap.erase( iter );
+		}
+		else
+		{
+			++iter;
+		}
+
+
+		RoomInfo roomInfo;
+		room->ExportTo( roomInfo );
+
+		if ( roomInfo.room_state() == ROOM_STATE_DESTROY_RESERVATION )
+		{
+			{
+				WRITE_LOCK;
+				iter = m_waitingRoomMap.erase( iter );
+			}
+
+			S_DestroyRoom destroyRoomNotify;
+			destroyRoomNotify.set_result( EResultCode::RESULT_CODE_SUCCESS );
+			*destroyRoomNotify.mutable_roominfo() = roomInfo;
+
+			GLobby->Broadcast( destroyRoomNotify );
+		}
+	}
+
+	GLobby->DoTimer(
+		1000,
+		[]()
+		{
+			WaitingRoomManager::GetInstance().Update();
+		} );
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif WaitingRoom을 반환한다.

@@ -1,8 +1,11 @@
 using Protocol;
+using System;
 using UnityEngine;
 
 public class Chat_Strategy : IStrategy
 {
+    public static Action<string> OnChatReceived;
+
     public Chat_Strategy()
     {
         Register();
@@ -22,6 +25,6 @@ public class Chat_Strategy : IStrategy
     {
         Debug.Log(message.Msg);
 
-        ChatController.OnChatReceived?.Invoke(message.Msg);
+        OnChatReceived?.Invoke(message.Msg);
     }
 }

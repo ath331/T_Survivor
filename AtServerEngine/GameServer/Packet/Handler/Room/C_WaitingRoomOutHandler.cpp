@@ -40,11 +40,17 @@ AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, Protocol::C_W
 		(Room::CallbackFunc)( [ room, player ]()
 							  {
 								  GLobby->DoAsync(
-									  [ player ]()
+									  [ player, room ]()
 									  {
 										  Protocol::S_WaitingRoomOut result;
 										  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
 										  player->Send( result );
+
+										  S_RequestRoomInfo refreshRoomInfo;
+										  refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
+										  room->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+
+										  GLobby->Broadcast( refreshRoomInfo );
 									  } );
 
 								  Protocol::S_WaitingRoomOutNotify notify;
