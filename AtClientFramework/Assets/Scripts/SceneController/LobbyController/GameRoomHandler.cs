@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class GameRoomHandler : MonoBehaviour
@@ -23,7 +22,7 @@ public class GameRoomHandler : MonoBehaviour
 
     private string titleName = "";
 
-    public void SetStatus(S_MakeRoom message)
+    public void SetMaKeRoom(S_MakeRoom message)
     {
         var madeRoomInfo = message.MadeRoomInfo;
 
@@ -37,12 +36,18 @@ public class GameRoomHandler : MonoBehaviour
 
         max_count = madeRoomInfo.MaxCount;
 
-        titleText.text = $"{roomNumber}. {titleName}";
+        titleText.text = $"[{roomNumber}] {titleName}";
+
+        Spawn_Character();
     }
 
     public void Spawn_Character()
-    { 
-        
+    {
+        //GameObject character = ObjectPoolManager.Instance.Get("Knight");
+        //character.SetActive(true);
+
+
+
     }
 
     public void Destroy_Chracter()

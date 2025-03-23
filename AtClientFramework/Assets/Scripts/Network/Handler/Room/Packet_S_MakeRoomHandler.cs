@@ -17,6 +17,6 @@ namespace Assets.Scripts.Network.Handler
 			S_MakeRoom message = S_MakeRoom.Parser.ParseFrom( data );
 
 			PacketEventManager.Invoke(message);
-		}
+		} 
 	}
 }
