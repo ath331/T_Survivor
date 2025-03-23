@@ -45,7 +45,7 @@ AtBool C_MakeRoomHandler::Handle( PacketSessionPtr& session, Protocol::C_MakeRoo
 							  {
 								  Protocol::S_MakeRoom result;
 								  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
-								  waitingRoom->ExportTo( result.mutable_maderoominfo() );
+								  waitingRoom->ExportTo( *result.mutable_maderoominfo() );
 
 								  player->Send( result );
 
@@ -53,6 +53,16 @@ AtBool C_MakeRoomHandler::Handle( PacketSessionPtr& session, Protocol::C_MakeRoo
 									  &Room::HandleLeavePlayer,
 									  player,
 									  (Room::CallbackFunc)( []() {} ) );
+
+								  GLobby->DoAsync(
+									  [ waitingRoom ]()
+									  {
+										  S_RequestRoomInfo refreshRoomInfo;
+										  refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
+										  waitingRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+
+										  GLobby->Broadcast( refreshRoomInfo );
+									  } );
 							  } ) );
 
 	return true;

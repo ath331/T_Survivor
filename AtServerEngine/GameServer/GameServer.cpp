@@ -24,7 +24,7 @@
 
 
 #include "Logic/Room/Lobby.h"
-#include "Logic/Room/PlayRoomManager.h"
+#include "Logic/Room/WaitingRoomManager.h"
 
 
 /// 프로세스 틱 이넘
@@ -127,6 +127,13 @@ AtInt32 main()
 
 	GLobby->DoAsync( &Room::UpdateTick );
 
+	GLobby->DoTimer(
+		1000,
+		[]()
+		{
+			WaitingRoomManager::GetInstance().Update();
+		} );
+	 
 	GThreadManager->Join();
 
 	return 0;

@@ -36,6 +36,9 @@ WaitingRoom::WaitingRoom(
 AtVoid WaitingRoom::UpdateTick()
 {
 	Room::UpdateTick();
+
+	if ( GetPlayerCount() <= 0 )
+		m_state = ROOM_STATE_DESTROY_RESERVATION;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,31 +46,12 @@ AtVoid WaitingRoom::UpdateTick()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo& roomInfo )
 {
-	roomInfo.set_num       ( GetRoomNum()     );
+	Room::ExportTo( roomInfo );
+
 	roomInfo.set_name      ( m_name           );
 	roomInfo.set_pw        ( m_pw             );
-	roomInfo.set_cur_count ( GetPlayerCount() );
 	roomInfo.set_max_count ( m_maxUserCount   );
 	roomInfo.set_room_state( m_state          );
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 정보를 내보낸다.
-////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo* roomInfo )
-{
-	if ( !roomInfo )
-	{
-		WARNNING_LOG( "RoomInfo is Null" );
-		return;
-	}
-
-	roomInfo->set_num       ( GetRoomNum()     );
-	roomInfo->set_name      ( m_name           );
-	roomInfo->set_pw        ( m_pw             );
-	roomInfo->set_cur_count ( GetPlayerCount() );
-	roomInfo->set_max_count ( m_maxUserCount   );
-	roomInfo->set_room_state( m_state          );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,6 +61,13 @@ AtBool WaitingRoom::CheckEnterRoom() const
 {
 	if ( m_maxUserCount <= GetPlayerCount() )
 		return false;
+
+	switch ( m_state )
+	{
+	case ROOM_STATE_DESTROY_RESERVATION:
+	case ROOM_STATE_MAX:
+		return false;
+	}
 
 	return true;
 }

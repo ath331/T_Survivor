@@ -76,12 +76,15 @@ public:
 	/// 유저 수를 반환한다.
 	AtInt32 GetPlayerCount() const;
 
+	/// 룸의 모든 유저에게 브로드 캐스팅 한다.
+	AtVoid Broadcast( google::protobuf::Message& pkt, uint64 exceptId = 0 );
+
 public:
 	/// 룸을 업데이트한다.
 	virtual AtVoid UpdateTick();
 
-	/// 룸의 모든 유저에게 브로드 캐스팅 한다.
-	AtVoid Broadcast( google::protobuf::Message& pkt, uint64 exceptId = 0 );
+	/// 정보를 내보낸다.
+	virtual AtVoid ExportTo( Protocol::RoomInfo& roomInfo );
 
 protected:
 	/// 오브젝트를 추가한다.

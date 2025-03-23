@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "C_WaitingRoomEnterHandler.h"
+#include "Logic/Room/Lobby.h"
 #include "Logic/Room/WaitingRoom.h"
 #include "Logic/Room/WaitingRoomManager.h"
 
@@ -51,7 +52,7 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, Protocol::C
 									  {
 										  Protocol::S_WaitingRoomEnter result;
 										  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
-										  waitingRoom->ExportTo( result.mutable_roominfo() );
+										  waitingRoom->ExportTo( *result.mutable_roominfo() );
 										  player->Send( result );
 
 										  Protocol::S_WaitingRoomEnterNotify notify;
@@ -66,6 +67,16 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, Protocol::C
 												  player->Send( notify );
 											  },
 											  player->GetId() );
+
+										  GLobby->DoAsync(
+											  [ waitingRoom ]()
+											  {
+												  S_RequestRoomInfo refreshRoomInfo;
+												  refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
+												  waitingRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+
+												  GLobby->Broadcast( refreshRoomInfo );
+											  } );
 									  } ) );
 		} );
 
