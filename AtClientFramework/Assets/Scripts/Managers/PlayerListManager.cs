@@ -53,7 +53,7 @@ public class PlayerListManager
         if (_spawnedPlayers.ContainsKey(playerId))
         {
             PlayerController playerObject = _spawnedPlayers[playerId];
-            ObjectPoolManager.Instance.Return("Character", playerObject.gameObject); // 오브젝트 풀로 반환
+            ObjectPoolManager.Instance.Return(playerObject.gameObject); // 오브젝트 풀로 반환
             _spawnedPlayers.Remove(playerId);
             Debug.Log($"[NetworkManager] 플레이어 {playerId} 제거됨.");
         }

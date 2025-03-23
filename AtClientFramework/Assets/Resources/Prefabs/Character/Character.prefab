@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 9012402251067534239}
   - component: {fileID: 8188645881244568378}
   - component: {fileID: 8606677084272579509}
+  - component: {fileID: 8173073618655498104}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -236,7 +237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  animator: {fileID: 330859411138041217}
   weapon: {fileID: 0}
 --- !u!54 &8188645881244568378
 Rigidbody:
@@ -288,6 +288,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &8173073618655498104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564008150529913243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a503ea96a7058245b9d0330f85e3815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: Character
 --- !u!1 &1583237432029539007
 GameObject:
   m_ObjectHideFlags: 0

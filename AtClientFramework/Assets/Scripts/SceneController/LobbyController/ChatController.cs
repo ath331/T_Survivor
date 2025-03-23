@@ -73,7 +73,7 @@ public class ChatController : MonoBehaviour
         {
             GameObject oldestChat = content.transform.GetChild(0).gameObject;
             oldestChat.SetActive(false);  // 먼저 비활성화
-            ObjectPoolManager.Instance.Return("ChatText", oldestChat); // 비활성화 후 오브젝트 풀로 반환
+            ObjectPoolManager.Instance.Return(oldestChat); // 비활성화 후 오브젝트 풀로 반환
             //Destroy(oldestChat) 이거 했다가 오류났음
         }
 

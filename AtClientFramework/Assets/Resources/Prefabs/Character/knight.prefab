@@ -453,6 +453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1157100718060288491}
   - component: {fileID: 5259002207622955503}
+  - component: {fileID: 2186633873821985024}
   m_Layer: 6
   m_Name: knight
   m_TagString: Untagged
@@ -503,6 +504,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2186633873821985024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2244014083398086627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a503ea96a7058245b9d0330f85e3815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolName: Knight
 --- !u!1 &2277508476350426277
 GameObject:
   m_ObjectHideFlags: 0

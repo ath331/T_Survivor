@@ -53,14 +53,18 @@ public class ObjectPoolManager : MonoBehaviour
     }
 
     /// <summary> 오브젝트 풀에서 가져오기 </summary>
-    public GameObject Get(string prefabName)
+    public GameObject Get(string prefabName, Transform parent = null)
     {
-        if (!_isInitialized)
-            Initialize();
-
         if (_pools.ContainsKey(prefabName))
         {
-            return _pools[prefabName].Get();
+            var obj = _pools[prefabName].Get();
+
+            if (parent != null)
+            {
+                obj.transform.SetParent(parent, false);
+            }
+
+            return obj;
         }
 
         Debug.LogError($"[ObjectPoolManager] '{prefabName}' 프리셋을 찾을 수 없습니다!");
@@ -69,10 +73,10 @@ public class ObjectPoolManager : MonoBehaviour
 
     public T Get<T>(string prefabName, Transform parent = null) where T : Component
     {
-        GameObject obj = Get(prefabName);
-
-        if (obj != null)
+        if (_pools.ContainsKey(prefabName))
         {
+            var obj = _pools[prefabName].Get();
+
             if (parent != null)
             {
                 obj.transform.SetParent(parent, false);
@@ -88,20 +92,28 @@ public class ObjectPoolManager : MonoBehaviour
             return component;
         }
 
+        Debug.LogError($"[ObjectPoolManager] '{prefabName}' 프리셋을 찾을 수 없습니다!");
         return null;
     }
 
     /// <summary> 오브젝트 반환 </summary>
-    public void Return(string prefabName, GameObject obj)
+    public void Return(GameObject obj)
     {
-        if (_pools.ContainsKey(prefabName))
+        var poolObj = obj.GetComponent<PoolObject>();
+        if (poolObj == null)
         {
-            _pools[prefabName].Return(obj);
+            Debug.LogError($"PoolObject 컴포넌트가 없는 오브젝트 입니다!");
+            DestroyImmediate(obj);
+            return;
         }
-        else
+
+        if (!_pools.ContainsKey(poolObj.poolName))
         {
-            Debug.LogWarning($"[ObjectPoolManager] 해당 프리팹({prefabName})의 풀을 찾을 수 없습니다!");
-            GameObject.Destroy(obj);
+            Debug.LogError($"{obj.name} has not pool");
+            DestroyImmediate(obj);
+            return;
         }
+
+        _pools[poolObj.poolName].Return(obj);
     }
 }

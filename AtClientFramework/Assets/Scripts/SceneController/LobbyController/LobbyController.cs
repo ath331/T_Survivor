@@ -132,4 +132,19 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         }
     }
+
+    public void OnClickSetting()
+    {
+        
+    }
+
+    public void OnClickEquipment()
+    {
+
+    }
+
+    public void OnClickExit()
+    {
+
+    }
 }

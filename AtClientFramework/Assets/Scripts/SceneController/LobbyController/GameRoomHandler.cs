@@ -12,6 +12,8 @@ public class GameRoomHandler : MonoBehaviour
 
     [SerializeField] private Transform[] spawnTransform;
 
+    private List<GameObject> spawnedCharacters;
+
     ERoomState roomState = ERoomState.RoomStateNone;
 
     private int roomNumber = 0;
@@ -21,6 +23,14 @@ public class GameRoomHandler : MonoBehaviour
     private int max_count = 3;
 
     private string titleName = "";
+
+    void OnDisable()
+    {
+        foreach (var character in spawnedCharacters)
+        {
+            ObjectPoolManager.Instance.Return(character);
+        }
+    }
 
     public void SetMaKeRoom(S_MakeRoom message)
     {
@@ -38,35 +48,27 @@ public class GameRoomHandler : MonoBehaviour
 
         titleText.text = $"[{roomNumber}] {titleName}";
 
+        spawnedCharacters = new List<GameObject>(max_count);
+
         Spawn_Character();
     }
 
     public void Spawn_Character()
     {
-        //GameObject character = ObjectPoolManager.Instance.Get("Knight");
-        //character.SetActive(true);
+        GameObject character = ObjectPoolManager.Instance.Get("Knight", spawnTransform[0]);
+        spawnedCharacters.Add(character);
 
+        for (int i = 0; i < max_count; i++)
+        {
 
-
+        }
     }
 
     public void Destroy_Chracter()
     {
-
-    }
-
-    public void OnClickSetting()
-    {
-
-    }
-
-    public void OnClickEquipment()
-    {
-
-    }
-
-    public void OnClickExit()
-    {
-
+        foreach (var character in spawnedCharacters)
+        {
+            ObjectPoolManager.Instance.Return(character);
+        }
     }
 }
