@@ -19,7 +19,7 @@ class WaitingRoomManager :
 {
 private:
 	/// 대기실 룸 맵 타입 정의
-	using WaitingRoomMap = std::map<AtInt32, WaitingRoomPtr >;
+	using WaitingRoomMap = std::map< AtInt32, WaitingRoomPtr >;
 
 private:
 	/// Lock
@@ -30,6 +30,9 @@ private:
 	WaitingRoomMap m_waitingRoomMap;
 
 public:
+	/// 업데이트 한다.
+	AtVoid Update();
+
 	/// WaitingRoom을 반환한다.
 	WaitingRoomPtr AcquireRoom( AtInt32 roomNum );
 

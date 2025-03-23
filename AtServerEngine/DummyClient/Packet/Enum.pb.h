@@ -316,7 +316,8 @@ enum ERoomState : int {
   ROOM_STATE_NONE = 0,
   ROOM_STATE_WAITING = 1,
   ROOM_STATE_PLAY = 2,
-  ROOM_STATE_MAX = 3,
+  ROOM_STATE_DESTROY_RESERVATION = 3,
+  ROOM_STATE_MAX = 4,
   ERoomState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   ERoomState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };

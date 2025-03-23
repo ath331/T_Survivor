@@ -52,10 +52,10 @@ namespace Protocol {
             "U1RBVF9TUEVFRBAFEhUKEVNUQVRfSU5URUxMSUdFTkNFEAYSDAoIU1RBVF9N",
             "QVgQBypnChNFQW5pbWF0aW9uUGFyYW1UeXBlEhgKFEFOSU1fUEFSQU1fVFlQ",
             "RV9CT09MEAASGQoVQU5JTV9QQVJBTV9UWVBFX0ZMT0FUEAESGwoXQU5JTV9Q",
-            "QVJBTV9UWVBFX1RSSUdHRVIQAipiCgpFUm9vbVN0YXRlEhMKD1JPT01fU1RB",
-            "VEVfTk9ORRAAEhYKElJPT01fU1RBVEVfV0FJVElORxABEhMKD1JPT01fU1RB",
-            "VEVfUExBWRACEhIKDlJPT01fU1RBVEVfTUFYEANCC6oCCFByb3RvY29sYgZw",
-            "cm90bzM="));
+            "QVJBTV9UWVBFX1RSSUdHRVIQAiqGAQoKRVJvb21TdGF0ZRITCg9ST09NX1NU",
+            "QVRFX05PTkUQABIWChJST09NX1NUQVRFX1dBSVRJTkcQARITCg9ST09NX1NU",
+            "QVRFX1BMQVkQAhIiCh5ST09NX1NUQVRFX0RFU1RST1lfUkVTRVJWQVRJT04Q",
+            "AxISCg5ST09NX1NUQVRFX01BWBAEQguqAghQcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), }, null, null));
@@ -246,7 +246,11 @@ namespace Protocol {
     /// 진행중
     /// </summary>
     [pbr::OriginalName("ROOM_STATE_PLAY")] RoomStatePlay = 2,
-    [pbr::OriginalName("ROOM_STATE_MAX")] RoomStateMax = 3,
+    /// <summary>
+    /// 파괴 예정
+    /// </summary>
+    [pbr::OriginalName("ROOM_STATE_DESTROY_RESERVATION")] RoomStateDestroyReservation = 3,
+    [pbr::OriginalName("ROOM_STATE_MAX")] RoomStateMax = 4,
   }
 
   #endregion

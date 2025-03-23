@@ -57,13 +57,14 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\022\014\n\010STAT_MAX\020\007*g\n\023EAnimationParamType\022\030\n"
   "\024ANIM_PARAM_TYPE_BOOL\020\000\022\031\n\025ANIM_PARAM_TY"
   "PE_FLOAT\020\001\022\033\n\027ANIM_PARAM_TYPE_TRIGGER\020\002*"
-  "b\n\nERoomState\022\023\n\017ROOM_STATE_NONE\020\000\022\026\n\022RO"
-  "OM_STATE_WAITING\020\001\022\023\n\017ROOM_STATE_PLAY\020\002\022"
-  "\022\n\016ROOM_STATE_MAX\020\003B\013\252\002\010Protocolb\006proto3"
+  "\206\001\n\nERoomState\022\023\n\017ROOM_STATE_NONE\020\000\022\026\n\022R"
+  "OOM_STATE_WAITING\020\001\022\023\n\017ROOM_STATE_PLAY\020\002"
+  "\022\"\n\036ROOM_STATE_DESTROY_RESERVATION\020\003\022\022\n\016"
+  "ROOM_STATE_MAX\020\004B\013\252\002\010Protocolb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Enum_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Enum_2eproto = {
-  false, false, 1400, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
+  false, false, 1437, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
   &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
   schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
   nullptr, file_level_enum_descriptors_Enum_2eproto, file_level_service_descriptors_Enum_2eproto,
@@ -242,6 +243,7 @@ bool ERoomState_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;

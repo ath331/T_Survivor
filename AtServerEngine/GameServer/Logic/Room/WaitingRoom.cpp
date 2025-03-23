@@ -36,6 +36,9 @@ WaitingRoom::WaitingRoom(
 AtVoid WaitingRoom::UpdateTick()
 {
 	Room::UpdateTick();
+
+	if ( GetPlayerCount() <= 0 )
+		m_state = ROOM_STATE_DESTROY_RESERVATION;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +61,13 @@ AtBool WaitingRoom::CheckEnterRoom() const
 {
 	if ( m_maxUserCount <= GetPlayerCount() )
 		return false;
+
+	switch ( m_state )
+	{
+	case ROOM_STATE_DESTROY_RESERVATION:
+	case ROOM_STATE_MAX:
+		return false;
+	}
 
 	return true;
 }
