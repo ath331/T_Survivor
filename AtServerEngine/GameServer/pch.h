@@ -45,3 +45,6 @@
 #define SEND_PACKET( session, pkt )  \
 	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt ); \
 	session->Send( sendBuffer );
+
+
+using namespace Protocol;
