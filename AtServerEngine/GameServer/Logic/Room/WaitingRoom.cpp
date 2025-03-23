@@ -48,3 +48,32 @@ AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo& roomInfo )
 	roomInfo.set_cur_count( GetPlayerCount() );
 	roomInfo.set_max_count( m_maxUserCount   );
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 정보를 내보낸다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo* roomInfo )
+{
+	if ( !roomInfo )
+	{
+		WARNNING_LOG( "RoomInfo is Null" );
+		return;
+	}
+
+	roomInfo->set_num      ( GetRoomNum()     );
+	roomInfo->set_name     ( m_name           );
+	roomInfo->set_pw       ( m_pw             );
+	roomInfo->set_cur_count( GetPlayerCount() );
+	roomInfo->set_max_count( m_maxUserCount   );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 방에 입장할 수 있는지 확인한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool WaitingRoom::CheckEnterRoom() const
+{
+	if ( m_maxUserCount <= GetPlayerCount() )
+		return false;
+
+	return true;
+}

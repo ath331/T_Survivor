@@ -59,7 +59,9 @@ namespace Protocol {
 enum EResultCode : int {
   RESULT_CODE_SUCCESS = 0,
   RESULT_CODE_FAIL_ROOM_ENTER = 1,
-  RESULT_CODE_MAX = 2,
+  RESULT_CODE_NO_HAVE_ROOM = 2,
+  RESULT_CODE_NO_WAITING_ROOM = 3,
+  RESULT_CODE_MAX = 4,
   EResultCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EResultCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
