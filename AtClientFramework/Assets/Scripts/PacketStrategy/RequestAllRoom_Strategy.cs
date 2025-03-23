@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Protocol;
 using UnityEngine;
 
-public class RequestAllRoom_Strategy : MonoBehaviour
+public class RequestAllRoom_Strategy : IStrategy
 {
     public RequestAllRoom_Strategy()
     {

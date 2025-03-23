@@ -15,6 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_RequestAllRoomInfo_Handler( ushort protocolId, byte[] data )
 		{
 			S_RequestAllRoomInfo message = S_RequestAllRoomInfo.Parser.ParseFrom( data );
+
+			PacketEventManager.Invoke(message);
 		}
 	}
 }
