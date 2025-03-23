@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Protocol;
 using UnityEngine;
 
-public class PlayerListManager : MonoBehaviour
+public class PlayerListManager
 {
     private static readonly PlayerListManager _instance = new PlayerListManager();
     public static PlayerListManager Instance => _instance;
@@ -22,14 +23,14 @@ public class PlayerListManager : MonoBehaviour
         _isInitialized = true;
     }
 
-    public void ProcessSpawnHandler(ulong playerId)
+    public void ProcessSpawnHandler(ObjectInfo playerInfo)
     {
         // 이미 스폰된 플레이어라면 무시
-        if (_spawnedPlayers.ContainsKey(playerId))
+        if (_spawnedPlayers.ContainsKey(playerInfo.Id))
             return;
 
         // 랜덤 위치 생성
-        Vector3 spawnPosition = new Vector3(UnityEngine.Random.Range(1f, 20f), 0f, UnityEngine.Random.Range(1f, 20f));
+        Vector3 spawnPosition = new Vector3(playerInfo.PosInfo.X, playerInfo.PosInfo.Y, playerInfo.PosInfo.Z);
 
         // 오브젝트 풀에서 플레이어 가져오기
         GameObject playerObject = ObjectPoolManager.Instance.Get("Character");
@@ -38,11 +39,12 @@ public class PlayerListManager : MonoBehaviour
 
         // 내 캐릭터인지 확인하고 IsLocalPlayer 활성화/비활성화
         PlayerController controller = playerObject.GetComponent<PlayerController>();
-        controller.IsLocalPlayer = (playerId == MercuryHelper.mercuryId);
+        controller.IsLocalPlayer = (playerInfo.Id == MercuryHelper.mercuryId);
+        controller.Send_Move();
 
         // 생성된 플레이어 저장
-        _spawnedPlayers[playerId] = controller;
-        Debug.Log($"[NetworkManager] 플레이어 {playerId} 스폰됨.");
+        _spawnedPlayers[playerInfo.Id] = controller;
+        Debug.Log($"[NetworkManager] 플레이어 {playerInfo.Id} 스폰됨.");
     }
 
     /// <summary> 플레이어 제거 (나갔을 때) </summary>

@@ -66,7 +66,7 @@ public static class PopupManager
     /// <param name="callback"></param>
     public static void ShowPopup(string popupName, object param = null, System.Action<object> callback = null)
     {
-        // TODO :
+        ShowProcessAsync(popupName, param, callback).Forget();
     }
 
     /// <summary>
@@ -103,27 +103,32 @@ public static class PopupManager
 
     private static async UniTask ShowProcessAsync(string popupName, object param, System.Action<object> closeCallback = null)
     {
-        BasePopupHandler popupInstance = null;
+        // Resources 폴더에서 popup 프리팹 로드 (BasePopupHandler 타입)
+        BasePopupHandler popupPrefab = Resources.Load<BasePopupHandler>($"Prefabs/Popup/{popupName}");
+        if (popupPrefab == null)
+        {
+            Debug.LogError($"[PopupManager] '{popupName}' 프리팹을 찾을 수 없습니다.");
+            return;
+        }
 
-        // PopupName 프리팹 중 BasePopupHandler 스크립트를 가진 프리팹을 가져옴. 
+        // 프리팹 인스턴스 생성 후, PopupParent의 자식으로 배치
+        BasePopupHandler popupInstance = Object.Instantiate(popupPrefab, PopupParent.transform);
 
-        // 꺼둔다.
-
-        // 만들어서 PopupParent 하위로 넣어준다.
-
-        // 팝업 스택에 추가한다.
+        // 팝업 스택에 추가
+        popupStack.AddLast(new PopupItem(popupInstance, closeCallback, param));
 
         // 씬이 바뀌었다면 기다린다. (씬이 바뀐후 Show)
-
-        // OnEnable() -> Start()
+        // ..
+       
 
         // 팝업이 등장하기 전
+        popupInstance.OnBeforeEnter(param);
 
-        // 팝업이 꺼지는 애니메이션
-        await popupInstance.AnimationOut();
+        // 팝업이 등장하는 애니메이션
+        await popupInstance.AnimationIn();
 
         // 팝업이 등장한 후
-
+        popupInstance.OnAfterEnter(param);
     }
 
     /// <summary>
@@ -149,11 +154,12 @@ public static class PopupManager
 
     public static async void ClosePopup(object param = null)
     {
+        if (popupStack.Count == 0) return;
+
         // 팝업스택 최상위 것을 가져온다.
+        PopupItem popupItem = popupStack.Last.Value;
 
-        // 지운다.
-
-        // 해당 팝업을 끈다.
+        CloseProcessAsync(popupItem, param).Forget();
     }
 
     private static async UniTask CloseProcessAsync(PopupItem popupItem, object param)
@@ -164,9 +170,13 @@ public static class PopupManager
 
         // 팝업이 꺼진 후
 
-        // popup 오브젝트를 삭제 시킨다.
+        // 스택에서 지운다.
+        popupStack.RemoveLast();
 
-        // CloseCallback 이 있다면 실행한다.
+        // 해당 팝업을 파괴한다.
+        Object.Destroy(popupItem.popupHandler.gameObject);
 
+        // closeCallBack 호출
+        popupItem.closeCallback?.Invoke(param);
     }
 }

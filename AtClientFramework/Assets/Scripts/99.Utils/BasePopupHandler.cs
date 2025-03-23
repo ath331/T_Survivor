@@ -74,7 +74,6 @@ public class BasePopupHandler : MonoBehaviour
 
         if (!ReferenceEquals(null, Canvas))
         {
-            Canvas.worldCamera = Camera.main;
             Canvas.sortingOrder = BaseSortingOrder + 1000 * popupCount;
 
             // if (UseBlocker) UIBlocker.Setup(GetInstanceID(), Canvas.sortingLayerName, Canvas.sortingOrder - 1, CurtainAlpha, IsPointerDownHandler);
@@ -123,7 +122,7 @@ public class BasePopupHandler : MonoBehaviour
 
     public virtual void OnClickClose()
     {
-
+        PopupManager.ClosePopup();
     }
 
     public virtual void OnClickCloseReturnBool(bool b)

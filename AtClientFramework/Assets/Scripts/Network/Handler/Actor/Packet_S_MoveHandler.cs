@@ -16,17 +16,7 @@ namespace Assets.Scripts.Network.Handler
         {
             S_Move message = S_Move.Parser.ParseFrom(data);
 
-            ulong playerId = message.Info.Id;
-            Vector3 newPosition = new Vector3(message.Info.X, message.Info.Y, message.Info.Z);
-            var newYaw = message.Info.Yaw;
-
-            if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
-            {
-                if (!player.IsLocalPlayer)
-                {
-                    player.UpdateNetworkPosition(newPosition, newYaw);
-                }
-            }
+            PacketEventManager.Invoke(message);
         }
     }
 }

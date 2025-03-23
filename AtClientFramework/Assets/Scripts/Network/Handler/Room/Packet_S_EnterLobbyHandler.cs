@@ -12,10 +12,7 @@ namespace Assets.Scripts.Network.Handler
 		{
 			S_EnterLobby message = S_EnterLobby.Parser.ParseFrom( data );
 
-			if ( message.Success )
-			{
-				GameSupervisor.Instance.Test_ToLobby(message.PlayerId).Forget();
-			}
+            PacketEventManager.Invoke(message);
         }
     }
 }

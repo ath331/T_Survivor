@@ -15,7 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_Login_Handler( ushort protocolId, byte[] data )
 		{
 			S_Login message = S_Login.Parser.ParseFrom( data );
-            Debug.Log( $"¼ö½ÅµÈ ID: {message.Success}" );
+
+            PacketEventManager.Invoke(message);
         }
     }
 }

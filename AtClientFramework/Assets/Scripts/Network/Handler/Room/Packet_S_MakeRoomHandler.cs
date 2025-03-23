@@ -15,6 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_MakeRoom_Handler( ushort protocolId, byte[] data )
 		{
 			S_MakeRoom message = S_MakeRoom.Parser.ParseFrom( data );
+
+			PacketEventManager.Invoke(message);
 		}
 	}
 }
