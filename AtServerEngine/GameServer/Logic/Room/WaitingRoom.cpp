@@ -62,12 +62,7 @@ AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo* roomInfo )
 		return;
 	}
 
-	roomInfo->set_num       ( GetRoomNum()     );
-	roomInfo->set_name      ( m_name           );
-	roomInfo->set_pw        ( m_pw             );
-	roomInfo->set_cur_count ( GetPlayerCount() );
-	roomInfo->set_max_count ( m_maxUserCount   );
-	roomInfo->set_room_state( m_state          );
+	ExportTo( *roomInfo );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
