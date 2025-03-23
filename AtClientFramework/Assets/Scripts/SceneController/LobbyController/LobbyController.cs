@@ -110,6 +110,8 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         {
             if (res is true)
             {
+                
+
                 waitingRoomHandler.gameObject.SetActive(false);
 
                 gameRoomHandler.gameObject.SetActive(true);
