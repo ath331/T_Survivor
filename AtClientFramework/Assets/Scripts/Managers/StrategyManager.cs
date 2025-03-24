@@ -16,6 +16,7 @@ public class StrategyManager
         strategies.Add(new Animation_Strategy());
         strategies.Add(new Spawn_Strategy());
         strategies.Add(new RoomCreate_Strategy());
+        strategies.Add(new RequestRoom_Strategy());
         strategies.Add(new RequestAllRoom_Strategy());
     }
 

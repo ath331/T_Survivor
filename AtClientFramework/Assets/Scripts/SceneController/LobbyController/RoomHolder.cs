@@ -8,7 +8,7 @@ public class RoomHolder : MonoBehaviour
 {
     [SerializeField] private TMP_Text roomText;
 
-    ERoomState roomState = ERoomState.RoomStateNone;
+    string roomState = "대기중";
     
     private string titleName = "";
 
@@ -19,11 +19,9 @@ public class RoomHolder : MonoBehaviour
     private int max_count = 3;
 
 
-    public void SetStatus(S_MakeRoom message)
+    public void SetStatus(S_RequestRoomInfo message)
     {
-        var madeRoomInfo = message.MadeRoomInfo;
-
-        roomState = madeRoomInfo.RoomState;
+        var madeRoomInfo = message.RoomInfo;
 
         titleName = madeRoomInfo.Name;
 
@@ -33,7 +31,9 @@ public class RoomHolder : MonoBehaviour
 
         max_count = madeRoomInfo.MaxCount;
 
-        roomText.text = $"방제 : {titleName} (인원: {cur_count}/{max_count}) [{roomState.ToString()}]";
+        roomState = madeRoomInfo.RoomState == ERoomState.RoomStateWaiting ? "대기중" : "게임중";
+
+        roomText.text = $"{titleName} (인원: {cur_count}/{max_count}) <#000000>[{roomState}]";
     }
 
     // 1. 없는 방일 수 있음

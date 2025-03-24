@@ -20,10 +20,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     [SerializeField] private GameRoomHandler gameRoomHandler;
     [SerializeField] private WaitingRoomHandler waitingRoomHandler;
 
-    public static Action<S_MakeRoom> OnRoomCreateAction;
-
-    private bool isMakeMe = false;
-
     private void Awake()
     {
         SceneInitializerRegistry.Register(this);
@@ -38,14 +34,14 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ReceiveCreateRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived += ReceiveCreateRoom;
     }
 
     private void OnDisable()
     {
         EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ReceiveCreateRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived -= ReceiveCreateRoom;
     }
 
     /// <summary>
@@ -117,8 +113,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         {
             if (res is C_MakeRoom)
             {
-                isMakeMe = true;
-
                 NetworkManager.Instance.Send(res as C_MakeRoom);
             }
         });
@@ -126,33 +120,11 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     public void ReceiveCreateRoom(S_MakeRoom message)
     {
-        if (isMakeMe)
-        {
-            CreateRoom(message);
-        }
-        else
-        {
-            CreateRoomHolder(message);
-        }
-    }
-
-    public void CreateRoomHolder(S_MakeRoom message)
-    {
-        if (message.Result == EResultCode.ResultCodeSuccess)
-        {
-            waitingRoomHandler.CreateRoomHolder(message);
-        }
-        else
-        {
-            // TODO : 방 목록에 Holder 만들기 실패했을때
-
-        }
+        CreateRoom(message);
     }
 
     public void CreateRoom(S_MakeRoom message)
     {
-        isMakeMe = false;
-
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
             Debug.Log("방만들기 성공");
