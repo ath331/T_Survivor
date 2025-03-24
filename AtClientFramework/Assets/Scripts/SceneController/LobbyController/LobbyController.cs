@@ -20,8 +20,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     [SerializeField] private GameRoomHandler gameRoomHandler;
     [SerializeField] private WaitingRoomHandler waitingRoomHandler;
 
-    public static Action<S_MakeRoom> OnRoomCreateAction;
-
     private void Awake()
     {
         SceneInitializerRegistry.Register(this);
@@ -36,14 +34,14 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ShowGameRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived += ReceiveCreateRoom;
     }
 
     private void OnDisable()
     {
         EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ShowGameRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived -= ReceiveCreateRoom;
     }
 
     /// <summary>
@@ -111,10 +109,21 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     public void OnClickMakeRoom()
     {
-        PopupManager.ShowPopup(nameof(MakeRoomPopup));
+        PopupManager.ShowPopup(nameof(MakeRoomPopup), null, (res) =>
+        {
+            if (res is C_MakeRoom)
+            {
+                NetworkManager.Instance.Send(res as C_MakeRoom);
+            }
+        });
     }
 
-    public void ShowGameRoom(S_MakeRoom message)
+    public void ReceiveCreateRoom(S_MakeRoom message)
+    {
+        CreateRoom(message);
+    }
+
+    public void CreateRoom(S_MakeRoom message)
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
@@ -128,7 +137,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            // TODO : 방 만들기 실패했을떄
+            // TODO : 방 만들기 실패했을때
 
         }
     }

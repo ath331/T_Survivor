@@ -75,7 +75,7 @@ public class ChatController : MonoBehaviour
 
     public void UpdateChatUI(string message)
     {
-        if (content.transform.childCount >= LimitChatPrefab)
+        if (chatTexts.Count >= LimitChatPrefab)
         {
             ChatText oldestChat = chatTexts[0];
             oldestChat.gameObject.SetActive(false);  // 먼저 비활성화

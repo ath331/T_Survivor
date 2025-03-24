@@ -62,8 +62,6 @@ public class MakeRoomPopup : BasePopupHandler
             }
         };
 
-        NetworkManager.Instance.Send(makeRoomPkt);
-
         PopupManager.ClosePopup(makeRoomPkt);
     }
 }
