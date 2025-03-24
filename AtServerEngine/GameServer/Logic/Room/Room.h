@@ -86,6 +86,10 @@ public:
 	/// 정보를 내보낸다.
 	virtual AtVoid ExportTo( Protocol::RoomInfo& roomInfo );
 
+private:
+	/// 오브젝트 리스트들을 초기화한다.
+	AtVoid _ResetObjectList();
+
 protected:
 	/// 오브젝트를 추가한다.
 	AtBool _AddObject( ObjectPtr object );
