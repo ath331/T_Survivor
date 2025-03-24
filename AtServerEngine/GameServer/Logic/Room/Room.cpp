@@ -23,6 +23,8 @@ std::atomic< AtInt32 > Room::g_roomNum( 0 );
 Room::Room()
 {
 	m_roomNum = g_roomNum.fetch_add( 1 ) + 1;
+
+	_ResetObjectList();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -233,6 +235,16 @@ AtVoid Room::ExportTo( Protocol::RoomInfo& roomInfo )
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 오브젝트 리스트들을 초기화한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::_ResetObjectList()
+{
+	m_objects.clear();
+	m_players.clear();
+	m_monsters.clear();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 오브젝트를 추가한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool Room::_AddObject( ObjectPtr object )
@@ -277,10 +289,12 @@ AtBool Room::_RemoveObject( uint64 objectId )
 	m_objects.erase( objectId );
 
 	auto pIter = m_players.find( objectId );
-	m_players.erase( pIter );
+	if ( pIter != m_players.end() )
+		m_players.erase( pIter );
 
 	auto mIter = m_monsters.find( objectId );
-	m_monsters.erase( mIter );
+	if ( mIter != m_monsters.end() )
+		m_monsters.erase( mIter );
 
 	return true;
 }
