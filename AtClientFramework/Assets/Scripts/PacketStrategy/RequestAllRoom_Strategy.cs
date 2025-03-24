@@ -12,15 +12,15 @@ public class RequestAllRoom_Strategy : IStrategy
 
     public void Register()
     {
-        PacketEventManager.Subscribe<S_RequestAllRoomInfo>(ORequestAllRoomInfoPacketReceived);
+        PacketEventManager.Subscribe<S_RequestAllRoomInfo>(OnRequestAllRoomInfoPacketReceived);
     }
 
     public void Unregister()
     {
-        PacketEventManager.Unsubscribe<S_RequestAllRoomInfo>(ORequestAllRoomInfoPacketReceived);
+        PacketEventManager.Unsubscribe<S_RequestAllRoomInfo>(OnRequestAllRoomInfoPacketReceived);
     }
 
-    private void ORequestAllRoomInfoPacketReceived(S_RequestAllRoomInfo message)
+    private void OnRequestAllRoomInfoPacketReceived(S_RequestAllRoomInfo message)
     {
         WaitingRoomHandler.OnRequestAllRoomInfo?.Invoke(message);
     }

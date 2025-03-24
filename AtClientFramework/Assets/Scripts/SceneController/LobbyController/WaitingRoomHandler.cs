@@ -26,6 +26,13 @@ public class WaitingRoomHandler : MonoBehaviour
         OnRequestAllRoomInfo -= ShowRoom;
     }
 
+    public void CreateRoomHolder(S_MakeRoom message)
+    {
+        var roomHolder = ObjectPoolManager.Instance.Get<RoomHolder>("RoomHolder", content.transform);
+
+        roomHolder.SetStatus(message);
+    }
+
     /// <summary>
     /// 현재 방 목록을 가져와서 보여준다.
     ///   enum ERoomState

@@ -22,6 +22,8 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     public static Action<S_MakeRoom> OnRoomCreateAction;
 
+    private bool isMakeMe = false;
+
     private void Awake()
     {
         SceneInitializerRegistry.Register(this);
@@ -36,14 +38,14 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ShowGameRoom;
+        OnRoomCreateAction += ReceiveCreateRoom;
     }
 
     private void OnDisable()
     {
         EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ShowGameRoom;
+        OnRoomCreateAction += ReceiveCreateRoom;
     }
 
     /// <summary>
@@ -111,11 +113,46 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     public void OnClickMakeRoom()
     {
-        PopupManager.ShowPopup(nameof(MakeRoomPopup));
+        PopupManager.ShowPopup(nameof(MakeRoomPopup), null, (res) =>
+        {
+            if (res is C_MakeRoom)
+            {
+                isMakeMe = true;
+
+                NetworkManager.Instance.Send(res as C_MakeRoom);
+            }
+        });
     }
 
-    public void ShowGameRoom(S_MakeRoom message)
+    public void ReceiveCreateRoom(S_MakeRoom message)
     {
+        if (isMakeMe)
+        {
+            CreateRoom(message);
+        }
+        else
+        {
+            CreateRoomHolder(message);
+        }
+    }
+
+    public void CreateRoomHolder(S_MakeRoom message)
+    {
+        if (message.Result == EResultCode.ResultCodeSuccess)
+        {
+            waitingRoomHandler.CreateRoomHolder(message);
+        }
+        else
+        {
+            // TODO : 방 목록에 Holder 만들기 실패했을때
+
+        }
+    }
+
+    public void CreateRoom(S_MakeRoom message)
+    {
+        isMakeMe = false;
+
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
             Debug.Log("방만들기 성공");
@@ -128,7 +165,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            // TODO : 방 만들기 실패했을떄
+            // TODO : 방 만들기 실패했을때
 
         }
     }
