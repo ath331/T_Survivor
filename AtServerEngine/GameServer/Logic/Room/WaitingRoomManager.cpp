@@ -77,7 +77,7 @@ WaitingRoomPtr WaitingRoomManager::AcquireRoom( AtInt32 roomNum )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif WaitingRoom을 반환한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-WaitingRoomPtr WaitingRoomManager::AcquireRoom( const Protocol::RoomInfo& roomInfo )
+WaitingRoomPtr WaitingRoomManager::AcquireRoom( const RoomInfo& roomInfo )
 {
 	WRITE_LOCK;
 
@@ -108,11 +108,15 @@ WaitingRoomPtr WaitingRoomManager::GetRoom( AtInt32 roomNum )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 대기실의 모든 룸의 정보를 내보낸다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid WaitingRoomManager::ExportToAllRoomInfo( Protocol::S_RequestAllRoomInfo& s_requestAllRoomInfo )
+AtVoid WaitingRoomManager::ExportToAllRoomInfo( S_RequestAllRoomInfo& s_requestAllRoomInfo )
 {
-	WRITE_LOCK;
+	WaitingRoomMap cacheWaitingRoomMap;
+	{
+		WRITE_LOCK;
+		cacheWaitingRoomMap = m_waitingRoomMap;
+	}
 
-	for ( const auto& [ roomNum, room ] : m_waitingRoomMap )
+	for ( const auto& [ roomNum, room ] : cacheWaitingRoomMap )
 	{
 		if ( !room )
 			continue;
