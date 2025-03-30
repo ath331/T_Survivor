@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class RoomHolder : MonoBehaviour
@@ -38,11 +40,23 @@ public class RoomHolder : MonoBehaviour
 
     // 1. 없는 방일 수 있음
     // 2. 꽉차있는 방일 수 있음
-    // 3. 빈 방 => 입장
+    // 3. 비번방 일수도 (일단 아니라고 가정)
+    // 4. 빈 방 => 입장
     public void OnClickRoom()
     {
-        
+        // 룸 넘버만 보내주면 되려나? 받아서 핸들링하면 되니까
+        C_WaitingRoomEnter enterRoom = new C_WaitingRoomEnter()
+        {
+            RoomInfo = new RoomInfo
+            {
+                Num = roomNumber,
 
+                Name = titleName,
+                
+                Pw = -1,
+            }
+        };
 
+        NetworkManager.Instance.Send(enterRoom);
     }
 }

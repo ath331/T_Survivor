@@ -244,7 +244,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 947146384}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9986972
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1714,7 +1714,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 515428790}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99912155
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4137,8 +4137,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2128225734}
-        m_TargetAssemblyTypeName: LobbyController, Assembly-CSharp
+      - m_Target: {fileID: 392135597}
+        m_TargetAssemblyTypeName: WaitingRoomHandler, Assembly-CSharp
         m_MethodName: OnClickMakeRoom
         m_Mode: 1
         m_Arguments:
