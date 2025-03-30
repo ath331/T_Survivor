@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class WaitingRoomHandler : MonoBehaviour
 {
-    public static Action<S_RequestAllRoomInfo> OnRequestAllRoomInfo;
-
     [SerializeField] private GameObject content;
 
     public void OnEnable()
     {
-        OnRequestAllRoomInfo += ShowRoom;
+        RequestRoom_Strategy.OnRequestRoom += CreateRoomHolder;
+
+        RequestAllRoom_Strategy.OnRequestAllRoom += ShowRoom;
 
         // 전체 방 갱신 요청
         C_RequestAllRoomInfo requestAllRoomInfo = new C_RequestAllRoomInfo();
@@ -23,7 +23,27 @@ public class WaitingRoomHandler : MonoBehaviour
 
     public void OnDisable()
     {
-        OnRequestAllRoomInfo -= ShowRoom;
+        RequestRoom_Strategy.OnRequestRoom -= CreateRoomHolder;
+
+        RequestAllRoom_Strategy.OnRequestAllRoom -= ShowRoom;
+    }
+
+    public void OnClickMakeRoom()
+    {
+        PopupManager.ShowPopup(nameof(MakeRoomPopup), null, (res) =>
+        {
+            if (res is C_MakeRoom)
+            {
+                NetworkManager.Instance.Send(res as C_MakeRoom);
+            }
+        });
+    }
+
+    public void CreateRoomHolder(S_RequestRoomInfo message)
+    {
+        var roomHolder = ObjectPoolManager.Instance.Get<RoomHolder>("RoomHolder", content.transform);
+
+        roomHolder.SetStatus(message);
     }
 
     /// <summary>

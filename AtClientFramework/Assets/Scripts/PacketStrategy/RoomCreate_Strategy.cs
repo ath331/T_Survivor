@@ -5,7 +5,7 @@ using System;
 
 public class RoomCreate_Strategy : IStrategy
 {
-    public static event Action OnRoomCreateReceived;
+    public static event Action<S_MakeRoom> OnRoomCreateReceived;
 
     public RoomCreate_Strategy()
     {
@@ -24,6 +24,6 @@ public class RoomCreate_Strategy : IStrategy
 
     private void OnCreateRoomPacketReceived(S_MakeRoom message)
     {
-        LobbyController.OnRoomCreateAction?.Invoke(message);
+        OnRoomCreateReceived?.Invoke(message);
     }
 }

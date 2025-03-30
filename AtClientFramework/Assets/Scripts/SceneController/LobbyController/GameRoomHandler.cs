@@ -105,7 +105,7 @@ public class GameRoomHandler : MonoBehaviour
     {
         foreach (var character in spawnedCharacters)
         {
-            ObjectPoolManager.Instance.Return(character.gameObject);
+            ReturnCharacter(character);
         }
     }
 

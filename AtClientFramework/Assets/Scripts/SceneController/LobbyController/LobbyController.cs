@@ -20,8 +20,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     [SerializeField] private GameRoomHandler gameRoomHandler;
     [SerializeField] private WaitingRoomHandler waitingRoomHandler;
 
-    public static Action<S_MakeRoom> OnRoomCreateAction;
-
     private void Awake()
     {
         SceneInitializerRegistry.Register(this);
@@ -36,14 +34,18 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ShowGameRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived += ReceiveCreateRoom;
+
+        WaitRoomEnter_Strategy.OnEnterRoom += EnterRoom;
     }
 
     private void OnDisable()
     {
         EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
 
-        OnRoomCreateAction += ShowGameRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived -= ReceiveCreateRoom;
+
+        WaitRoomEnter_Strategy.OnEnterRoom -= EnterRoom;
     }
 
     /// <summary>
@@ -109,12 +111,27 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         SwitchSceneManager.Instance.ChangeTo("Game").Forget();
     }
 
-    public void OnClickMakeRoom()
+    public void EnterRoom(S_WaitingRoomEnter message)
     {
-        PopupManager.ShowPopup(nameof(MakeRoomPopup));
+        if (message.Result == EResultCode.ResultCodeSuccess)
+        {
+            waitingRoomHandler.gameObject.SetActive(false);
+
+            gameRoomHandler.gameObject.SetActive(true);
+        }
+        else
+        {
+            // 룸에 못들어갈때
+
+        }
     }
 
-    public void ShowGameRoom(S_MakeRoom message)
+    public void ReceiveCreateRoom(S_MakeRoom message)
+    {
+        CreateRoom(message);
+    }
+
+    public void CreateRoom(S_MakeRoom message)
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
@@ -128,7 +145,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            // TODO : 방 만들기 실패했을떄
+            // TODO : 방 만들기 실패했을때
 
         }
     }
