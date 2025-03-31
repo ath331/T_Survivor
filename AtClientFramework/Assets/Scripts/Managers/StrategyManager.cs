@@ -19,6 +19,7 @@ public class StrategyManager
         strategies.Add(new RequestRoom_Strategy());
         strategies.Add(new RequestAllRoom_Strategy());
         strategies.Add(new WaitRoomEnter_Strategy());
+        strategies.Add(new WaitRoomNotify_Strategy());
     }
 
     // 필요 시 특정 전략 접근 및 관리 기능 추가
