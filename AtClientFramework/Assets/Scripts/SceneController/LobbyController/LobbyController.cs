@@ -150,6 +150,8 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
             gameRoomHandler.gameObject.SetActive(true);
 
             gameRoomHandler.SetMaKeRoom(message.MadeRoomInfo);
+
+            gameRoomHandler.IsOnRoomLeader();
         }
         else
         {

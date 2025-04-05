@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using Assets.Scripts.Network;
 using Protocol;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaitingRoomHandler : MonoBehaviour
 {
     [SerializeField] private GameObject content;
+
+    [SerializeField] private Button exitButton;
 
     public void OnEnable()
     {
@@ -19,6 +22,8 @@ public class WaitingRoomHandler : MonoBehaviour
         C_RequestAllRoomInfo requestAllRoomInfo = new C_RequestAllRoomInfo();
 
         NetworkManager.Instance.Send(requestAllRoomInfo);
+
+        exitButton.onClick.AddListener(OnClickExit);
     }
 
     public void OnDisable()
@@ -26,6 +31,13 @@ public class WaitingRoomHandler : MonoBehaviour
         RequestRoom_Strategy.OnRequestRoom -= CreateRoomHolder;
 
         RequestAllRoom_Strategy.OnRequestAllRoom -= ShowRoom;
+
+        exitButton.onClick.RemoveAllListeners();
+    }
+
+    private void OnClickExit()
+    {
+
     }
 
     public void OnClickMakeRoom()
@@ -43,36 +55,22 @@ public class WaitingRoomHandler : MonoBehaviour
     {
         var roomHolder = ObjectPoolManager.Instance.Get<RoomHolder>("RoomHolder", content.transform);
 
-        roomHolder.SetStatus(message);
+        roomHolder.SetStatus(message.RoomInfo);
     }
-
+    
     /// <summary>
-    /// 현재 방 목록을 가져와서 보여준다.
-    ///   enum ERoomState
-    //    {
-    //        ROOM_STATE_NONE = 0;
-    //        ROOM_STATE_WAITING = 1; // 대기중
-    //        ROOM_STATE_PLAY = 2; // 진행중
-    //        ROOM_STATE_MAX = 3;
-    //    }
-    //    message RoomInfo
-    //    {
-    //        int32 num = 1; // 번호
-    //        string name = 2; // 이름
-    //        int32 pw = 3; // 비밀번호
-    //        ERoomState room_state = 4; /// 상태
-    //        int32 cur_count = 5; // 현재 인원
-    //        int32 max_count = 6; // 최대 인원
-    //    }
+    /// 모든 방의 정보를 받는다.  (WaitRoom OnEnable 에서 요청해주고 있음!)
+    /// 1. 게임대기실에서 나갔을때 (GameRoom -> WaitRoom)
+    /// 2. Splash -> WaitRoom 넘어왔을때 현재 만들어져있는 방들의 정보 가져올때
     /// </summary>
+    /// <param name="roomInfo"></param>
     public void ShowRoom(S_RequestAllRoomInfo roomInfo)
     {
         foreach (var room in roomInfo.RoomList)
         {
-            RoomHolder roomHolder = ObjectPoolManager.Instance.Get<RoomHolder>("RoomHolder", content.transform);
-            roomHolder.gameObject.SetActive(true);
+            var roomHolder = ObjectPoolManager.Instance.Get<RoomHolder>("RoomHolder", content.transform);
 
-
+            roomHolder.SetStatus(room);
         }
     }
 }

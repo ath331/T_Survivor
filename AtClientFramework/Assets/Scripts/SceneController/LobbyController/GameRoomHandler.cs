@@ -5,6 +5,7 @@ using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInfo
 {
@@ -24,11 +25,16 @@ public class GameRoomHandler : MonoBehaviour
 
     [SerializeField] private Transform[] spawnTransform;
 
+    [SerializeField] private Button exitButton;
+
     // 생성된 캐릭터 인스턴스를 보관하는 리스트
     private List<PlayerInfo> playerInfos;
 
     // 각 스폰 슬롯의 사용 여부를 관리하는 배열
     private bool[] spawnSlotsOccupied;
+
+    // 방장 여부
+    bool isRoomLeader = false; 
 
     ERoomState roomState = ERoomState.RoomStateNone;
 
@@ -40,9 +46,23 @@ public class GameRoomHandler : MonoBehaviour
 
     private string titleName = "";
 
+    void OnEnable()
+    {
+        exitButton.onClick.AddListener(OnClickExit);
+    }
+
     void OnDisable()
     {
+        exitButton.onClick.RemoveAllListeners();
+        
         Destroy_All_Chracter();
+
+        isRoomLeader = false;
+    }
+
+    public void IsOnRoomLeader()
+    {
+        isRoomLeader = true;
     }
 
     public void NotifyPlayer(S_WaitingRoomEnterNotify message)
@@ -79,6 +99,11 @@ public class GameRoomHandler : MonoBehaviour
         cur_count = roomInfo.CurCount;
 
         max_count = roomInfo.MaxCount;
+    }
+
+    private void OnClickExit()
+    {
+        
     }
 
     public void Spawn_My_Character()

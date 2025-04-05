@@ -15,6 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_DestroyRoom_Handler( ushort protocolId, byte[] data )
 		{
 			S_DestroyRoom message = S_DestroyRoom.Parser.ParseFrom( data );
-		}
+
+            PacketEventManager.Invoke(message);
+        }
 	}
 }
