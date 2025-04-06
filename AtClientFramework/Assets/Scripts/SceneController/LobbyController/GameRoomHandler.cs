@@ -103,7 +103,9 @@ public class GameRoomHandler : MonoBehaviour
 
     private void OnClickExit()
     {
-        
+        C_WaitingRoomOut roomOut = new C_WaitingRoomOut();
+
+        NetworkManager.Instance.Send(roomOut);
     }
 
     public void Spawn_My_Character()
@@ -143,6 +145,7 @@ public class GameRoomHandler : MonoBehaviour
                 otherPlayerController.rb.useGravity = false;
 
                 playerInfos[i].playerController = otherPlayerController;
+
                 playerInfos[i].objectInfo.Id = message.Player.Id;
 
                 spawnSlotsOccupied[i] = true;

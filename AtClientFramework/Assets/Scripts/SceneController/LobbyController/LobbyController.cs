@@ -49,7 +49,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         WaitRoomEnter_Strategy.OnEnterRoom -= EnterRoom;
 
-        WaitRoomNotify_Strategy.OnNotify += NotifyPlayer;
+        WaitRoomNotify_Strategy.OnNotify -= NotifyPlayer;
     }
 
     /// <summary>
