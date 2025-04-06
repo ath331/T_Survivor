@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class RoomHolder : MonoBehaviour
@@ -21,19 +20,17 @@ public class RoomHolder : MonoBehaviour
     private int max_count = 3;
 
 
-    public void SetStatus(S_RequestRoomInfo message)
+    public void SetStatus(RoomInfo roomInfo)
     {
-        var madeRoomInfo = message.RoomInfo;
+        titleName = roomInfo.Name;
 
-        titleName = madeRoomInfo.Name;
+        roomNumber = roomInfo.Num;
 
-        roomNumber = madeRoomInfo.Num;
+        cur_count = roomInfo.CurCount;
 
-        cur_count = madeRoomInfo.CurCount;
+        max_count = roomInfo.MaxCount;
 
-        max_count = madeRoomInfo.MaxCount;
-
-        roomState = madeRoomInfo.RoomState == ERoomState.RoomStateWaiting ? "대기중" : "게임중";
+        roomState = roomInfo.RoomState == ERoomState.RoomStateWaiting ? "대기중" : "게임중";
 
         roomText.text = $"{titleName} (인원: {cur_count}/{max_count}) <#000000>[{roomState}]";
     }

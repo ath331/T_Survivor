@@ -34,18 +34,22 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
 
-        RoomCreate_Strategy.OnRoomCreateReceived += ReceiveCreateRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived += CreateRoom;
 
         WaitRoomEnter_Strategy.OnEnterRoom += EnterRoom;
+
+        WaitRoomNotify_Strategy.OnNotify += NotifyPlayer;
     }
 
     private void OnDisable()
     {
         EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
 
-        RoomCreate_Strategy.OnRoomCreateReceived -= ReceiveCreateRoom;
+        RoomCreate_Strategy.OnRoomCreateReceived -= CreateRoom;
 
         WaitRoomEnter_Strategy.OnEnterRoom -= EnterRoom;
+
+        WaitRoomNotify_Strategy.OnNotify += NotifyPlayer;
     }
 
     /// <summary>
@@ -111,24 +115,28 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         SwitchSceneManager.Instance.ChangeTo("Game").Forget();
     }
 
+    public void NotifyPlayer(S_WaitingRoomEnterNotify message)
+    {
+        gameRoomHandler.NotifyPlayer(message);
+    }
+
     public void EnterRoom(S_WaitingRoomEnter message)
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
+            Debug.Log("방들어가기 성공");
+
             waitingRoomHandler.gameObject.SetActive(false);
 
             gameRoomHandler.gameObject.SetActive(true);
+
+            gameRoomHandler.SetMaKeRoom(message.RoomInfo);
         }
         else
         {
             // 룸에 못들어갈때
 
         }
-    }
-
-    public void ReceiveCreateRoom(S_MakeRoom message)
-    {
-        CreateRoom(message);
     }
 
     public void CreateRoom(S_MakeRoom message)
@@ -141,7 +149,9 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
             gameRoomHandler.gameObject.SetActive(true);
 
-            gameRoomHandler.SetMaKeRoom(message);
+            gameRoomHandler.SetMaKeRoom(message.MadeRoomInfo);
+
+            gameRoomHandler.IsOnRoomLeader();
         }
         else
         {

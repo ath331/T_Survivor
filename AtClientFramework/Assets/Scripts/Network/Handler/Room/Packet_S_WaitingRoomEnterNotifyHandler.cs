@@ -15,6 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_WaitingRoomEnterNotify_Handler( ushort protocolId, byte[] data )
 		{
 			S_WaitingRoomEnterNotify message = S_WaitingRoomEnterNotify.Parser.ParseFrom( data );
+
+			PacketEventManager.Invoke(message);
 		}
 	}
 }

@@ -5,7 +5,19 @@ using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
+
+public class PlayerInfo
+{
+    public PlayerInfo()
+    {
+        objectInfo = new ObjectInfo();
+    }
+
+    public ObjectInfo objectInfo;
+
+    public PlayerController playerController;
+}
 
 public class GameRoomHandler : MonoBehaviour
 {
@@ -13,11 +25,16 @@ public class GameRoomHandler : MonoBehaviour
 
     [SerializeField] private Transform[] spawnTransform;
 
+    [SerializeField] private Button exitButton;
+
     // 생성된 캐릭터 인스턴스를 보관하는 리스트
-    private List<PlayerController> spawnedCharacters;
+    private List<PlayerInfo> playerInfos;
 
     // 각 스폰 슬롯의 사용 여부를 관리하는 배열
     private bool[] spawnSlotsOccupied;
+
+    // 방장 여부
+    bool isRoomLeader = false; 
 
     ERoomState roomState = ERoomState.RoomStateNone;
 
@@ -29,53 +46,105 @@ public class GameRoomHandler : MonoBehaviour
 
     private string titleName = "";
 
-    void OnDisable()
+    void OnEnable()
     {
-        foreach (var character in spawnedCharacters)
-        {
-            ReturnCharacter(character);
-        }
+        exitButton.onClick.AddListener(OnClickExit);
     }
 
-    public void SetMaKeRoom(S_MakeRoom message)
+    void OnDisable()
     {
-        var madeRoomInfo = message.MadeRoomInfo;
+        exitButton.onClick.RemoveAllListeners();
+        
+        Destroy_All_Chracter();
 
-        titleName = madeRoomInfo.Name;
+        isRoomLeader = false;
+    }
 
-        roomNumber = madeRoomInfo.Num;
+    public void IsOnRoomLeader()
+    {
+        isRoomLeader = true;
+    }
 
-        roomState = madeRoomInfo.RoomState;
+    public void NotifyPlayer(S_WaitingRoomEnterNotify message)
+    {
+        Spawn_Other_Character(message);
+    }
 
-        cur_count = madeRoomInfo.CurCount;
-
-        max_count = madeRoomInfo.MaxCount;
+    public void SetMaKeRoom(RoomInfo roomInfo)
+    {
+        SetRoomInfo(roomInfo);
 
         titleText.text = $"[{roomNumber}] {titleName}";
 
-        spawnedCharacters = new List<PlayerController>(max_count);
+        playerInfos = new List<PlayerInfo>(max_count);
+
+        for (int i = 0; i < max_count; i++)
+        {
+            playerInfos.Add(new PlayerInfo());  // 각 인덱스에 PlayerInfo 객체 추가
+        }
 
         spawnSlotsOccupied = new bool[max_count];
 
-        Spawn_Character();
+        Spawn_My_Character();
     }
 
-    public void Spawn_Character()
+    private void SetRoomInfo(RoomInfo roomInfo)
+    {
+        titleName = roomInfo.Name;
+
+        roomNumber = roomInfo.Num;
+
+        roomState = roomInfo.RoomState;
+
+        cur_count = roomInfo.CurCount;
+
+        max_count = roomInfo.MaxCount;
+    }
+
+    private void OnClickExit()
+    {
+        
+    }
+
+    public void Spawn_My_Character()
     {
         for (int i = 0; i < max_count; i++)
         {
-            // spawnSlotsOccupied 배열을 사용하여 해당 슬롯이 사용 중인지 확인
             if (!spawnSlotsOccupied[i])
             {
-                PlayerController character = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
+                PlayerController myPlayerController = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
 
-                character.GetComponent<PlayerController>().enabled = false;
-                character.rb.useGravity = false;
+                myPlayerController.GetComponent<PlayerController>().enabled = false;
+                myPlayerController.rb.useGravity = false;
 
-                // 생성된 캐릭터를 리스트에 보관
-                spawnedCharacters.Add(character);
+                playerInfos[i].playerController = myPlayerController;
 
-                // 해당 슬롯을 사용 중으로 표시
+                playerInfos[i].objectInfo.Id = MercuryHelper.mercuryId;
+
+                spawnSlotsOccupied[i] = true;
+
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// TODO : 다른 사람의 캐릭터 정보 필요.
+    /// </summary>
+    public void Spawn_Other_Character(S_WaitingRoomEnterNotify message)
+    {
+        for (int i = 0; i < max_count; i++)
+        {
+            if (!spawnSlotsOccupied[i])
+            {
+                PlayerController otherPlayerController = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
+
+                otherPlayerController.GetComponent<PlayerController>().enabled = false;
+                otherPlayerController.rb.useGravity = false;
+
+                playerInfos[i].playerController = otherPlayerController;
+                playerInfos[i].objectInfo.Id = message.Player.Id;
+
                 spawnSlotsOccupied[i] = true;
 
                 break;
@@ -87,25 +156,22 @@ public class GameRoomHandler : MonoBehaviour
     {
         if (slotIndex >= 0 && slotIndex < spawnTransform.Length)
         {
-            // 해당 슬롯에 자식(캐릭터)이 있는지 또는 spawnedCharacters 리스트를 기반으로 확인할 수 있음
-            PlayerController character = spawnedCharacters.Find(ch => ch.transform.parent == spawnTransform[slotIndex]);
-
+            PlayerController character = playerInfos[slotIndex].playerController;
             if (character != null)
             {
-                spawnedCharacters.Remove(character);
-
                 ReturnCharacter(character);
-
                 spawnSlotsOccupied[slotIndex] = false;
+                playerInfos[slotIndex].playerController = null; // 할당된 캐릭터 제거
+                playerInfos[slotIndex].objectInfo = new ObjectInfo();
             }
         }
     }
 
-    public void Destroy_Chracter()
+    public void Destroy_All_Chracter()
     {
-        foreach (var character in spawnedCharacters)
+        foreach (var character in playerInfos)
         {
-            ReturnCharacter(character);
+            ReturnCharacter(character.playerController);
         }
     }
 
