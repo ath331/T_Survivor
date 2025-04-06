@@ -129,6 +129,9 @@ AtVoid Room::ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId )
 		if ( !player )
 			continue;
 
+		if ( playerId == exceptId )
+			continue;
+
 		callback( player );
 	}
 }
