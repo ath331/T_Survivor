@@ -17,8 +17,9 @@ public enum LobbyStatus
 public class LobbyController : MonoBehaviour, ISceneInitializer
 {
     [SerializeField] private GameObject connectingPanel;
-    [SerializeField] private GameRoomHandler gameRoomHandler;
     [SerializeField] private WaitingRoomHandler waitingRoomHandler;
+    [SerializeField] private LobbyHandler lobbyHandler;
+
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         WaitRoomEnter_Strategy.OnEnterRoom -= EnterRoom;
 
-        WaitRoomNotify_Strategy.OnNotify += NotifyPlayer;
+        WaitRoomNotify_Strategy.OnNotify -= NotifyPlayer;
     }
 
     /// <summary>
@@ -69,8 +70,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         await UniTask.Delay(100);
 
         // 2. Lobby UI 에셋 로드 (가중치 0.3)
-        waitingRoomHandler.gameObject.SetActive(false);
-        gameRoomHandler.gameObject.SetActive(false);
+        SetEnableControl(isLobby: false, isWaitRoom: false);
         currentProgress += 0.3f;
         progress.Report(currentProgress);
 
@@ -80,7 +80,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         // 4. Lobby 데이터 초기화 (가중치 0.3)
 
-        waitingRoomHandler.gameObject.SetActive(true);
+        lobbyHandler.gameObject.SetActive(true);
 
         currentProgress += 0.3f;
         progress.Report(currentProgress);
@@ -117,7 +117,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     public void NotifyPlayer(S_WaitingRoomEnterNotify message)
     {
-        gameRoomHandler.NotifyPlayer(message);
+        waitingRoomHandler.NotifyEnterPlayer(message);
     }
 
     public void EnterRoom(S_WaitingRoomEnter message)
@@ -126,11 +126,9 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         {
             Debug.Log("방들어가기 성공");
 
-            waitingRoomHandler.gameObject.SetActive(false);
+            SetEnableControl(isLobby: false, isWaitRoom: true);
 
-            gameRoomHandler.gameObject.SetActive(true);
-
-            gameRoomHandler.SetMaKeRoom(message.RoomInfo);
+            waitingRoomHandler.SetMaKeRoom(message.RoomInfo);
         }
         else
         {
@@ -145,19 +143,24 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         {
             Debug.Log("방만들기 성공");
 
-            waitingRoomHandler.gameObject.SetActive(false);
+            SetEnableControl(isLobby: false, isWaitRoom: true);
 
-            gameRoomHandler.gameObject.SetActive(true);
+            waitingRoomHandler.SetMaKeRoom(message.MadeRoomInfo);
 
-            gameRoomHandler.SetMaKeRoom(message.MadeRoomInfo);
-
-            gameRoomHandler.IsOnRoomLeader();
+            waitingRoomHandler.IsOnRoomLeader();
         }
         else
         {
             // TODO : 방 만들기 실패했을때
 
         }
+    }
+
+    public void SetEnableControl(bool isLobby, bool isWaitRoom)
+    {
+        lobbyHandler.gameObject.SetActive(isLobby);
+
+        waitingRoomHandler.gameObject.SetActive(isWaitRoom);
     }
 
     public void OnClickSetting()

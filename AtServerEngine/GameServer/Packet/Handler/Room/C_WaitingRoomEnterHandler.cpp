@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, Protocol::C_WaitingRoomEnter& pkt )
+AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, C_WaitingRoomEnter& pkt )
 {
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
@@ -28,8 +28,8 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, Protocol::C
 	WaitingRoomPtr waitingRoom = WaitingRoomManager::GetInstance().GetRoom( roomNum );
 	if ( !waitingRoom )
 	{
-		Protocol::S_WaitingRoomEnter result;
-		result.set_result( Protocol::EResultCode::RESULT_CODE_NO_HAVE_ROOM );
+		S_WaitingRoomEnter result;
+		result.set_result( EResultCode::RESULT_CODE_NO_HAVE_ROOM );
 		player->Send( result );
 		return false;
 	}
@@ -39,8 +39,8 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, Protocol::C
 		{
 			if ( !waitingRoom->CheckEnterRoom() )
 			{
-				Protocol::S_WaitingRoomEnter result;
-				result.set_result( Protocol::EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
+				S_WaitingRoomEnter result;
+				result.set_result( EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
 				player->Send( result );
 				return;
 			}
@@ -50,20 +50,20 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, Protocol::C
 				player,
 				(Room::CallbackFunc)( [ player, waitingRoom ]()
 									  {
-										  Protocol::S_WaitingRoomEnter result;
-										  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
+										  S_WaitingRoomEnter result;
+										  result.set_result( EResultCode::RESULT_CODE_SUCCESS );
 										  waitingRoom->ExportTo( *result.mutable_roominfo() );
 										  player->Send( result );
 
-										  Protocol::S_WaitingRoomEnterNotify notify;
-										  player->objectInfo->CopyFrom( notify.player() );
+										  S_WaitingRoomEnterNotify notify;
+										  notify.mutable_player()->CopyFrom( *player->objectInfo );
 										  waitingRoom->Broadcast( notify, player->GetId() );
 
 										  waitingRoom->ForeachPlayer(
 											  [ player ]( PlayerPtr eachPlayer )
 											  {
-												  Protocol::S_WaitingRoomEnterNotify notify;
-												  eachPlayer->objectInfo->CopyFrom( notify.player() );
+												  S_WaitingRoomEnterNotify notify;
+												  notify.mutable_player()->CopyFrom( *eachPlayer->objectInfo );
 												  player->Send( notify );
 											  },
 											  player->GetId() );

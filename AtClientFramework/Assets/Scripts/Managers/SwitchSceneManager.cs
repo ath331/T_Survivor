@@ -87,6 +87,9 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
 
         OnComplete?.Invoke();
 
+        // 100% 상태에서 추가 딜레이 
+        await UniTask.Delay(TimeSpan.FromSeconds(1.0f));
+
         // 바뀐 씬이 초기화될 때까지 1프레임 대기 후 로딩화면을 끈다.
         await UniTask.Yield();
 
