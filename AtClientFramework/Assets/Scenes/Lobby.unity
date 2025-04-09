@@ -244,7 +244,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 947146384}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999945
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1458,7 +1458,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 515428790}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999696
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1534,7 +1534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00019557224}
+  m_AnchoredPosition: {x: 0, y: 0.00016747614}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &638442294
@@ -5423,7 +5423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -323.1703}
+  m_AnchoredPosition: {x: 0, y: -323.1701}
   m_SizeDelta: {x: -1250.27, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1509636408
@@ -6316,8 +6316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectingPanel: {fileID: 1819841751}
-  waitingRoomHandler: {fileID: 0}
-  lobbyHandler: {fileID: 0}
+  waitingRoomHandler: {fileID: 638442297}
+  lobbyHandler: {fileID: 392135598}
 --- !u!4 &2128225735
 Transform:
   m_ObjectHideFlags: 0
