@@ -61,7 +61,7 @@ public class WaitingRoomHandler : MonoBehaviour
 
         exitButton.onClick.RemoveAllListeners();
 
-        Destroy_All_Chracter();
+        Destroy_AllCharacter();
 
         isRoomLeader = false;
     }
@@ -79,7 +79,7 @@ public class WaitingRoomHandler : MonoBehaviour
 
     public void NotifyEnterPlayer(S_WaitingRoomEnterNotify message)
     {
-        Spawn_Other_Character(message);
+        SpawnOtherCharacter(message);
     }
 
     public void SetMaKeRoom(RoomInfo roomInfo)
@@ -97,7 +97,7 @@ public class WaitingRoomHandler : MonoBehaviour
 
         spawnSlotsOccupied = new bool[max_count];
 
-        Spawn_My_Character();
+        SpawnMyCharacter();
     }
 
     private void SetRoomInfo(RoomInfo roomInfo)
@@ -122,51 +122,39 @@ public class WaitingRoomHandler : MonoBehaviour
         lobbyController.SetEnableControl(isLobby: true, isWaitRoom: false);
     }
 
-    public void Spawn_My_Character()
+    private void SpawnCharacter(ulong playerId)
     {
         for (int i = 0; i < max_count; i++)
         {
             if (!spawnSlotsOccupied[i])
             {
-                PlayerController myPlayerController = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
+                PlayerController controller = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
+                if (controller == null)
+                {
+                    Debug.LogError("PlayerController 풀링 실패");
+                    return;
+                }
+                controller.enabled = false;
+                controller.rb.useGravity = false;
 
-                myPlayerController.GetComponent<PlayerController>().enabled = false;
-                myPlayerController.rb.useGravity = false;
-
-                playerInfos[i].playerController = myPlayerController;
-
-                playerInfos[i].objectInfo.Id = MercuryHelper.mercuryId;
-
+                playerInfos[i].playerController = controller;
+                playerInfos[i].objectInfo.Id = playerId;
                 spawnSlotsOccupied[i] = true;
-
                 break;
             }
         }
     }
 
-    /// <summary>
-    /// TODO : 다른 사람의 캐릭터 정보 필요.
-    /// </summary>
-    public void Spawn_Other_Character(S_WaitingRoomEnterNotify message)
+    // MyCharacter 호출
+    private void SpawnMyCharacter()
     {
-        for (int i = 0; i < max_count; i++)
-        {
-            if (!spawnSlotsOccupied[i])
-            {
-                PlayerController otherPlayerController = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
+        SpawnCharacter(MercuryHelper.mercuryId);
+    }
 
-                otherPlayerController.GetComponent<PlayerController>().enabled = false;
-                otherPlayerController.rb.useGravity = false;
-
-                playerInfos[i].playerController = otherPlayerController;
-
-                playerInfos[i].objectInfo.Id = message.Player.Id;
-
-                spawnSlotsOccupied[i] = true;
-
-                break;
-            }
-        }
+    // OtherCharacter 호출 (메시지에서 가져온 Id 사용)
+    public void SpawnOtherCharacter(S_WaitingRoomEnterNotify message)
+    {
+        SpawnCharacter(message.Player.Id);
     }
 
     public void Destroy_CharacterAtSlot(int slotIndex)
@@ -178,17 +166,22 @@ public class WaitingRoomHandler : MonoBehaviour
             {
                 ReturnCharacter(character);
                 spawnSlotsOccupied[slotIndex] = false;
-                playerInfos[slotIndex].playerController = null; // 할당된 캐릭터 제거
-                playerInfos[slotIndex].objectInfo = new ObjectInfo();
+                playerInfos[slotIndex] = new PlayerInfo();
             }
         }
     }
 
-    public void Destroy_All_Chracter()
+    public void Destroy_AllCharacter()
     {
-        foreach (var character in playerInfos)
+        for (int i = 0; i < max_count; i++)
         {
-            ReturnCharacter(character.playerController);
+            if (playerInfos[i] != null && playerInfos[i].playerController != null)
+            {
+                ReturnCharacter(playerInfos[i].playerController);
+
+                playerInfos[i] = new PlayerInfo();
+                spawnSlotsOccupied[i] = false;
+            }
         }
     }
 
