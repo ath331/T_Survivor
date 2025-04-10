@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, Protocol::C_WaitingRoomOut& pkt )
+AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, C_WaitingRoomOut& pkt )
 {
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
@@ -27,12 +27,12 @@ AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, Protocol::C_W
 	if ( !room )
 		return false;
 
-	// if ( !dynamic_cast< WaitingRoom >( room.get() ) )
-	// {
-	// 	Protocol::S_WaitingRoomOut result;
-	// 	result.set_result( Protocol::EResultCode::RESULT_CODE_NO_WAITING_ROOM );
-	// 	player->Send( result );
-	// }
+	//if ( !dynamic_cast< WaitingRoom* >( room.get() ) )
+	//{
+	//	S_WaitingRoomOut result;
+	//	result.set_result( Protocol::EResultCode::RESULT_CODE_NO_WAITING_ROOM );
+	//	player->Send( result );
+	//}
 
 	room->DoAsync(
 		&Room::HandleLeavePlayer,
@@ -42,8 +42,8 @@ AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, Protocol::C_W
 								  GLobby->DoAsync(
 									  [ player, room ]()
 									  {
-										  Protocol::S_WaitingRoomOut result;
-										  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
+										  S_WaitingRoomOut result;
+										  result.set_result( EResultCode::RESULT_CODE_SUCCESS );
 										  player->Send( result );
 
 										  S_RequestRoomInfo refreshRoomInfo;
@@ -53,8 +53,8 @@ AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, Protocol::C_W
 										  GLobby->Broadcast( refreshRoomInfo );
 									  } );
 
-								  Protocol::S_WaitingRoomOutNotify notify;
-								  player->objectInfo->CopyFrom( notify.player() );
+								  S_WaitingRoomOutNotify notify;
+								  notify.mutable_player()->CopyFrom( *player->objectInfo );
 								  room->Broadcast( notify, player->GetId() );
 							  } ) );
 

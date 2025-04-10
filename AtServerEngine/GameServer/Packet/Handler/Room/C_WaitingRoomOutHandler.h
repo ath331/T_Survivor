@@ -14,5 +14,5 @@ class C_WaitingRoomOutHandler
 {
 public:
 	// HandlerRun
-	static AtBool Handle( PacketSessionPtr& session, Protocol::C_WaitingRoomOut& pkt );
+	static AtBool Handle( PacketSessionPtr& session, C_WaitingRoomOut& pkt );
 };
