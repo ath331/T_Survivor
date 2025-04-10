@@ -73,8 +73,15 @@ public class WaitingRoomHandler : MonoBehaviour
 
     public void NotifyRoomOutPlayer(S_WaitingRoomOutNotify message)
     {
-        // 룸 리더가 나갔을 경우
+        // TODO : 룸 리더가 나갔을 경우, 아닌 경우
         
+        for (int i = 0; i < max_count; i++)
+        {
+            if (playerInfos[i].objectInfo.Id == message.Player.Id)
+            {
+                Destroy_CharacterAtSlot(i);
+            }
+        }
     }
 
     public void NotifyEnterPlayer(S_WaitingRoomEnterNotify message)
@@ -111,6 +118,11 @@ public class WaitingRoomHandler : MonoBehaviour
         cur_count = roomInfo.CurCount;
 
         max_count = roomInfo.MaxCount;
+    }
+
+    public void OnClickReady()
+    {
+
     }
 
     private void OnClickExit()
@@ -162,6 +174,7 @@ public class WaitingRoomHandler : MonoBehaviour
         if (slotIndex >= 0 && slotIndex < spawnTransform.Length)
         {
             PlayerController character = playerInfos[slotIndex].playerController;
+
             if (character != null)
             {
                 ReturnCharacter(character);
