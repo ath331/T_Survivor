@@ -38,6 +38,9 @@ public class GameObjectPool
     {
         obj.SetActive(false);
         obj.transform.SetParent(_parentTransform); // 풀링된 오브젝트는 부모 오브젝트로 이동
+        obj.transform.localPosition = Vector3.zero;
+        obj.transform.localRotation = Quaternion.identity;
+        obj.transform.localScale = Vector3.one;
         _pool.Push(obj);
     }
 }
