@@ -20,6 +20,8 @@ public class LobbyHandler : MonoBehaviour
 
         RequestAllRoom_Strategy.OnRequestAllRoom += ShowRoom;
 
+        RoomDestroy_Strategy.OnRoomDestroyReceived += DestroyRoom;
+
         roomHolders = new List<RoomHolder>();
 
         // 전체 방 갱신 요청
@@ -35,6 +37,8 @@ public class LobbyHandler : MonoBehaviour
         RequestRoom_Strategy.OnRequestRoom -= CreateRoomHolder;
 
         RequestAllRoom_Strategy.OnRequestAllRoom -= ShowRoom;
+
+        RoomDestroy_Strategy.OnRoomDestroyReceived -= DestroyRoom;
 
         exitButton.onClick.RemoveAllListeners();
 
@@ -81,6 +85,19 @@ public class LobbyHandler : MonoBehaviour
             roomHolder.SetStatus(room);
 
             roomHolders.Add(roomHolder);
+        }
+    }
+
+    public void DestroyRoom(S_DestroyRoom message)
+    {
+        foreach (var room in roomHolders)
+        {
+            if (room.RoomNumber == message.RoomInfo.Num)
+            {
+                roomHolders.Remove(room);
+
+                ObjectPoolManager.Instance.Return(room.gameObject);
+            }
         }
     }
 

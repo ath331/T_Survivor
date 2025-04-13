@@ -5,7 +5,7 @@ using System;
 
 public class RoomDestroy_Strategy : IStrategy
 {
-    public static event Action<S_DestroyRoom> OnRoomDestroyReceived;
+    public static Action<S_DestroyRoom> OnRoomDestroyReceived;
 
     public RoomDestroy_Strategy()
     {

@@ -80,6 +80,8 @@ public class WaitingRoomHandler : MonoBehaviour
             if (playerInfos[i].objectInfo.Id == message.Player.Id)
             {
                 Destroy_CharacterAtSlot(i);
+
+                cur_count--;
             }
         }
     }
@@ -87,6 +89,8 @@ public class WaitingRoomHandler : MonoBehaviour
     public void NotifyEnterPlayer(S_WaitingRoomEnterNotify message)
     {
         SpawnOtherCharacter(message);
+
+        cur_count++;
     }
 
     public void SetMaKeRoom(RoomInfo roomInfo)

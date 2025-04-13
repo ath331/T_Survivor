@@ -9,22 +9,21 @@ public class RoomHolder : MonoBehaviour
 {
     [SerializeField] private TMP_Text roomText;
 
-    string roomState = "대기중";
+    private string roomState = "대기중";
     
     private string titleName = "";
 
-    private int roomNumber = 0;
+    public int RoomNumber { get; set; }
 
     private int cur_count = 1;
 
     private int max_count = 3;
 
-
     public void SetStatus(RoomInfo roomInfo)
     {
         titleName = roomInfo.Name;
 
-        roomNumber = roomInfo.Num;
+        RoomNumber = roomInfo.Num;
 
         cur_count = roomInfo.CurCount;
 
@@ -46,7 +45,7 @@ public class RoomHolder : MonoBehaviour
         {
             RoomInfo = new RoomInfo
             {
-                Num = roomNumber,
+                Num = RoomNumber,
 
                 Name = titleName,
                 
