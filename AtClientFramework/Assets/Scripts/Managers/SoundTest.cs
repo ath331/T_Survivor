@@ -11,6 +11,6 @@ public class SoundTest : MonoBehaviour
 
     public void PlayTestSFX()
     {
-        SoundManager.Instance.PlaySFX("breath");
+        SoundManager.Instance.PlaySFX("canFall");
     }
 }
