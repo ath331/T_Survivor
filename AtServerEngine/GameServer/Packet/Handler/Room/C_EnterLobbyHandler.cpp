@@ -36,10 +36,10 @@ AtBool C_EnterLobbyHandler::Handle( PacketSessionPtr& session, C_EnterLobby& pkt
 
 								  player->Send( result );
 
+								  // S_RequestAllRoomInfo allRoomInfo;
+								  // WaitingRoomManager::GetInstance().ExportToAllRoomInfo( allRoomInfo );
+								  // player->Send( allRoomInfo );
 
-								  S_RequestAllRoomInfo allRoomInfo;
-								  WaitingRoomManager::GetInstance().ExportToAllRoomInfo( allRoomInfo );
-								  player->Send( allRoomInfo );
 							  } ) );
 
 	return true;
