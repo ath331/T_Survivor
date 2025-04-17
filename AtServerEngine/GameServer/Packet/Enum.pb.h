@@ -341,6 +341,33 @@ inline bool ERoomState_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ERoomState>(
     ERoomState_descriptor(), name, value);
 }
+enum EWaitingState : int {
+  WAITING_STATE_NONE = 0,
+  WAITING_STATE_RAEDY = 1,
+  WAITING_STATE_RAEDY_CANCLE = 2,
+  WAITING_STATE_MAX = 3,
+  EWaitingState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EWaitingState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EWaitingState_IsValid(int value);
+constexpr EWaitingState EWaitingState_MIN = WAITING_STATE_NONE;
+constexpr EWaitingState EWaitingState_MAX = WAITING_STATE_MAX;
+constexpr int EWaitingState_ARRAYSIZE = EWaitingState_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EWaitingState_descriptor();
+template<typename T>
+inline const std::string& EWaitingState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EWaitingState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EWaitingState_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EWaitingState_descriptor(), enum_t_value);
+}
+inline bool EWaitingState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EWaitingState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EWaitingState>(
+    EWaitingState_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -412,6 +439,11 @@ template <> struct is_proto_enum< ::Protocol::ERoomState> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ERoomState>() {
   return ::Protocol::ERoomState_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EWaitingState> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EWaitingState>() {
+  return ::Protocol::EWaitingState_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -24,6 +24,9 @@ bool Handle_S_RequestRoomInfoTemplate(PacketSessionPtr& session, Protocol::S_Req
 bool Handle_S_RequestAllRoomInfoTemplate(PacketSessionPtr& session, Protocol::S_RequestAllRoomInfo& pkt);
 bool Handle_S_WaitingRoomOutTemplate(PacketSessionPtr& session, Protocol::S_WaitingRoomOut& pkt);
 bool Handle_S_WaitingRoomOutNotifyTemplate(PacketSessionPtr& session, Protocol::S_WaitingRoomOutNotify& pkt);
+bool Handle_S_ChangeWaitingStateTemplate(PacketSessionPtr& session, Protocol::S_ChangeWaitingState& pkt);
+bool Handle_S_ChangeWaitingStateNotifyTemplate(PacketSessionPtr& session, Protocol::S_ChangeWaitingStateNotify& pkt);
+bool Handle_S_ChangeRoomLeaderNotifyTemplate(PacketSessionPtr& session, Protocol::S_ChangeRoomLeaderNotify& pkt);
 bool Handle_S_EnterGameTemplate(PacketSessionPtr& session, Protocol::S_EnterGame& pkt);
 bool Handle_S_EnterGameFinishTemplate(PacketSessionPtr& session, Protocol::S_EnterGameFinish& pkt);
 bool Handle_S_LeaveGameTemplate(PacketSessionPtr& session, Protocol::S_LeaveGame& pkt);
@@ -50,6 +53,9 @@ public:
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_RequestAllRoomInfo ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_RequestAllRoomInfo>(Handle_S_RequestAllRoomInfoTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_WaitingRoomOut ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_WaitingRoomOut>(Handle_S_WaitingRoomOutTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_WaitingRoomOutNotify ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_WaitingRoomOutNotify>(Handle_S_WaitingRoomOutNotifyTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_S_ChangeWaitingState ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_ChangeWaitingState>(Handle_S_ChangeWaitingStateTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_S_ChangeWaitingStateNotify ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_ChangeWaitingStateNotify>(Handle_S_ChangeWaitingStateNotifyTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_S_ChangeRoomLeaderNotify ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_ChangeRoomLeaderNotify>(Handle_S_ChangeRoomLeaderNotifyTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_EnterGame ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_EnterGame>(Handle_S_EnterGameTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_EnterGameFinish ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_EnterGameFinish>(Handle_S_EnterGameFinishTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_S_LeaveGame ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_LeaveGame>(Handle_S_LeaveGameTemplate, session, buffer, len); };
@@ -77,6 +83,7 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 	else if ( packetTypeName == "Protocol.C_MakeRoom" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_MakeRoom ) );
 	else if ( packetTypeName == "Protocol.C_RequestAllRoomInfo" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_RequestAllRoomInfo ) );
 	else if ( packetTypeName == "Protocol.C_WaitingRoomOut" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_WaitingRoomOut ) );
+	else if ( packetTypeName == "Protocol.C_ChangeWaitingState" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_ChangeWaitingState ) );
 	else if ( packetTypeName == "Protocol.C_EnterGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_EnterGame ) );
 	else if ( packetTypeName == "Protocol.C_EnterGameFinish" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_EnterGameFinish ) );
 	else if ( packetTypeName == "Protocol.C_LeaveGame" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_C_LeaveGame ) );

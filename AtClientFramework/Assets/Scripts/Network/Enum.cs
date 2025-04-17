@@ -56,10 +56,13 @@ namespace Protocol {
             "R0VSEAIqhgEKCkVSb29tU3RhdGUSEwoPUk9PTV9TVEFURV9OT05FEAASFgoS",
             "Uk9PTV9TVEFURV9XQUlUSU5HEAESEwoPUk9PTV9TVEFURV9QTEFZEAISIgoe",
             "Uk9PTV9TVEFURV9ERVNUUk9ZX1JFU0VSVkFUSU9OEAMSEgoOUk9PTV9TVEFU",
-            "RV9NQVgQBEILqgIIUHJvdG9jb2xiBnByb3RvMw=="));
+            "RV9NQVgQBCp3Cg1FV2FpdGluZ1N0YXRlEhYKEldBSVRJTkdfU1RBVEVfTk9O",
+            "RRAAEhcKE1dBSVRJTkdfU1RBVEVfUkFFRFkQARIeChpXQUlUSU5HX1NUQVRF",
+            "X1JBRURZX0NBTkNMRRACEhUKEVdBSVRJTkdfU1RBVEVfTUFYEANCC6oCCFBy",
+            "b3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), typeof(global::Protocol.EWaitingState), }, null, null));
     }
     #endregion
 
@@ -256,6 +259,13 @@ namespace Protocol {
     /// </summary>
     [pbr::OriginalName("ROOM_STATE_DESTROY_RESERVATION")] RoomStateDestroyReservation = 3,
     [pbr::OriginalName("ROOM_STATE_MAX")] RoomStateMax = 4,
+  }
+
+  public enum EWaitingState {
+    [pbr::OriginalName("WAITING_STATE_NONE")] WaitingStateNone = 0,
+    [pbr::OriginalName("WAITING_STATE_RAEDY")] WaitingStateRaedy = 1,
+    [pbr::OriginalName("WAITING_STATE_RAEDY_CANCLE")] WaitingStateRaedyCancle = 2,
+    [pbr::OriginalName("WAITING_STATE_MAX")] WaitingStateMax = 3,
   }
 
   #endregion
