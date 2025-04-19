@@ -138,7 +138,11 @@ public static class PopupManager
     /// <param name="destroy"></param>
     public static async void CloseAll(object param = null)
     {
-       
+        while (popupStack.Count > 0)
+        {
+            var popupItem = popupStack.Last.Value;
+            await CloseProcessAsync(popupItem, param);
+        }
     }
 
     /// <summary>
@@ -149,7 +153,19 @@ public static class PopupManager
     /// <param name="destroy"></param>
     public static async void ClosePopupByName(string popupName, object param = null)
     {
-        
+        var node = popupStack.Last;
+        while (node != null)
+        {
+            var prevNode = node.Previous;
+
+            if(node.Value.popupHandler.name == popupName)
+            {
+                await CloseProcessAsync(node.Value, param);
+                break;
+            }
+
+            node = prevNode;
+        }
     }
 
     public static async void ClosePopup(object param = null)
@@ -164,11 +180,16 @@ public static class PopupManager
 
     private static async UniTask CloseProcessAsync(PopupItem popupItem, object param)
     {
+        var popupHandler = popupItem.popupHandler;
+
         // 팝업이 꺼지기 전
+        popupHandler.OnBeforeLeave();
 
         // 팝업이 꺼지는 애니메이션
+        await popupHandler.AnimationOut();
 
         // 팝업이 꺼진 후
+        popupHandler.OnAfterLeave();
 
         // 스택에서 지운다.
         popupStack.RemoveLast();
