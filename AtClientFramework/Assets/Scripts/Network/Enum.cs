@@ -24,45 +24,49 @@ namespace Protocol {
     static EnumReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpFbnVtLnByb3RvEghQcm90b2NvbCq6AQoLRVJlc3VsdENvZGUSFwoTUkVT",
+            "CgpFbnVtLnByb3RvEghQcm90b2NvbCqAAgoLRVJlc3VsdENvZGUSFwoTUkVT",
             "VUxUX0NPREVfU1VDQ0VTUxAAEh8KG1JFU1VMVF9DT0RFX0ZBSUxfUk9PTV9F",
             "TlRFUhABEhwKGFJFU1VMVF9DT0RFX05PX0hBVkVfUk9PTRACEh8KG1JFU1VM",
             "VF9DT0RFX05PX1dBSVRJTkdfUk9PTRADEh0KGVJFU1VMVF9DT0RFX05PX0xP",
-            "QkJZX1JPT00QBBITCg9SRVNVTFRfQ09ERV9NQVgQBSqAAQoLRU9iamVjdFR5",
-            "cGUSFAoQT0JKRUNUX1RZUEVfTk9ORRAAEhUKEU9CSkVDVF9UWVBFX0FDVE9S",
-            "EAESGgoWT0JKRUNUX1RZUEVfUFJPSkVDVElMRRACEhMKD09CSkVDVF9UWVBF",
-            "X0VOVhADEhMKD09CSkVDVF9UWVBFX01BWBAEKngKCkVBY3RvclR5cGUSEwoP",
-            "QUNUT1JfVFlQRV9OT05FEAASFQoRQUNUT1JfVFlQRV9QTEFZRVIQARIWChJB",
-            "Q1RPUl9UWVBFX01PTlNURVIQAhISCg5BQ1RPUl9UWVBFX05QQxADEhIKDkFD",
-            "VE9SX1RZUEVfTUFYEAQqbwoIRUJhZ1R5cGUSEQoNQkFHX1RZUEVfTk9ORRAA",
-            "EhYKEkJBR19UWVBFX0VRVUlQTUVOVBABEhAKDEJBR19UWVBFX0VUQxACEhQK",
-            "EEJBR19UWVBFX1VTRUFCTEUQAxIQCgxCQUdfVFlQRV9NQVgQBCp+CgtFUGxh",
-            "eWVyVHlwZRIUChBQTEFZRVJfVFlQRV9OT05FEAASFgoSUExBWUVSX1RZUEVf",
-            "S05JR0hUEAESFAoQUExBWUVSX1RZUEVfTUFHRRACEhYKElBMQVlFUl9UWVBF",
-            "X0FSQ0hFUhADEhMKD1BMQVlFUl9UWVBFX01BWBAEKnUKCkVNb3ZlU3RhdGUS",
-            "EwoPTU9WRV9TVEFURV9OT05FEAASEwoPTU9WRV9TVEFURV9JRExFEAESEgoO",
-            "TU9WRV9TVEFURV9SVU4QAhITCg9NT1ZFX1NUQVRFX0pVTVAQAxIUChBNT1ZF",
-            "X1NUQVRFX1NLSUxMEAQq7QEKDkVFcXVpcFNsb3RUeXBlEhgKFEVRVUlQX1NM",
-            "T1RfVFlQRV9OT05FEAASGgoWRVFVSVBfU0xPVF9UWVBFX1dFQVBPThABEh4K",
-            "GkVRVUlQX1NMT1RfVFlQRV9TVUJfV0VBUE9OEAISGgoWRVFVSVBfU0xPVF9U",
-            "WVBFX0hFTE1BVBADEhkKFUVRVUlQX1NMT1RfVFlQRV9BUk1PUhAEEhoKFkVR",
-            "VUlQX1NMT1RfVFlQRV9HTE9WRVMQBRIZChVFUVVJUF9TTE9UX1RZUEVfQk9P",
-            "VFMQBhIXChNFUVVJUF9TTE9UX1RZUEVfTUFYEAcqigEKBUVTdGF0Eg0KCVNU",
-            "QVRfTk9ORRAAEhEKDVNUQVRfU1RSRU5HVEgQARILCgdTVEFUX0hQEAISCwoH",
-            "U1RBVF9NUBADEhAKDFNUQVRfREVGRU5TRRAEEg4KClNUQVRfU1BFRUQQBRIV",
-            "ChFTVEFUX0lOVEVMTElHRU5DRRAGEgwKCFNUQVRfTUFYEAcqZwoTRUFuaW1h",
-            "dGlvblBhcmFtVHlwZRIYChRBTklNX1BBUkFNX1RZUEVfQk9PTBAAEhkKFUFO",
-            "SU1fUEFSQU1fVFlQRV9GTE9BVBABEhsKF0FOSU1fUEFSQU1fVFlQRV9UUklH",
-            "R0VSEAIqhgEKCkVSb29tU3RhdGUSEwoPUk9PTV9TVEFURV9OT05FEAASFgoS",
-            "Uk9PTV9TVEFURV9XQUlUSU5HEAESEwoPUk9PTV9TVEFURV9QTEFZEAISIgoe",
-            "Uk9PTV9TVEFURV9ERVNUUk9ZX1JFU0VSVkFUSU9OEAMSEgoOUk9PTV9TVEFU",
-            "RV9NQVgQBCp3Cg1FV2FpdGluZ1N0YXRlEhYKEldBSVRJTkdfU1RBVEVfTk9O",
-            "RRAAEhcKE1dBSVRJTkdfU1RBVEVfUkFFRFkQARIeChpXQUlUSU5HX1NUQVRF",
-            "X1JBRURZX0NBTkNMRRACEhUKEVdBSVRJTkdfU1RBVEVfTUFYEANCC6oCCFBy",
-            "b3RvY29sYgZwcm90bzM="));
+            "QkJZX1JPT00QBBIjCh9SRVNVTFRfQ09ERV9OT19SQUVEWV9BTExfTUVNQkVS",
+            "EAUSHwobUkVTVUxUX0NPREVfTk9fUEFSVFlfTEVBREVSEAYSEwoPUkVTVUxU",
+            "X0NPREVfTUFYEAcqgAEKC0VPYmplY3RUeXBlEhQKEE9CSkVDVF9UWVBFX05P",
+            "TkUQABIVChFPQkpFQ1RfVFlQRV9BQ1RPUhABEhoKFk9CSkVDVF9UWVBFX1BS",
+            "T0pFQ1RJTEUQAhITCg9PQkpFQ1RfVFlQRV9FTlYQAxITCg9PQkpFQ1RfVFlQ",
+            "RV9NQVgQBCp4CgpFQWN0b3JUeXBlEhMKD0FDVE9SX1RZUEVfTk9ORRAAEhUK",
+            "EUFDVE9SX1RZUEVfUExBWUVSEAESFgoSQUNUT1JfVFlQRV9NT05TVEVSEAIS",
+            "EgoOQUNUT1JfVFlQRV9OUEMQAxISCg5BQ1RPUl9UWVBFX01BWBAEKm8KCEVC",
+            "YWdUeXBlEhEKDUJBR19UWVBFX05PTkUQABIWChJCQUdfVFlQRV9FUVVJUE1F",
+            "TlQQARIQCgxCQUdfVFlQRV9FVEMQAhIUChBCQUdfVFlQRV9VU0VBQkxFEAMS",
+            "EAoMQkFHX1RZUEVfTUFYEAQqfgoLRVBsYXllclR5cGUSFAoQUExBWUVSX1RZ",
+            "UEVfTk9ORRAAEhYKElBMQVlFUl9UWVBFX0tOSUdIVBABEhQKEFBMQVlFUl9U",
+            "WVBFX01BR0UQAhIWChJQTEFZRVJfVFlQRV9BUkNIRVIQAxITCg9QTEFZRVJf",
+            "VFlQRV9NQVgQBCp1CgpFTW92ZVN0YXRlEhMKD01PVkVfU1RBVEVfTk9ORRAA",
+            "EhMKD01PVkVfU1RBVEVfSURMRRABEhIKDk1PVkVfU1RBVEVfUlVOEAISEwoP",
+            "TU9WRV9TVEFURV9KVU1QEAMSFAoQTU9WRV9TVEFURV9TS0lMTBAEKu0BCg5F",
+            "RXF1aXBTbG90VHlwZRIYChRFUVVJUF9TTE9UX1RZUEVfTk9ORRAAEhoKFkVR",
+            "VUlQX1NMT1RfVFlQRV9XRUFQT04QARIeChpFUVVJUF9TTE9UX1RZUEVfU1VC",
+            "X1dFQVBPThACEhoKFkVRVUlQX1NMT1RfVFlQRV9IRUxNQVQQAxIZChVFUVVJ",
+            "UF9TTE9UX1RZUEVfQVJNT1IQBBIaChZFUVVJUF9TTE9UX1RZUEVfR0xPVkVT",
+            "EAUSGQoVRVFVSVBfU0xPVF9UWVBFX0JPT1RTEAYSFwoTRVFVSVBfU0xPVF9U",
+            "WVBFX01BWBAHKooBCgVFU3RhdBINCglTVEFUX05PTkUQABIRCg1TVEFUX1NU",
+            "UkVOR1RIEAESCwoHU1RBVF9IUBACEgsKB1NUQVRfTVAQAxIQCgxTVEFUX0RF",
+            "RkVOU0UQBBIOCgpTVEFUX1NQRUVEEAUSFQoRU1RBVF9JTlRFTExJR0VOQ0UQ",
+            "BhIMCghTVEFUX01BWBAHKmcKE0VBbmltYXRpb25QYXJhbVR5cGUSGAoUQU5J",
+            "TV9QQVJBTV9UWVBFX0JPT0wQABIZChVBTklNX1BBUkFNX1RZUEVfRkxPQVQQ",
+            "ARIbChdBTklNX1BBUkFNX1RZUEVfVFJJR0dFUhACKoYBCgpFUm9vbVN0YXRl",
+            "EhMKD1JPT01fU1RBVEVfTk9ORRAAEhYKElJPT01fU1RBVEVfV0FJVElORxAB",
+            "EhMKD1JPT01fU1RBVEVfUExBWRACEiIKHlJPT01fU1RBVEVfREVTVFJPWV9S",
+            "RVNFUlZBVElPThADEhIKDlJPT01fU1RBVEVfTUFYEAQqdwoNRVdhaXRpbmdT",
+            "dGF0ZRIWChJXQUlUSU5HX1NUQVRFX05PTkUQABIXChNXQUlUSU5HX1NUQVRF",
+            "X1JBRURZEAESHgoaV0FJVElOR19TVEFURV9SQUVEWV9DQU5DTEUQAhIVChFX",
+            "QUlUSU5HX1NUQVRFX01BWBADKooBChFFUGFydHlNZW1iZXJHcmFkZRIbChdQ",
+            "QVJUWV9NRU1CRVJfR1JBREVfTk9ORRAAEh0KGVBBUlRZX01FTUJFUl9HUkFE",
+            "RV9MRUFERVIQARIdChlQQVJUWV9NRU1CRVJfR1JBREVfTUFNQkVSEAISGgoW",
+            "UEFSVFlfTUVNQkVSX0dSQURFX01BWBADQguqAghQcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), typeof(global::Protocol.EWaitingState), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), typeof(global::Protocol.EWaitingState), typeof(global::Protocol.EPartyMemberGrade), }, null, null));
     }
     #endregion
 
@@ -89,7 +93,15 @@ namespace Protocol {
     /// 로비가 아님
     /// </summary>
     [pbr::OriginalName("RESULT_CODE_NO_LOBBY_ROOM")] ResultCodeNoLobbyRoom = 4,
-    [pbr::OriginalName("RESULT_CODE_MAX")] ResultCodeMax = 5,
+    /// <summary>
+    /// 모든 인원이 준비 되지 않음
+    /// </summary>
+    [pbr::OriginalName("RESULT_CODE_NO_RAEDY_ALL_MEMBER")] ResultCodeNoRaedyAllMember = 5,
+    /// <summary>
+    /// 방장이 아님
+    /// </summary>
+    [pbr::OriginalName("RESULT_CODE_NO_PARTY_LEADER")] ResultCodeNoPartyLeader = 6,
+    [pbr::OriginalName("RESULT_CODE_MAX")] ResultCodeMax = 7,
   }
 
   public enum EObjectType {
@@ -266,6 +278,13 @@ namespace Protocol {
     [pbr::OriginalName("WAITING_STATE_RAEDY")] WaitingStateRaedy = 1,
     [pbr::OriginalName("WAITING_STATE_RAEDY_CANCLE")] WaitingStateRaedyCancle = 2,
     [pbr::OriginalName("WAITING_STATE_MAX")] WaitingStateMax = 3,
+  }
+
+  public enum EPartyMemberGrade {
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_NONE")] PartyMemberGradeNone = 0,
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_LEADER")] PartyMemberGradeLeader = 1,
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_MAMBER")] PartyMemberGradeMamber = 2,
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_MAX")] PartyMemberGradeMax = 3,
   }
 
   #endregion
