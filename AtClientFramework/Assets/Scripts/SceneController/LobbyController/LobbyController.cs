@@ -132,7 +132,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            // 룸에 못들어갈때
+            Debug.Log("방들어가기 실패");
 
         }
     }
@@ -151,7 +151,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            // TODO : 방 만들기 실패했을때
+            Debug.Log("방만들기 실패");
 
         }
     }
