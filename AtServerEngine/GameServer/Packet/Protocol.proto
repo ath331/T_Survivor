@@ -97,6 +97,28 @@ message S_WaitingRoomOutNotify
 	ObjectInfo player = 1;
 }
 
+message C_ChangeWaitingState
+{
+	EWaitingState state = 1;
+}
+
+message S_ChangeWaitingState
+{
+	EResultCode result = 1;
+	EWaitingState state = 2;
+}
+
+message S_ChangeWaitingStateNotify
+{
+	ObjectInfo player = 1;
+	EWaitingState state = 2;
+}
+
+message S_ChangeRoomLeaderNotify
+{
+	ObjectInfo player = 1;
+}
+
 // path = Game
 message C_EnterGame
 {

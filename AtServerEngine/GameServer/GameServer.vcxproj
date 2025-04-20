@@ -252,6 +252,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Packet\Handler\Game\C_LeaveGameHandler.h" />
     <ClInclude Include="Packet\Handler\Login\C_LoginHandler.h" />
     <ClInclude Include="Packet\Handler\PacketId.h" />
+    <ClInclude Include="Packet\Handler\Room\C_ChangeWaitingStateHandler.h" />
     <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h" />
     <ClInclude Include="Packet\Handler\Room\C_MakeRoomHandler.h" />
     <ClInclude Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.h" />
@@ -328,6 +329,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Packet\Handler\Chat\C_ChatHandler.cpp" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
     <ClCompile Include="Packet\Handler\C_AnimationEventHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\C_ChangeWaitingStateHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_ChatHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_EnterGameFinishHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_EnterGameHandlerTemplate.cpp" />
@@ -343,6 +345,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Packet\Handler\Game\C_EnterGameHandler.cpp" />
     <ClCompile Include="Packet\Handler\Game\C_LeaveGameHandler.cpp" />
     <ClCompile Include="Packet\Handler\Login\C_LoginHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Room\C_ChangeWaitingStateHandler.cpp" />
     <ClCompile Include="Packet\Handler\Room\C_EnterLobbyHandler.cpp" />
     <ClCompile Include="Packet\Handler\Room\C_MakeRoomHandler.cpp" />
     <ClCompile Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.cpp" />
