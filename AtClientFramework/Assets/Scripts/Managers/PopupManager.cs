@@ -175,7 +175,14 @@ public static class PopupManager
         // 팝업스택 최상위 것을 가져온다.
         PopupItem popupItem = popupStack.Last.Value;
 
-        CloseProcessAsync(popupItem, param).Forget();
+        try
+        {
+            await CloseProcessAsync(popupItem, param);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Popup close failed: {e.Message}");
+        }
     }
 
     private static async UniTask CloseProcessAsync(PopupItem popupItem, object param)
@@ -192,7 +199,7 @@ public static class PopupManager
         popupHandler.OnAfterLeave();
 
         // 스택에서 지운다.
-        popupStack.RemoveLast();
+        popupStack.Remove(popupItem);
 
         // 해당 팝업을 파괴한다.
         Object.Destroy(popupItem.popupHandler.gameObject);
