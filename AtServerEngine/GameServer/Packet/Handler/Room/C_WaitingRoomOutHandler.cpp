@@ -51,6 +51,10 @@ AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, C_WaitingRoom
 										  room->ExportTo( *refreshRoomInfo.mutable_roominfo() );
 
 										  GLobby->Broadcast( refreshRoomInfo );
+
+										  GLobby->HandleEnterPlayer(
+											  player,
+											  (Room::CallbackFunc)( []() {} ) );
 									  } );
 
 								  S_WaitingRoomOutNotify notify;

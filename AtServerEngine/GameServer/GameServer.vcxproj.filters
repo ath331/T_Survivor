@@ -226,6 +226,9 @@
     <ClInclude Include="Packet\Handler\PacketId.h">
       <Filter>Packet\Handler</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\C_ChangeWaitingStateHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\Room\C_EnterLobbyHandler.h">
       <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
@@ -450,6 +453,9 @@
     <ClCompile Include="Packet\Handler\C_AnimationEventHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_ChangeWaitingStateHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_ChatHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
@@ -494,6 +500,9 @@
     </ClCompile>
     <ClCompile Include="Packet\Handler\Login\C_LoginHandler.cpp">
       <Filter>Packet\Handler\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\C_ChangeWaitingStateHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Room\C_EnterLobbyHandler.cpp">
       <Filter>Packet\Handler\Room</Filter>

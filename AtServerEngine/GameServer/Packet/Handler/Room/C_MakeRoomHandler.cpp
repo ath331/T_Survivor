@@ -38,31 +38,32 @@ AtBool C_MakeRoomHandler::Handle( PacketSessionPtr& session, Protocol::C_MakeRoo
 
 	WaitingRoomPtr waitingRoom = WaitingRoomManager::GetInstance().AcquireRoom( pkt.roominfo() );
 
-	waitingRoom->DoAsync(
-		&Room::HandleEnterPlayer,
+	oldRoom->DoAsync(
+		&Room::HandleLeavePlayer,
 		player,
-		(Room::CallbackFunc)( [ oldRoom, waitingRoom, player ]()
+		(Room::CallbackFunc)( [ waitingRoom, player ]()
 							  {
-								  Protocol::S_MakeRoom result;
-								  result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
-								  waitingRoom->ExportTo( *result.mutable_maderoominfo() );
-
-								  player->Send( result );
-
-								  oldRoom->DoAsync(
-									  &Room::HandleLeavePlayer,
+								  waitingRoom->DoAsync(
+									  &Room::HandleEnterPlayer,
 									  player,
-									  (Room::CallbackFunc)( []() {} ) );
+									  (Room::CallbackFunc)( [ waitingRoom, player ]()
+															{
+																Protocol::S_MakeRoom result;
+																result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
+																waitingRoom->ExportTo( *result.mutable_maderoominfo() );
 
-								  GLobby->DoAsync(
-									  [ waitingRoom ]()
-									  {
-										  S_RequestRoomInfo refreshRoomInfo;
-										  refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
-										  waitingRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+																player->Send( result );
 
-										  GLobby->Broadcast( refreshRoomInfo );
-									  } );
+																GLobby->DoAsync(
+																	[ waitingRoom ]()
+																	{
+																		S_RequestRoomInfo refreshRoomInfo;
+																		refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
+																		waitingRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+
+																		GLobby->Broadcast( refreshRoomInfo );
+																	} );
+															} ) );
 							  } ) );
 
 	return true;

@@ -24,41 +24,49 @@ namespace Protocol {
     static EnumReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpFbnVtLnByb3RvEghQcm90b2NvbCqbAQoLRVJlc3VsdENvZGUSFwoTUkVT",
+            "CgpFbnVtLnByb3RvEghQcm90b2NvbCqAAgoLRVJlc3VsdENvZGUSFwoTUkVT",
             "VUxUX0NPREVfU1VDQ0VTUxAAEh8KG1JFU1VMVF9DT0RFX0ZBSUxfUk9PTV9F",
             "TlRFUhABEhwKGFJFU1VMVF9DT0RFX05PX0hBVkVfUk9PTRACEh8KG1JFU1VM",
-            "VF9DT0RFX05PX1dBSVRJTkdfUk9PTRADEhMKD1JFU1VMVF9DT0RFX01BWBAE",
-            "KoABCgtFT2JqZWN0VHlwZRIUChBPQkpFQ1RfVFlQRV9OT05FEAASFQoRT0JK",
-            "RUNUX1RZUEVfQUNUT1IQARIaChZPQkpFQ1RfVFlQRV9QUk9KRUNUSUxFEAIS",
-            "EwoPT0JKRUNUX1RZUEVfRU5WEAMSEwoPT0JKRUNUX1RZUEVfTUFYEAQqeAoK",
-            "RUFjdG9yVHlwZRITCg9BQ1RPUl9UWVBFX05PTkUQABIVChFBQ1RPUl9UWVBF",
-            "X1BMQVlFUhABEhYKEkFDVE9SX1RZUEVfTU9OU1RFUhACEhIKDkFDVE9SX1RZ",
-            "UEVfTlBDEAMSEgoOQUNUT1JfVFlQRV9NQVgQBCpvCghFQmFnVHlwZRIRCg1C",
-            "QUdfVFlQRV9OT05FEAASFgoSQkFHX1RZUEVfRVFVSVBNRU5UEAESEAoMQkFH",
-            "X1RZUEVfRVRDEAISFAoQQkFHX1RZUEVfVVNFQUJMRRADEhAKDEJBR19UWVBF",
-            "X01BWBAEKn4KC0VQbGF5ZXJUeXBlEhQKEFBMQVlFUl9UWVBFX05PTkUQABIW",
-            "ChJQTEFZRVJfVFlQRV9LTklHSFQQARIUChBQTEFZRVJfVFlQRV9NQUdFEAIS",
-            "FgoSUExBWUVSX1RZUEVfQVJDSEVSEAMSEwoPUExBWUVSX1RZUEVfTUFYEAQq",
-            "dQoKRU1vdmVTdGF0ZRITCg9NT1ZFX1NUQVRFX05PTkUQABITCg9NT1ZFX1NU",
-            "QVRFX0lETEUQARISCg5NT1ZFX1NUQVRFX1JVThACEhMKD01PVkVfU1RBVEVf",
-            "SlVNUBADEhQKEE1PVkVfU1RBVEVfU0tJTEwQBCrtAQoORUVxdWlwU2xvdFR5",
-            "cGUSGAoURVFVSVBfU0xPVF9UWVBFX05PTkUQABIaChZFUVVJUF9TTE9UX1RZ",
-            "UEVfV0VBUE9OEAESHgoaRVFVSVBfU0xPVF9UWVBFX1NVQl9XRUFQT04QAhIa",
-            "ChZFUVVJUF9TTE9UX1RZUEVfSEVMTUFUEAMSGQoVRVFVSVBfU0xPVF9UWVBF",
-            "X0FSTU9SEAQSGgoWRVFVSVBfU0xPVF9UWVBFX0dMT1ZFUxAFEhkKFUVRVUlQ",
-            "X1NMT1RfVFlQRV9CT09UUxAGEhcKE0VRVUlQX1NMT1RfVFlQRV9NQVgQByqK",
-            "AQoFRVN0YXQSDQoJU1RBVF9OT05FEAASEQoNU1RBVF9TVFJFTkdUSBABEgsK",
-            "B1NUQVRfSFAQAhILCgdTVEFUX01QEAMSEAoMU1RBVF9ERUZFTlNFEAQSDgoK",
-            "U1RBVF9TUEVFRBAFEhUKEVNUQVRfSU5URUxMSUdFTkNFEAYSDAoIU1RBVF9N",
-            "QVgQBypnChNFQW5pbWF0aW9uUGFyYW1UeXBlEhgKFEFOSU1fUEFSQU1fVFlQ",
-            "RV9CT09MEAASGQoVQU5JTV9QQVJBTV9UWVBFX0ZMT0FUEAESGwoXQU5JTV9Q",
-            "QVJBTV9UWVBFX1RSSUdHRVIQAiqGAQoKRVJvb21TdGF0ZRITCg9ST09NX1NU",
-            "QVRFX05PTkUQABIWChJST09NX1NUQVRFX1dBSVRJTkcQARITCg9ST09NX1NU",
-            "QVRFX1BMQVkQAhIiCh5ST09NX1NUQVRFX0RFU1RST1lfUkVTRVJWQVRJT04Q",
-            "AxISCg5ST09NX1NUQVRFX01BWBAEQguqAghQcm90b2NvbGIGcHJvdG8z"));
+            "VF9DT0RFX05PX1dBSVRJTkdfUk9PTRADEh0KGVJFU1VMVF9DT0RFX05PX0xP",
+            "QkJZX1JPT00QBBIjCh9SRVNVTFRfQ09ERV9OT19SQUVEWV9BTExfTUVNQkVS",
+            "EAUSHwobUkVTVUxUX0NPREVfTk9fUEFSVFlfTEVBREVSEAYSEwoPUkVTVUxU",
+            "X0NPREVfTUFYEAcqgAEKC0VPYmplY3RUeXBlEhQKEE9CSkVDVF9UWVBFX05P",
+            "TkUQABIVChFPQkpFQ1RfVFlQRV9BQ1RPUhABEhoKFk9CSkVDVF9UWVBFX1BS",
+            "T0pFQ1RJTEUQAhITCg9PQkpFQ1RfVFlQRV9FTlYQAxITCg9PQkpFQ1RfVFlQ",
+            "RV9NQVgQBCp4CgpFQWN0b3JUeXBlEhMKD0FDVE9SX1RZUEVfTk9ORRAAEhUK",
+            "EUFDVE9SX1RZUEVfUExBWUVSEAESFgoSQUNUT1JfVFlQRV9NT05TVEVSEAIS",
+            "EgoOQUNUT1JfVFlQRV9OUEMQAxISCg5BQ1RPUl9UWVBFX01BWBAEKm8KCEVC",
+            "YWdUeXBlEhEKDUJBR19UWVBFX05PTkUQABIWChJCQUdfVFlQRV9FUVVJUE1F",
+            "TlQQARIQCgxCQUdfVFlQRV9FVEMQAhIUChBCQUdfVFlQRV9VU0VBQkxFEAMS",
+            "EAoMQkFHX1RZUEVfTUFYEAQqfgoLRVBsYXllclR5cGUSFAoQUExBWUVSX1RZ",
+            "UEVfTk9ORRAAEhYKElBMQVlFUl9UWVBFX0tOSUdIVBABEhQKEFBMQVlFUl9U",
+            "WVBFX01BR0UQAhIWChJQTEFZRVJfVFlQRV9BUkNIRVIQAxITCg9QTEFZRVJf",
+            "VFlQRV9NQVgQBCp1CgpFTW92ZVN0YXRlEhMKD01PVkVfU1RBVEVfTk9ORRAA",
+            "EhMKD01PVkVfU1RBVEVfSURMRRABEhIKDk1PVkVfU1RBVEVfUlVOEAISEwoP",
+            "TU9WRV9TVEFURV9KVU1QEAMSFAoQTU9WRV9TVEFURV9TS0lMTBAEKu0BCg5F",
+            "RXF1aXBTbG90VHlwZRIYChRFUVVJUF9TTE9UX1RZUEVfTk9ORRAAEhoKFkVR",
+            "VUlQX1NMT1RfVFlQRV9XRUFQT04QARIeChpFUVVJUF9TTE9UX1RZUEVfU1VC",
+            "X1dFQVBPThACEhoKFkVRVUlQX1NMT1RfVFlQRV9IRUxNQVQQAxIZChVFUVVJ",
+            "UF9TTE9UX1RZUEVfQVJNT1IQBBIaChZFUVVJUF9TTE9UX1RZUEVfR0xPVkVT",
+            "EAUSGQoVRVFVSVBfU0xPVF9UWVBFX0JPT1RTEAYSFwoTRVFVSVBfU0xPVF9U",
+            "WVBFX01BWBAHKooBCgVFU3RhdBINCglTVEFUX05PTkUQABIRCg1TVEFUX1NU",
+            "UkVOR1RIEAESCwoHU1RBVF9IUBACEgsKB1NUQVRfTVAQAxIQCgxTVEFUX0RF",
+            "RkVOU0UQBBIOCgpTVEFUX1NQRUVEEAUSFQoRU1RBVF9JTlRFTExJR0VOQ0UQ",
+            "BhIMCghTVEFUX01BWBAHKmcKE0VBbmltYXRpb25QYXJhbVR5cGUSGAoUQU5J",
+            "TV9QQVJBTV9UWVBFX0JPT0wQABIZChVBTklNX1BBUkFNX1RZUEVfRkxPQVQQ",
+            "ARIbChdBTklNX1BBUkFNX1RZUEVfVFJJR0dFUhACKoYBCgpFUm9vbVN0YXRl",
+            "EhMKD1JPT01fU1RBVEVfTk9ORRAAEhYKElJPT01fU1RBVEVfV0FJVElORxAB",
+            "EhMKD1JPT01fU1RBVEVfUExBWRACEiIKHlJPT01fU1RBVEVfREVTVFJPWV9S",
+            "RVNFUlZBVElPThADEhIKDlJPT01fU1RBVEVfTUFYEAQqdwoNRVdhaXRpbmdT",
+            "dGF0ZRIWChJXQUlUSU5HX1NUQVRFX05PTkUQABIXChNXQUlUSU5HX1NUQVRF",
+            "X1JBRURZEAESHgoaV0FJVElOR19TVEFURV9SQUVEWV9DQU5DTEUQAhIVChFX",
+            "QUlUSU5HX1NUQVRFX01BWBADKooBChFFUGFydHlNZW1iZXJHcmFkZRIbChdQ",
+            "QVJUWV9NRU1CRVJfR1JBREVfTk9ORRAAEh0KGVBBUlRZX01FTUJFUl9HUkFE",
+            "RV9MRUFERVIQARIdChlQQVJUWV9NRU1CRVJfR1JBREVfTUFNQkVSEAISGgoW",
+            "UEFSVFlfTUVNQkVSX0dSQURFX01BWBADQguqAghQcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), }, null, null));
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Protocol.EResultCode), typeof(global::Protocol.EObjectType), typeof(global::Protocol.EActorType), typeof(global::Protocol.EBagType), typeof(global::Protocol.EPlayerType), typeof(global::Protocol.EMoveState), typeof(global::Protocol.EEquipSlotType), typeof(global::Protocol.EStat), typeof(global::Protocol.EAnimationParamType), typeof(global::Protocol.ERoomState), typeof(global::Protocol.EWaitingState), typeof(global::Protocol.EPartyMemberGrade), }, null, null));
     }
     #endregion
 
@@ -81,7 +89,19 @@ namespace Protocol {
     /// 대기실이 아님
     /// </summary>
     [pbr::OriginalName("RESULT_CODE_NO_WAITING_ROOM")] ResultCodeNoWaitingRoom = 3,
-    [pbr::OriginalName("RESULT_CODE_MAX")] ResultCodeMax = 4,
+    /// <summary>
+    /// 로비가 아님
+    /// </summary>
+    [pbr::OriginalName("RESULT_CODE_NO_LOBBY_ROOM")] ResultCodeNoLobbyRoom = 4,
+    /// <summary>
+    /// 모든 인원이 준비 되지 않음
+    /// </summary>
+    [pbr::OriginalName("RESULT_CODE_NO_RAEDY_ALL_MEMBER")] ResultCodeNoRaedyAllMember = 5,
+    /// <summary>
+    /// 방장이 아님
+    /// </summary>
+    [pbr::OriginalName("RESULT_CODE_NO_PARTY_LEADER")] ResultCodeNoPartyLeader = 6,
+    [pbr::OriginalName("RESULT_CODE_MAX")] ResultCodeMax = 7,
   }
 
   public enum EObjectType {
@@ -251,6 +271,20 @@ namespace Protocol {
     /// </summary>
     [pbr::OriginalName("ROOM_STATE_DESTROY_RESERVATION")] RoomStateDestroyReservation = 3,
     [pbr::OriginalName("ROOM_STATE_MAX")] RoomStateMax = 4,
+  }
+
+  public enum EWaitingState {
+    [pbr::OriginalName("WAITING_STATE_NONE")] WaitingStateNone = 0,
+    [pbr::OriginalName("WAITING_STATE_RAEDY")] WaitingStateRaedy = 1,
+    [pbr::OriginalName("WAITING_STATE_RAEDY_CANCLE")] WaitingStateRaedyCancle = 2,
+    [pbr::OriginalName("WAITING_STATE_MAX")] WaitingStateMax = 3,
+  }
+
+  public enum EPartyMemberGrade {
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_NONE")] PartyMemberGradeNone = 0,
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_LEADER")] PartyMemberGradeLeader = 1,
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_MAMBER")] PartyMemberGradeMamber = 2,
+    [pbr::OriginalName("PARTY_MEMBER_GRADE_MAX")] PartyMemberGradeMax = 3,
   }
 
   #endregion

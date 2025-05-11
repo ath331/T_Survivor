@@ -34,50 +34,77 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, C_WaitingRo
 		return false;
 	}
 
-	waitingRoom->DoAsync(
-		[ waitingRoom, player ]()
+	RoomPtr oldRoom = player->room.load().lock();
+	if ( !oldRoom )
+	{
+		S_WaitingRoomEnter result;
+		result.set_result( EResultCode::RESULT_CODE_NO_HAVE_ROOM );
+		player->Send( result );
+		return false;
+	}
+
+	if ( !dynamic_cast<Lobby*>( oldRoom.get() ) )
+	{
+		S_WaitingRoomEnter result;
+		result.set_result( EResultCode::RESULT_CODE_NO_LOBBY_ROOM );
+		player->Send( result );
+		return false;
+	}
+
+	oldRoom->DoAsync(
+		[ oldRoom, waitingRoom, player ]()
 		{
-			if ( !waitingRoom->CheckEnterRoom() )
-			{
-				S_WaitingRoomEnter result;
-				result.set_result( EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
-				player->Send( result );
-				return;
-			}
-
-			waitingRoom->DoAsync(
-				&Room::HandleEnterPlayer,
+			oldRoom->HandleLeavePlayer(
 				player,
-				(Room::CallbackFunc)( [ player, waitingRoom ]()
-									  {
-										  S_WaitingRoomEnter result;
-										  result.set_result( EResultCode::RESULT_CODE_SUCCESS );
-										  waitingRoom->ExportTo( *result.mutable_roominfo() );
-										  player->Send( result );
+				[ waitingRoom, player ]()
+				{
+					waitingRoom->DoAsync(
+						[ waitingRoom, player ]()
+						{
+							if ( !waitingRoom->CheckEnterRoom() )
+							{
+								S_WaitingRoomEnter result;
+								result.set_result( EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
+								player->Send( result );
+								return;
+							}
 
-										  S_WaitingRoomEnterNotify notify;
-										  notify.mutable_player()->CopyFrom( *player->objectInfo );
-										  waitingRoom->Broadcast( notify, player->GetId() );
+							waitingRoom->HandleEnterPlayer(
+								player,
+								[ waitingRoom, player ]()
+								{
+									S_WaitingRoomEnter result;
+									result.set_result( EResultCode::RESULT_CODE_SUCCESS );
+									waitingRoom->ExportTo( *result.mutable_roominfo() );
+									player->Send( result );
 
-										  waitingRoom->ForeachPlayer(
-											  [ player ]( PlayerPtr eachPlayer )
-											  {
-												  S_WaitingRoomEnterNotify notify;
-												  notify.mutable_player()->CopyFrom( *eachPlayer->objectInfo );
-												  player->Send( notify );
-											  },
-											  player->GetId() );
+									S_WaitingRoomEnterNotify notify;
+									notify.mutable_player()->CopyFrom( *player->objectInfo );
+									waitingRoom->Broadcast( notify, player->GetId() );
 
-										  GLobby->DoAsync(
-											  [ waitingRoom ]()
-											  {
-												  S_RequestRoomInfo refreshRoomInfo;
-												  refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
-												  waitingRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+									waitingRoom->ForeachPlayer(
+										[ player ]( PlayerPtr eachPlayer )
+										{
+											S_WaitingRoomEnterNotify notify;
+											notify.mutable_player()->CopyFrom( *eachPlayer->objectInfo );
+											player->Send( notify );
+										},
+										player->GetId() );
 
-												  GLobby->Broadcast( refreshRoomInfo );
-											  } );
-									  } ) );
+									GLobby->DoAsync(
+										[ waitingRoom ]()
+										{
+											S_RequestRoomInfo refreshRoomInfo;
+											refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
+											waitingRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+
+											GLobby->Broadcast( refreshRoomInfo );
+										} );
+								} );
+
+						} );
+
+				} );
 		} );
 
 	return true;

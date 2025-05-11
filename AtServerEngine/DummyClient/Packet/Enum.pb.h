@@ -61,7 +61,10 @@ enum EResultCode : int {
   RESULT_CODE_FAIL_ROOM_ENTER = 1,
   RESULT_CODE_NO_HAVE_ROOM = 2,
   RESULT_CODE_NO_WAITING_ROOM = 3,
-  RESULT_CODE_MAX = 4,
+  RESULT_CODE_NO_LOBBY_ROOM = 4,
+  RESULT_CODE_NO_RAEDY_ALL_MEMBER = 5,
+  RESULT_CODE_NO_PARTY_LEADER = 6,
+  RESULT_CODE_MAX = 7,
   EResultCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   EResultCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
@@ -340,6 +343,60 @@ inline bool ERoomState_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ERoomState>(
     ERoomState_descriptor(), name, value);
 }
+enum EWaitingState : int {
+  WAITING_STATE_NONE = 0,
+  WAITING_STATE_RAEDY = 1,
+  WAITING_STATE_RAEDY_CANCLE = 2,
+  WAITING_STATE_MAX = 3,
+  EWaitingState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EWaitingState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EWaitingState_IsValid(int value);
+constexpr EWaitingState EWaitingState_MIN = WAITING_STATE_NONE;
+constexpr EWaitingState EWaitingState_MAX = WAITING_STATE_MAX;
+constexpr int EWaitingState_ARRAYSIZE = EWaitingState_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EWaitingState_descriptor();
+template<typename T>
+inline const std::string& EWaitingState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EWaitingState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EWaitingState_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EWaitingState_descriptor(), enum_t_value);
+}
+inline bool EWaitingState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EWaitingState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EWaitingState>(
+    EWaitingState_descriptor(), name, value);
+}
+enum EPartyMemberGrade : int {
+  PARTY_MEMBER_GRADE_NONE = 0,
+  PARTY_MEMBER_GRADE_LEADER = 1,
+  PARTY_MEMBER_GRADE_MAMBER = 2,
+  PARTY_MEMBER_GRADE_MAX = 3,
+  EPartyMemberGrade_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EPartyMemberGrade_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EPartyMemberGrade_IsValid(int value);
+constexpr EPartyMemberGrade EPartyMemberGrade_MIN = PARTY_MEMBER_GRADE_NONE;
+constexpr EPartyMemberGrade EPartyMemberGrade_MAX = PARTY_MEMBER_GRADE_MAX;
+constexpr int EPartyMemberGrade_ARRAYSIZE = EPartyMemberGrade_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EPartyMemberGrade_descriptor();
+template<typename T>
+inline const std::string& EPartyMemberGrade_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EPartyMemberGrade>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EPartyMemberGrade_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EPartyMemberGrade_descriptor(), enum_t_value);
+}
+inline bool EPartyMemberGrade_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EPartyMemberGrade* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EPartyMemberGrade>(
+    EPartyMemberGrade_descriptor(), name, value);
+}
 // ===================================================================
 
 
@@ -411,6 +468,16 @@ template <> struct is_proto_enum< ::Protocol::ERoomState> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ERoomState>() {
   return ::Protocol::ERoomState_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EWaitingState> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EWaitingState>() {
+  return ::Protocol::EWaitingState_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EPartyMemberGrade> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EPartyMemberGrade>() {
+  return ::Protocol::EPartyMemberGrade_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE
