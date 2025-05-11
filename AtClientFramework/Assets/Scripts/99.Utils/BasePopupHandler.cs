@@ -139,6 +139,7 @@ public class BasePopupHandler : MonoBehaviour
         if (!AnimationRoot) return;
 
         var orgScale = Vector3.one;
+        //var orgScale = AnimationRoot.localScale;
         var sequence = DOTween.Sequence()
             .Append(AnimationRoot.DOScale(orgScale * 1.02f, .12f).SetEase(Ease.OutQuart).From(orgScale))
             .Append(AnimationRoot.DOScale(orgScale * .99f, .08f).SetEase(Ease.OutQuart))
@@ -147,9 +148,17 @@ public class BasePopupHandler : MonoBehaviour
         await sequence.AwaitForCompletion();
     }
 
-    public virtual UniTask AnimationOut()
+    public virtual async UniTask AnimationOut()
     {
-        return UniTask.CompletedTask;
+        if (!AnimationRoot) return;
+
+        var orgScale = Vector3.one;
+
+        var sequence = DOTween.Sequence()
+            .Append(AnimationRoot.DOScale(orgScale * 0.97f, 0.05f).SetEase(Ease.InQuad))
+            .Append(AnimationRoot.DOScale(Vector3.zero, 0.15f).SetEase(Ease.InBack));
+
+        await sequence.AwaitForCompletion();
     }
 
     /// <summary>
