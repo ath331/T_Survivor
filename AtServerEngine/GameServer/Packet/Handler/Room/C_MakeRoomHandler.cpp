@@ -30,41 +30,40 @@ AtBool C_MakeRoomHandler::Handle( PacketSessionPtr& session, Protocol::C_MakeRoo
 
 	if ( !dynamic_cast< Lobby* >( oldRoom.get() ) )
 	{
-		Protocol::S_MakeRoom result;
-		result.set_result( Protocol::EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
+		S_MakeRoom result;
+		result.set_result( EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
 		player->Send( result );
 		return false;
 	}
 
-	WaitingRoomPtr waitingRoom = WaitingRoomManager::GetInstance().AcquireRoom( pkt.roominfo() );
+	WaitingRoomPtr newRoom = WaitingRoomManager::GetInstance().AcquireRoom( pkt.roominfo() );
 
 	oldRoom->DoAsync(
-		&Room::HandleLeavePlayer,
-		player,
-		(Room::CallbackFunc)( [ waitingRoom, player ]()
-							  {
-								  waitingRoom->DoAsync(
-									  &Room::HandleEnterPlayer,
-									  player,
-									  (Room::CallbackFunc)( [ waitingRoom, player ]()
-															{
-																Protocol::S_MakeRoom result;
-																result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
-																waitingRoom->ExportTo( *result.mutable_maderoominfo() );
+		[ oldRoom, newRoom, player ]()
+		{
+			oldRoom->HandleLeavePlayer( player );
 
-																player->Send( result );
+			newRoom->HandleEnterPlayer(
+				player,
+				[ newRoom, player ]()
+				{
+					S_MakeRoom result;
+					result.set_result( EResultCode::RESULT_CODE_SUCCESS );
+					newRoom->ExportTo( *result.mutable_maderoominfo() );
 
-																GLobby->DoAsync(
-																	[ waitingRoom ]()
-																	{
-																		S_RequestRoomInfo refreshRoomInfo;
-																		refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
-																		waitingRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+					player->Send( result );
 
-																		GLobby->Broadcast( refreshRoomInfo );
-																	} );
-															} ) );
-							  } ) );
+					GLobby->DoAsync(
+						[ newRoom ]()
+						{
+							S_RequestRoomInfo refreshRoomInfo;
+							refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
+							newRoom->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+
+							GLobby->Broadcast( refreshRoomInfo );
+						} );
+				} );
+		} );
 
 	return true;
 }
