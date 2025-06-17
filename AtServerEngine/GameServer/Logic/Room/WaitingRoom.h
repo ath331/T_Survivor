@@ -29,7 +29,7 @@ private:
 	AtInt32 m_pw;
 
 	/// 현재 상태
-	Protocol::ERoomState m_state;
+	ERoomState m_state;
 
 public:
 	/// 생성자
@@ -42,7 +42,7 @@ public:
 	AtVoid UpdateTick() override;
 
 	/// 정보를 내보낸다.
-	AtVoid ExportTo( Protocol::RoomInfo& roomInfo ) override;
+	AtVoid ExportTo( RoomInfo& roomInfo ) override;
 
 	/// 방에 입장할 수 있는지 확인한다.
 	AtBool CheckEnterRoom() const;
