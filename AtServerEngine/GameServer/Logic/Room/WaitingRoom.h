@@ -39,11 +39,16 @@ public:
 		AtInt32  pw = 0 );
 
 	/// 룸을 업데이트한다.
-	AtVoid UpdateTick() override;
+	AtVoid UpdateTick( Millisecond curTime ) override;
 
 	/// 정보를 내보낸다.
 	AtVoid ExportTo( RoomInfo& roomInfo ) override;
 
 	/// 방에 입장할 수 있는지 확인한다.
 	AtBool CheckEnterRoom() const;
+
+// override Room
+protected:
+	/// 플레이어가 방에 입장한 다음 처리한다.
+	AtVoid _OnPlayerEnter( PlayerPtr player ) override;
 };

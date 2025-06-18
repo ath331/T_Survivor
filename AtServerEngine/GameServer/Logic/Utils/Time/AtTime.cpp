@@ -22,3 +22,14 @@ AtString AtTime::GetCurTimeFormat( AtString format )
 
 	return timeStream.str();
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief 현재 시스템 시간을 밀리세컨드로 반화한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+Millisecond AtTime::GetCurMillisecond()
+{
+	auto now = std::chrono::system_clock::now();
+	auto ms = std::chrono::duration_cast<std::chrono::milliseconds>( now.time_since_epoch() );
+
+	return ms;
+}

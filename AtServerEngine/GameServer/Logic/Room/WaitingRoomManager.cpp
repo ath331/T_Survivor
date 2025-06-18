@@ -7,39 +7,29 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 업데이트 한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid WaitingRoomManager::Update()
+AtVoid WaitingRoomManager::Update( Millisecond curTime )
 {
-	//INFO_LOG( "WaitingRoomManager::Update()" );
+	// INFO_LOG( "WaitingRoomManager::Update()" );
 
-	WaitingRoomMap cacheWaitingRoomMap;
-	{
-		WRITE_LOCK;
-		cacheWaitingRoomMap = m_waitingRoomMap;
-	}
+	WRITE_LOCK;
 
-	for ( auto iter = cacheWaitingRoomMap.begin(); iter != cacheWaitingRoomMap.end(); )
+	for ( auto iter = m_waitingRoomMap.begin(); iter != m_waitingRoomMap.end(); )
 	{
 		WaitingRoomPtr room = iter->second;
 		if ( !room )
 		{
-			WRITE_LOCK;
 			iter = m_waitingRoomMap.erase( iter );
-		}
-		else
-		{
-			++iter;
+			continue;
 		}
 
+		room->UpdateTick( curTime );
 
 		RoomInfo roomInfo;
 		room->ExportTo( roomInfo );
 
 		if ( roomInfo.room_state() == ROOM_STATE_DESTROY_RESERVATION )
 		{
-			{
-				WRITE_LOCK;
-				iter = m_waitingRoomMap.erase( iter );
-			}
+			iter = m_waitingRoomMap.erase( iter );
 
 			S_DestroyRoom destroyRoomNotify;
 			destroyRoomNotify.set_result( EResultCode::RESULT_CODE_SUCCESS );
@@ -47,14 +37,9 @@ AtVoid WaitingRoomManager::Update()
 
 			GLobby->Broadcast( destroyRoomNotify );
 		}
-	}
 
-	GLobby->DoTimer(
-		1000,
-		[]()
-		{
-			WaitingRoomManager::GetInstance().Update();
-		} );
+		++iter;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

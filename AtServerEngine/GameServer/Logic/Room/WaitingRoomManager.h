@@ -31,7 +31,7 @@ private:
 
 public:
 	/// 업데이트 한다.
-	AtVoid Update();
+	AtVoid Update( Millisecond curTime );
 
 	/// WaitingRoom을 반환한다.
 	WaitingRoomPtr AcquireRoom( AtInt32 roomNum );

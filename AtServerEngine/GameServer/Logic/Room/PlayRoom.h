@@ -31,5 +31,5 @@ private:
 
 public:
 	/// 룸을 업데이트한다.
-	virtual AtVoid UpdateTick() override;
+	AtVoid UpdateTick( Millisecond curTime ) override;
 };

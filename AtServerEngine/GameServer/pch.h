@@ -17,6 +17,7 @@
 #include "Logic/Utils/Utils.h"
 #include "Logic/Utils/String/StringUtils.h"
 #include "Logic/Utils/Log/AtLog.h"
+//#include "Logic/Utils/Time/AtTime.h"
 #include "Logic/Core/Environment.h"
 
 
@@ -48,3 +49,7 @@
 
 
 using namespace Protocol;
+
+
+using Second      = std::chrono::duration<int64_t, std::ratio<1>>;
+using Millisecond = std::chrono::duration<AtInt64, std::milli>;

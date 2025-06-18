@@ -38,6 +38,9 @@ protected:
 	/// Lock
 	USE_LOCK;
 
+	/// 가장 최근에 업데이트된 시간
+	Millisecond m_lastUpdateTickTime;
+
 public:
 	/// 생성자
 	Room();
@@ -55,7 +58,7 @@ public:
 	AtBool HandleLeavePlayer( PlayerPtr player, CallbackFunc callback = nullptr );
 
 	/// 플레이어의 움직임을 처리한다.
-	AtVoid HandlePlayerMove( Protocol::C_Move pkt );
+	AtVoid HandlePlayerMove( C_Move pkt );
 
 	/// 플레이어들을 순회한다.
 	AtVoid ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId = 0 );
@@ -81,10 +84,10 @@ public:
 
 public:
 	/// 룸을 업데이트한다.
-	virtual AtVoid UpdateTick();
+	virtual AtVoid UpdateTick( Millisecond curTime );
 
 	/// 정보를 내보낸다.
-	virtual AtVoid ExportTo( Protocol::RoomInfo& roomInfo );
+	virtual AtVoid ExportTo( RoomInfo& roomInfo );
 
 private:
 	/// 오브젝트 리스트들을 초기화한다.
@@ -96,6 +99,10 @@ protected:
 
 	/// 오브젝트를 제거한다.
 	AtBool _RemoveObject( uint64 objectId );
+
+protected:
+	/// 플레이어가 방에 입장한 다음 처리한다.
+	virtual AtVoid _OnPlayerEnter( PlayerPtr player ) {};
 
 protected:
 	/// 모든 오브젝트 컨테이너

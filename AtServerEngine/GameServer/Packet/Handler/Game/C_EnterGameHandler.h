@@ -14,5 +14,5 @@ class C_EnterGameHandler
 {
 public:
 	// HandlerRun
-	static AtBool Handle( PacketSessionPtr& session, Protocol::C_EnterGame& pkt );
+	static AtBool Handle( PacketSessionPtr& session, C_EnterGame& pkt );
 };
