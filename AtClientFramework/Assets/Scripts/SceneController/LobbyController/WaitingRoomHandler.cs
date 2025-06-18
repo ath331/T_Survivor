@@ -53,7 +53,7 @@ public class WaitingRoomHandler : MonoBehaviour
     {
         WaitRoomOutNotify_Strategy.OnRoomOutNotify += NotifyRoomOutPlayer;
 
-        WaitRoomOut_Strategy.OnRoomOut +=
+        WaitRoomOut_Strategy.OnRoomOut += Receive_WaitRoomOut;
 
         exitButton.onClick.AddListener(OnClickExit);
     }
@@ -61,6 +61,8 @@ public class WaitingRoomHandler : MonoBehaviour
     void OnDisable()
     {
         WaitRoomOutNotify_Strategy.OnRoomOutNotify -= NotifyRoomOutPlayer;
+
+        WaitRoomOut_Strategy.OnRoomOut -= Receive_WaitRoomOut;
 
         exitButton.onClick.RemoveAllListeners();
 
