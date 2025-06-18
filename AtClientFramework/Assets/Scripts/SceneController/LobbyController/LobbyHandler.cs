@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Network;
 using Protocol;
 using UnityEngine;
@@ -90,14 +91,19 @@ public class LobbyHandler : MonoBehaviour
 
     public void DestroyRoom(S_DestroyRoom message)
     {
-        foreach (var room in roomHolders)
-        {
-            if (room.RoomNumber == message.RoomInfo.Num)
-            {
-                roomHolders.Remove(room);
+        // 방 하나만 찾아서 처리
+        var target = roomHolders
+            .FirstOrDefault(r => r.RoomNumber == message.RoomInfo.Num);
 
-                ObjectPoolManager.Instance.Return(room.gameObject);
-            }
+        if (target != null)
+        {
+            roomHolders.Remove(target);
+            Debug.Log($"방 {target.RoomNumber} 반환");
+            ObjectPoolManager.Instance.Return(target.gameObject);
+        }
+        else
+        {
+            Debug.LogWarning($"삭제할 방 {message.RoomInfo.Num} 을(를) 찾지 못했습니다.");
         }
     }
 

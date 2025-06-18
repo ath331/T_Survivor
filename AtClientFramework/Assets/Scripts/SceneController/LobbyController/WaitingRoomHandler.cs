@@ -49,6 +49,8 @@ public class WaitingRoomHandler : MonoBehaviour
 
     private string titleName = "";
 
+    private bool isExit = false;
+
     void OnEnable()
     {
         WaitRoomOutNotify_Strategy.OnRoomOutNotify += NotifyRoomOutPlayer;
@@ -56,6 +58,8 @@ public class WaitingRoomHandler : MonoBehaviour
         WaitRoomOut_Strategy.OnRoomOut += Receive_WaitRoomOut;
 
         exitButton.onClick.AddListener(OnClickExit);
+
+        isExit = false;
     }
 
     void OnDisable()
@@ -136,6 +140,10 @@ public class WaitingRoomHandler : MonoBehaviour
 
     private void OnClickExit()
     {
+        if (isExit) return;
+
+        isExit = true;
+
         C_WaitingRoomOut roomOut = new C_WaitingRoomOut();
 
         NetworkManager.Instance.Send(roomOut);
@@ -151,6 +159,8 @@ public class WaitingRoomHandler : MonoBehaviour
         {
 
         }
+
+        isExit = false;
     }
 
     private void SpawnCharacter(ulong playerId)
