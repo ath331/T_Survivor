@@ -9,6 +9,7 @@
 #include "Session/GameSession.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 #include "Logic/Object/Actor/Player/Player.h"
+#include "Room/WaitingRoomManager.h"
 
 
 LobbyPtr GLobby = make_shared< Lobby >();
@@ -17,7 +18,9 @@ LobbyPtr GLobby = make_shared< Lobby >();
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 룸을 업데이트한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Lobby::UpdateTick()
+AtVoid Lobby::UpdateTick( Millisecond curTime )
 {
-	Room::UpdateTick();
+	WaitingRoomManager::GetInstance().Update( curTime );
+
+	Room::UpdateTick( curTime );
 }

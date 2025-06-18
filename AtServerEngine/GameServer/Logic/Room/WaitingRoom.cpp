@@ -23,7 +23,7 @@ WaitingRoom::WaitingRoom(
 	m_name( name ),
 	m_pw( pw )
 {
-	m_state = Protocol::ERoomState::ROOM_STATE_WAITING;
+	m_state = ERoomState::ROOM_STATE_NONE;
 	m_isPrivate = false;
 
 	if ( 0 < pw )
@@ -33,18 +33,21 @@ WaitingRoom::WaitingRoom(
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 룸을 업데이트한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid WaitingRoom::UpdateTick()
+AtVoid WaitingRoom::UpdateTick( Millisecond curTime )
 {
-	Room::UpdateTick();
+	if ( m_state != ROOM_STATE_WAITING && m_state != ROOM_STATE_PLAY )
+		return;
 
 	if ( GetPlayerCount() <= 0 )
 		m_state = ROOM_STATE_DESTROY_RESERVATION;
+
+	Room::UpdateTick( curTime );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 정보를 내보낸다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid WaitingRoom::ExportTo( Protocol::RoomInfo& roomInfo )
+AtVoid WaitingRoom::ExportTo( RoomInfo& roomInfo )
 {
 	Room::ExportTo( roomInfo );
 
@@ -70,4 +73,12 @@ AtBool WaitingRoom::CheckEnterRoom() const
 	}
 
 	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 플레이어가 방에 입장한 다음 처리한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid WaitingRoom::_OnPlayerEnter( PlayerPtr player )
+{
+	m_state = ROOM_STATE_WAITING;
 }

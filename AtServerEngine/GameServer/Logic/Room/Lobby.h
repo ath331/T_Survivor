@@ -17,7 +17,7 @@ class Lobby
 {
 public:
 	/// 룸을 업데이트한다.
-	virtual AtVoid UpdateTick() override;
+	AtVoid UpdateTick( Millisecond curTime ) override;
 };
 
 // 포인터 타입 정의

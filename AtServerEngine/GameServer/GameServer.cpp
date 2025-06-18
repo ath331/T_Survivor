@@ -25,7 +25,7 @@
 
 #include "Logic/Room/Lobby.h"
 #include "Logic/Room/WaitingRoomManager.h"
-
+#include "Logic/Utils/Time/AtTime.h"
 
 /// 프로세스 틱 이넘
 enum
@@ -125,15 +125,10 @@ AtInt32 main()
 			} );
 	}
 
-	GLobby->DoAsync( &Room::UpdateTick );
+	Millisecond curTime = AtTime::GetCurMillisecond();
 
-	GLobby->DoTimer(
-		1000,
-		[]()
-		{
-			WaitingRoomManager::GetInstance().Update();
-		} );
-	 
+	GLobby->DoAsync( &Room::UpdateTick, curTime );
+
 	GThreadManager->Join();
 
 	return 0;

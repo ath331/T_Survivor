@@ -9,6 +9,7 @@
 #include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Object/Actor/Monster/Monster.h"
 #include "Logic/Utils/Log/AtLog.h"
+#include "Logic/Utils/Time/AtTime.h"
 #include "Lock.h"
 #include "Session/GameSession.h"
 #include "Packet/Handler/ClientPacketHandler.h"
@@ -24,6 +25,8 @@ Room::Room()
 {
 	m_roomNum = g_roomNum.fetch_add( 1 ) + 1;
 
+	m_lastUpdateTickTime = AtTime::GetCurMillisecond();
+
 	_ResetObjectList();
 }
 
@@ -32,7 +35,6 @@ Room::Room()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Room::~Room()
 {
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,6 +46,8 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player, CallbackFunc callback )
 
 	if ( !success )
 		return false;
+
+	_OnPlayerEnter( player );
 
 	if ( callback )
 		callback();
@@ -97,7 +101,7 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player, CallbackFunc callback )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 플레이어의 움직임을 처리한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
+AtVoid Room::HandlePlayerMove( C_Move pkt )
 {
 	const AtInt64 id = pkt.objectinfo().id();
 	if ( m_objects.find( id ) == m_objects.end() )
@@ -110,7 +114,7 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 
 	player->posInfo->CopyFrom( pkt.objectinfo().pos_info() );
 
-	Protocol::S_Move movePkt;
+	S_Move movePkt;
 	auto* info =  movePkt.mutable_objectinfo();
 	info->CopyFrom( pkt.objectinfo() );
 
@@ -223,15 +227,17 @@ AtVoid Room::Broadcast( google::protobuf::Message& pkt, uint64 exceptId )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif Room객체를 반환한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::UpdateTick()
+AtVoid Room::UpdateTick( Millisecond curTime )
 {
-	DoAsync( &Room::UpdateTick );
+	m_lastUpdateTickTime = curTime;
+
+	DoAsync( &Room::UpdateTick, AtTime::GetCurMillisecond() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 정보를 내보낸다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::ExportTo( Protocol::RoomInfo& roomInfo )
+AtVoid Room::ExportTo( RoomInfo& roomInfo )
 {
 	roomInfo.set_num       ( GetRoomNum()     );
 	roomInfo.set_cur_count ( GetPlayerCount() );
