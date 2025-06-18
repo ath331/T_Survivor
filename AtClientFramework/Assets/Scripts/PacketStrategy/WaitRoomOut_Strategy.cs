@@ -14,15 +14,15 @@ public class WaitRoomOut_Strategy : IStrategy
 
     public void Register()
     {
-        PacketEventManager.Subscribe<S_WaitingRoomOut>(OnNotifyRoomOutPacketReceived);
+        PacketEventManager.Subscribe<S_WaitingRoomOut>(OnRoomOutPacketReceived);
     }
 
     public void Unregister()
     {
-        PacketEventManager.Unsubscribe<S_WaitingRoomOut>(OnNotifyRoomOutPacketReceived);
+        PacketEventManager.Unsubscribe<S_WaitingRoomOut>(OnRoomOutPacketReceived);
     }
 
-    private void OnNotifyRoomOutPacketReceived(S_WaitingRoomOut message)
+    private void OnRoomOutPacketReceived(S_WaitingRoomOut message)
     {
         OnRoomOut?.Invoke(message);
     }
