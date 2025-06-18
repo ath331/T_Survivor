@@ -15,6 +15,8 @@ namespace Assets.Scripts.Network.Handler
 		private void _Process_S_WaitingRoomOut_Handler( ushort protocolId, byte[] data )
 		{
 			S_WaitingRoomOut message = S_WaitingRoomOut.Parser.ParseFrom( data );
-		}
+
+            PacketEventManager.Invoke(message);
+        }
 	}
 }

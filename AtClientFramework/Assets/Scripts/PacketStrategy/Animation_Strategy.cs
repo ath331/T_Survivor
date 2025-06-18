@@ -27,7 +27,7 @@ public class Animation_Strategy : IStrategy
 
         if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
         {
-            player.PlayNetworkAnimation(animationType, paramType, boolVal);
+            player.Receive_Animation(animationType, paramType, boolVal);
         }
     }
 }

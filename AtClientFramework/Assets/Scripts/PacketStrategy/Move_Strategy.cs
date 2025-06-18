@@ -29,7 +29,7 @@ public class Move_Strategy : IStrategy
         {
             if (!player.IsLocalPlayer)
             {
-                player.UpdateNetworkPosition(newPosition, newYaw);
+                player.Receive_Position(newPosition, newYaw);
             }
         }
     }

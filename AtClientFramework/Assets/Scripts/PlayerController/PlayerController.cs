@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// 네트워크에서 받은 위치 업데이트 (다른 플레이어 전용)
     /// </summary>
-    public void UpdateNetworkPosition(Vector3 newPosition, float newYaw)
+    public void Receive_Position(Vector3 newPosition, float newYaw)
     {
         if (IsLocalPlayer) return;
 
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void PlayNetworkAnimation(string animationType, EAnimationParamType paramType, bool boolValue)
+    public void Receive_Animation(string animationType, EAnimationParamType paramType, bool boolValue)
     {
         if (!IsLocalPlayer && animator != null)
         {

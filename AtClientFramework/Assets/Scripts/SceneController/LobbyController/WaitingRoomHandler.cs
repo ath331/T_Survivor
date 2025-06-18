@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Network;
+using Cysharp.Threading.Tasks;
 using Protocol;
 using TMPro;
 using UnityEngine;
@@ -51,6 +52,8 @@ public class WaitingRoomHandler : MonoBehaviour
     void OnEnable()
     {
         WaitRoomOutNotify_Strategy.OnRoomOutNotify += NotifyRoomOutPlayer;
+
+        WaitRoomOut_Strategy.OnRoomOut +=
 
         exitButton.onClick.AddListener(OnClickExit);
     }
@@ -134,8 +137,18 @@ public class WaitingRoomHandler : MonoBehaviour
         C_WaitingRoomOut roomOut = new C_WaitingRoomOut();
 
         NetworkManager.Instance.Send(roomOut);
+    }
 
-        lobbyController.SetEnableControl(isLobby: true, isWaitRoom: false);
+    public void Receive_WaitRoomOut(S_WaitingRoomOut message)
+    {
+        if (message.Result == EResultCode.ResultCodeSuccess)
+        {
+            lobbyController.SetEnableControl(isLobby: true, isWaitRoom: false);
+        }
+        else
+        {
+
+        }
     }
 
     private void SpawnCharacter(ulong playerId)
