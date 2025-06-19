@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool C_RequestAllRoomInfoHandler::Handle( PacketSessionPtr& session, Protocol::C_RequestAllRoomInfo& pkt )
+AtBool C_RequestAllRoomInfoHandler::Handle( PacketSessionPtr& session, C_RequestAllRoomInfo& pkt )
 {
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
@@ -28,18 +28,22 @@ AtBool C_RequestAllRoomInfoHandler::Handle( PacketSessionPtr& session, Protocol:
 
 	if ( !dynamic_cast< Lobby* >( curRoom.get() ) )
 	{
-		Protocol::S_RequestAllRoomInfo result;
-		result.set_result( Protocol::EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
+		S_RequestAllRoomInfo result;
+		result.set_result( EResultCode::RESULT_CODE_FAIL_ROOM_ENTER );
 		player->Send( result );
 		return false;
 	}
 
-	Protocol::S_RequestAllRoomInfo result;
-	result.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
+	GLobby->DoAsync(
+		[ player ]()
+		{
+			S_RequestAllRoomInfo result;
+			result.set_result( EResultCode::RESULT_CODE_SUCCESS );
 
-	WaitingRoomManager::GetInstance().ExportToAllRoomInfo( result );
+			WaitingRoomManager::GetInstance().ExportToAllRoomInfo( result );
 
-	player->Send( result );
+			player->Send( result );
+		} );
 
 	return true;
 }

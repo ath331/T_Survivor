@@ -95,13 +95,9 @@ WaitingRoomPtr WaitingRoomManager::GetRoom( AtInt32 roomNum )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid WaitingRoomManager::ExportToAllRoomInfo( S_RequestAllRoomInfo& s_requestAllRoomInfo )
 {
-	WaitingRoomMap cacheWaitingRoomMap;
-	{
-		WRITE_LOCK;
-		cacheWaitingRoomMap = m_waitingRoomMap;
-	}
+	WRITE_LOCK;
 
-	for ( const auto& [ roomNum, room ] : cacheWaitingRoomMap )
+	for ( const auto& [ roomNum, room ] : m_waitingRoomMap )
 	{
 		if ( !room )
 			continue;

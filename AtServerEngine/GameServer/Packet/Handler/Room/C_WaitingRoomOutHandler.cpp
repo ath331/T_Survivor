@@ -39,27 +39,28 @@ AtBool C_WaitingRoomOutHandler::Handle( PacketSessionPtr& session, C_WaitingRoom
 		player,
 		(Room::CallbackFunc)( [ room, player ]()
 							  {
-								  GLobby->DoAsync(
-									  [ player, room ]()
-									  {
-										  S_WaitingRoomOut result;
-										  result.set_result( EResultCode::RESULT_CODE_SUCCESS );
-										  player->Send( result );
+								  GLobby->HandleEnterPlayer( player );
 
-										  S_RequestRoomInfo refreshRoomInfo;
-										  refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
-										  room->ExportTo( *refreshRoomInfo.mutable_roominfo() );
+								  S_WaitingRoomOut result;
+								  result.set_result( EResultCode::RESULT_CODE_SUCCESS );
+								  player->Send( result );
 
-										  GLobby->Broadcast( refreshRoomInfo );
+								  if ( 0 < room->GetPlayerCount() )
+								  {
+									  S_WaitingRoomOutNotify notify;
+									  notify.mutable_player()->CopyFrom( *player->objectInfo );
+									  room->Broadcast( notify );
 
-										  GLobby->HandleEnterPlayer(
-											  player,
-											  (Room::CallbackFunc)( []() {} ) );
-									  } );
+									  GLobby->DoAsync(
+										  [ room, player ]()
+										  {
+											  S_RequestRoomInfo refreshRoomInfo;
+											  refreshRoomInfo.set_result( EResultCode::RESULT_CODE_SUCCESS );
+											  room->ExportTo( *refreshRoomInfo.mutable_roominfo() );
 
-								  S_WaitingRoomOutNotify notify;
-								  notify.mutable_player()->CopyFrom( *player->objectInfo );
-								  room->Broadcast( notify, player->GetId() );
+											  GLobby->Broadcast( refreshRoomInfo, player->GetId() );
+										  } );
+								  }
 							  } ) );
 
 	return true;
