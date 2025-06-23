@@ -166,6 +166,9 @@
     <ClInclude Include="Logic\Room\PlayRoomManager.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Room\ReadyManager.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Room\Room.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
@@ -409,6 +412,9 @@
       <Filter>Logic\Room</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Room\PlayRoomManager.cpp">
+      <Filter>Logic\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Room\ReadyManager.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Room\Room.cpp">

@@ -6,6 +6,7 @@
 #pragma once
 #include "Room.h"
 #include "CoreMacro.h"
+#include "ReadyManager.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,6 +32,10 @@ private:
 	/// 현재 상태
 	ERoomState m_state;
 
+private:
+	/// ReadyManager
+	ReadyManager m_readyManager;
+
 public:
 	/// 생성자
 	WaitingRoom(
@@ -46,6 +51,20 @@ public:
 
 	/// 방에 입장할 수 있는지 확인한다.
 	AtBool CheckEnterRoom() const;
+
+// ReadyManager
+public:
+	      ReadyManager& GetReadyManager()       = delete;
+	const ReadyManager& GetReadyManager() const = delete;
+
+	/// 플레이어 레디를 처리한다.
+	AtVoid ReadyPlayer( PlayerPtr player );
+
+	/// 플레이어 레디 취소를 처리한다.
+	AtVoid ReadyCanclePlayer( PlayerPtr player );
+
+	/// 모든 플레이어가 레디 상태인지 확인한다.
+	AtBool IsAllPlayerReady();
 
 // override Room
 protected:
