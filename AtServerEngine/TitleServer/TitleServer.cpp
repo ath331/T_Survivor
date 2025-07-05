@@ -61,9 +61,9 @@ AtInt32 main()
 	SetConsoleOutputCP( CP_UTF8 );
 #endif
 
-	if ( !Environment::Load( "../Binary/Release/GameServer.ini" ) )
+	if ( !Environment::Load( "../Binary/Release/TitleServer.ini" ) )
 	{
-		if ( !Environment::Load( "GameServer.ini" ) )
+		if ( !Environment::Load( "TitleServer.ini" ) )
 		{
 			WARNNING_LOG( "Failed to load config.ini" );
 			return -1;
@@ -74,21 +74,21 @@ AtInt32 main()
 	//ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\ProjectModels;Database=AtServer;Trusted_Connection=Yes;" ) );
 
 	// MySql
-	//if ( StringUtils::GetBool( Environment::Get( "DB_CONNECT" ) ) )
-	//{
-	//	AtString connect = std::format( "Driver={{MySQL ODBC 8.2 UNICODE Driver}};Server={};Port={};Database={};User={};Password={};",
-	//									Environment::Get( "DB_IP" ),
-	//									Environment::Get( "DB_PORT" ),
-	//									Environment::Get( "DB_NAME" ),
-	//									Environment::Get( "DB_USER" ),
-	//									Environment::Get( "DB_PW" ) );
-	//
-	//	ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::ConvertToWString( connect ).c_str() ) );
-	//
-	//	DBConnection* dbConn = GDBConnectionPool->Pop();
-	//	DBSynchronizer dbSync( *dbConn );
-	//	dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
-	//}
+	if ( StringUtils::GetBool( Environment::Get( "DB_CONNECT" ) ) )
+	{
+		AtString connect = std::format( "Driver={{MySQL ODBC 8.2 UNICODE Driver}};Server={};Port={};Database={};User={};Password={};",
+										Environment::Get( "DB_IP" ),
+										Environment::Get( "DB_PORT" ),
+										Environment::Get( "DB_NAME" ),
+										Environment::Get( "DB_USER" ),
+										Environment::Get( "DB_PW" ) );
+	
+		ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::ConvertToWString( connect ).c_str() ) );
+	
+		DBConnection* dbConn = GDBConnectionPool->Pop();
+		DBSynchronizer dbSync( DBSynchronizer::EType::Title, *dbConn );
+		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
+	}
 
 
 	ClientPacketHandler::Init();

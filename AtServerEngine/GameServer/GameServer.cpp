@@ -90,7 +90,7 @@ AtInt32 main()
 		ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::ConvertToWString( connect ).c_str() ) );
 
 		DBConnection* dbConn = GDBConnectionPool->Pop();
-		DBSynchronizer dbSync( *dbConn );
+		DBSynchronizer dbSync( DBSynchronizer::EType::Game, *dbConn );
 		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
 	}
 

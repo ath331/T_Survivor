@@ -1,32 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameDB>
-	<Table name="gold" desc="골드 테이블">
-    <Column name="id" type="int" notnull="true" identity="1,1" />
-		<Column name="gold" type="int" notnull="false" />
-		<Column name="name" type="varchar(50)" notnull="false" />
-		<Column name="createDate" type="datetime" notnull="false" />
+	<Table name="server" desc="서버 목록">
+    <Column name="name" type="varchar(50)" notnull="true" identity="1,1" />
+		<Column name="ip" type="varchar(50)" notnull="false" />
+		<Column name="port" type="int" notnull="false" />
 		<Index type="clustered">
 			<PrimaryKey/>
-			<Column name="id" />
+			<Column name="name" />
 		</Index>
 	</Table>
 
-	<Procedure name="spInsertGold">
-		<Param name="p_gold" type="int"/>
-		<Param name="p_name" type="varchar(50)"/>
-		<Param name="p_createDate" type="datetime"/>
+	<Procedure name="spGetServerList">
 		<Body>
 			<![CDATA[
-			INSERT INTO gold(gold, name, createDate) VALUES(p_gold, p_name, p_createDate);
-			]]>
-		</Body>		
-	</Procedure>
-	
-	<Procedure name="spGetGold">
-		<Param name="p_gold" type="int"/>
-		<Body>
-			<![CDATA[
-			SELECT id, gold, name, createDate FROM Gold WHERE gold = p_gold;
+			SELECT * FROM Server;
 			]]>
 		</Body>
 	</Procedure>
