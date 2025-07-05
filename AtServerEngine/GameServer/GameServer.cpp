@@ -78,7 +78,7 @@ AtInt32 main()
 	//ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\ProjectModels;Database=AtServer;Trusted_Connection=Yes;" ) );
 
 	// MySql
-	if ( Environment::Get( "DB_CONNECT" ) == "true" )
+	if ( StringUtils::GetBool( Environment::Get( "DB_CONNECT" ) ) )
 	{
 		AtString connect = std::format( "Driver={{MySQL ODBC 8.2 UNICODE Driver}};Server={};Port={};Database={};User={};Password={};",
 										Environment::Get( "DB_IP" ),

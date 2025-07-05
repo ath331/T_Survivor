@@ -54,3 +54,17 @@ AtInt64 StringUtils::GetAtInt64( AtString str )
 		return 0;
 	}
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief 문자열을 bool형으로 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool StringUtils::GetBool( AtString str )
+{
+	std::transform( str.begin(), str.end(), str.begin(),
+					[]( unsigned char c ) { return std::tolower( c ); } );
+
+	if ( str == "true" || str == "t" )
+		return true;
+
+	return false;
+}

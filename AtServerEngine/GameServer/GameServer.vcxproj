@@ -232,6 +232,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Room\Lobby.h" />
     <ClInclude Include="Logic\Room\PlayRoom.h" />
     <ClInclude Include="Logic\Room\PlayRoomManager.h" />
+    <ClInclude Include="Logic\Room\ReadyManager.h" />
     <ClInclude Include="Logic\Room\Room.h" />
     <ClInclude Include="Logic\Room\RoomTypes.h" />
     <ClInclude Include="Logic\Room\WaitingRoom.h" />
@@ -315,6 +316,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Room\Lobby.cpp" />
     <ClCompile Include="Logic\Room\PlayRoom.cpp" />
     <ClCompile Include="Logic\Room\PlayRoomManager.cpp" />
+    <ClCompile Include="Logic\Room\ReadyManager.cpp" />
     <ClCompile Include="Logic\Room\Room.cpp" />
     <ClCompile Include="Logic\Room\WaitingRoom.cpp" />
     <ClCompile Include="Logic\Room\WaitingRoomManager.cpp" />

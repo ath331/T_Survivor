@@ -50,7 +50,7 @@ namespace SP
 	class GetDBTables 
 		: 
 		// public DBBind<0, 13> SQL Server
-		public DBBind<0, 6> // MySql
+		public DBBind<0, 7> // MySql
 	{
 	public:
 		GetDBTables(DBConnection& conn) : DBBind(conn, QTablesAndColumns) {}
@@ -77,7 +77,7 @@ namespace SP
 		template<int32 N> void Out_ColumnType(OUT WCHAR(&value)[N]) { BindCol(3, value); }
 		template<int32 N> void Out_IsNullable( OUT WCHAR( &value )[ N ] ) { BindCol(4, value); }
 		void Out_DefaultValue(OUT int64& value) { BindCol(5, value); }
-		// void Out_IsIdentity(OUT bool& value) { BindCol(6, value); }
+		void Out_IsIdentity(OUT bool& value) { BindCol(6, value); }
 	};
 
 	// SQL Server
@@ -333,7 +333,7 @@ bool DBSynchronizer::GatherDBTables()
 	getDBTables.Out_ColumnType    ( OUT columnType     );
 	getDBTables.Out_IsNullable    ( OUT isNullable     );
 	getDBTables.Out_DefaultValue  ( OUT defaultValue   );
-	// getDBTables.Out_IsIdentity(OUT isIdentity);
+	getDBTables.Out_IsIdentity    ( OUT isIdentity     );
 
 	if ( !getDBTables.Execute() )
 		return false;
@@ -591,7 +591,11 @@ void DBSynchronizer::CompareDBModel()
 
 		for (DBModel::IndexPtr& xmlIndex : xmlTable->_indexes)
 		{
-			GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s %s [%s]\n", xmlTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->GetUniqueName().c_str());
+			// SQL Server
+			//GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s %s [%s]\n", xmlTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->GetUniqueName().c_str());
+			
+			//MySql
+			GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s [%s]\n", xmlTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetUniqueName().c_str());
 			if (xmlIndex->_primaryKey || xmlIndex->_uniqueConstraint)
 			{
 				// SQL Server
@@ -757,8 +761,9 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 		flag |= ColumnFlag::Length;
 	if (dbColumn->_nullable != xmlColumn->_nullable)
 		flag |= ColumnFlag::Nullable;
-	if (dbColumn->_identity != xmlColumn->_identity || (dbColumn->_identity && dbColumn->_incrementValue != xmlColumn->_incrementValue))
-		flag |= ColumnFlag::Identity;
+	// SQL Server
+	//if (dbColumn->_identity != xmlColumn->_identity || (dbColumn->_identity && dbColumn->_incrementValue != xmlColumn->_incrementValue))
+	//	flag |= ColumnFlag::Identity;
 	if (dbColumn->_default != xmlColumn->_default)
 		flag |= ColumnFlag::Default;
 
@@ -885,8 +890,9 @@ void DBSynchronizer::CompareStoredProcedures()
 			String xmlBody = xmlProcedure->GenerateCreateQuery();
 			if ( DBModel::Helpers::RemoveWhiteSpace( dbProcedure->_fullBody ) != DBModel::Helpers::RemoveWhiteSpace( xmlBody ) )
 			{
-				GConsoleLogger->WriteStdOut( Color::YELLOW, L"Delete Procedure : %s\n", dbProcedure->_name.c_str() );
-				_updateQueries[ UpdateStep::StoredProcecure ].push_back( xmlProcedure->GenerateDeleteQuery() );
+				//GConsoleLogger->WriteStdOut( Color::YELLOW, L"Delete Procedure : %s\n", dbProcedure->_name.c_str() );
+				//_updateQueries[ UpdateStep::StoredProcecure ].push_back( xmlProcedure->GenerateDeleteQuery() );
+				xmlProceduresMap.erase( findProcedure );
 			}
 		}
 	}

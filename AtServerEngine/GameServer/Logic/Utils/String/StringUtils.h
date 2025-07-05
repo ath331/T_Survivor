@@ -24,4 +24,7 @@ public:
 
 	/// 문자열을 int64형으로 반환한다.
 	static AtInt64 GetAtInt64( AtString str );
+
+	/// 문자열을 bool형으로 반환한다.
+	static AtBool GetBool( AtString str );
 };
