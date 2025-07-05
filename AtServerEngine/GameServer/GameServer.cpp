@@ -24,8 +24,8 @@
 
 
 #include "Logic/Room/Lobby.h"
-#include "Logic/Room/PlayRoomManager.h"
-
+#include "Logic/Room/WaitingRoomManager.h"
+#include "Logic/Utils/Time/AtTime.h"
 
 /// 프로세스 틱 이넘
 enum
@@ -57,7 +57,7 @@ void DoWorkerJob( ServerServicePtr& service )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief ServerMain 함수
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid main()
+AtInt32 main()
 {
 #ifdef _WIN32
 	SetConsoleOutputCP( CP_UTF8 );
@@ -68,7 +68,7 @@ AtVoid main()
 		if ( !Environment::Load( "GameServer.ini" ) )
 		{
 			WARNNING_LOG( "Failed to load config.ini" );
-			return;
+			return -1;
 		}
 	}
 
@@ -78,7 +78,7 @@ AtVoid main()
 	//ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\ProjectModels;Database=AtServer;Trusted_Connection=Yes;" ) );
 
 	// MySql
-	if ( Environment::Get( "DB_CONNECT" ) == "true" )
+	if ( StringUtils::GetBool( Environment::Get( "DB_CONNECT" ) ) )
 	{
 		AtString connect = std::format( "Driver={{MySQL ODBC 8.2 UNICODE Driver}};Server={};Port={};Database={};User={};Password={};",
 										Environment::Get( "DB_IP" ),
@@ -90,7 +90,7 @@ AtVoid main()
 		ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::ConvertToWString( connect ).c_str() ) );
 
 		DBConnection* dbConn = GDBConnectionPool->Pop();
-		DBSynchronizer dbSync( *dbConn );
+		DBSynchronizer dbSync( DBSynchronizer::EType::Game, *dbConn );
 		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
 	}
 
@@ -110,7 +110,7 @@ AtVoid main()
 	if ( !service->Start() )
 	{
 		WARNNING_LOG( AtString( "ERROR :" + std::to_string( WSAGetLastError() ) ) );
-		return;
+		return -1;
 	}
 
 	INFO_LOG_GREEN( ip + ":" + port + " Server Start." );
@@ -125,7 +125,11 @@ AtVoid main()
 			} );
 	}
 
-	GLobby->DoAsync( &Room::UpdateTick );
+	Millisecond curTime = AtTime::GetCurMillisecond();
+
+	GLobby->DoAsync( &Room::UpdateTick, curTime );
 
 	GThreadManager->Join();
+
+	return 0;
 }

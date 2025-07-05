@@ -61,8 +61,6 @@ public class MoveState : IPlayerState
 
             Vector3 velocity = targetDirection * moveSpeed;
             player.rb.velocity = new Vector3(velocity.x, player.rb.velocity.y, velocity.z);
-
-            player.Send_Move();
         }
         else
         {

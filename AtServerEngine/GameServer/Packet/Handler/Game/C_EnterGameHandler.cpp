@@ -7,6 +7,7 @@
 #include "C_EnterGameHandler.h"
 #include "Logic/Utils/Utils.h"
 #include "Logic/Utils/Log/AtLog.h"
+#include "Logic/Utils/Time/AtTime.h"
 #include "Logic/Utils/ObjectUtils.h"
 #include "Logic/Room/PlayRoom.h"
 #include "Logic/Room/PlayRoomManager.h"
@@ -17,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterGame& pkt )
+AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, C_EnterGame& pkt )
 {
 	auto gameSession = static_pointer_cast<GameSession>( session );
 	if ( !gameSession )
@@ -34,6 +35,8 @@ AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterG
 	PlayRoomPtr playRoom = PlayRoomManager::GetInstance().CreateRoom();
 	if ( !playRoom )
 		return false;
+
+	playRoom->UpdateTick( AtTime::GetCurMillisecond() );
 
 	room->ForeachPlayer(
 		[ playRoom ]( PlayerPtr eachPlayer )

@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
-using Cysharp.Threading.Tasks; 
+using Cysharp.Threading.Tasks;
+using System;
 
 public class ProgressBar : MonoBehaviour
 {

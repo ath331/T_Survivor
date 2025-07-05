@@ -179,23 +179,23 @@ def main():
 			print(eachHandler)
 
 		# RecvPacket name is 'C_'
-		for index, recvPacket in enumerate(parser.recv_pkt):
-
-			# MakeDictory ( isNoHave )
-			path = args.UnityNetworkPath + '/Packet/'+ recvPacket.path
-			if not os.path.exists(path):
-				os.makedirs(path)
-
-			# Make Packet.h ( isNoHave )
-			eachPacket = env.get_template('EachPackeInCS.h')
-			eachPacketRender = eachPacket.render(pkt=recvPacket)
-
-			if not os.path.exists(path + '/' +'Packet_' + recvPacket.name  +'.cs'):
-				f = open(path + '/' + 'Packet_' + recvPacket.name  +'.cs', 'w+')
-				f.write(eachPacketRender)
-				f.close()
-
-			print(eachPacketRender)
+		#for index, recvPacket in enumerate(parser.recv_pkt):
+		#
+		#	# MakeDictory ( isNoHave )
+		#	path = args.UnityNetworkPath + '/Packet/'+ recvPacket.path
+		#	if not os.path.exists(path):
+		#		os.makedirs(path)
+		#
+		#	# Make Packet.h ( isNoHave )
+		#	eachPacket = env.get_template('EachPackeInCS.h')
+		#	eachPacketRender = eachPacket.render(pkt=recvPacket)
+		#
+		#	if not os.path.exists(path + '/' +'Packet_' + recvPacket.name  +'.cs'):
+		#		f = open(path + '/' + 'Packet_' + recvPacket.name  +'.cs', 'w+')
+		#		f.write(eachPacketRender)
+		#		f.close()
+		#
+		#	print(eachPacketRender)
 
 ####################################################################################################
 

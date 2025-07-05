@@ -16,17 +16,6 @@ namespace Assets.Scripts.Network.Handler
 			EPacketId packetId = (EPacketId)( protocolId );
 			switch ( packetId )
 			{
-			case EPacketId.PKT_S_Login: { _Process_S_Login_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_EnterLobby: { _Process_S_EnterLobby_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_EnterGame: { _Process_S_EnterGame_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_EnterGameFinish: { _Process_S_EnterGameFinish_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_LeaveGame: { _Process_S_LeaveGame_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_Move: { _Process_S_Move_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_Spawn: { _Process_S_Spawn_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_DeSpawn: { _Process_S_DeSpawn_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_Chat: { _Process_S_Chat_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_WaitingRoomEnter: { _Process_S_WaitingRoomEnter_Handler( protocolId, data ); } break;
-			case EPacketId.PKT_S_AnimationEvent: { _Process_S_AnimationEvent_Handler( protocolId, data ); } break;
 			default:
 				{
 					Debug.LogWarning( $"Invalid Protocol ID : {protocolId}" );

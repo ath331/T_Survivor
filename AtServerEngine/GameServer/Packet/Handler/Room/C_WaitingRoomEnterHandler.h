@@ -14,5 +14,5 @@ class C_WaitingRoomEnterHandler
 {
 public:
 	// HandlerRun
-	static AtBool Handle( PacketSessionPtr& session, Protocol::C_WaitingRoomEnter& pkt );
+	static AtBool Handle( PacketSessionPtr& session, C_WaitingRoomEnter& pkt );
 };

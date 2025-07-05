@@ -19,11 +19,11 @@ String Column::CreateText()
 
 	// MySql
 	return DBModel::Helpers::Format(
-		L"%s %s %s",
+		L"%s %s %s %s",
 		_name.c_str(),
-		_typeText.c_str(),
-		_nullable ? L"NULL" : L"NOT NULL" );
-		// _identity ? L"AUTO_INCREMENT" : L"" );
+		_type.c_str(),
+		_nullable ? L"NULL" : L"NOT NULL",
+		/*_identity ? L"AUTO_INCREMENT" :*/ L"" );
 }
 
 /*-----------
@@ -36,7 +36,8 @@ String Index::GetUniqueName()
 
 	ret += _primaryKey ? L"PK " : L" ";
 	ret += _uniqueConstraint ? L"UK " : L" ";
-	ret += (_type == IndexType::Clustered ? L"C " : L"NC ");
+	// SQL Server
+	//ret += (_type == IndexType::Clustered ? L"C " : L"NC ");
 
 	for (const ColumnPtr& column : _columns)
 	{
@@ -140,8 +141,17 @@ BEGIN \
 	%s\
 END;";
 
+	const WCHAR* noParamQuery = L"\
+CREATE PROCEDURE %s ()\
+BEGIN \
+	%s\
+END;";
+
 	 String paramString = GenerateParamString();
-	 return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
+	 if ( paramString.empty() )
+		 return DBModel::Helpers::Format( noParamQuery, _name.c_str(), paramString.c_str(), _body.c_str() );
+
+	 return DBModel::Helpers::Format( query, _name.c_str(), paramString.c_str(), _body.c_str() );
 }
 
 String Procedure::GenerateAlterQuery()

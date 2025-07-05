@@ -28,11 +28,95 @@ message C_EnterLobby
 {
 }
 
-// path = Room
 message S_EnterLobby
 {
 	bool success = 1;
 	uint64 playerId = 2;
+}
+
+message C_WaitingRoomEnter
+{
+	RoomInfo roomInfo = 1;
+}
+
+message S_WaitingRoomEnter
+{
+	EResultCode result = 1;
+	RoomInfo roomInfo = 2;
+}
+
+message S_WaitingRoomEnterNotify
+{
+	ObjectInfo player = 1;
+}
+
+message C_MakeRoom
+{
+	RoomInfo roomInfo = 1;
+}
+
+message S_MakeRoom
+{
+	EResultCode result = 1;
+	RoomInfo madeRoomInfo = 2;
+}
+
+message S_DestroyRoom
+{
+	EResultCode result = 1;
+	RoomInfo roomInfo = 2;
+}
+
+message S_RequestRoomInfo
+{
+	EResultCode result = 1;
+	RoomInfo roomInfo = 2;
+}
+
+message C_RequestAllRoomInfo
+{
+}
+
+message S_RequestAllRoomInfo
+{
+	EResultCode result = 1;
+	repeated RoomInfo roomList = 2;
+}
+
+message C_WaitingRoomOut
+{
+}
+
+message S_WaitingRoomOut
+{
+	EResultCode result = 1;
+}
+
+message S_WaitingRoomOutNotify
+{
+	ObjectInfo player = 1;
+}
+
+message C_ChangeWaitingState
+{
+	EWaitingState state = 1;
+}
+
+message S_ChangeWaitingState
+{
+	EResultCode result = 1;
+	EWaitingState state = 2;
+}
+
+message S_ChangeWaitingStateNotify
+{
+	ObjectInfo player = 1;
+	EWaitingState state = 2;
+}
+
+message S_ChangeRoomLeaderNotify
+{
+	ObjectInfo player = 1;
 }
 
 // path = Game
@@ -107,20 +191,8 @@ message S_Chat
 	string msg = 2;
 }
 
-// path = Room
-message C_WaitingRoomEnter
-{
-	int32 roomNum = 1;
-}
-
-// path = Room
-message S_WaitingRoomEnter
-{
-	EResultCode result = 1;
-}
-
 // path = Anim
-message C_AnimationEvent 
+message C_AnimationEvent
 {
     string animationType = 1;
     EAnimationParamType paramType = 2;
@@ -129,7 +201,7 @@ message C_AnimationEvent
 }
 
 // path = Anim
-message S_AnimationEvent 
+message S_AnimationEvent
 {
 	EResultCode result = 1;
     uint64 playerId = 2;
@@ -137,4 +209,15 @@ message S_AnimationEvent
     EAnimationParamType paramType = 4;
     bool boolValue = 5;
 	float floatValue = 6;        // SetFloat ¿ë °ª
+}
+
+// path = Server
+message C_ServerListRead
+{
+}
+
+message S_ServerListRead
+{
+	EResultCode result = 1;
+    repeated ServerInfo serverInfoList = 2;
 }

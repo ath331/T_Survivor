@@ -14,5 +14,5 @@ class C_EnterLobbyHandler
 {
 public:
 	// HandlerRun
-	static AtBool Handle( PacketSessionPtr& session, Protocol::C_EnterLobby& pkt );
+	static AtBool Handle( PacketSessionPtr& session, C_EnterLobby& pkt );
 };

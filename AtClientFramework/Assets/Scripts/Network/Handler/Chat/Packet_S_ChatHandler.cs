@@ -16,7 +16,7 @@ namespace Assets.Scripts.Network.Handler
 		{
 			S_Chat message = S_Chat.Parser.ParseFrom( data );
 
-			Debug.Log( message.Msg );
+            PacketEventManager.Invoke(message);
         }
 	}
 }

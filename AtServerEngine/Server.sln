@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{ECAA245E-9
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DataGenerator", "Tools\DataGenerator\DataGenerator.pyproj", "{C219BC91-23F5-4AB4-9ADF-D161754282B5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TitleServer", "TitleServer\TitleServer.vcxproj", "{A0FC2265-8559-49B0-994B-10E91EC32EA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{C219BC91-23F5-4AB4-9ADF-D161754282B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C219BC91-23F5-4AB4-9ADF-D161754282B5}.Release|x64.ActiveCfg = Release|Any CPU
 		{C219BC91-23F5-4AB4-9ADF-D161754282B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Debug|Any CPU.Build.0 = Debug|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Debug|x64.ActiveCfg = Debug|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Debug|x64.Build.0 = Debug|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Debug|x86.ActiveCfg = Debug|Win32
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Debug|x86.Build.0 = Debug|Win32
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|Any CPU.ActiveCfg = Release|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|Any CPU.Build.0 = Release|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|x64.ActiveCfg = Release|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|x64.Build.0 = Release|x64
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|x86.ActiveCfg = Release|Win32
+		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

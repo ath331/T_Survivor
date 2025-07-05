@@ -26,6 +26,3 @@ protected:
 	/// 엑터 타입
 	Protocol::EActorType m_actorType;
 };
-
-// 포인터 타입 정의
-USING_SHARED_PTR( Actor );

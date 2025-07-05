@@ -5,8 +5,8 @@
 
 #include "pch.h"
 #include "AtLog.h"
-#include "Logic/Utils/Time/AtTime.h"
 #include "Logic/Utils/String/StringUtils.h"
+#include "Logic/Utils/Time/AtTime.h"
 #include <google/protobuf/util/json_util.h>
 
 
@@ -31,6 +31,17 @@ AtVoid AtLog::PrintMsg(
 AtVoid AtLog::PrintNoFileMsg( AtString msg, AtStringColor::EColor color )
 {
 	std::cout << "[ " << AtTime::GetCurTimeFormat() << " ] "  << msg << std::endl;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief PacketData 출력을 시도한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid AtLog::TryPrintPacketData( google::protobuf::Message& pkt )
+{
+	if ( !_CheckPrintPakcetType( pkt.GetTypeName() ) )
+		return;
+
+	PrintPacketData( pkt );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,4 +70,15 @@ const char* AtLog::extractFileName( const char* filePath )
 
 	// 경로 구분자가 있으면 그 다음 문자 반환, 없으면 전체 경로 반환
 	return fileName ? fileName + 1 : filePath;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief  패킷 출력을 하는 타입인지 확인한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool AtLog::_CheckPrintPakcetType( const AtString& packetType )
+{
+	if ( packetType == "Protocol.C_Move" ) return false;
+	if ( packetType == "Protocol.C_Chat" ) return false;
+
+	return true;
 }

@@ -16,7 +16,7 @@
 #define WARNNING_LOG( msg ) AtLog::PrintMsg( __FILE__, __LINE__, msg, AtStringColor::EColor::Red );
 
 #define INFO_LOG_NO_LINE( msg ) AtLog::PrintNoFileMsg( msg );
-#define PKT_LOG( pkt ) AtLog::PrintPacketData( pkt );
+#define PKT_LOG( pkt ) AtLog::TryPrintPacketData( pkt );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,10 +80,17 @@ public:
 	/// msg를 출력한다.
 	static AtVoid PrintNoFileMsg( AtString msg, AtStringColor::EColor color = AtStringColor::EColor::None );
 
+	/// PacketData 출력을 시도한다.
+	static AtVoid TryPrintPacketData( google::protobuf::Message& pkt );
+
 	/// PacketData를 출력한다.
 	static AtVoid PrintPacketData( google::protobuf::Message& pkt );
 
 private:
 	/// 파일 경로에서 파일 이름만 추출하는 함수
 	static const char* extractFileName( const char* filePath );
+
+private:
+	/// 패킷 출력을 하는 타입인지 확인한다.
+	static AtBool _CheckPrintPakcetType( const AtString& packetType );
 };

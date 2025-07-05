@@ -8,6 +8,9 @@
 #include "CoreMacro.h"
 
 
+class MonsterSpawnManager;
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif PlayRoom class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,7 +22,14 @@ public:
 	/// 생성자
 	PlayRoom();
 
+	/// 소멸자
+	virtual ~PlayRoom();
+
+private:
+	/// 몬스터 스폰 매니저
+	MonsterSpawnManager* m_monsterSpawnManager;
+
 public:
 	/// 룸을 업데이트한다.
-	virtual AtVoid UpdateTick() override;
+	AtVoid UpdateTick( Millisecond curTime ) override;
 };

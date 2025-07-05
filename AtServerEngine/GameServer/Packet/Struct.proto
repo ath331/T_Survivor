@@ -26,3 +26,20 @@ message ObjectInfo
 	EActorType actor_type = 4;
 	PosInfo pos_info = 5;
 }
+
+message RoomInfo
+{
+	int32 num = 1; // 번호
+	string name = 2; // 이름
+	int32 pw = 3; // 비밀번호
+	ERoomState room_state = 4; /// 상태
+	int32 cur_count = 5; // 현재 인원
+	int32 max_count = 6; // 최대 인원
+}
+
+message ServerInfo
+{
+	string name = 1; // 서버 이름
+	string ip   = 2; // 서버 아이피
+	int32  port = 3; // 서버 포트
+}

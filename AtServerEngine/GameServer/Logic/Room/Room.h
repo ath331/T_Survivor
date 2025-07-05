@@ -7,7 +7,10 @@
 #include "JobQueue.h"
 #include "CoreMacro.h"
 #include "Logic/Room/RoomTypes.h"
+#include "Logic/Object/ObjectTypes.h"
 #include "Logic/Object/Actor/Player/PlayerTypes.h"
+#include "Logic/Object/Actor/ActorTypes.h"
+#include "Logic/Object/Actor/Monster/MonsterTypes.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,11 +29,17 @@ public:
 
 private:
 	/// 방 번호
-	static std::atomic< AtInt32 > roomNum;
+	static std::atomic< AtInt32 > g_roomNum;
+
+	/// 방 번호
+	AtInt32 m_roomNum;
 
 protected:
 	/// Lock
 	USE_LOCK;
+
+	/// 가장 최근에 업데이트된 시간
+	Millisecond m_lastUpdateTickTime;
 
 public:
 	/// 생성자
@@ -42,11 +51,14 @@ public:
 	/// 플레이어를 방에 입장시킨다.
 	virtual AtBool HandleEnterPlayer( PlayerPtr player, CallbackFunc callback = nullptr );
 
+	/// 오브젝트를 소환한다.
+	virtual AtBool HandleSpawnObject( ObjectPtr object, CallbackFunc callback = nullptr );
+
 	/// 플레이어를 방에서 내보낸다.
-	AtBool HandleLeavePlayer( PlayerPtr player );
+	AtBool HandleLeavePlayer( PlayerPtr player, CallbackFunc callback = nullptr );
 
 	/// 플레이어의 움직임을 처리한다.
-	AtVoid HandlePlayerMove( Protocol::C_Move pkt );
+	AtVoid HandlePlayerMove( C_Move pkt );
 
 	/// 플레이어들을 순회한다.
 	AtVoid ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId = 0 );
@@ -55,18 +67,31 @@ public:
 	AtVoid SyncPlayers( PlayerPtr enterPlayer );
 
 	/// 룸 넘버를 반환한다.
-	AtInt32 GetRoomNum() { return roomNum; }
+	AtInt32 GetRoomNum() { return m_roomNum; }
 
 public:
 	/// Room객체를 반환한다.
 	RoomPtr GetPtr();
 
-public:
-	/// 룸을 업데이트한다.
-	virtual AtVoid UpdateTick();
+	/// 방 번호를 반환한다.
+	AtInt32 GetRoomNum() const;
+
+	/// 유저 수를 반환한다.
+	AtInt32 GetPlayerCount() const;
 
 	/// 룸의 모든 유저에게 브로드 캐스팅 한다.
 	AtVoid Broadcast( google::protobuf::Message& pkt, uint64 exceptId = 0 );
+
+public:
+	/// 룸을 업데이트한다.
+	virtual AtVoid UpdateTick( Millisecond curTime );
+
+	/// 정보를 내보낸다.
+	virtual AtVoid ExportTo( RoomInfo& roomInfo );
+
+private:
+	/// 오브젝트 리스트들을 초기화한다.
+	AtVoid _ResetObjectList();
 
 protected:
 	/// 오브젝트를 추가한다.
@@ -76,9 +101,16 @@ protected:
 	AtBool _RemoveObject( uint64 objectId );
 
 protected:
-	/// 모든 오브젝트 맵
+	/// 플레이어가 방에 입장한 다음 처리한다.
+	virtual AtVoid _OnPlayerEnter( PlayerPtr player ) {};
+
+protected:
+	/// 모든 오브젝트 컨테이너
 	unordered_map<uint64, ObjectPtr > m_objects;
 
-	/// 플레이어 맵
+	/// 플레이어 컨테이너
 	unordered_map<uint64, PlayerPtr > m_players;
+
+	/// 몬스터 컨테이너
+	unordered_map<uint64, MonsterPtr > m_monsters;
 };

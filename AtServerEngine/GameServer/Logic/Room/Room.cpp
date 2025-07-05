@@ -7,13 +7,15 @@
 #include "Room.h"
 #include "CoreMacro.h"
 #include "Logic/Object/Actor/Player/Player.h"
+#include "Logic/Object/Actor/Monster/Monster.h"
 #include "Logic/Utils/Log/AtLog.h"
+#include "Logic/Utils/Time/AtTime.h"
 #include "Lock.h"
 #include "Session/GameSession.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 
 
-std::atomic< AtInt32 > Room::roomNum( 0 );
+std::atomic< AtInt32 > Room::g_roomNum( 0 );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -21,7 +23,11 @@ std::atomic< AtInt32 > Room::roomNum( 0 );
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Room::Room()
 {
-	roomNum.fetch_add( 1 );
+	m_roomNum = g_roomNum.fetch_add( 1 ) + 1;
+
+	m_lastUpdateTickTime = AtTime::GetCurMillisecond();
+
+	_ResetObjectList();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +35,6 @@ Room::Room()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Room::~Room()
 {
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,6 +47,31 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player, CallbackFunc callback )
 	if ( !success )
 		return false;
 
+	_OnPlayerEnter( player );
+
+	if ( callback )
+		callback();
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 오브젝트를 소환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool Room::HandleSpawnObject( ObjectPtr object, CallbackFunc callback )
+{
+	AtBool success = _AddObject( object );
+
+	if ( !success )
+		return false;
+
+	Protocol::S_Spawn spawn;
+	spawn.set_result( Protocol::EResultCode::RESULT_CODE_SUCCESS );
+	auto objectInfo = spawn.add_objectlist();
+	objectInfo->CopyFrom( *object->objectInfo );
+
+	Broadcast( spawn );
+
 	if ( callback )
 		callback();
 
@@ -51,7 +81,7 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player, CallbackFunc callback )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 플레이어를 방에서 내보낸다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::HandleLeavePlayer( PlayerPtr player )
+AtBool Room::HandleLeavePlayer( PlayerPtr player, CallbackFunc callback )
 {
 	if ( player == nullptr )
 		return false;
@@ -59,24 +89,11 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 	const uint64 objectId = player->objectInfo->id();
 	bool success = _RemoveObject( objectId );
 	
-	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
-	{
-		Protocol::S_LeaveGame leaveGamePkt;
-	
-		if ( auto session = player->session.lock() )
-			session->Send( leaveGamePkt );
-	}
-	
-	// 퇴장 사실을 알린다
-	{
-		Protocol::S_DeSpawn despawnPkt;
-		despawnPkt.add_ids( objectId );
-	
-		Broadcast( despawnPkt, objectId );
-	
-		if ( auto session = player->session.lock() )
-			session->Send( despawnPkt );
-	}
+	if ( !success )
+		return false;
+
+	if ( callback )
+		callback();
 
 	return success;
 }
@@ -84,7 +101,7 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 플레이어의 움직임을 처리한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
+AtVoid Room::HandlePlayerMove( C_Move pkt )
 {
 	const AtInt64 id = pkt.objectinfo().id();
 	if ( m_objects.find( id ) == m_objects.end() )
@@ -97,7 +114,7 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 
 	player->posInfo->CopyFrom( pkt.objectinfo().pos_info() );
 
-	Protocol::S_Move movePkt;
+	S_Move movePkt;
 	auto* info =  movePkt.mutable_objectinfo();
 	info->CopyFrom( pkt.objectinfo() );
 
@@ -114,6 +131,9 @@ AtVoid Room::ForeachPlayer( CallbackPlayer callback, AtInt64 exceptId )
 	for ( const auto& [ playerId, player ] : m_players )
 	{
 		if ( !player )
+			continue;
+
+		if ( playerId == exceptId )
 			continue;
 
 		callback( player );
@@ -165,11 +185,22 @@ RoomPtr Room::GetPtr()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif Room객체를 반환한다.
+// @breif 방 번호를 반환한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::UpdateTick()
+AtInt32 Room::GetRoomNum() const
 {
-	DoAsync( &Room::UpdateTick );
+	return m_roomNum;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 유저 수를 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtInt32 Room::GetPlayerCount() const
+{
+	if ( m_players.empty() )
+		return 0;
+
+	return (AtInt32)( m_players.size() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,6 +225,35 @@ AtVoid Room::Broadcast( google::protobuf::Message& pkt, uint64 exceptId )
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif Room객체를 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::UpdateTick( Millisecond curTime )
+{
+	m_lastUpdateTickTime = curTime;
+
+	DoAsync( &Room::UpdateTick, AtTime::GetCurMillisecond() );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 정보를 내보낸다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::ExportTo( RoomInfo& roomInfo )
+{
+	roomInfo.set_num       ( GetRoomNum()     );
+	roomInfo.set_cur_count ( GetPlayerCount() );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 오브젝트 리스트들을 초기화한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::_ResetObjectList()
+{
+	m_objects.clear();
+	m_players.clear();
+	m_monsters.clear();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 오브젝트를 추가한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool Room::_AddObject( ObjectPtr object )
@@ -207,9 +267,13 @@ AtBool Room::_AddObject( ObjectPtr object )
 
 	object->room.store( GetPtr() );
 
-	if ( PlayerPtr player = std::dynamic_pointer_cast<Player>( object ) )
+	if ( PlayerPtr player = std::dynamic_pointer_cast< Player >( object ) )
 	{
 		m_players[ player->GetId() ] = player;
+	}
+	else if ( MonsterPtr monster = std::dynamic_pointer_cast< Monster >( object ) )
+	{
+		m_monsters[ monster->GetId() ] = monster;
 	}
 
 	return true;
@@ -233,8 +297,13 @@ AtBool Room::_RemoveObject( uint64 objectId )
 
 	m_objects.erase( objectId );
 
-	auto iter = m_players.find( objectId );
-	m_players.erase( iter );
+	auto pIter = m_players.find( objectId );
+	if ( pIter != m_players.end() )
+		m_players.erase( pIter );
+
+	auto mIter = m_monsters.find( objectId );
+	if ( mIter != m_monsters.end() )
+		m_monsters.erase( mIter );
 
 	return true;
 }

@@ -1,0 +1,31 @@
+using Protocol;
+using UnityEngine;
+
+public class Spawn_Strategy : IStrategy
+{
+    public Spawn_Strategy()
+    {
+        Register();
+    }
+
+    public void Register()
+    {
+        PacketEventManager.Subscribe<S_Spawn>(OnSpawnPacketReceived);
+    }
+
+    public void Unregister()
+    {
+        PacketEventManager.Unsubscribe<S_Spawn>(OnSpawnPacketReceived);
+    }
+
+    private void OnSpawnPacketReceived(S_Spawn message)
+    {
+        var playerInfos = message.ObjectList;
+
+        foreach (var playerInfo in playerInfos)
+        {
+            // 매니저에서 플레이어 생성 (중복 체크 포함)
+            PlayerListManager.Instance.ProcessSpawnHandler(playerInfo);
+        }
+    }
+}
