@@ -1,6 +1,7 @@
 using Protocol;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class EnterLobby_Strategy : IStrategy
 {
@@ -21,7 +22,14 @@ public class EnterLobby_Strategy : IStrategy
 
     private void OnEnterLobbyPacketReceived(S_EnterLobby message)
     {
-        if (message.Success)
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "Test_Game")
+        {
+            Debug.Log("[테스트씬] 전용 로직 실행");
+            MercuryHelper.LoginProcess(message.PlayerId).Forget();
+        }
+        else
         {
             GameSupervisor.Instance.Test_ToLobby(message.PlayerId).Forget();
         }
