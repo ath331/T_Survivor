@@ -36,4 +36,6 @@ enum class EPacketId : unsigned __int16
 	PKT_S_Chat = 1031,
 	PKT_C_AnimationEvent = 1032,
 	PKT_S_AnimationEvent = 1033,
+	PKT_C_ServerListRead = 1034,
+	PKT_S_ServerListRead = 1035,
 };

@@ -37,6 +37,7 @@ namespace Assets.Scripts.Network.Handler
 			case EPacketId.PKT_S_DeSpawn: { _Process_S_DeSpawn_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_Chat: { _Process_S_Chat_Handler( protocolId, data ); } break;
 			case EPacketId.PKT_S_AnimationEvent: { _Process_S_AnimationEvent_Handler( protocolId, data ); } break;
+			case EPacketId.PKT_S_ServerListRead: { _Process_S_ServerListRead_Handler( protocolId, data ); } break;
 			default:
 				{
 					Debug.LogWarning( $"Invalid Protocol ID : {protocolId}" );
