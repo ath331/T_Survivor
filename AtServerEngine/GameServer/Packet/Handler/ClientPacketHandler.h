@@ -27,6 +27,7 @@ bool Handle_C_LeaveGameTemplate(PacketSessionPtr& session, Protocol::C_LeaveGame
 bool Handle_C_MoveTemplate(PacketSessionPtr& session, Protocol::C_Move& pkt);
 bool Handle_C_ChatTemplate(PacketSessionPtr& session, Protocol::C_Chat& pkt);
 bool Handle_C_AnimationEventTemplate(PacketSessionPtr& session, Protocol::C_AnimationEvent& pkt);
+bool Handle_C_ServerListReadTemplate(PacketSessionPtr& session, Protocol::C_ServerListRead& pkt);
 
 class ClientPacketHandler
 {
@@ -48,6 +49,7 @@ public:
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_Move ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Move>(Handle_C_MoveTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_Chat ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Chat>(Handle_C_ChatTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_C_AnimationEvent ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_AnimationEvent>(Handle_C_AnimationEventTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_C_ServerListRead ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_ServerListRead>(Handle_C_ServerListReadTemplate, session, buffer, len); };
 	}
 
 	static bool HandlePacket(PacketSessionPtr& session, BYTE* buffer, int32 len)
@@ -82,6 +84,7 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 	else if ( packetTypeName == "Protocol.S_DeSpawn" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_DeSpawn ) );
 	else if ( packetTypeName == "Protocol.S_Chat" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_Chat ) );
 	else if ( packetTypeName == "Protocol.S_AnimationEvent" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_AnimationEvent ) );
+	else if ( packetTypeName == "Protocol.S_ServerListRead" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_ServerListRead ) );
 
 	return nullptr;
 }

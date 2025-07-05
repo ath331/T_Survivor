@@ -210,3 +210,14 @@ message S_AnimationEvent
     bool boolValue = 5;
 	float floatValue = 6;        // SetFloat ¿ë °ª
 }
+
+// path = Server
+message C_ServerListRead
+{
+}
+
+message S_ServerListRead
+{
+	EResultCode result = 1;
+    repeated ServerInfo serverInfoList = 2;
+}
