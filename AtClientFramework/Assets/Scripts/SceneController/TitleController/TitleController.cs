@@ -2,17 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using Assets.Scripts.Network;
+using Unity.VisualScripting;
+using UnityEngine.UIElements;
+using Toggle = UnityEngine.UI.Toggle;
 
 public class TitleController : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField inputIp;
-    [SerializeField] private TMP_InputField inputPort;
+    public Toggle toggleLocal;
+
+    bool isCheckLocal = true;
+
+    readonly string local_Ip = "127.0.0.1";
+    readonly string local_Port = "7777";
+
+    void Start()
+    {
+        toggleLocal.onValueChanged.AddListener(OnToggleLocalValueChanged);
+    }
 
     public void OnConnectedToServer()
     {
-        NetworkManager.Instance.ConnectToTcpServer(inputIp.text, inputPort.text);
+        if (isCheckLocal)
+        {
+            NetworkManager.Instance.ConnectToTcpServer(local_Ip, local_Port);
+
+            return;
+        }
+
+        NetworkManager.Instance.ConnectToTcpServer("", "");
+    }
+
+    void OnToggleLocalValueChanged(bool val)
+    {
+        isCheckLocal = val;
     }
 }
