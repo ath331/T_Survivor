@@ -1,0 +1,16 @@
+syntax = "proto3";
+package Protocol;
+
+
+option csharp_namespace = "Protocol";
+
+
+import "Enum.proto";
+
+
+message ServerInfo
+{
+	string name = 1; // 서버 이름
+	string ip   = 2; // 서버 아이피
+	int32  port = 3; // 서버 포트
+}
