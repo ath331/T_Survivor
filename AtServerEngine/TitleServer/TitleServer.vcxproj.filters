@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="DB\GenProcedures.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Core\Environment.h">
+      <Filter>Logic\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Core\Singleton.h">
+      <Filter>Logic\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Utils\Log\AtLog.h">
+      <Filter>Logic\Utils\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Utils\ObjectUtils.h">
+      <Filter>Logic\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Utils\String\StringUtils.h">
+      <Filter>Logic\Utils\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Utils\Time\AtTime.h">
+      <Filter>Logic\Utils\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Utils\Utils.h">
+      <Filter>Logic\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Enum.pb.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\ClientPacketHandler.h">
+      <Filter>Packet\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Login\CT_LoginHandler.h">
+      <Filter>Packet\Handler\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\PacketId.h">
+      <Filter>Packet\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Room\CT_EnterLobbyHandler.h">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Server\CT_ServerListReadHandler.h">
+      <Filter>Packet\Handler\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Protocol.pb.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Struct.pb.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="Session\TitleSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="Session\TitleSessionManager.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="Session\TitleSessionTypes.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Logic\Core\Environment.cpp">
+      <Filter>Logic\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Core\Singleton.cpp">
+      <Filter>Logic\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Utils\Log\AtLog.cpp">
+      <Filter>Logic\Utils\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Utils\ObjectUtils.cpp">
+      <Filter>Logic\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Utils\String\StringUtils.cpp">
+      <Filter>Logic\Utils\String</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Utils\Time\AtTime.cpp">
+      <Filter>Logic\Utils\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Utils\Utils.cpp">
+      <Filter>Logic\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\CT_EnterLobbyHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\CT_LoginHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\CT_ServerListReadHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Login\CT_LoginHandler.cpp">
+      <Filter>Packet\Handler\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Room\CT_EnterLobbyHandler.cpp">
+      <Filter>Packet\Handler\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Server\CT_ServerListReadHandler.cpp">
+      <Filter>Packet\Handler\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Session\TitleSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="Session\TitleSessionManager.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="TitleServer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="DB\TitleDB.xml">
+      <Filter>DB</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Packet\Enum.pb.cc">
+      <Filter>Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Protocol.pb.cc">
+      <Filter>Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Struct.pb.cc">
+      <Filter>Packet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Packet\Enum.proto">
+      <Filter>Packet</Filter>
+    </None>
+    <None Include="Packet\Protocol.proto">
+      <Filter>Packet</Filter>
+    </None>
+    <None Include="Packet\Struct.proto">
+      <Filter>Packet</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="DB">
+    </Filter>
+    <Filter Include="Debug">
+    </Filter>
+    <Filter Include="Logic">
+    </Filter>
+    <Filter Include="Logic\Core">
+    </Filter>
+    <Filter Include="Logic\Utils">
+    </Filter>
+    <Filter Include="Logic\Utils\Log">
+    </Filter>
+    <Filter Include="Logic\Utils\String">
+    </Filter>
+    <Filter Include="Logic\Utils\Time">
+    </Filter>
+    <Filter Include="Packet">
+    </Filter>
+    <Filter Include="Packet\Handler">
+    </Filter>
+    <Filter Include="Packet\Handler\Login">
+    </Filter>
+    <Filter Include="Packet\Handler\Room">
+    </Filter>
+    <Filter Include="Packet\Handler\Server">
+    </Filter>
+    <Filter Include="Session">
+    </Filter>
+    <Filter Include="x64">
+    </Filter>
+    <Filter Include="x64\Release">
+    </Filter>
+    <Filter Include="x64\Release\TitleServer.tlog">
+    </Filter>
+  </ItemGroup>
+</Project>

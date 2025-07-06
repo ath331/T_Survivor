@@ -1,1 +1,3 @@
-cmd/k call "ProjectGenerator.exe" ../../../GameServer/
+set Server=GameServer
+
+cmd/k call "ProjectGenerator.exe" ../../../%Server%/

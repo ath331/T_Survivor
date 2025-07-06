@@ -141,8 +141,17 @@ BEGIN \
 	%s\
 END;";
 
+	const WCHAR* noParamQuery = L"\
+CREATE PROCEDURE %s ()\
+BEGIN \
+	%s\
+END;";
+
 	 String paramString = GenerateParamString();
-	 return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
+	 if ( paramString.empty() )
+		 return DBModel::Helpers::Format( noParamQuery, _name.c_str(), paramString.c_str(), _body.c_str() );
+
+	 return DBModel::Helpers::Format( query, _name.c_str(), paramString.c_str(), _body.c_str() );
 }
 
 String Procedure::GenerateAlterQuery()
