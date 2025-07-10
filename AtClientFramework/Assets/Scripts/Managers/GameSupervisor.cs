@@ -24,7 +24,7 @@ public class GameSupervisor : SingletonMonoBehaviour<GameSupervisor>
 
     public async UniTask Test_ToLobby(ulong id)
     {
-        // MercuryHelper¸¦ ÅëÇØ mercuryId ¸¦ ºÎ¿© ¹Ş´Â´Ù.
+        // MercuryHelperï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ mercuryId ï¿½ï¿½ ï¿½Î¿ï¿½ ï¿½Ş´Â´ï¿½. ê¸°ì¡´ì— ìˆë˜ í•œê¸€ ì£¼ì„ì´ ë‹¤ ê¹¨ì¡Œì–´
         await MercuryHelper.LoginProcess(id);
 
         await SwitchSceneManager.Instance.ChangeTo("Lobby");

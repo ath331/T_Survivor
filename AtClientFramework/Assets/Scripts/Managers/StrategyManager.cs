@@ -23,6 +23,7 @@ public class StrategyManager
         strategies.Add(new RoomDestroy_Strategy());
         strategies.Add(new WaitRoomOutNotify_Strategy());
         strategies.Add(new WaitRoomOut_Strategy());
+        strategies.Add(new ServerListRead_Strategy());
     }
 
     // 필요 시 특정 전략 접근 및 관리 기능 추가
