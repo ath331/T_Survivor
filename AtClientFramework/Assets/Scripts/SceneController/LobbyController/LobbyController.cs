@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -54,31 +54,31 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     }
 
     /// <summary>
-    /// ¾À ³»ºÎ ÃÊ±âÈ­¸¦ ÁøÇàÇÕ´Ï´Ù.
+    /// ì”¬ ë‚´ë¶€ ì´ˆê¸°í™”ë¥¼ ì§„í–‰í•©ë‹ˆë‹¤.
     /// </summary>
     public async UniTask InitializeAsync(IProgress<float> progress)
     {
-        Debug.Log("LobbyScene ÃÊ±âÈ­ ½ÃÀÛ");
+        Debug.Log("LobbyScene ì´ˆê¸°í™” ì‹œì‘");
 
         float currentProgress = 0f;
 
-        // 1. ObjectPoolManager ÃÊ±âÈ­ (°¡ÁßÄ¡ 0.2)
+        // 1. ObjectPoolManager ì´ˆê¸°í™” (ê°€ì¤‘ì¹˜ 0.2)
         ObjectPoolManager.Instance.Initialize();
         currentProgress += 0.2f;
         progress.Report(currentProgress);
 
         await UniTask.Delay(100);
 
-        // 2. Lobby UI ¿¡¼Â ·Îµå (°¡ÁßÄ¡ 0.3)
+        // 2. Lobby UI ì—ì…‹ ë¡œë“œ (ê°€ì¤‘ì¹˜ 0.3)
         SetEnableControl(isLobby: false, isWaitRoom: false);
         currentProgress += 0.3f;
         progress.Report(currentProgress);
 
         await UniTask.Delay(100);
 
-        // 3. ³×Æ®¿öÅ© ¿¬°á/ÃÊ±âÈ­ (°¡ÁßÄ¡ 0.2)
+        // 3. ë„¤íŠ¸ì›Œí¬ ì—°ê²°/ì´ˆê¸°í™” (ê°€ì¤‘ì¹˜ 0.2)
 
-        // 4. Lobby µ¥ÀÌÅÍ ÃÊ±âÈ­ (°¡ÁßÄ¡ 0.3)
+        // 4. Lobby ë°ì´í„° ì´ˆê¸°í™” (ê°€ì¤‘ì¹˜ 0.3)
 
         lobbyHandler.gameObject.SetActive(true);
 
@@ -90,12 +90,12 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         currentProgress += 0.2f;
         progress.Report(currentProgress);
 
-        Debug.Log("LobbyScene ÃÊ±âÈ­ ¿Ï·á");
+        Debug.Log("LobbyScene ì´ˆê¸°í™” ì™„ë£Œ");
     }
 
     public void OnStartGameButtonClick()
     {
-        // Á¢¼ÓÁßÀÓÀ» ¾Ë¸®´Â ÆĞ³Î È°¼ºÈ­
+        // ì ‘ì†ì¤‘ì„ì„ ì•Œë¦¬ëŠ” íŒ¨ë„ í™œì„±í™”
         connectingPanel.SetActive(true);
 
         C_EnterGame pkt = new C_EnterGame();
@@ -104,14 +104,14 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     }
 
     /// <summary>
-    /// S_EnterGame ¼º°ø ÀÌº¥Æ® ÇÚµé·¯
+    /// S_EnterGame ì„±ê³µ ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
     /// </summary>
     private void HandleEnterGameSuccess()
     {
-        // Á¢¼ÓÁß ÆĞ³Î ºñÈ°¼ºÈ­
+        // ì ‘ì†ì¤‘ íŒ¨ë„ ë¹„í™œì„±í™”
         connectingPanel.SetActive(false);
 
-        // °ÔÀÓ ¾ÀÀ¸·Î ÀüÈ¯
+        // ê²Œì„ ì”¬ìœ¼ë¡œ ì „í™˜
         SwitchSceneManager.Instance.ChangeTo("Game").Forget();
     }
 
@@ -124,7 +124,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
-            Debug.Log("¹æµé¾î°¡±â ¼º°ø");
+            Debug.Log("ë°©ë“¤ì–´ê°€ê¸° ì„±ê³µ");
 
             SetEnableControl(isLobby: false, isWaitRoom: true);
 
@@ -132,7 +132,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            Debug.Log("¹æµé¾î°¡±â ½ÇÆĞ");
+            Debug.Log("ë°©ë“¤ì–´ê°€ê¸° ì‹¤íŒ¨");
 
         }
     }
@@ -141,7 +141,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
-            Debug.Log("¹æ¸¸µé±â ¼º°ø");
+            Debug.Log("ë°©ë§Œë“¤ê¸° ì„±ê³µ");
 
             SetEnableControl(isLobby: false, isWaitRoom: true);
 
@@ -151,7 +151,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            Debug.Log("¹æ¸¸µé±â ½ÇÆĞ");
+            Debug.Log("ë°©ë§Œë“¤ê¸° ì‹¤íŒ¨");
 
         }
     }

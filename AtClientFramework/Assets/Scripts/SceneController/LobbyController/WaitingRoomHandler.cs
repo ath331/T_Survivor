@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Network;
+using Assets.Scripts.Network.Handler;
 using Cysharp.Threading.Tasks;
 using Protocol;
 using TMPro;
@@ -18,6 +19,8 @@ public class PlayerInfo
     public ObjectInfo objectInfo;
 
     public PlayerController playerController;
+
+    public bool isReady;
 }
 
 public class WaitingRoomHandler : MonoBehaviour
@@ -29,6 +32,10 @@ public class WaitingRoomHandler : MonoBehaviour
     [SerializeField] private Transform[] spawnTransform;
 
     [SerializeField] private Button exitButton;
+
+    [SerializeField] private Button readyButton;
+
+    [SerializeField] private GameObject[] readyImages;
 
     // 생성된 캐릭터 인스턴스를 보관하는 리스트
     private List<PlayerInfo> playerInfos;
@@ -51,6 +58,8 @@ public class WaitingRoomHandler : MonoBehaviour
 
     private bool isExit = false;
 
+    // private bool isReady = false;
+
     void OnEnable()
     {
         WaitRoomOutNotify_Strategy.OnRoomOutNotify += NotifyRoomOutPlayer;
@@ -58,6 +67,11 @@ public class WaitingRoomHandler : MonoBehaviour
         WaitRoomOut_Strategy.OnRoomOut += Receive_WaitRoomOut;
 
         exitButton.onClick.AddListener(OnClickExit);
+
+        readyButton.onClick.AddListener(OnClickReady);
+
+        PacketEventManager.Subscribe<S_ChangeWaitingState>(OnReceiveChangeWaitingState);
+        PacketEventManager.Subscribe<S_ChangeWaitingStateNotify>(OnReceiveChangeWaitingStateNotify);
 
         isExit = false;
     }
@@ -73,6 +87,11 @@ public class WaitingRoomHandler : MonoBehaviour
         Destroy_AllCharacter();
 
         isRoomLeader = false;
+
+        readyButton.onClick.RemoveAllListeners();
+
+        PacketEventManager.Unsubscribe<S_ChangeWaitingState>(OnReceiveChangeWaitingState);
+        PacketEventManager.Unsubscribe<S_ChangeWaitingStateNotify>(OnReceiveChangeWaitingStateNotify);
     }
 
     public void IsOnRoomLeader()
@@ -106,6 +125,8 @@ public class WaitingRoomHandler : MonoBehaviour
     {
         SetRoomInfo(roomInfo);
 
+        IsOnRoomLeader();
+
         titleText.text = $"[{roomNumber}] {titleName}";
 
         playerInfos = new List<PlayerInfo>(max_count);
@@ -113,6 +134,8 @@ public class WaitingRoomHandler : MonoBehaviour
         for (int i = 0; i < max_count; i++)
         {
             playerInfos.Add(new PlayerInfo());  // 각 인덱스에 PlayerInfo 객체 추가
+
+            readyImages[i].SetActive(false);
         }
 
         spawnSlotsOccupied = new bool[max_count];
@@ -135,8 +158,41 @@ public class WaitingRoomHandler : MonoBehaviour
 
     public void OnClickReady()
     {
+        // 상태가 "게임 시작"이면 -> 시작 로직 실행
+        if (isRoomLeader && readyButton.GetComponentInChildren<TMP_Text>().text == "게임 시작")
+        {
+            Debug.Log("방장이 게임 시작을 눌렀습니다. 시작 패킷 전송 로직 작성 필요");
+            // 또는 다음 단계에 맞게 구현
+            readyButton.interactable = false;
+            return;
+        }
 
+        // 본인 PlayerInfo 가져오기
+        for (int i = 0; i < max_count; i++)
+        {
+            if (playerInfos[i].objectInfo.Id == MercuryHelper.mercuryId)
+            {
+                // 레디 상태 토글 후 서버에 전송
+                playerInfos[i].isReady = !playerInfos[i].isReady;
+
+                // 본인 자리 readyImage 즉시 반영
+                readyImages[i]?.SetActive(playerInfos[i].isReady);
+
+                // 버튼 텍스트도 즉시 반영
+                readyButton.GetComponentInChildren<TMP_Text>().text = playerInfos[i].isReady ? " 취 소" : "준 비";
+
+                // 패킷 전송
+                C_ChangeWaitingState packet = new C_ChangeWaitingState
+                {
+                    State = playerInfos[i].isReady ? EWaitingState.WaitingStateRaedy : EWaitingState.WaitingStateRaedyCancle
+                };
+
+                NetworkManager.Instance.Send(packet);
+                break;
+            }
+        }
     }
+
 
     private void OnClickExit()
     {
@@ -234,4 +290,73 @@ public class WaitingRoomHandler : MonoBehaviour
 
         ObjectPoolManager.Instance.Return(character.gameObject);
     }
+
+    private void OnReceiveChangeWaitingState(S_ChangeWaitingState message)
+    {
+        for (int i = 0; i < max_count; i++)
+        {
+            if (playerInfos[i].objectInfo.Id == MercuryHelper.mercuryId)
+            {
+                playerInfos[i].isReady = (message.State == EWaitingState.WaitingStateRaedy);
+                readyButton.GetComponentInChildren<TMP_Text>().text = playerInfos[i].isReady ? "취 소" : "준 비";
+
+                readyImages[i]?.SetActive(playerInfos[i].isReady);
+                break;
+            }
+        }
+
+        CheckAllPlayersReady();
+    }
+
+    private void OnReceiveChangeWaitingStateNotify(S_ChangeWaitingStateNotify message)
+    {
+        bool ready = (message.State == EWaitingState.WaitingStateRaedy);
+        
+        for (int i = 0; i < max_count; i++)
+        {
+            if (playerInfos[i].objectInfo.Id == message.Player.Id)
+            {
+                playerInfos[i].isReady = ready;
+                readyImages[i]?.SetActive(ready);
+                break;
+            }
+        }
+
+        CheckAllPlayersReady();
+    }
+
+    private void CheckAllPlayersReady()
+    {
+        
+        if (!isRoomLeader)
+            return;
+        
+        int readyCount = 0;
+
+        for (int i = 0; i < max_count; i++)
+        {
+            if (playerInfos[i].playerController != null && playerInfos[i].isReady)
+            {
+                readyCount++;
+                Debug.Log(readyCount);
+            }
+        }
+
+        if (readyCount == cur_count)
+        {
+            readyButton.GetComponentInChildren<TMP_Text>().text = "게임 시작";
+        }
+        else
+        {
+            for (int i = 0; i < max_count; i++)
+            {
+                if (playerInfos[i].objectInfo.Id == MercuryHelper.mercuryId)
+                {
+                    readyButton.GetComponentInChildren<TMP_Text>().text = playerInfos[i].isReady ? "취 소" : "준 비";
+                    break;
+                }
+            }
+        }
+    }
+    
 }
