@@ -58,7 +58,7 @@ public class WaitingRoomHandler : MonoBehaviour
 
     private bool isExit = false;
 
-    private bool isReady = false;
+    // private bool isReady = false;
 
     void OnEnable()
     {
@@ -167,29 +167,30 @@ public class WaitingRoomHandler : MonoBehaviour
             return;
         }
 
-        // 레디 상태 토글 후 서버에 전송
-        isReady = !isReady;
-
-        // 본인 자리 readyImage 즉시 반영
+        // 본인 PlayerInfo 가져오기
         for (int i = 0; i < max_count; i++)
         {
             if (playerInfos[i].objectInfo.Id == MercuryHelper.mercuryId)
             {
-                readyImages[i]?.SetActive(isReady);
+                // 레디 상태 토글 후 서버에 전송
+                playerInfos[i].isReady = !playerInfos[i].isReady;
+
+                // 본인 자리 readyImage 즉시 반영
+                readyImages[i]?.SetActive(playerInfos[i].isReady);
+
+                // 버튼 텍스트도 즉시 반영
+                readyButton.GetComponentInChildren<TMP_Text>().text = playerInfos[i].isReady ? " 취 소" : "준 비";
+
+                // 패킷 전송
+                C_ChangeWaitingState packet = new C_ChangeWaitingState
+                {
+                    State = playerInfos[i].isReady ? EWaitingState.WaitingStateRaedy : EWaitingState.WaitingStateRaedyCancle
+                };
+
+                NetworkManager.Instance.Send(packet);
                 break;
             }
         }
-
-        // 버튼 텍스트도 즉시 반영
-        readyButton.GetComponentInChildren<TMP_Text>().text = isReady ? "취 소" : "준 비";
-
-        // 패킷 전송
-        C_ChangeWaitingState packet = new C_ChangeWaitingState
-        {
-            State = isReady ? EWaitingState.WaitingStateRaedy : EWaitingState.WaitingStateRaedyCancle
-        };
-
-        NetworkManager.Instance.Send(packet);
     }
 
 
@@ -292,14 +293,14 @@ public class WaitingRoomHandler : MonoBehaviour
 
     private void OnReceiveChangeWaitingState(S_ChangeWaitingState message)
     {
-        isReady = (message.State == EWaitingState.WaitingStateRaedy);
-        readyButton.GetComponentInChildren<TMP_Text>().text = isReady ? "취 소" : "준 비";
-
         for (int i = 0; i < max_count; i++)
         {
             if (playerInfos[i].objectInfo.Id == MercuryHelper.mercuryId)
             {
-                readyImages[i]?.SetActive(isReady);
+                playerInfos[i].isReady = (message.State == EWaitingState.WaitingStateRaedy);
+                readyButton.GetComponentInChildren<TMP_Text>().text = playerInfos[i].isReady ? "취 소" : "준 비";
+
+                readyImages[i]?.SetActive(playerInfos[i].isReady);
                 break;
             }
         }
@@ -315,6 +316,7 @@ public class WaitingRoomHandler : MonoBehaviour
         {
             if (playerInfos[i].objectInfo.Id == message.Player.Id)
             {
+                playerInfos[i].isReady = ready;
                 readyImages[i]?.SetActive(ready);
                 break;
             }
@@ -325,17 +327,18 @@ public class WaitingRoomHandler : MonoBehaviour
 
     private void CheckAllPlayersReady()
     {
+        
         if (!isRoomLeader)
             return;
-
+        
         int readyCount = 0;
 
         for (int i = 0; i < max_count; i++)
         {
-            // 여긴 playerInfos에 들어있는 isReady가지고 체크할 것!
-            if (playerInfos[i].playerController != null && readyImages[i]?.activeSelf == true)
+            if (playerInfos[i].playerController != null && playerInfos[i].isReady)
             {
                 readyCount++;
+                Debug.Log(readyCount);
             }
         }
 
@@ -345,10 +348,14 @@ public class WaitingRoomHandler : MonoBehaviour
         }
         else
         {
-            if (isReady)
-                readyButton.GetComponentInChildren<TMP_Text>().text = "취 소";
-            else
-                readyButton.GetComponentInChildren<TMP_Text>().text = "준 비";
+            for (int i = 0; i < max_count; i++)
+            {
+                if (playerInfos[i].objectInfo.Id == MercuryHelper.mercuryId)
+                {
+                    readyButton.GetComponentInChildren<TMP_Text>().text = playerInfos[i].isReady ? "취 소" : "준 비";
+                    break;
+                }
+            }
         }
     }
     
