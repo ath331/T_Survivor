@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameDB>
+	<Table name="server" desc="서버 목록">
+    <Column name="name" type="varchar(50)" notnull="true" identity="1,1" />
+		<Column name="ip" type="varchar(50)" notnull="false" />
+		<Column name="port" type="int" notnull="false" />
+		<Index type="clustered">
+			<PrimaryKey/>
+			<Column name="name" />
+		</Index>
+	</Table>
+
+	<Procedure name="spGetServerList">
+		<Body>
+			<![CDATA[
+			SELECT * FROM Server;
+			]]>
+		</Body>
+	</Procedure>
+	
+</GameDB>

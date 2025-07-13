@@ -47,10 +47,30 @@ namespace SP
 				c.TABLE_NAME ASC,\
 				c.ORDINAL_POSITION ASC;";
 
+	const WCHAR* QTablesAndColumnsInTitle =
+		L"SELECT \
+			c.TABLE_NAME AS tableName,\
+			c.COLUMN_NAME AS columnName,\
+			c.ORDINAL_POSITION AS columnPosition,\
+			c.COLUMN_TYPE AS columnType,\
+			c.IS_NULLABLE AS isNullable,\
+			c.COLUMN_DEFAULT AS defaultValue,\
+		IF( c.EXTRA LIKE \'%auto_increment%\', 1, 0 ) AS isIdentity\
+		FROM\
+			INFORMATION_SCHEMA.COLUMNS AS c\
+			JOIN INFORMATION_SCHEMA.TABLES AS t\
+			ON c.TABLE_SCHEMA = t.TABLE_SCHEMA\
+			AND c.TABLE_NAME = t.TABLE_NAME\
+		WHERE\
+			t.TABLE_TYPE = 'BASE TABLE' AND c.TABLE_SCHEMA = 'atserver_title'\
+				ORDER BY\
+				c.TABLE_NAME ASC,\
+				c.ORDINAL_POSITION ASC;";
+
 	class GetDBTables 
 		: 
 		// public DBBind<0, 13> SQL Server
-		public DBBind<0, 6> // MySql
+		public DBBind<0, 7> // MySql
 	{
 	public:
 		GetDBTables(DBConnection& conn) : DBBind(conn, QTablesAndColumns) {}
@@ -77,7 +97,23 @@ namespace SP
 		template<int32 N> void Out_ColumnType(OUT WCHAR(&value)[N]) { BindCol(3, value); }
 		template<int32 N> void Out_IsNullable( OUT WCHAR( &value )[ N ] ) { BindCol(4, value); }
 		void Out_DefaultValue(OUT int64& value) { BindCol(5, value); }
-		// void Out_IsIdentity(OUT bool& value) { BindCol(6, value); }
+		void Out_IsIdentity(OUT bool& value) { BindCol(6, value); }
+	};
+
+	class GetTitleDBTables
+		:
+		public DBBind<0, 7>
+	{
+	public:
+		GetTitleDBTables( DBConnection& conn ) : DBBind( conn, QTablesAndColumnsInTitle ) {}
+
+		template<int32 N> void Out_TableName( OUT WCHAR( &value )[ N ] ) { BindCol( 0, value ); }
+		template<int32 N> void Out_ColumnName( OUT WCHAR( &value )[ N ] ) { BindCol( 1, value ); }
+		void Out_ColumnPosition( OUT int32& value ) { BindCol( 2, value ); }
+		template<int32 N> void Out_ColumnType( OUT WCHAR( &value )[ N ] ) { BindCol( 3, value ); }
+		template<int32 N> void Out_IsNullable( OUT WCHAR( &value )[ N ] ) { BindCol( 4, value ); }
+		void Out_DefaultValue( OUT int64& value ) { BindCol( 5, value ); }
+		void Out_IsIdentity( OUT bool& value ) { BindCol( 6, value ); }
 	};
 
 	// SQL Server
@@ -180,7 +216,11 @@ bool DBSynchronizer::Synchronize(const WCHAR* path)
 {
 	ParseXmlDB(path);
 
-	GatherDBTables();
+	if ( _type == EType::Game )
+		GatherDBTables();
+	else if ( _type == EType::Title )
+		GatherTitleDBTables();
+
 	GatherDBIndexes();
 	GatherDBStoredProcedures();
 
@@ -325,15 +365,15 @@ bool DBSynchronizer::GatherDBTables()
 	WCHAR isNullable[ 101 ] = { 0, };
 	bool isIdentity = false;
 	int64 defaultValue = 0;
-	
-	SP::GetDBTables getDBTables(_dbConn);
-	getDBTables.Out_TableName     ( OUT tableName      );
-	getDBTables.Out_ColumnName    ( OUT columnName     );
+
+	SP::GetDBTables getDBTables( _dbConn );
+	getDBTables.Out_TableName( OUT tableName );
+	getDBTables.Out_ColumnName( OUT columnName );
 	getDBTables.Out_ColumnPosition( OUT columnPosition );
-	getDBTables.Out_ColumnType    ( OUT columnType     );
-	getDBTables.Out_IsNullable    ( OUT isNullable     );
-	getDBTables.Out_DefaultValue  ( OUT defaultValue   );
-	// getDBTables.Out_IsIdentity(OUT isIdentity);
+	getDBTables.Out_ColumnType( OUT columnType );
+	getDBTables.Out_IsNullable( OUT isNullable );
+	getDBTables.Out_DefaultValue( OUT defaultValue );
+	getDBTables.Out_IsIdentity( OUT isIdentity );
 
 	if ( !getDBTables.Execute() )
 		return false;
@@ -383,6 +423,62 @@ bool DBSynchronizer::GatherDBTables()
 	// return true;
 
 	// MySql
+	while ( getDBTables.Fetch() )
+	{
+		DBModel::TablePtr table;
+
+		auto findTable = std::find_if( _dbTables.begin(), _dbTables.end(), [ = ]( const DBModel::TablePtr& table ) { return table->_name == tableName; } );
+		if ( findTable == _dbTables.end() )
+		{
+			table = MakeShared<DBModel::Table>();
+			table->_name = tableName;
+			_dbTables.push_back( table );
+		}
+		else
+		{
+			table = *findTable;
+		}
+
+		DBModel::ColumnPtr column = MakeShared<DBModel::Column>();
+		{
+			column->_name = columnName;
+			column->_type = columnType;
+			column->_columnId = columnPosition;
+
+			if ( wcscmp( isNullable, L"NO" ) == 0 )
+				column->_nullable = 0;
+			else
+				column->_nullable = 1;
+		}
+
+		table->_columns.push_back( column );
+	}
+
+	return true;
+}
+
+bool DBSynchronizer::GatherTitleDBTables()
+{
+	WCHAR tableName[ 101 ] = { 0, };
+	WCHAR columnName[ 101 ] = { 0, };
+	int32 columnPosition = 0;
+	WCHAR columnType[ 101 ] = { 0, };
+	WCHAR isNullable[ 101 ] = { 0, };
+	bool isIdentity = false;
+	int64 defaultValue = 0;
+	
+	SP::GetTitleDBTables getDBTables( _dbConn );
+	getDBTables.Out_TableName( OUT tableName );
+	getDBTables.Out_ColumnName( OUT columnName );
+	getDBTables.Out_ColumnPosition( OUT columnPosition );
+	getDBTables.Out_ColumnType( OUT columnType );
+	getDBTables.Out_IsNullable( OUT isNullable );
+	getDBTables.Out_DefaultValue( OUT defaultValue );
+	getDBTables.Out_IsIdentity( OUT isIdentity );
+
+	if ( !getDBTables.Execute() )
+		return false;
+
 	while ( getDBTables.Fetch() )
 	{
 		DBModel::TablePtr table;
@@ -591,7 +687,11 @@ void DBSynchronizer::CompareDBModel()
 
 		for (DBModel::IndexPtr& xmlIndex : xmlTable->_indexes)
 		{
-			GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s %s [%s]\n", xmlTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->GetUniqueName().c_str());
+			// SQL Server
+			//GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s %s [%s]\n", xmlTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->GetUniqueName().c_str());
+			
+			//MySql
+			GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s [%s]\n", xmlTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetUniqueName().c_str());
 			if (xmlIndex->_primaryKey || xmlIndex->_uniqueConstraint)
 			{
 				// SQL Server
@@ -757,8 +857,9 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 		flag |= ColumnFlag::Length;
 	if (dbColumn->_nullable != xmlColumn->_nullable)
 		flag |= ColumnFlag::Nullable;
-	if (dbColumn->_identity != xmlColumn->_identity || (dbColumn->_identity && dbColumn->_incrementValue != xmlColumn->_incrementValue))
-		flag |= ColumnFlag::Identity;
+	// SQL Server
+	//if (dbColumn->_identity != xmlColumn->_identity || (dbColumn->_identity && dbColumn->_incrementValue != xmlColumn->_incrementValue))
+	//	flag |= ColumnFlag::Identity;
 	if (dbColumn->_default != xmlColumn->_default)
 		flag |= ColumnFlag::Default;
 
@@ -885,8 +986,9 @@ void DBSynchronizer::CompareStoredProcedures()
 			String xmlBody = xmlProcedure->GenerateCreateQuery();
 			if ( DBModel::Helpers::RemoveWhiteSpace( dbProcedure->_fullBody ) != DBModel::Helpers::RemoveWhiteSpace( xmlBody ) )
 			{
-				GConsoleLogger->WriteStdOut( Color::YELLOW, L"Delete Procedure : %s\n", dbProcedure->_name.c_str() );
-				_updateQueries[ UpdateStep::StoredProcecure ].push_back( xmlProcedure->GenerateDeleteQuery() );
+				//GConsoleLogger->WriteStdOut( Color::YELLOW, L"Delete Procedure : %s\n", dbProcedure->_name.c_str() );
+				//_updateQueries[ UpdateStep::StoredProcecure ].push_back( xmlProcedure->GenerateDeleteQuery() );
+				xmlProceduresMap.erase( findProcedure );
 			}
 		}
 	}

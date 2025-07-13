@@ -232,6 +232,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Room\Lobby.h" />
     <ClInclude Include="Logic\Room\PlayRoom.h" />
     <ClInclude Include="Logic\Room\PlayRoomManager.h" />
+    <ClInclude Include="Logic\Room\ReadyManager.h" />
     <ClInclude Include="Logic\Room\Room.h" />
     <ClInclude Include="Logic\Room\RoomTypes.h" />
     <ClInclude Include="Logic\Room\WaitingRoom.h" />
@@ -258,6 +259,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.h" />
     <ClInclude Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.h" />
     <ClInclude Include="Packet\Handler\Room\C_WaitingRoomOutHandler.h" />
+    <ClInclude Include="Packet\Handler\Server\C_ServerListReadHandler.h" />
     <ClInclude Include="Packet\Protocol.pb.h" />
     <ClInclude Include="Packet\Struct.pb.h" />
     <ClInclude Include="pch.h" />
@@ -315,6 +317,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Room\Lobby.cpp" />
     <ClCompile Include="Logic\Room\PlayRoom.cpp" />
     <ClCompile Include="Logic\Room\PlayRoomManager.cpp" />
+    <ClCompile Include="Logic\Room\ReadyManager.cpp" />
     <ClCompile Include="Logic\Room\Room.cpp" />
     <ClCompile Include="Logic\Room\WaitingRoom.cpp" />
     <ClCompile Include="Logic\Room\WaitingRoomManager.cpp" />
@@ -339,6 +342,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Packet\Handler\C_MakeRoomHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_MoveHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_RequestAllRoomInfoHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\C_ServerListReadHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_WaitingRoomEnterHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_WaitingRoomOutHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\Game\C_EnterGameFinishHandler.cpp" />
@@ -351,6 +355,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Packet\Handler\Room\C_RequestAllRoomInfoHandler.cpp" />
     <ClCompile Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.cpp" />
     <ClCompile Include="Packet\Handler\Room\C_WaitingRoomOutHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Server\C_ServerListReadHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

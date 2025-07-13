@@ -166,6 +166,9 @@
     <ClInclude Include="Logic\Room\PlayRoomManager.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Room\ReadyManager.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Room\Room.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
@@ -243,6 +246,9 @@
     </ClInclude>
     <ClInclude Include="Packet\Handler\Room\C_WaitingRoomOutHandler.h">
       <Filter>Packet\Handler\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Server\C_ServerListReadHandler.h">
+      <Filter>Packet\Handler\Server</Filter>
     </ClInclude>
     <ClInclude Include="Packet\Protocol.pb.h">
       <Filter>Packet</Filter>
@@ -411,6 +417,9 @@
     <ClCompile Include="Logic\Room\PlayRoomManager.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Room\ReadyManager.cpp">
+      <Filter>Logic\Room</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\Room\Room.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
@@ -483,6 +492,9 @@
     <ClCompile Include="Packet\Handler\C_RequestAllRoomInfoHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_ServerListReadHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_WaitingRoomEnterHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
@@ -518,6 +530,9 @@
     </ClCompile>
     <ClCompile Include="Packet\Handler\Room\C_WaitingRoomOutHandler.cpp">
       <Filter>Packet\Handler\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Server\C_ServerListReadHandler.cpp">
+      <Filter>Packet\Handler\Server</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>..\..\..\GameServer</Filter>
@@ -616,6 +631,8 @@
     <Filter Include="Packet\Handler\Login">
     </Filter>
     <Filter Include="Packet\Handler\Room">
+    </Filter>
+    <Filter Include="Packet\Handler\Server">
     </Filter>
     <Filter Include="Packet\Handler\Test">
     </Filter>

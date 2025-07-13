@@ -7,6 +7,11 @@ using Google.Protobuf.WellKnownTypes;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [Header("송신 설정")]
+    [Tooltip("위치 패킷을 보낼 최소 간격 (초)")]
+    [SerializeField] float sendInterval = 0.1f;
+
     [Header("이동 설정")]
     public float moveSpeed = 5f;
     public Rigidbody rb { get; private set; }
@@ -14,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("정보 설정")]
     public WeaponController weapon; // 일단 대충.. 나중에 지울것
+    public NetworkPlayerTransform networkPlayerTransform { get; private set; }
     public IJob CurrentJob { get; private set; }
     public IWeapon EquippedWeapon { get; private set; }
     public List<Skill> Skills { get; private set; } = new List<Skill>();
@@ -26,10 +32,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
+    float sendTimer;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        networkPlayerTransform = GetComponent<NetworkPlayerTransform>();
 
         // 초기 상태를 IdleState로 설정
         ChangeState(new IdleState());
@@ -47,10 +56,9 @@ public class PlayerController : MonoBehaviour
 
             // state update
             currentState.UpdateState();
-        }
-        else
-        {
 
+            // send move packet
+            Send_Move();
         }
     }
 
@@ -60,10 +68,6 @@ public class PlayerController : MonoBehaviour
         {
             // physics update
             currentState.FixedUpdateState();
-        }
-        else
-        {
-            Sync_Move();
         }
     }
 
@@ -92,24 +96,31 @@ public class PlayerController : MonoBehaviour
     {
         if (!IsLocalPlayer) return;
 
-        C_Move pkt = new C_Move
+        // sendInterval 마다 위치 패킷 전송
+        sendTimer += Time.deltaTime;
+        if (sendTimer >= sendInterval)
         {
-            ObjectInfo = new ObjectInfo
+            C_Move pkt = new C_Move
             {
-                Id = MercuryHelper.mercuryId,
-
-                PosInfo = new PosInfo
+                ObjectInfo = new ObjectInfo
                 {
-                    X = transform.position.x,
-                    Y = transform.position.y,
-                    Z = transform.position.z,
+                    Id = MercuryHelper.mercuryId,
 
-                    Yaw = transform.eulerAngles.y // (0 ~ 360)
+                    PosInfo = new PosInfo
+                    {
+                        X = transform.position.x,
+                        Y = transform.position.y,
+                        Z = transform.position.z,
+
+                        Yaw = transform.eulerAngles.y // (0 ~ 360)
+                    }
                 }
-            }
-        };
+            };
 
-        NetworkManager.Instance.Send(pkt);
+            NetworkManager.Instance.Send(pkt);
+
+            sendTimer = 0f;
+        }
     }
 
     public void Send_Anim<T>(EAnimationParamType paramType, string animationType, T value = default)
@@ -143,37 +154,6 @@ public class PlayerController : MonoBehaviour
         }
 
         NetworkManager.Instance.Send(pkt);
-    }
-
-    /// <summary>
-    /// 네트워크에서 받은 위치 업데이트 (다른 플레이어 전용)
-    /// </summary>
-    public void Receive_Position(Vector3 newPosition, float newYaw)
-    {
-        if (IsLocalPlayer) return;
-
-        targetPosition = newPosition;
-        targetRotation = Quaternion.Euler(0, newYaw, 0);
-    }
-
-    /// <summary>
-    /// 다른 플레이어의 위치를 서버 데이터로 부드럽게 보간 이동
-    /// </summary>
-    public void Sync_Move()
-    {
-        if (IsLocalPlayer) return;
-
-        // Rigidbody가 있을 경우 MovePosition 사용
-        if (rb != null)
-        {
-            rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * 10f));
-            rb.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 20f)); // 회전 보간
-        }
-        else
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * 10f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 20f); // 회전 보간
-        }
     }
 
     public void Receive_Animation(string animationType, EAnimationParamType paramType, bool boolValue)

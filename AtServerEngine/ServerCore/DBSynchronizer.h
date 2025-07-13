@@ -38,14 +38,24 @@ class DBSynchronizer
 	};
 
 public:
-	DBSynchronizer(DBConnection& conn) : _dbConn(conn) { }
+	enum class EType : uint8
+	{
+		Title = 1,
+		Game  = 2,
+	};
+
+public:
+	DBSynchronizer( EType type, DBConnection& conn ) : _type( type ), _dbConn( conn ) {}
 	~DBSynchronizer();
 
 	bool		Synchronize(const WCHAR* path);
 
 private:
 	void		ParseXmlDB(const WCHAR* path);
+
 	bool		GatherDBTables();
+	bool		GatherTitleDBTables();
+
 	bool		GatherDBIndexes();
 	bool		GatherDBStoredProcedures();
 
@@ -57,7 +67,8 @@ private:
 	void		ExecuteUpdateQueries();
 
 private:
-	DBConnection& _dbConn;
+	EType                               _type;
+	DBConnection&                       _dbConn;
 
 	Vector<DBModel::TablePtr>			_xmlTables;
 	Vector<DBModel::ProcedurePtr>		_xmlProcedures;

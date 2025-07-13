@@ -21,16 +21,15 @@ public class Move_Strategy : IStrategy
 
     private void OnMovePacketReceived(S_Move message)
     {
+        if (!PlayerListManager.Instance.TryGetPlayer(message.ObjectInfo.Id, out var player)) return;
+        if (player.IsLocalPlayer) return;
+
         ulong playerId = message.ObjectInfo.Id;
+
         Vector3 newPosition = new Vector3(message.ObjectInfo.PosInfo.X, message.ObjectInfo.PosInfo.Y, message.ObjectInfo.PosInfo.Z);
+        
         float newYaw = message.ObjectInfo.PosInfo.Yaw;
 
-        if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
-        {
-            if (!player.IsLocalPlayer)
-            {
-                player.Receive_Position(newPosition, newYaw);
-            }
-        }
+        player.networkPlayerTransform.SetTarget(newPosition, newYaw);
     }
 }
