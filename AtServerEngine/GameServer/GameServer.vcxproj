@@ -84,13 +84,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(SolutionDir)Network\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(SolutionDir)Network\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
@@ -148,6 +148,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
@@ -171,6 +172,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
@@ -243,7 +245,6 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Utils\String\StringUtils.h" />
     <ClInclude Include="Logic\Utils\Time\AtTime.h" />
     <ClInclude Include="Logic\Utils\Utils.h" />
-    <ClInclude Include="Packet\Enum.pb.h" />
     <ClInclude Include="Packet\Handler\Actor\C_MoveHandler.h" />
     <ClInclude Include="Packet\Handler\Anim\C_AnimationEventHandler.h" />
     <ClInclude Include="Packet\Handler\Chat\C_ChatHandler.h" />
@@ -260,8 +261,6 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Packet\Handler\Room\C_WaitingRoomEnterHandler.h" />
     <ClInclude Include="Packet\Handler\Room\C_WaitingRoomOutHandler.h" />
     <ClInclude Include="Packet\Handler\Server\C_ServerListReadHandler.h" />
-    <ClInclude Include="Packet\Protocol.pb.h" />
-    <ClInclude Include="Packet\Struct.pb.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Session\GameSession.h" />
     <ClInclude Include="Session\GameSessionManager.h" />
@@ -367,25 +366,6 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DB\GameDB.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Packet\Enum.pb.cc">
-        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Packet\Protocol.pb.cc">
-        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Packet\Struct.pb.cc">
-        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Packet\Enum.proto" />
-    <None Include="Packet\Protocol.proto" />
-    <None Include="Packet\Struct.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
