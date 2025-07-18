@@ -43,9 +43,6 @@
     <ClInclude Include="Packet\Enum.pb.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="Packet\PacketId.h">
-      <Filter>Packet</Filter>
-    </ClInclude>
     <ClInclude Include="Packet\Protocol.pb.h">
       <Filter>Packet</Filter>
     </ClInclude>

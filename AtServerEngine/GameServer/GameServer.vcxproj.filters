@@ -223,9 +223,6 @@
     <ClInclude Include="Packet\Handler\Login\C_LoginHandler.h">
       <Filter>Packet\Handler\Login</Filter>
     </ClInclude>
-    <ClInclude Include="Packet\Handler\PacketId.h">
-      <Filter>Packet\Handler</Filter>
-    </ClInclude>
     <ClInclude Include="Packet\Handler\Room\C_ChangeWaitingStateHandler.h">
       <Filter>Packet\Handler\Room</Filter>
     </ClInclude>
@@ -246,6 +243,9 @@
     </ClInclude>
     <ClInclude Include="Packet\Handler\Server\C_ServerListReadHandler.h">
       <Filter>Packet\Handler\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\PacketId.h">
+      <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="Session\GameSession.h">
       <Filter>Session</Filter>

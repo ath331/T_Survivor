@@ -150,7 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Packet\Enum.pb.h" />
-    <ClInclude Include="Packet\PacketId.h" />
     <ClInclude Include="Packet\Protocol.pb.h" />
     <ClInclude Include="Packet\Struct.pb.h" />
   </ItemGroup>
