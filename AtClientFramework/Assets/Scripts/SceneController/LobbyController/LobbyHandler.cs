@@ -17,11 +17,11 @@ public class LobbyHandler : MonoBehaviour
 
     public void OnEnable()
     {
-        RequestRoom_Strategy.OnRequestRoom += CreateRoomHolder;
+        PacketEventManager.Subscribe<S_RequestRoomInfo>(CreateRoomHolder);
 
-        RequestAllRoom_Strategy.OnRequestAllRoom += ShowRoom;
+        PacketEventManager.Subscribe<S_RequestAllRoomInfo>(ShowRoom);
 
-        RoomDestroy_Strategy.OnRoomDestroyReceived += DestroyRoom;
+        PacketEventManager.Subscribe<S_DestroyRoom>(DestroyRoom);
 
         roomHolders = new List<RoomHolder>();
 
@@ -35,11 +35,11 @@ public class LobbyHandler : MonoBehaviour
 
     public void OnDisable()
     {
-        RequestRoom_Strategy.OnRequestRoom -= CreateRoomHolder;
+        PacketEventManager.Unsubscribe<S_RequestRoomInfo>(CreateRoomHolder);
 
-        RequestAllRoom_Strategy.OnRequestAllRoom -= ShowRoom;
+        PacketEventManager.Unsubscribe<S_RequestAllRoomInfo>(ShowRoom);
 
-        RoomDestroy_Strategy.OnRoomDestroyReceived -= DestroyRoom;
+        PacketEventManager.Unsubscribe<S_DestroyRoom>(DestroyRoom);
 
         exitButton.onClick.RemoveAllListeners();
 
