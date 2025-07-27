@@ -33,24 +33,24 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     private void OnEnable()
     {
-        EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
+        PacketEventManager.Subscribe<S_EnterGame>(HandleEnterGameSuccess);
 
-        RoomCreate_Strategy.OnRoomCreateReceived += CreateRoom;
+        PacketEventManager.Subscribe<S_MakeRoom>(CreateRoom);
 
-        WaitRoomEnter_Strategy.OnEnterRoom += EnterRoom;
+        PacketEventManager.Subscribe<S_WaitingRoomEnter>(EnterRoom);
 
-        WaitRoomNotify_Strategy.OnNotify += NotifyPlayer;
+        PacketEventManager.Subscribe<S_WaitingRoomEnterNotify>(NotifyPlayer);
     }
 
     private void OnDisable()
     {
-        EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
+        PacketEventManager.Unsubscribe<S_EnterGame>(HandleEnterGameSuccess);
 
-        RoomCreate_Strategy.OnRoomCreateReceived -= CreateRoom;
+        PacketEventManager.Unsubscribe<S_MakeRoom>(CreateRoom);
 
-        WaitRoomEnter_Strategy.OnEnterRoom -= EnterRoom;
+        PacketEventManager.Unsubscribe<S_WaitingRoomEnter>(EnterRoom);
 
-        WaitRoomNotify_Strategy.OnNotify -= NotifyPlayer;
+        PacketEventManager.Unsubscribe<S_WaitingRoomEnterNotify>(NotifyPlayer);
     }
 
     /// <summary>
@@ -106,13 +106,21 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     /// <summary>
     /// S_EnterGame 성공 이벤트 핸들러
     /// </summary>
-    private void HandleEnterGameSuccess()
+    private void HandleEnterGameSuccess(S_EnterGame message)
     {
-        // 접속중 패널 비활성화
-        connectingPanel.SetActive(false);
+        if (message.Result == EResultCode.ResultCodeSuccess)
+        {
+            // 접속중 패널 비활성화
+            connectingPanel.SetActive(false);
 
-        // 게임 씬으로 전환
-        SwitchSceneManager.Instance.ChangeTo("Game").Forget();
+            // 게임 씬으로 전환
+            SwitchSceneManager.Instance.ChangeTo("Game").Forget();
+        }
+        else
+        {
+            // 실패 시 추가 처리 가능 (예: 에러 메시지 UI 표시)
+            Debug.LogWarning("S_EnterGame: Failure response received.");
+        }
     }
 
     public void NotifyPlayer(S_WaitingRoomEnterNotify message)

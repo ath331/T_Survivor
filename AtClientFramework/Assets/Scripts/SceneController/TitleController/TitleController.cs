@@ -11,6 +11,8 @@ using UnityEngine.UIElements;
 using Toggle = UnityEngine.UI.Toggle;
 using Protocol;
 using System.Linq;
+using UnityEditor.VersionControl;
+using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour
 {
@@ -48,12 +50,14 @@ public class TitleController : MonoBehaviour
 
     private void OnEnable()
     {
-        ServerListRead_Strategy.OnServerListRead += Receive_ServerListRead;
+        PacketEventManager.Subscribe<S_ServerListRead>(Receive_ServerListRead);
+        PacketEventManager.Subscribe<S_EnterLobby>(Receive_EnterLobby);
     }
 
     private void OnDisable()
     {
-        ServerListRead_Strategy.OnServerListRead -= Receive_ServerListRead;
+        PacketEventManager.Unsubscribe<S_ServerListRead>(Receive_ServerListRead);
+        PacketEventManager.Unsubscribe<S_EnterLobby>(Receive_EnterLobby);
     }
 
     public void OnConnectedToServer()
@@ -106,6 +110,21 @@ public class TitleController : MonoBehaviour
             // Dropdown 초기화 및 채우기
             dropdownServerList.ClearOptions();
             dropdownServerList.AddOptions(cachedServerList.Select(data => data.Name).ToList());
+        }
+    }
+
+    public void Receive_EnterLobby(S_EnterLobby message)
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "Test_Game")
+        {
+            Debug.Log("[테스트씬] 전용 로직 실행");
+            MercuryHelper.LoginProcess(message.PlayerId).Forget();
+        }
+        else
+        {
+            GameSupervisor.Instance.Test_ToLobby(message.PlayerId).Forget();
         }
     }
 }
