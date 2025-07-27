@@ -161,9 +161,9 @@ public class WaitingRoomHandler : MonoBehaviour
         // 상태가 "게임 시작"이면 -> 시작 로직 실행
         if (isRoomLeader && readyButton.GetComponentInChildren<TMP_Text>().text == "게임 시작")
         {
-            Debug.Log("방장이 게임 시작을 눌렀습니다. 시작 패킷 전송 로직 작성 필요");
-            // 또는 다음 단계에 맞게 구현
             readyButton.interactable = false;
+
+            lobbyController.OnStartGameButtonClick();
             return;
         }
 
