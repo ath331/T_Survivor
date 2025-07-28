@@ -48,7 +48,7 @@ struct TableStruct_Protocol_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[36]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[38]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -56,6 +56,9 @@ struct TableStruct_Protocol_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocol_2eproto;
 namespace Protocol {
+class CT_ctTest;
+struct CT_ctTestDefaultTypeInternal;
+extern CT_ctTestDefaultTypeInternal _CT_ctTest_default_instance_;
 class C_AnimationEvent;
 struct C_AnimationEventDefaultTypeInternal;
 extern C_AnimationEventDefaultTypeInternal _C_AnimationEvent_default_instance_;
@@ -98,6 +101,9 @@ extern C_WaitingRoomEnterDefaultTypeInternal _C_WaitingRoomEnter_default_instanc
 class C_WaitingRoomOut;
 struct C_WaitingRoomOutDefaultTypeInternal;
 extern C_WaitingRoomOutDefaultTypeInternal _C_WaitingRoomOut_default_instance_;
+class ST_stTest;
+struct ST_stTestDefaultTypeInternal;
+extern ST_stTestDefaultTypeInternal _ST_stTest_default_instance_;
 class S_AnimationEvent;
 struct S_AnimationEventDefaultTypeInternal;
 extern S_AnimationEventDefaultTypeInternal _S_AnimationEvent_default_instance_;
@@ -166,6 +172,7 @@ struct S_WaitingRoomOutNotifyDefaultTypeInternal;
 extern S_WaitingRoomOutNotifyDefaultTypeInternal _S_WaitingRoomOutNotify_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> ::Protocol::CT_ctTest* Arena::CreateMaybeMessage<::Protocol::CT_ctTest>(Arena*);
 template<> ::Protocol::C_AnimationEvent* Arena::CreateMaybeMessage<::Protocol::C_AnimationEvent>(Arena*);
 template<> ::Protocol::C_ChangeWaitingState* Arena::CreateMaybeMessage<::Protocol::C_ChangeWaitingState>(Arena*);
 template<> ::Protocol::C_Chat* Arena::CreateMaybeMessage<::Protocol::C_Chat>(Arena*);
@@ -180,6 +187,7 @@ template<> ::Protocol::C_RequestAllRoomInfo* Arena::CreateMaybeMessage<::Protoco
 template<> ::Protocol::C_ServerListRead* Arena::CreateMaybeMessage<::Protocol::C_ServerListRead>(Arena*);
 template<> ::Protocol::C_WaitingRoomEnter* Arena::CreateMaybeMessage<::Protocol::C_WaitingRoomEnter>(Arena*);
 template<> ::Protocol::C_WaitingRoomOut* Arena::CreateMaybeMessage<::Protocol::C_WaitingRoomOut>(Arena*);
+template<> ::Protocol::ST_stTest* Arena::CreateMaybeMessage<::Protocol::ST_stTest>(Arena*);
 template<> ::Protocol::S_AnimationEvent* Arena::CreateMaybeMessage<::Protocol::S_AnimationEvent>(Arena*);
 template<> ::Protocol::S_ChangeRoomLeaderNotify* Arena::CreateMaybeMessage<::Protocol::S_ChangeRoomLeaderNotify>(Arena*);
 template<> ::Protocol::S_ChangeWaitingState* Arena::CreateMaybeMessage<::Protocol::S_ChangeWaitingState>(Arena*);
@@ -5278,6 +5286,244 @@ class S_ServerListRead final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
 };
+// -------------------------------------------------------------------
+
+class CT_ctTest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CT_ctTest) */ {
+ public:
+  inline CT_ctTest() : CT_ctTest(nullptr) {}
+  ~CT_ctTest() override;
+  explicit constexpr CT_ctTest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CT_ctTest(const CT_ctTest& from);
+  CT_ctTest(CT_ctTest&& from) noexcept
+    : CT_ctTest() {
+    *this = ::std::move(from);
+  }
+
+  inline CT_ctTest& operator=(const CT_ctTest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CT_ctTest& operator=(CT_ctTest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CT_ctTest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CT_ctTest* internal_default_instance() {
+    return reinterpret_cast<const CT_ctTest*>(
+               &_CT_ctTest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    36;
+
+  friend void swap(CT_ctTest& a, CT_ctTest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CT_ctTest* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CT_ctTest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CT_ctTest* New() const final {
+    return new CT_ctTest();
+  }
+
+  CT_ctTest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CT_ctTest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CT_ctTest& from);
+  void MergeFrom(const CT_ctTest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CT_ctTest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CT_ctTest";
+  }
+  protected:
+  explicit CT_ctTest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Protocol.CT_ctTest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ST_stTest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ST_stTest) */ {
+ public:
+  inline ST_stTest() : ST_stTest(nullptr) {}
+  ~ST_stTest() override;
+  explicit constexpr ST_stTest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ST_stTest(const ST_stTest& from);
+  ST_stTest(ST_stTest&& from) noexcept
+    : ST_stTest() {
+    *this = ::std::move(from);
+  }
+
+  inline ST_stTest& operator=(const ST_stTest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ST_stTest& operator=(ST_stTest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ST_stTest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ST_stTest* internal_default_instance() {
+    return reinterpret_cast<const ST_stTest*>(
+               &_ST_stTest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    37;
+
+  friend void swap(ST_stTest& a, ST_stTest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ST_stTest* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ST_stTest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ST_stTest* New() const final {
+    return new ST_stTest();
+  }
+
+  ST_stTest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ST_stTest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ST_stTest& from);
+  void MergeFrom(const ST_stTest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ST_stTest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.ST_stTest";
+  }
+  protected:
+  explicit ST_stTest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Protocol.ST_stTest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
 // ===================================================================
 
 
@@ -7396,9 +7642,21 @@ S_ServerListRead::serverinfolist() const {
   return serverinfolist_;
 }
 
+// -------------------------------------------------------------------
+
+// CT_ctTest
+
+// -------------------------------------------------------------------
+
+// ST_stTest
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
