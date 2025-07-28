@@ -62,9 +62,8 @@ public class WaitingRoomHandler : MonoBehaviour
 
     void OnEnable()
     {
-        WaitRoomOutNotify_Strategy.OnRoomOutNotify += NotifyRoomOutPlayer;
-
-        WaitRoomOut_Strategy.OnRoomOut += Receive_WaitRoomOut;
+        PacketEventManager.Subscribe<S_WaitingRoomOutNotify>(NotifyRoomOutPlayer);
+        PacketEventManager.Subscribe<S_WaitingRoomOut>(Receive_WaitRoomOut);
 
         exitButton.onClick.AddListener(OnClickExit);
 
@@ -78,9 +77,8 @@ public class WaitingRoomHandler : MonoBehaviour
 
     void OnDisable()
     {
-        WaitRoomOutNotify_Strategy.OnRoomOutNotify -= NotifyRoomOutPlayer;
-
-        WaitRoomOut_Strategy.OnRoomOut -= Receive_WaitRoomOut;
+        PacketEventManager.Unsubscribe<S_WaitingRoomOutNotify>(NotifyRoomOutPlayer);
+        PacketEventManager.Unsubscribe<S_WaitingRoomOut>(Receive_WaitRoomOut);
 
         exitButton.onClick.RemoveAllListeners();
 
@@ -233,6 +231,7 @@ public class WaitingRoomHandler : MonoBehaviour
                 }
                 controller.enabled = false;
                 controller.rb.useGravity = false;
+                controller.GetComponent<NetworkPlayerTransform>().enabled = false;
 
                 playerInfos[i].playerController = controller;
                 playerInfos[i].objectInfo.Id = playerId;

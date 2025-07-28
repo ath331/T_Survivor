@@ -13,8 +13,6 @@ namespace Assets.Scripts.Network.Handler
 {
 	public partial class PacketHandler
 	{
-        private Dictionary<ulong, GameObject> _spawnedPlayers = new Dictionary<ulong, GameObject>();
-
         private void _Process_S_Spawn_Handler( ushort protocolId, byte[] data )
 		{
 			S_Spawn message = S_Spawn.Parser.ParseFrom( data );
