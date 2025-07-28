@@ -23,9 +23,12 @@ class ProtoParser():
 
 			pkt_name = line.split()[1]
 
-			if pkt_name.startswith(self.recv_prefix):
+			recvPrefixes = self.recv_prefix.split(",")
+			sendPrefixes = self.send_prefix.split(",")
+
+			if any(pkt_name.startswith(prefix) for prefix in recvPrefixes):
 				self.recv_pkt.append(Packet(pkt_path, pkt_name, self.id))
-			elif pkt_name.startswith(self.send_prefix):
+			elif any(pkt_name.startswith(prefix) for prefix in sendPrefixes):
 				self.send_pkt.append(Packet(pkt_path, pkt_name, self.id))
 			else:
 				continue

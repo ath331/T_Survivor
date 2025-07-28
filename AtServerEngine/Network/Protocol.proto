@@ -221,3 +221,12 @@ message S_ServerListRead
 	EResultCode result = 1;
     repeated ServerInfo serverInfoList = 2;
 }
+
+// path = Test
+message CT_ctTest
+{
+}
+
+message ST_stTest
+{
+}
