@@ -10,18 +10,19 @@ def main():
 	arg_parser.add_argument('--isPrint',                 type=bool, default=False,                                               help='Print OutPut?'              )
 
 	arg_parser.add_argument('--protoPath',               type=str,  default='../../Network/Protocol.proto',                      help='proto path'                 )
+	arg_parser.add_argument('--packetIdList',            type=str,  default='C_,CT_,S_,ST_',                                     help='PacketIdList'               )
 	arg_parser.add_argument('--serverPacketHandler',     type=str,  default='ServerPacketHandler',                               help='Handler Templete in Clientg')
 	arg_parser.add_argument('--serverPacketHandlerPath', type=str,  default='Test/ServerHandler',                                help='serverHandler path'         )
 	arg_parser.add_argument('--clientPacketHandler',     type=str,  default='ClientPacketHandler',                               help='Handler Templete in Server' )
 	arg_parser.add_argument('--clientPacketHandlerPath', type=str,  default='Test/ClientHandler',                                help='clientHandler path'         )
-	arg_parser.add_argument('--recv',                    type=str,  default='C_,CT_',                                            help='recv convention'            )
+	arg_parser.add_argument('--recv',                    type=str,  default='CT_',                                            help='recv convention'            )
 	arg_parser.add_argument('--send',                    type=str,  default='S_,ST_',                                            help='send convention'            )
 
 	arg_parser.add_argument('--UnityNetworkPath',        type=str,  default='Test/AtClientFramework/Assets/Scripts/Network',     help='unity network path'         )
 
 	args = arg_parser.parse_args()
 
-	parser = ProtoParser.ProtoParser(1000, args.recv, args.send)
+	parser = ProtoParser.ProtoParser(1000, args.recv, args.send, args.packetIdList)
 	parser.parse_proto(args.protoPath)
 
 	file_loader = jinja2.FileSystemLoader('Templates')

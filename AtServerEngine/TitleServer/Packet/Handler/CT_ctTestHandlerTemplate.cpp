@@ -6,15 +6,15 @@
 #include "pch.h"
 #include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
-#include "Room/CT_EnterLobbyHandler.h"
+#include "Test/CT_ctTestHandler.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Handle_CT_EnterLobbyTemplate( PacketSessionPtr& session, Protocol::CT_EnterLobby& pkt )
+bool Handle_CT_ctTestTemplate( PacketSessionPtr& session, Protocol::CT_ctTest& pkt )
 {
 	PKT_LOG( pkt );
 
-	return CT_EnterLobbyHandler::Handle( session, pkt );
+	return CT_ctTestHandler::Handle( session, pkt );
 }

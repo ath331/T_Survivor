@@ -14,20 +14,6 @@ extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 // Custom Handlers
 bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
-bool Handle_C_LoginTemplate(PacketSessionPtr& session, Protocol::C_Login& pkt);
-bool Handle_C_EnterLobbyTemplate(PacketSessionPtr& session, Protocol::C_EnterLobby& pkt);
-bool Handle_C_WaitingRoomEnterTemplate(PacketSessionPtr& session, Protocol::C_WaitingRoomEnter& pkt);
-bool Handle_C_MakeRoomTemplate(PacketSessionPtr& session, Protocol::C_MakeRoom& pkt);
-bool Handle_C_RequestAllRoomInfoTemplate(PacketSessionPtr& session, Protocol::C_RequestAllRoomInfo& pkt);
-bool Handle_C_WaitingRoomOutTemplate(PacketSessionPtr& session, Protocol::C_WaitingRoomOut& pkt);
-bool Handle_C_ChangeWaitingStateTemplate(PacketSessionPtr& session, Protocol::C_ChangeWaitingState& pkt);
-bool Handle_C_EnterGameTemplate(PacketSessionPtr& session, Protocol::C_EnterGame& pkt);
-bool Handle_C_EnterGameFinishTemplate(PacketSessionPtr& session, Protocol::C_EnterGameFinish& pkt);
-bool Handle_C_LeaveGameTemplate(PacketSessionPtr& session, Protocol::C_LeaveGame& pkt);
-bool Handle_C_MoveTemplate(PacketSessionPtr& session, Protocol::C_Move& pkt);
-bool Handle_C_ChatTemplate(PacketSessionPtr& session, Protocol::C_Chat& pkt);
-bool Handle_C_AnimationEventTemplate(PacketSessionPtr& session, Protocol::C_AnimationEvent& pkt);
-bool Handle_C_ServerListReadTemplate(PacketSessionPtr& session, Protocol::C_ServerListRead& pkt);
 bool Handle_CT_ctTestTemplate(PacketSessionPtr& session, Protocol::CT_ctTest& pkt);
 
 class ClientPacketHandler
@@ -37,20 +23,6 @@ public:
 	{
 		for (int32 i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_Login ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Login>(Handle_C_LoginTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_EnterLobby ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EnterLobby>(Handle_C_EnterLobbyTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_WaitingRoomEnter ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_WaitingRoomEnter>(Handle_C_WaitingRoomEnterTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_MakeRoom ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_MakeRoom>(Handle_C_MakeRoomTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_RequestAllRoomInfo ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_RequestAllRoomInfo>(Handle_C_RequestAllRoomInfoTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_WaitingRoomOut ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_WaitingRoomOut>(Handle_C_WaitingRoomOutTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_ChangeWaitingState ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_ChangeWaitingState>(Handle_C_ChangeWaitingStateTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_EnterGame ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EnterGame>(Handle_C_EnterGameTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_EnterGameFinish ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EnterGameFinish>(Handle_C_EnterGameFinishTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_LeaveGame ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_LeaveGame>(Handle_C_LeaveGameTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_Move ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Move>(Handle_C_MoveTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_Chat ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Chat>(Handle_C_ChatTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_AnimationEvent ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_AnimationEvent>(Handle_C_AnimationEventTemplate, session, buffer, len); };
-		GPacketHandler[ (uint16)( EPacketId::PKT_C_ServerListRead ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_ServerListRead>(Handle_C_ServerListReadTemplate, session, buffer, len); };
 		GPacketHandler[ (uint16)( EPacketId::PKT_CT_ctTest ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::CT_ctTest>(Handle_CT_ctTestTemplate, session, buffer, len); };
 	}
 

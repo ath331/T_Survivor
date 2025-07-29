@@ -6,7 +6,7 @@ namespace Assets.Scripts.Network
 {
     enum EPacketId
     {
-    {%- for pkt in parser.total_pkt %}
+    {%- for pkt in parser.packet_id %}
         PKT_{{pkt.name}} = {{pkt.id}},
     {%- endfor %}
     }

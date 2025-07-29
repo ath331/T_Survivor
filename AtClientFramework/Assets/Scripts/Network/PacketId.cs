@@ -42,6 +42,8 @@ namespace Assets.Scripts.Network
         PKT_S_AnimationEvent = 1033,
         PKT_C_ServerListRead = 1034,
         PKT_S_ServerListRead = 1035,
+        PKT_CT_ctTest = 1036,
+        PKT_ST_stTest = 1037,
     }
 
     public class PacketIdFactory

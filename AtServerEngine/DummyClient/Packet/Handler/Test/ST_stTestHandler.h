@@ -1,20 +1,19 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif Server use handler. !!Auto Make File!!
+// @breif ST_stTestHandler class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#include "pch.h"
-#include "Logic/Utils/Log/AtLog.h"
-#include "ClientPacketHandler.h"
-#include "Server/CT_ServerListReadHandler.h"
+#pragma once
+#include "AtClient.h"
+#include "Packet/Protocol.pb.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif HandlerRun
+// @breif ST_stTestHandler class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Handle_CT_ServerListReadTemplate( PacketSessionPtr& session, Protocol::CT_ServerListRead& pkt )
+class ST_stTestHandler
 {
-	PKT_LOG( pkt );
-
-	return CT_ServerListReadHandler::Handle( session, pkt );
-}
+public:
+	// HandlerRun
+	static bool Handle( PacketSessionPtr& session, Protocol::ST_stTest& pkt );
+};
