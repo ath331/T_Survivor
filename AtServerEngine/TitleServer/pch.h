@@ -20,6 +20,7 @@
 #include "Logic/Utils/String/StringUtils.h"
 #include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Core/Environment.h"
+#include "DB/DBConnectionGaurd.h"
 
 
 //#include "Packet/Enum.pb.h"

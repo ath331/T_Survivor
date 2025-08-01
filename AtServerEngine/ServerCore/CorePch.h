@@ -23,3 +23,5 @@ using namespace std;
 #include "Session.h"
 #include "JobQueue.h"
 #include "ConsoleLog.h"
+#include "DBConnection.h"
+#include "DBConnectionPool.h"

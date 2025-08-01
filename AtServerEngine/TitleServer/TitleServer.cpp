@@ -85,10 +85,9 @@ AtInt32 main()
 	
 		ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::ConvertToWString( connect ).c_str() ) );
 	
-		DBConnection* dbConn = GDBConnectionPool->Pop();
+		DBConnectionGaurd dbConn;
 		DBSynchronizer dbSync( DBSynchronizer::EType::Title, *dbConn );
 		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
-		GDBConnectionPool->Push( dbConn );
 	}
 
 	ClientPacketHandler::Init();
@@ -103,7 +102,7 @@ AtInt32 main()
 		100 );
 
 	{
-		DBConnection* dbConn = GDBConnectionPool->Pop();
+		DBConnectionGaurd dbConn;
 		
 		SP::GetServerList getServerList( *dbConn );
 		
