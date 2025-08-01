@@ -88,8 +88,8 @@ AtInt32 main()
 		DBConnection* dbConn = GDBConnectionPool->Pop();
 		DBSynchronizer dbSync( DBSynchronizer::EType::Title, *dbConn );
 		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
+		GDBConnectionPool->Push( dbConn );
 	}
-
 
 	ClientPacketHandler::Init();
 
@@ -102,6 +102,25 @@ AtInt32 main()
 		MakeShared< TitleSession >, // TODO : SessionManager 등
 		100 );
 
+	{
+		DBConnection* dbConn = GDBConnectionPool->Pop();
+		
+		SP::GetServerList getServerList( *dbConn );
+		
+		WCHAR name[ 100 ];
+		WCHAR ip[ 100 ];
+		int port = 0;
+		
+		getServerList.Out_Name( OUT name );
+		getServerList.Out_Ip  ( OUT ip );
+		getServerList.Out_Port( OUT port );
+		getServerList.Execute();
+
+		while ( getServerList.Fetch() )
+		{
+			GConsoleLogger->WriteStdOut( Color::BLUE, L"Name[%s] ip[%s] port[%d]\n", name, ip, port );
+		}
+	}
 
 	if ( !service->Start() )
 	{

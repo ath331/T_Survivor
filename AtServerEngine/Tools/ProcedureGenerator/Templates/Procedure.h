@@ -4,7 +4,7 @@
 class {{proc.name}} : public DBBind<{{proc.params|length}},{{proc.columns|length}}>
 {
 public:
-	{{proc.name}}(DBConnection& conn) : DBBind(conn, L"{CALL dbo.sp{{ proc.name }}{{ proc.questions }}}") { }
+	{{proc.name}}(DBConnection& conn) : DBBind(conn, L"{CALL {{ dbName }}.sp{{ proc.name }}{{ proc.questions }}}") { }
 
 {%- for param in proc.params %}
   {%- if param.type == 'nvarchar' %}
