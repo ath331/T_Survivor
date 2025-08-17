@@ -15,6 +15,7 @@ extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 // Custom Handlers
 bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
 bool Handle_CT_ctTestTemplate(PacketSessionPtr& session, Protocol::CT_ctTest& pkt);
+bool Handle_CT_ServerListReadTemplate(PacketSessionPtr& session, Protocol::CT_ServerListRead& pkt);
 
 class ClientPacketHandler
 {
@@ -24,6 +25,7 @@ public:
 		for (int32 i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
 		GPacketHandler[ (uint16)( EPacketId::PKT_CT_ctTest ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::CT_ctTest>(Handle_CT_ctTestTemplate, session, buffer, len); };
+		GPacketHandler[ (uint16)( EPacketId::PKT_CT_ServerListRead ) ] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::CT_ServerListRead>(Handle_CT_ServerListReadTemplate, session, buffer, len); };
 	}
 
 	static bool HandlePacket(PacketSessionPtr& session, BYTE* buffer, int32 len)
@@ -60,6 +62,7 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 	else if ( packetTypeName == "Protocol.S_AnimationEvent" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_AnimationEvent ) );
 	else if ( packetTypeName == "Protocol.S_ServerListRead" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_ServerListRead ) );
 	else if ( packetTypeName == "Protocol.ST_stTest" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_ST_stTest ) );
+	else if ( packetTypeName == "Protocol.ST_ServerListRead" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_ST_ServerListRead ) );
 
 	return nullptr;
 }

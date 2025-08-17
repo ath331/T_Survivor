@@ -44,6 +44,8 @@ namespace Assets.Scripts.Network
         PKT_S_ServerListRead = 1035,
         PKT_CT_ctTest = 1036,
         PKT_ST_stTest = 1037,
+        PKT_CT_ServerListRead = 1038,
+        PKT_ST_ServerListRead = 1039,
     }
 
     public class PacketIdFactory

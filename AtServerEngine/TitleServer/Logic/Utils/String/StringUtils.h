@@ -27,4 +27,7 @@ public:
 
 	/// 문자열을 bool형으로 반환한다.
 	static AtBool GetBool( AtString str );
+
+	/// WCHAR를 string 문자열로 변환한다.
+	static AtString ConvertToString( const WCHAR* wstr );
 };

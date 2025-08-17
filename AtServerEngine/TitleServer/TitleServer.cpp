@@ -101,26 +101,6 @@ AtInt32 main()
 		MakeShared< TitleSession >, // TODO : SessionManager 등
 		100 );
 
-	{
-		DBConnectionGaurd dbConn;
-		
-		SP::GetServerList getServerList( *dbConn );
-		
-		WCHAR name[ 100 ];
-		WCHAR ip[ 100 ];
-		int port = 0;
-		
-		getServerList.Out_Name( OUT name );
-		getServerList.Out_Ip  ( OUT ip );
-		getServerList.Out_Port( OUT port );
-		getServerList.Execute();
-
-		while ( getServerList.Fetch() )
-		{
-			GConsoleLogger->WriteStdOut( Color::BLUE, L"Name[%s] ip[%s] port[%d]\n", name, ip, port );
-		}
-	}
-
 	if ( !service->Start() )
 	{
 		WARNNING_LOG( AtString( "ERROR :" + std::to_string( WSAGetLastError() ) ) );
@@ -138,8 +118,6 @@ AtInt32 main()
 				DoWorkerJob( service );
 			} );
 	}
-
-	Millisecond curTime = AtTime::GetCurMillisecond();
 
 	GThreadManager->Join();
 

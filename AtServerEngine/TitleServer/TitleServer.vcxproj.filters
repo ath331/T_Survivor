@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClInclude Include="DB\DBConnectionGaurd.h">
+      <Filter>DB</Filter>
+    </ClInclude>
     <ClInclude Include="DB\GenProcedures.h">
       <Filter>DB</Filter>
     </ClInclude>
@@ -28,11 +31,17 @@
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h">
       <Filter>Packet\Handler</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Login\CT_ServerListReadHandler.h">
+      <Filter>Packet\Handler\Login</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\Test\CT_ctTestHandler.h">
       <Filter>Packet\Handler\Test</Filter>
     </ClInclude>
     <ClInclude Include="Packet\PacketId.h">
       <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>..\..\..\TitleServer</Filter>
     </ClInclude>
     <ClInclude Include="Session\TitleSession.h">
       <Filter>Session</Filter>
@@ -42,10 +51,6 @@
     </ClInclude>
     <ClInclude Include="Session\TitleSessionTypes.h">
       <Filter>Session</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="DB\DBConnectionGaurd.h">
-      <Filter>DB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -76,8 +81,17 @@
     <ClCompile Include="Packet\Handler\CT_ctTestHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\CT_ServerListReadHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Login\CT_ServerListReadHandler.cpp">
+      <Filter>Packet\Handler\Login</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\Test\CT_ctTestHandler.cpp">
       <Filter>Packet\Handler\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>..\..\..\TitleServer</Filter>
     </ClCompile>
     <ClCompile Include="Session\TitleSession.cpp">
       <Filter>Session</Filter>
@@ -85,8 +99,9 @@
     <ClCompile Include="Session\TitleSessionManager.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="TitleServer.cpp" />
+    <ClCompile Include="TitleServer.cpp">
+      <Filter>..\..\..\TitleServer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DB\TitleDB.xml">
@@ -113,6 +128,8 @@
     <Filter Include="Packet">
     </Filter>
     <Filter Include="Packet\Handler">
+    </Filter>
+    <Filter Include="Packet\Handler\Login">
     </Filter>
     <Filter Include="Packet\Handler\Test">
     </Filter>

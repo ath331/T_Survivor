@@ -21,6 +21,7 @@
 #include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Core/Environment.h"
 #include "DB/DBConnectionGaurd.h"
+#include "DB/GenProcedures.h"
 
 
 //#include "Packet/Enum.pb.h"

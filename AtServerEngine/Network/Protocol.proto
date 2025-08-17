@@ -230,3 +230,14 @@ message CT_ctTest
 message ST_stTest
 {
 }
+
+// path = Login
+message CT_ServerListRead
+{
+}
+
+message ST_ServerListRead
+{
+	EResultCode result = 1;
+    repeated ServerInfo serverInfoList = 2;
+}
