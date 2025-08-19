@@ -367,11 +367,6 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
   <ItemGroup>
     <Xml Include="DB\GameDB.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Network\Network.vcxproj">
-      <Project>{c2d78b2b-58ea-42f8-922d-20cdc7e32649}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

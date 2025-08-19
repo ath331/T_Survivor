@@ -851,12 +851,21 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 {
 	uint8 flag = 0;
 
-	if (dbColumn->_type != xmlColumn->_type)
-		flag |= ColumnFlag::Type;
-	if (dbColumn->_maxLength != xmlColumn->_maxLength && xmlColumn->_maxLength > 0)
+	if ( dbColumn->_type != xmlColumn->_type )
+	{
+		String dbColumdType = L"n" + dbColumn->_type;
+		if ( dbColumdType != xmlColumn->_type )
+			flag |= ColumnFlag::Type;
+	}
+	if ( dbColumn->_maxLength != xmlColumn->_maxLength && xmlColumn->_maxLength > 0 )
+	{
 		flag |= ColumnFlag::Length;
-	if (dbColumn->_nullable != xmlColumn->_nullable)
+	}
+	if ( dbColumn->_nullable != xmlColumn->_nullable )
+	{
 		flag |= ColumnFlag::Nullable;
+	}
+
 	// SQL Server
 	//if (dbColumn->_identity != xmlColumn->_identity || (dbColumn->_identity && dbColumn->_incrementValue != xmlColumn->_incrementValue))
 	//	flag |= ColumnFlag::Identity;

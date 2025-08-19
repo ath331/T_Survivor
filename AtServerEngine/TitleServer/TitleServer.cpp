@@ -85,11 +85,10 @@ AtInt32 main()
 	
 		ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::ConvertToWString( connect ).c_str() ) );
 	
-		DBConnection* dbConn = GDBConnectionPool->Pop();
+		DBConnectionGaurd dbConn;
 		DBSynchronizer dbSync( DBSynchronizer::EType::Title, *dbConn );
 		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
 	}
-
 
 	ClientPacketHandler::Init();
 
@@ -101,7 +100,6 @@ AtInt32 main()
 		MakeShared< IocpCore >(),
 		MakeShared< TitleSession >, // TODO : SessionManager 등
 		100 );
-
 
 	if ( !service->Start() )
 	{
@@ -120,8 +118,6 @@ AtInt32 main()
 				DoWorkerJob( service );
 			} );
 	}
-
-	Millisecond curTime = AtTime::GetCurMillisecond();
 
 	GThreadManager->Join();
 

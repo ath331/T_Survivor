@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameDB>
 	<Table name="server" desc="서버 목록">
-    <Column name="name" type="varchar(50)" notnull="true" identity="1,1" />
-		<Column name="ip" type="varchar(50)" notnull="false" />
+    <Column name="name" type="nvarchar(50)" notnull="true" />
+		<Column name="ip" type="nvarchar(50)" notnull="false" />
 		<Column name="port" type="int" notnull="false" />
 		<Index type="clustered">
 			<PrimaryKey/>
@@ -13,7 +13,7 @@
 	<Procedure name="spGetServerList">
 		<Body>
 			<![CDATA[
-			SELECT * FROM Server;
+			SELECT name, ip, port FROM server;
 			]]>
 		</Body>
 	</Procedure>

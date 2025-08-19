@@ -1,13 +1,15 @@
 
 class ProtoParser():
-	def __init__(self, start_id, recv_prefix, send_prefix):
+	def __init__(self, start_id, recv_prefix, send_prefix, packet_id_list):
 		self.recv_pkt = []	# 수신 패킷 목록
 		self.send_pkt = [] # 송신 패킷 목록
 		self.total_pkt = [] # 모든 패킷 목록
+		self.packet_id = []
 		self.start_id = start_id
 		self.id = start_id
 		self.recv_prefix = recv_prefix
 		self.send_prefix = send_prefix
+		self.packet_id_list = packet_id_list
 
 	def parse_proto(self, path):
 		f = open(path, 'r')
@@ -21,14 +23,19 @@ class ProtoParser():
 			if line.startswith('message') == False:
 				continue
 
+			pktIdListPrefixes = self.packet_id_list.split(",")
+			recvPrefixes = self.recv_prefix.split(",")
+			sendPrefixes = self.send_prefix.split(",")
+
 			pkt_name = line.split()[1]
 
-			if pkt_name.startswith(self.recv_prefix):
+			if any(pkt_name.startswith(prefix) for prefix in pktIdListPrefixes):
+				self.packet_id.append(Packet("", pkt_name, self.id))
+
+			if any(pkt_name.startswith(prefix) for prefix in recvPrefixes):
 				self.recv_pkt.append(Packet(pkt_path, pkt_name, self.id))
-			elif pkt_name.startswith(self.send_prefix):
+			elif any(pkt_name.startswith(prefix) for prefix in sendPrefixes):
 				self.send_pkt.append(Packet(pkt_path, pkt_name, self.id))
-			else:
-				continue
 
 			self.total_pkt.append(Packet(pkt_path, pkt_name, self.id))
 			self.id += 1

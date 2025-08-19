@@ -48,7 +48,7 @@ struct TableStruct_Protocol_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[36]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[40]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -56,6 +56,12 @@ struct TableStruct_Protocol_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocol_2eproto;
 namespace Protocol {
+class CT_ServerListRead;
+struct CT_ServerListReadDefaultTypeInternal;
+extern CT_ServerListReadDefaultTypeInternal _CT_ServerListRead_default_instance_;
+class CT_ctTest;
+struct CT_ctTestDefaultTypeInternal;
+extern CT_ctTestDefaultTypeInternal _CT_ctTest_default_instance_;
 class C_AnimationEvent;
 struct C_AnimationEventDefaultTypeInternal;
 extern C_AnimationEventDefaultTypeInternal _C_AnimationEvent_default_instance_;
@@ -98,6 +104,12 @@ extern C_WaitingRoomEnterDefaultTypeInternal _C_WaitingRoomEnter_default_instanc
 class C_WaitingRoomOut;
 struct C_WaitingRoomOutDefaultTypeInternal;
 extern C_WaitingRoomOutDefaultTypeInternal _C_WaitingRoomOut_default_instance_;
+class ST_ServerListRead;
+struct ST_ServerListReadDefaultTypeInternal;
+extern ST_ServerListReadDefaultTypeInternal _ST_ServerListRead_default_instance_;
+class ST_stTest;
+struct ST_stTestDefaultTypeInternal;
+extern ST_stTestDefaultTypeInternal _ST_stTest_default_instance_;
 class S_AnimationEvent;
 struct S_AnimationEventDefaultTypeInternal;
 extern S_AnimationEventDefaultTypeInternal _S_AnimationEvent_default_instance_;
@@ -166,6 +178,8 @@ struct S_WaitingRoomOutNotifyDefaultTypeInternal;
 extern S_WaitingRoomOutNotifyDefaultTypeInternal _S_WaitingRoomOutNotify_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
+template<> ::Protocol::CT_ServerListRead* Arena::CreateMaybeMessage<::Protocol::CT_ServerListRead>(Arena*);
+template<> ::Protocol::CT_ctTest* Arena::CreateMaybeMessage<::Protocol::CT_ctTest>(Arena*);
 template<> ::Protocol::C_AnimationEvent* Arena::CreateMaybeMessage<::Protocol::C_AnimationEvent>(Arena*);
 template<> ::Protocol::C_ChangeWaitingState* Arena::CreateMaybeMessage<::Protocol::C_ChangeWaitingState>(Arena*);
 template<> ::Protocol::C_Chat* Arena::CreateMaybeMessage<::Protocol::C_Chat>(Arena*);
@@ -180,6 +194,8 @@ template<> ::Protocol::C_RequestAllRoomInfo* Arena::CreateMaybeMessage<::Protoco
 template<> ::Protocol::C_ServerListRead* Arena::CreateMaybeMessage<::Protocol::C_ServerListRead>(Arena*);
 template<> ::Protocol::C_WaitingRoomEnter* Arena::CreateMaybeMessage<::Protocol::C_WaitingRoomEnter>(Arena*);
 template<> ::Protocol::C_WaitingRoomOut* Arena::CreateMaybeMessage<::Protocol::C_WaitingRoomOut>(Arena*);
+template<> ::Protocol::ST_ServerListRead* Arena::CreateMaybeMessage<::Protocol::ST_ServerListRead>(Arena*);
+template<> ::Protocol::ST_stTest* Arena::CreateMaybeMessage<::Protocol::ST_stTest>(Arena*);
 template<> ::Protocol::S_AnimationEvent* Arena::CreateMaybeMessage<::Protocol::S_AnimationEvent>(Arena*);
 template<> ::Protocol::S_ChangeRoomLeaderNotify* Arena::CreateMaybeMessage<::Protocol::S_ChangeRoomLeaderNotify>(Arena*);
 template<> ::Protocol::S_ChangeWaitingState* Arena::CreateMaybeMessage<::Protocol::S_ChangeWaitingState>(Arena*);
@@ -5278,6 +5294,515 @@ class S_ServerListRead final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
 };
+// -------------------------------------------------------------------
+
+class CT_ctTest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CT_ctTest) */ {
+ public:
+  inline CT_ctTest() : CT_ctTest(nullptr) {}
+  ~CT_ctTest() override;
+  explicit constexpr CT_ctTest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CT_ctTest(const CT_ctTest& from);
+  CT_ctTest(CT_ctTest&& from) noexcept
+    : CT_ctTest() {
+    *this = ::std::move(from);
+  }
+
+  inline CT_ctTest& operator=(const CT_ctTest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CT_ctTest& operator=(CT_ctTest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CT_ctTest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CT_ctTest* internal_default_instance() {
+    return reinterpret_cast<const CT_ctTest*>(
+               &_CT_ctTest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    36;
+
+  friend void swap(CT_ctTest& a, CT_ctTest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CT_ctTest* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CT_ctTest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CT_ctTest* New() const final {
+    return new CT_ctTest();
+  }
+
+  CT_ctTest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CT_ctTest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CT_ctTest& from);
+  void MergeFrom(const CT_ctTest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CT_ctTest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CT_ctTest";
+  }
+  protected:
+  explicit CT_ctTest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Protocol.CT_ctTest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ST_stTest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ST_stTest) */ {
+ public:
+  inline ST_stTest() : ST_stTest(nullptr) {}
+  ~ST_stTest() override;
+  explicit constexpr ST_stTest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ST_stTest(const ST_stTest& from);
+  ST_stTest(ST_stTest&& from) noexcept
+    : ST_stTest() {
+    *this = ::std::move(from);
+  }
+
+  inline ST_stTest& operator=(const ST_stTest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ST_stTest& operator=(ST_stTest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ST_stTest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ST_stTest* internal_default_instance() {
+    return reinterpret_cast<const ST_stTest*>(
+               &_ST_stTest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    37;
+
+  friend void swap(ST_stTest& a, ST_stTest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ST_stTest* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ST_stTest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ST_stTest* New() const final {
+    return new ST_stTest();
+  }
+
+  ST_stTest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ST_stTest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ST_stTest& from);
+  void MergeFrom(const ST_stTest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ST_stTest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.ST_stTest";
+  }
+  protected:
+  explicit ST_stTest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Protocol.ST_stTest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CT_ServerListRead final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.CT_ServerListRead) */ {
+ public:
+  inline CT_ServerListRead() : CT_ServerListRead(nullptr) {}
+  ~CT_ServerListRead() override;
+  explicit constexpr CT_ServerListRead(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CT_ServerListRead(const CT_ServerListRead& from);
+  CT_ServerListRead(CT_ServerListRead&& from) noexcept
+    : CT_ServerListRead() {
+    *this = ::std::move(from);
+  }
+
+  inline CT_ServerListRead& operator=(const CT_ServerListRead& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CT_ServerListRead& operator=(CT_ServerListRead&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CT_ServerListRead& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CT_ServerListRead* internal_default_instance() {
+    return reinterpret_cast<const CT_ServerListRead*>(
+               &_CT_ServerListRead_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    38;
+
+  friend void swap(CT_ServerListRead& a, CT_ServerListRead& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CT_ServerListRead* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CT_ServerListRead* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CT_ServerListRead* New() const final {
+    return new CT_ServerListRead();
+  }
+
+  CT_ServerListRead* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CT_ServerListRead>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CT_ServerListRead& from);
+  void MergeFrom(const CT_ServerListRead& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CT_ServerListRead* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.CT_ServerListRead";
+  }
+  protected:
+  explicit CT_ServerListRead(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Protocol.CT_ServerListRead)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ST_ServerListRead final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.ST_ServerListRead) */ {
+ public:
+  inline ST_ServerListRead() : ST_ServerListRead(nullptr) {}
+  ~ST_ServerListRead() override;
+  explicit constexpr ST_ServerListRead(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ST_ServerListRead(const ST_ServerListRead& from);
+  ST_ServerListRead(ST_ServerListRead&& from) noexcept
+    : ST_ServerListRead() {
+    *this = ::std::move(from);
+  }
+
+  inline ST_ServerListRead& operator=(const ST_ServerListRead& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ST_ServerListRead& operator=(ST_ServerListRead&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ST_ServerListRead& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ST_ServerListRead* internal_default_instance() {
+    return reinterpret_cast<const ST_ServerListRead*>(
+               &_ST_ServerListRead_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    39;
+
+  friend void swap(ST_ServerListRead& a, ST_ServerListRead& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ST_ServerListRead* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ST_ServerListRead* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ST_ServerListRead* New() const final {
+    return new ST_ServerListRead();
+  }
+
+  ST_ServerListRead* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ST_ServerListRead>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ST_ServerListRead& from);
+  void MergeFrom(const ST_ServerListRead& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ST_ServerListRead* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.ST_ServerListRead";
+  }
+  protected:
+  explicit ST_ServerListRead(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kServerInfoListFieldNumber = 2,
+    kResultFieldNumber = 1,
+  };
+  // repeated .Protocol.ServerInfo serverInfoList = 2;
+  int serverinfolist_size() const;
+  private:
+  int _internal_serverinfolist_size() const;
+  public:
+  void clear_serverinfolist();
+  ::Protocol::ServerInfo* mutable_serverinfolist(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ServerInfo >*
+      mutable_serverinfolist();
+  private:
+  const ::Protocol::ServerInfo& _internal_serverinfolist(int index) const;
+  ::Protocol::ServerInfo* _internal_add_serverinfolist();
+  public:
+  const ::Protocol::ServerInfo& serverinfolist(int index) const;
+  ::Protocol::ServerInfo* add_serverinfolist();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ServerInfo >&
+      serverinfolist() const;
+
+  // .Protocol.EResultCode result = 1;
+  void clear_result();
+  ::Protocol::EResultCode result() const;
+  void set_result(::Protocol::EResultCode value);
+  private:
+  ::Protocol::EResultCode _internal_result() const;
+  void _internal_set_result(::Protocol::EResultCode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.ST_ServerListRead)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ServerInfo > serverinfolist_;
+  int result_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_Protocol_2eproto;
+};
 // ===================================================================
 
 
@@ -7396,9 +7921,89 @@ S_ServerListRead::serverinfolist() const {
   return serverinfolist_;
 }
 
+// -------------------------------------------------------------------
+
+// CT_ctTest
+
+// -------------------------------------------------------------------
+
+// ST_stTest
+
+// -------------------------------------------------------------------
+
+// CT_ServerListRead
+
+// -------------------------------------------------------------------
+
+// ST_ServerListRead
+
+// .Protocol.EResultCode result = 1;
+inline void ST_ServerListRead::clear_result() {
+  result_ = 0;
+}
+inline ::Protocol::EResultCode ST_ServerListRead::_internal_result() const {
+  return static_cast< ::Protocol::EResultCode >(result_);
+}
+inline ::Protocol::EResultCode ST_ServerListRead::result() const {
+  // @@protoc_insertion_point(field_get:Protocol.ST_ServerListRead.result)
+  return _internal_result();
+}
+inline void ST_ServerListRead::_internal_set_result(::Protocol::EResultCode value) {
+  
+  result_ = value;
+}
+inline void ST_ServerListRead::set_result(::Protocol::EResultCode value) {
+  _internal_set_result(value);
+  // @@protoc_insertion_point(field_set:Protocol.ST_ServerListRead.result)
+}
+
+// repeated .Protocol.ServerInfo serverInfoList = 2;
+inline int ST_ServerListRead::_internal_serverinfolist_size() const {
+  return serverinfolist_.size();
+}
+inline int ST_ServerListRead::serverinfolist_size() const {
+  return _internal_serverinfolist_size();
+}
+inline ::Protocol::ServerInfo* ST_ServerListRead::mutable_serverinfolist(int index) {
+  // @@protoc_insertion_point(field_mutable:Protocol.ST_ServerListRead.serverInfoList)
+  return serverinfolist_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ServerInfo >*
+ST_ServerListRead::mutable_serverinfolist() {
+  // @@protoc_insertion_point(field_mutable_list:Protocol.ST_ServerListRead.serverInfoList)
+  return &serverinfolist_;
+}
+inline const ::Protocol::ServerInfo& ST_ServerListRead::_internal_serverinfolist(int index) const {
+  return serverinfolist_.Get(index);
+}
+inline const ::Protocol::ServerInfo& ST_ServerListRead::serverinfolist(int index) const {
+  // @@protoc_insertion_point(field_get:Protocol.ST_ServerListRead.serverInfoList)
+  return _internal_serverinfolist(index);
+}
+inline ::Protocol::ServerInfo* ST_ServerListRead::_internal_add_serverinfolist() {
+  return serverinfolist_.Add();
+}
+inline ::Protocol::ServerInfo* ST_ServerListRead::add_serverinfolist() {
+  // @@protoc_insertion_point(field_add:Protocol.ST_ServerListRead.serverInfoList)
+  return _internal_add_serverinfolist();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::ServerInfo >&
+ST_ServerListRead::serverinfolist() const {
+  // @@protoc_insertion_point(field_list:Protocol.ST_ServerListRead.serverInfoList)
+  return serverinfolist_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -56,12 +56,16 @@ def ParseColumns(node, tables):
     from_idx = max(query.rfind('FROM'), query.rfind('from'))
     if select_idx > 0 and from_idx > 0 and from_idx > select_idx:
         table_name = query[from_idx+len('FROM') : -1].strip().split()[0]
-        table_name = table_name.replace('[', '').replace(']', '').replace('dbo.', '')
+        table_name = table_name[:-1] if table_name.endswith(';') else table_name
+        #table_name = table_name.replace('[', '').replace(']', '').replace('dbo.', '')
         table = tables.get(table_name)
         words = query[select_idx+len('SELECT') : from_idx].strip().split(",")
-        for word in words:
-            column_name = word.strip().split()[0]
-            columns.append(Column(column_name, table.columns[column_name]))
+
+        if words[0] != '*':
+            for word in words:
+                column_name = word.strip().split()[0]
+                columns.append(Column(column_name, table.columns[column_name]))
+
     elif select_idx > 0:
         word = query[select_idx+len('SELECT') : -1].strip().split()[0]
         if word.startswith('@@ROWCOUNT') or word.startswith('@@rowcount'):

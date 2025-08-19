@@ -6,9 +6,11 @@
 
 #ifdef _DEBUG
 #pragma comment(lib, "ServerCore\\Debug\\ServerCore.lib")
+#pragma comment(lib, "Network\\Debug\\Network.lib")
 #pragma comment(lib, "Protobuf\\Debug\\libprotobufd.lib")
 #else
 #pragma comment(lib, "ServerCore\\Release\\ServerCore.lib")
+#pragma comment(lib, "Network\\Release\\Network.lib")
 #pragma comment(lib, "Protobuf\\Release\\libprotobuf.lib")
 #endif
 
@@ -18,6 +20,8 @@
 #include "Logic/Utils/String/StringUtils.h"
 #include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Core/Environment.h"
+#include "DB/DBConnectionGaurd.h"
+#include "DB/GenProcedures.h"
 
 
 //#include "Packet/Enum.pb.h"
