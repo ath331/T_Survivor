@@ -11,7 +11,6 @@ using UnityEngine.UIElements;
 using Toggle = UnityEngine.UI.Toggle;
 using Protocol;
 using System.Linq;
-using UnityEditor.VersionControl;
 using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour

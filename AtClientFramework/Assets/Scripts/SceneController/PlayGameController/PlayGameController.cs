@@ -94,7 +94,7 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
 
         if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
         {
-            player.Receive_Animation(animationType, paramType, boolVal);
+            player.networkPlayerAnimation.Set_Animation(animationType, paramType, boolVal);
         }
     }
 
