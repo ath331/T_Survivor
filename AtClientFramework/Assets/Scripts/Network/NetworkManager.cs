@@ -87,6 +87,41 @@ namespace Assets.Scripts.Network
             }
         }
 
+        public async void DisconnectToTcpServer()
+        {
+            if ( _stream != null )
+            {
+                _stream.Close();
+                _stream = null;
+            }
+
+            if ( _socketConnection != null )
+            {
+                _socketConnection.Close();
+                _socketConnection = null;
+            }
+
+            if ( _isConnected )
+                _isConnected = false;
+
+            Console.WriteLine( "연결 종료됨" );
+        }
+
+        public async void ReconnectToTcpServer( string inputIp, string inputPort )
+        {
+            try
+            {
+                DisconnectToTcpServer();
+                ConnectToTcpServer( inputIp, inputPort );
+
+                Console.WriteLine( $"서버({inputIp}:{inputPort})에 연결 성공" );
+            }
+            catch ( Exception e )
+            {
+                Console.WriteLine( $"재연결 실패: {e.Message}" );
+            }
+        }
+
         public void Send(IMessage packet)
         {
             ushort size = (ushort)(packet.CalculateSize());
