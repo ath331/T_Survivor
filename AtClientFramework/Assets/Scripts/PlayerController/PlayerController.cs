@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [Header("정보 설정")]
     public WeaponController weapon; // 일단 대충.. 나중에 지울것
     public NetworkPlayerTransform networkPlayerTransform { get; private set; }
+    public NetworkPlayerAnimation networkPlayerAnimation { get; private set; }
     public IJob CurrentJob { get; private set; }
     public IWeapon EquippedWeapon { get; private set; }
     public List<Skill> Skills { get; private set; } = new List<Skill>();
@@ -37,8 +38,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
         networkPlayerTransform = GetComponent<NetworkPlayerTransform>();
+        networkPlayerAnimation = GetComponent<NetworkPlayerAnimation>();
 
         // 초기 상태를 IdleState로 설정
         ChangeState(new IdleState());
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
 
         // sendInterval 마다 위치 패킷 전송
         sendTimer += Time.deltaTime;
+
         if (sendTimer >= sendInterval)
         {
             C_Move pkt = new C_Move
@@ -154,26 +156,5 @@ public class PlayerController : MonoBehaviour
         }
 
         NetworkManager.Instance.Send(pkt);
-    }
-
-    public void Receive_Animation(string animationType, EAnimationParamType paramType, bool boolValue)
-    {
-        if (!IsLocalPlayer && animator != null)
-        {
-            switch (paramType)
-            {
-                case EAnimationParamType.AnimParamTypeBool:
-                    animator.SetBool(animationType, boolValue);
-                    break;
-                    // TODO : float 추가시 고쳐야함
-                case EAnimationParamType.AnimParamTypeFloat:
-                    animator.SetFloat(animationType, 0f);
-                    break;
-
-                case EAnimationParamType.AnimParamTypeTrigger:
-                    animator.SetTrigger(animationType);
-                    break;
-            }
-        }
     }
 }

@@ -70,7 +70,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         await UniTask.Delay(100);
 
         // 2. Lobby UI 에셋 로드 (가중치 0.3)
-        SetEnableControl(isLobby: false, isWaitRoom: false);
         currentProgress += 0.3f;
         progress.Report(currentProgress);
 
@@ -80,7 +79,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         // 4. Lobby 데이터 초기화 (가중치 0.3)
 
-        lobbyHandler.gameObject.SetActive(true);
+        //lobbyHandler.gameObject.SetActive(true);
 
         currentProgress += 0.3f;
         progress.Report(currentProgress);

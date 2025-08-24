@@ -13,6 +13,7 @@ using Assets.Scripts.Network.Packet.Game;
 using System.Collections.Generic;
 using Assets.Scripts.Network.Packet.Actor;
 using Protocol;
+using System.Threading;
 
 
 namespace Assets.Scripts.Network
@@ -42,32 +43,27 @@ namespace Assets.Scripts.Network
             Debug.Log("Network Manager Initialized.");
         }
 
-        public async void ConnectToTcpServer(string inputIp, string inputPort)
+        public async UniTask<bool> ConnectToTcpServer(string inputIp, string inputPort)
         {
-            // if ( mode.options[ mode.value ].text == "Single" )
-            // {
-            //     Debug.Log( "SingleMode Start" );
-            //     return;
-            // }
-
             if (_isConnected)
             {
                 Debug.Log("Already Connected");
-                return;
+                return true;
             }
 
             try
             {
-                // string ip = inputIp.text;
-                // int port = 0;
-                // if ( int.TryParse( inputPort.text, out int intValue ) )
-                //     port = intValue;
-
                 string ip = inputIp;
                 int port = int.Parse(inputPort);
 
-                _socketConnection = new TcpClient(ip, port);
+                // 빈 TcpClient 객체를 먼저 생성
+                _socketConnection = new TcpClient();
+
+                // ConnectAsync에 CancellationToken을 전달하여 비동기 연결을 시도
+                await _socketConnection.ConnectAsync(ip, port);
+
                 _stream = _socketConnection.GetStream();
+
                 _isConnected = true;
             }
             catch (Exception e)
@@ -85,9 +81,11 @@ namespace Assets.Scripts.Network
 
                 Send(pkt);
             }
+
+            return _isConnected;
         }
 
-        public async void DisconnectToTcpServer()
+        public void DisconnectToTcpServer()
         {
             if ( _stream != null )
             {
@@ -107,18 +105,19 @@ namespace Assets.Scripts.Network
             Console.WriteLine( "연결 종료됨" );
         }
 
-        public async void ReconnectToTcpServer( string inputIp, string inputPort )
+        public async UniTask ReconnectToTcpServer(string inputIp, string inputPort)
         {
             try
             {
                 DisconnectToTcpServer();
-                ConnectToTcpServer( inputIp, inputPort );
+                
+                await ConnectToTcpServer(inputIp, inputPort);
 
-                Console.WriteLine( $"서버({inputIp}:{inputPort})에 연결 성공" );
+                Debug.Log($"서버({inputIp}:{inputPort})에 연결 성공" );
             }
             catch ( Exception e )
             {
-                Console.WriteLine( $"재연결 실패: {e.Message}" );
+                Debug.Log($"재연결 실패: {e.Message}" );
             }
         }
 

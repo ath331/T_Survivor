@@ -4,6 +4,7 @@ using Assets.Scripts.Network;
 using Cysharp.Threading.Tasks;
 using Protocol;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TestGameController : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class TestGameController : MonoBehaviour
 
     private void OnEnable()
     {
+        PacketEventManager.Subscribe<S_EnterLobby>(Receive_EnterLobby);
         PacketEventManager.Subscribe<S_Move>(Receive_Move);
         PacketEventManager.Subscribe<S_AnimationEvent>(Receive_Animation);
         PacketEventManager.Subscribe<S_Spawn>(Receive_Spawn);
@@ -37,6 +39,7 @@ public class TestGameController : MonoBehaviour
 
     private void OnDisable()
     {
+        PacketEventManager.Unsubscribe<S_EnterLobby>(Receive_EnterLobby);
         PacketEventManager.Unsubscribe<S_Move>(Receive_Move);
         PacketEventManager.Unsubscribe<S_AnimationEvent>(Receive_Animation);
         PacketEventManager.Unsubscribe<S_Spawn>(Receive_Spawn);
@@ -81,7 +84,7 @@ public class TestGameController : MonoBehaviour
 
         if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
         {
-            player.Receive_Animation(animationType, paramType, boolVal);
+            player.networkPlayerAnimation.Set_Animation(animationType, paramType, boolVal);
         }
     }
 
@@ -94,5 +97,12 @@ public class TestGameController : MonoBehaviour
             // 매니저에서 플레이어 생성 (중복 체크 포함)
             PlayerListManager.Instance.ProcessSpawnHandler(playerInfo);
         }
+    }
+
+    public void Receive_EnterLobby(S_EnterLobby message)
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        MercuryHelper.LoginProcess(message.PlayerId).Forget();
     }
 }
