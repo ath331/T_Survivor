@@ -40,9 +40,6 @@
     <ClInclude Include="Packet\PacketId.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>..\..\..\TitleServer</Filter>
-    </ClInclude>
     <ClInclude Include="Session\TitleSession.h">
       <Filter>Session</Filter>
     </ClInclude>
@@ -52,6 +49,7 @@
     <ClInclude Include="Session\TitleSessionTypes.h">
       <Filter>Session</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Logic\Core\Environment.cpp">
@@ -90,18 +88,14 @@
     <ClCompile Include="Packet\Handler\Test\CT_ctTestHandler.cpp">
       <Filter>Packet\Handler\Test</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>..\..\..\TitleServer</Filter>
-    </ClCompile>
     <ClCompile Include="Session\TitleSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
     <ClCompile Include="Session\TitleSessionManager.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="TitleServer.cpp">
-      <Filter>..\..\..\TitleServer</Filter>
-    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="TitleServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DB\TitleDB.xml">
