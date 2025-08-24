@@ -1569,6 +1569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropdownServerList: {fileID: 380287385}
   toggleLocal: {fileID: 1689463196}
+  connectButton: {fileID: 535486397}
 --- !u!1 &1504593400
 GameObject:
   m_ObjectHideFlags: 0
