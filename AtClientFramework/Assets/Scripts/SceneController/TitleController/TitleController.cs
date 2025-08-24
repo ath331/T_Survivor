@@ -66,28 +66,66 @@ public class TitleController : MonoBehaviour
 
     public async void OnConnectedToServer()
     {
+        // 로컬 모드일 경우의 로직은 동일합니다.
         if (isCheckLocal)
         {
             await NetworkManager.Instance.ConnectToTcpServer(local_Ip, local_Port);
-
             return;
         }
 
-        if (isReceivedServerList)
+
+        // UI 중복 클릭 방지
+        connectButton.interactable = false;
+
+        // 1. 아직 서버 목록을 받지 못했다면? -> 첫 번째 Connect 클릭
+        if (!isReceivedServerList)
         {
-            // Dropdown에서 선택된 서버로 접속
+            Debug.Log("First connect: Attempting to fetch server list from Title Server...");
+            toggleLocal.interactable = false;
+            try
+            {
+                // 타이틀 서버에 접속
+                bool isConnected = await NetworkManager.Instance.ConnectToTcpServer(titleServer_Ip, titleServer_Port);
+
+                if (isConnected)
+                {
+                    Debug.Log("Successfully connected to Title Server. Requesting server list...");
+
+                    isReceivedServerList = true;
+
+                    // 서버 목록 요청 패킷 전송
+                    CT_ServerListRead c_packet = new CT_ServerListRead();
+                    NetworkManager.Instance.Send(c_packet);
+                }
+                else
+                {
+                    Debug.LogError("Failed to connect to the Title Server.");
+
+                    connectButton.interactable = true;
+                }
+            }
+            finally
+            {
+                toggleLocal.interactable = true;
+            }
+        }
+        // 2. 이미 서버 목록을 받았다면? -> 두 번째 Connect 클릭
+        else
+        {
+            Debug.Log("Second connect: Attempting to connect to the selected game server...");
             int index = dropdownServerList.value;
 
             if (index >= 0 && index < cachedServerList.Count)
             {
                 var selectedServer = cachedServerList[index];
 
-                await NetworkManager.Instance.ReconnectToTcpServer(selectedServer.Ip, selectedServer.Port.ToString());
+                // 선택한 게임 서버로 새로 접속
+               await NetworkManager.Instance.ReconnectToTcpServer(selectedServer.Ip, selectedServer.Port.ToString());
             }
         }
     }
 
-    async void OnToggleLocalValueChanged(bool isLocal)
+    void OnToggleLocalValueChanged(bool isLocal)
     {
         isCheckLocal = isLocal;
 
@@ -98,44 +136,9 @@ public class TitleController : MonoBehaviour
         }
         else
         {
+            // 서버 모드일 때
             dropdownServerList.gameObject.SetActive(true);
-
-            connectButton.interactable = false;
-
-            if (!isReceivedServerList)
-            {
-                toggleLocal.interactable = false;
-
-                try
-                {
-                    bool isConnected = await NetworkManager.Instance.ConnectToTcpServer(titleServer_Ip, titleServer_Port);
-
-                    if (isConnected)
-                    {
-                        Debug.Log("Successfully connected to Title Server. Requesting server list...");
-
-                        isReceivedServerList = true;
-
-                        CT_ServerListRead c_packet = new CT_ServerListRead();
-
-                        NetworkManager.Instance.Send(c_packet);
-                    }
-                    else
-                    {
-                        Debug.LogError("Failed to connect to the Title Server.");
-                    }
-                }
-                finally
-                {
-                    // 토글은 다시 활성화
-                    toggleLocal.interactable = true;
-                }
-            }
-            else
-            {
-                // 이미 서버 목록이 있다면 버튼만 활성화
-                connectButton.interactable = cachedServerList.Any();
-            }
+            connectButton.interactable = true;
         }
     }
 
