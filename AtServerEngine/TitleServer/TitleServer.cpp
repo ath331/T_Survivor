@@ -4,14 +4,16 @@
 
 
 #include "pch.h"
+#include <filesystem>
+#include <tchar.h>
+#include <format>
+
 #include "ThreadManager.h"
 #include "Service.h"
 #include "Session.h"
 #include "Session/TitleSession.h"
 #include "Session/TitleSessionManager.h"
 #include "BufferWriter.h"
-#include <tchar.h>
-#include <format>
 #include "Job.h"
 #include "DBConnectionPool.h"
 #include "DBBind.h"
@@ -55,19 +57,20 @@ void DoWorkerJob( ServerServicePtr& service )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief ServerMain 함수
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtInt32 main()
+AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 {
 #ifdef _WIN32
 	SetConsoleOutputCP( CP_UTF8 );
 #endif
 
-	if ( !Environment::Load( "../Binary/Release/TitleServer.ini" ) )
+	std::filesystem::path programPath( argv[ 0 ] );
+	AtString fileName = programPath.stem().string();
+	AtString dirPath  = programPath.parent_path().string();
+
+	if ( !Environment::Load( dirPath + "/" + fileName + ".ini" ) )
 	{
-		if ( !Environment::Load( "TitleServer.ini" ) )
-		{
-			WARNNING_LOG( "Failed to load config.ini" );
-			return -1;
-		}
+		WARNNING_LOG( "Failed to load config.ini" );
+		return -1;
 	}
 
 	// SqlServer
@@ -87,7 +90,9 @@ AtInt32 main()
 	
 		DBConnectionGaurd dbConn;
 		DBSynchronizer dbSync( DBSynchronizer::EType::Title, *dbConn );
-		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
+
+		AtString dbPath = dirPath + "/" + Environment::Get( "DB_ASSET_PATH" );
+		dbSync.Synchronize( StringUtils::ConvertToWString( dbPath ).c_str() );
 	}
 
 	ClientPacketHandler::Init();
