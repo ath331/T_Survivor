@@ -1,14 +1,15 @@
-pipeline {
-  agent any
+stage('Build Projects') {
+  steps {
+    bat """
+    cd AtServerEngine
 
-  stages {
-    stage('Build Solution') {
-      steps {
-        bat """
-        cd AtServerEngine
-        "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe" Server.sln -m -p:Configuration=Release -p:Platform=x64 -v:diag
-        """
-      }
-    }
+    set MSB="C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe"
+
+    %MSB% ServerCore\\ServerCore.vcxproj -p:Configuration=Release -p:Platform=x64
+    %MSB% Network\\Network.vcxproj -p:Configuration=Release -p:Platform=x64
+    %MSB% Public\\Public.vcxproj -p:Configuration=Release -p:Platform=x64
+    %MSB% GameServer\\GameServer.vcxproj -p:Configuration=Release -p:Platform=x64
+    %MSB% TitleServer\\TitleServer.vcxproj -p:Configuration=Release -p:Platform=x64
+    """
   }
 }
