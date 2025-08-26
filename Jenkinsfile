@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout') {
       steps {
         // dev 브랜치에서 소스 가져오기
-        git branch: 'dev', credentialsId: 'github-scm', url: 'https://github.com/ath331/T_Survivor.git'
+        git branch: 'dev', credentialsId: 'TSurvivor', url: 'https://github.com/ath331/T_Survivor.git'
       }
     }
 
