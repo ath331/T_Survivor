@@ -7,7 +7,7 @@ pipeline {
         bat """
         set MSB="C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe"
 
-        %MSB% ServerCore.vcxproj -p:Configuration=Release -p:Platform=x64
+        %MSB% AtServerEngine\\ServerCore\\ServerCore.vcxproj -p:Configuration=Release -p:Platform=x64
         """
       }
     }
