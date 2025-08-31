@@ -92,7 +92,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         Debug.Log("LobbyScene 초기화 완료");
     }
 
-    public void OnStartGameButtonClick()
+    public void OnStartGame()
     {
         // 접속중임을 알리는 패널 활성화
         connectingPanel.SetActive(true);
@@ -153,8 +153,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
             SetEnableControl(isLobby: false, isWaitRoom: true);
 
             waitingRoomHandler.SetMaKeRoom(message.MadeRoomInfo);
-
-            waitingRoomHandler.IsOnRoomLeader();
         }
         else
         {

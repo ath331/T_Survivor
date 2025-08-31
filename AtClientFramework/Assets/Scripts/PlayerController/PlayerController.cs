@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         networkPlayerTransform = GetComponent<NetworkPlayerTransform>();
         networkPlayerAnimation = GetComponent<NetworkPlayerAnimation>();
 
