@@ -127,11 +127,17 @@
     <ClInclude Include="Logic\AI\AISequence.h">
       <Filter>Logic\AI</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\ContentsManager.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Core\Environment.h">
       <Filter>Logic\Core</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Core\Singleton.h">
       <Filter>Logic\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Item\Inventory.h">
+      <Filter>Logic\Item</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Object\Actor\Actor.h">
       <Filter>Logic\Object\Actor</Filter>
@@ -381,11 +387,17 @@
     <ClCompile Include="Logic\AI\AISequence.cpp">
       <Filter>Logic\AI</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\ContentsManager.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\Core\Environment.cpp">
       <Filter>Logic\Core</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Core\Singleton.cpp">
       <Filter>Logic\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Item\Inventory.cpp">
+      <Filter>Logic\Item</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Object\Actor\Actor.cpp">
       <Filter>Logic\Object\Actor</Filter>
@@ -565,6 +577,8 @@
     </Filter>
     <Filter Include="Logic\Core">
     </Filter>
+    <Filter Include="Logic\Item">
+    </Filter>
     <Filter Include="Logic\Object">
     </Filter>
     <Filter Include="Logic\Object\Actor">
@@ -604,6 +618,8 @@
     <Filter Include="Packet\Handler\Server">
     </Filter>
     <Filter Include="Packet\Handler\Spawn">
+    </Filter>
+    <Filter Include="Packet\Handler\Test">
     </Filter>
     <Filter Include="Session">
     </Filter>

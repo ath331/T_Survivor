@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Session/GameSession.h"
 #include "Logic/Room/Room.h"
+#include "Logic/Item/Inventory.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 
 
@@ -15,8 +16,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Player::Player()
 {
-	m_isPlayer = true;
-	m_actorType = Protocol::EActorType::ACTOR_TYPE_PLAYER;
+	m_isPlayer  = true;
+	m_actorType = EActorType::ACTOR_TYPE_PLAYER;
+
+	m_inventory = new Inventory( this );
+	m_contentsManagerContainer.Register( m_inventory );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,4 +45,16 @@ AtVoid Player::Send( google::protobuf::Message& pkt )
 {
 	if ( auto sessionPtr = session.lock() )
 		sessionPtr->Send( pkt );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 로그인시 처리한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Player::OnLogin()
+{
+	for ( ContentsManager* contentsManager : m_contentsManagerContainer.GetContainer() )
+	{
+		if ( contentsManager )
+			contentsManager->InitializeDB();
+	}
 }

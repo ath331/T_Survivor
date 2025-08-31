@@ -34,6 +34,7 @@ AtBool C_EnterLobbyHandler::Handle( PacketSessionPtr& session, C_EnterLobby& pkt
 								  result.set_success( true );
 								  result.set_playerid( player->GetId() );
 
+								  player->OnLogin();
 								  player->Send( result );
 
 								  // S_RequestAllRoomInfo allRoomInfo;
