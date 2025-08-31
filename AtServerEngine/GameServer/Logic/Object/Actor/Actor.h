@@ -20,7 +20,7 @@ public:
 	Actor();
 
 	/// º“∏Í¿⁄
-	virtual ~Actor();
+	~Actor() override;
 
 protected:
 	/// ø¢≈Õ ≈∏¿‘
