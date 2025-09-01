@@ -64,10 +64,9 @@ public class LobbyHandler : MonoBehaviour
 
     public void CreateRoomHolder(S_RequestRoomInfo message)
     {
-        var target = roomHolders
-           .FirstOrDefault(r => r.RoomNumber == message.RoomInfo.Num);
+        var target = roomHolders.FirstOrDefault(r => r.RoomNumber == message.RoomInfo.Num);
 
-        if (target == null) return;
+        if (target != null) return;
 
         var roomHolder = ObjectPoolManager.Instance.Get<RoomHolder>("RoomHolder", content.transform);
 
