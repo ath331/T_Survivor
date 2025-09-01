@@ -38,7 +38,8 @@ AtVoid WaitingRoom::UpdateTick( Millisecond curTime )
 	if ( GetPlayerCount() <= 0 )
 		m_state = ROOM_STATE_DESTROY_RESERVATION;
 
-	Room::UpdateTick( curTime );
+	// GLobby에서 Update()로 접근하므로 다시 호출하면 안됨.
+	//Room::UpdateTick( curTime );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
