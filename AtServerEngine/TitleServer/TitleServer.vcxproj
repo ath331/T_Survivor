@@ -197,11 +197,6 @@
   <ItemGroup>
     <Xml Include="DB\TitleDB.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ServerCore\ServerCore.vcxproj">
-      <Project>{cac2b122-7251-4759-8d77-04cd547b7348}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
