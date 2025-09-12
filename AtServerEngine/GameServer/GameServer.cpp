@@ -4,13 +4,15 @@
 
 
 #include "pch.h"
+#include <filesystem>
+#include <tchar.h>
+
 #include "ThreadManager.h"
 #include "Service.h"
 #include "Session.h"
 #include "Session/GameSession.h"
 #include "Session/GameSessionManager.h"
 #include "BufferWriter.h"
-#include <tchar.h>
 #include "Job.h"
 #include "DBConnectionPool.h"
 #include "DBBind.h"
@@ -57,19 +59,20 @@ void DoWorkerJob( ServerServicePtr& service )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief ServerMain 함수
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtInt32 main()
+AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 {
 #ifdef _WIN32
 	SetConsoleOutputCP( CP_UTF8 );
 #endif
 
-	if ( !Environment::Load( "../Binary/Release/GameServer.ini" ) )
+	std::filesystem::path programPath( argv[ 0 ] );
+	AtString fileName = programPath.stem().string();
+	AtString dirPath  = programPath.parent_path().string();
+
+	if ( !Environment::Load( dirPath + "/" + fileName + ".ini" ) )
 	{
-		if ( !Environment::Load( "GameServer.ini" ) )
-		{
-			WARNNING_LOG( "Failed to load config.ini" );
-			return -1;
-		}
+		WARNNING_LOG( "Failed to load config.ini" );
+		return -1;
 	}
 
 	ASSERT_CRASH( InitializeInfoManager() );
@@ -91,7 +94,9 @@ AtInt32 main()
 
 		DBConnection* dbConn = GDBConnectionPool->Pop();
 		DBSynchronizer dbSync( DBSynchronizer::EType::Game, *dbConn );
-		dbSync.Synchronize( StringUtils::ConvertToWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
+
+		AtString dbPath = dirPath + "/" + Environment::Get( "DB_ASSET_PATH" );
+		dbSync.Synchronize( StringUtils::ConvertToWString( dbPath ).c_str() );
 	}
 
 

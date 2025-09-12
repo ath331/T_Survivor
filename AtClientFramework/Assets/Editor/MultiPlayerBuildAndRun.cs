@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -50,13 +51,9 @@ public class MultiPlayerBuildAndRun
 
     static string[] GetScenePaths()
     {
-        string[] scenes = new string[EditorBuildSettings.scenes.Length];
-
-        for (int i = 0; i < scenes.Length; i++)
-        {
-            scenes[i] = EditorBuildSettings.scenes[i].path;
-        }
-
-        return scenes;
+        return EditorBuildSettings.scenes
+            .Where(scene => scene.enabled)
+            .Select(scene => scene.path)
+            .ToArray();
     }
 }

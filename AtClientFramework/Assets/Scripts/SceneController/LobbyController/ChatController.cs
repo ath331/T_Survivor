@@ -18,7 +18,7 @@ public class ChatController : MonoBehaviour
 
     private void OnEnable()
     {
-        Chat_Strategy.OnChatReceived += UpdateChatUI;
+        PacketEventManager.Subscribe<S_Chat>(UpdateChatUI);
     }
 
     private void Start()
@@ -29,7 +29,7 @@ public class ChatController : MonoBehaviour
 
     private void OnDisable()
     {
-        Chat_Strategy.OnChatReceived -= UpdateChatUI;
+        PacketEventManager.Unsubscribe<S_Chat>(UpdateChatUI);
     }
 
     private void OnDestroy()
@@ -73,8 +73,10 @@ public class ChatController : MonoBehaviour
         NetworkManager.Instance.Send(pkt);
     }
 
-    public void UpdateChatUI(string message)
+    public void UpdateChatUI(S_Chat message)
     {
+        string Msg = message.Msg;
+
         if (chatTexts.Count >= LimitChatPrefab)
         {
             ChatText oldestChat = chatTexts[0];
@@ -88,7 +90,7 @@ public class ChatController : MonoBehaviour
         chatTextObj.SetActive(true);
 
         ChatText chatText = chatTextObj.GetComponent<ChatText>();
-        chatText.ReceiveMessage(message);
+        chatText.ReceiveMessage(Msg);
 
         chatTexts.Add(chatText);
     }

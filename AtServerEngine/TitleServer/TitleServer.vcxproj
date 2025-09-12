@@ -71,12 +71,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(SolutionDir)Network\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(SolutionDir)Network\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
@@ -88,6 +88,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)ServerCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,6 +106,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)ServerCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +125,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)ServerCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +143,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)ServerCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DB\DBConnectionGaurd.h" />
     <ClInclude Include="DB\GenProcedures.h" />
     <ClInclude Include="Logic\Core\Environment.h" />
     <ClInclude Include="Logic\Core\Singleton.h" />
@@ -155,14 +162,10 @@
     <ClInclude Include="Logic\Utils\String\StringUtils.h" />
     <ClInclude Include="Logic\Utils\Time\AtTime.h" />
     <ClInclude Include="Logic\Utils\Utils.h" />
-    <ClInclude Include="Packet\Enum.pb.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
-    <ClInclude Include="Packet\Handler\Login\CT_LoginHandler.h" />
-    <ClInclude Include="Packet\Handler\PacketId.h" />
-    <ClInclude Include="Packet\Handler\Room\CT_EnterLobbyHandler.h" />
-    <ClInclude Include="Packet\Handler\Server\CT_ServerListReadHandler.h" />
-    <ClInclude Include="Packet\Protocol.pb.h" />
-    <ClInclude Include="Packet\Struct.pb.h" />
+    <ClInclude Include="Packet\Handler\Login\CT_ServerListReadHandler.h" />
+    <ClInclude Include="Packet\Handler\Test\CT_ctTestHandler.h" />
+    <ClInclude Include="Packet\PacketId.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Session\TitleSession.h" />
     <ClInclude Include="Session\TitleSessionManager.h" />
@@ -177,12 +180,10 @@
     <ClCompile Include="Logic\Utils\Time\AtTime.cpp" />
     <ClCompile Include="Logic\Utils\Utils.cpp" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
-    <ClCompile Include="Packet\Handler\CT_EnterLobbyHandlerTemplate.cpp" />
-    <ClCompile Include="Packet\Handler\CT_LoginHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\CT_ctTestHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\CT_ServerListReadHandlerTemplate.cpp" />
-    <ClCompile Include="Packet\Handler\Login\CT_LoginHandler.cpp" />
-    <ClCompile Include="Packet\Handler\Room\CT_EnterLobbyHandler.cpp" />
-    <ClCompile Include="Packet\Handler\Server\CT_ServerListReadHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Login\CT_ServerListReadHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Test\CT_ctTestHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -195,25 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DB\TitleDB.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Packet\Enum.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Packet\Protocol.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Packet\Struct.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Packet\Enum.proto" />
-    <None Include="Packet\Protocol.proto" />
-    <None Include="Packet\Struct.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

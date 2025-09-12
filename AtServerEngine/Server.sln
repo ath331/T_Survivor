@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.6.33717.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameServer", "GameServer\GameServer.vcxproj", "{F03FE732-3473-4BBD-94B1-D4916C3B4A15}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649} = {C2D78B2B-58EA-42F8-922D-20CDC7E32649}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DummyClient", "DummyClient\DummyClient.vcxproj", "{BB44AE35-8484-4283-B63B-CEAC19CB6242}"
 EndProject
@@ -28,6 +31,13 @@ EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "DataGenerator", "Tools\DataGenerator\DataGenerator.pyproj", "{C219BC91-23F5-4AB4-9ADF-D161754282B5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TitleServer", "TitleServer\TitleServer.vcxproj", "{A0FC2265-8559-49B0-994B-10E91EC32EA0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649} = {C2D78B2B-58EA-42F8-922D-20CDC7E32649}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Network", "Network\Network.vcxproj", "{C2D78B2B-58EA-42F8-922D-20CDC7E32649}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Public", "Public\Public.vcxproj", "{740313A9-596E-4D77-8564-C402EF0B8889}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +121,30 @@ Global
 		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|x64.Build.0 = Release|x64
 		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|x86.ActiveCfg = Release|Win32
 		{A0FC2265-8559-49B0-994B-10E91EC32EA0}.Release|x86.Build.0 = Release|Win32
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Debug|Any CPU.Build.0 = Debug|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Debug|x64.ActiveCfg = Debug|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Debug|x64.Build.0 = Debug|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Debug|x86.Build.0 = Debug|Win32
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Release|Any CPU.ActiveCfg = Release|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Release|Any CPU.Build.0 = Release|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Release|x64.ActiveCfg = Release|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Release|x64.Build.0 = Release|x64
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Release|x86.ActiveCfg = Release|Win32
+		{C2D78B2B-58EA-42F8-922D-20CDC7E32649}.Release|x86.Build.0 = Release|Win32
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Debug|Any CPU.Build.0 = Debug|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Debug|x64.ActiveCfg = Debug|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Debug|x64.Build.0 = Debug|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Debug|x86.ActiveCfg = Debug|Win32
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Debug|x86.Build.0 = Debug|Win32
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|Any CPU.ActiveCfg = Release|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|Any CPU.Build.0 = Release|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|x64.ActiveCfg = Release|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|x64.Build.0 = Release|x64
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|x86.ActiveCfg = Release|Win32
+		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

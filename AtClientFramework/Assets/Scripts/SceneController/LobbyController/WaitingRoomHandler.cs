@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Network;
+using Assets.Scripts.Network.Handler;
 using Cysharp.Threading.Tasks;
 using Protocol;
 using TMPro;
@@ -18,6 +19,8 @@ public class PlayerInfo
     public ObjectInfo objectInfo;
 
     public PlayerController playerController;
+
+    public bool isReady;
 }
 
 public class WaitingRoomHandler : MonoBehaviour
@@ -29,6 +32,14 @@ public class WaitingRoomHandler : MonoBehaviour
     [SerializeField] private Transform[] spawnTransform;
 
     [SerializeField] private Button exitButton;
+
+    [SerializeField] private Button readyButton;
+
+    [SerializeField] private Button gameStartButton;
+
+    [SerializeField] private TMP_Text readyButtonText;
+
+    [SerializeField] private GameObject[] readyImages;
 
     // 생성된 캐릭터 인스턴스를 보관하는 리스트
     private List<PlayerInfo> playerInfos;
@@ -51,33 +62,53 @@ public class WaitingRoomHandler : MonoBehaviour
 
     private bool isExit = false;
 
+    private int spawnIndex = 0;
+
+    private bool isReady = false; // 내 상태
+
+    private bool isAllReady = false;
+
     void OnEnable()
     {
-        WaitRoomOutNotify_Strategy.OnRoomOutNotify += NotifyRoomOutPlayer;
+        // C_WaitingRoomOut 을 보내면 S_WaitingRoomOutNotify이 다른 클라한테 가고  S_WaitingRoomOut 는 본인한테 옴
+        PacketEventManager.Subscribe<S_WaitingRoomOutNotify>(NotifyRoomOutPlayer);
+        PacketEventManager.Subscribe<S_WaitingRoomOut>(Receive_WaitRoomOut);
 
-        WaitRoomOut_Strategy.OnRoomOut += Receive_WaitRoomOut;
+        PacketEventManager.Subscribe<S_ChangeWaitingState>(OnReceiveChangeWaitingState);
+        PacketEventManager.Subscribe<S_ChangeWaitingStateNotify>(OnReceiveChangeWaitingStateNotify);
 
         exitButton.onClick.AddListener(OnClickExit);
+        readyButton.onClick.AddListener(OnClickReady);
+        gameStartButton.onClick.AddListener(OnClickStart);
 
         isExit = false;
     }
 
     void OnDisable()
     {
-        WaitRoomOutNotify_Strategy.OnRoomOutNotify -= NotifyRoomOutPlayer;
+        PacketEventManager.Unsubscribe<S_WaitingRoomOutNotify>(NotifyRoomOutPlayer);
+        PacketEventManager.Unsubscribe<S_WaitingRoomOut>(Receive_WaitRoomOut);
 
-        WaitRoomOut_Strategy.OnRoomOut -= Receive_WaitRoomOut;
-
-        exitButton.onClick.RemoveAllListeners();
+        PacketEventManager.Unsubscribe<S_ChangeWaitingState>(OnReceiveChangeWaitingState);
+        PacketEventManager.Unsubscribe<S_ChangeWaitingStateNotify>(OnReceiveChangeWaitingStateNotify);
 
         Destroy_AllCharacter();
 
         isRoomLeader = false;
+
+        exitButton.onClick.RemoveAllListeners();
+
+        readyButton.onClick.RemoveAllListeners();
+
+        gameStartButton.onClick.RemoveAllListeners();
     }
 
     public void IsOnRoomLeader()
     {
         isRoomLeader = true;
+
+        gameStartButton.gameObject.SetActive(true);
+        gameStartButton.interactable = false;
     }
 
     public void NotifyRoomOutPlayer(S_WaitingRoomOutNotify message)
@@ -104,23 +135,21 @@ public class WaitingRoomHandler : MonoBehaviour
 
     public void SetMaKeRoom(RoomInfo roomInfo)
     {
-        SetRoomInfo(roomInfo);
+        InitializeRoomInfo(roomInfo);
 
-        titleText.text = $"[{roomNumber}] {titleName}";
-
-        playerInfos = new List<PlayerInfo>(max_count);
-
-        for (int i = 0; i < max_count; i++)
-        {
-            playerInfos.Add(new PlayerInfo());  // 각 인덱스에 PlayerInfo 객체 추가
-        }
-
-        spawnSlotsOccupied = new bool[max_count];
+        IsOnRoomLeader();
 
         SpawnMyCharacter();
     }
 
-    private void SetRoomInfo(RoomInfo roomInfo)
+    public void SetEnterRoom(RoomInfo roomInfo)
+    {
+        InitializeRoomInfo(roomInfo);
+
+        SpawnMyCharacter();
+    }
+
+    private void InitializeRoomInfo(RoomInfo roomInfo)
     {
         titleName = roomInfo.Name;
 
@@ -131,22 +160,19 @@ public class WaitingRoomHandler : MonoBehaviour
         cur_count = roomInfo.CurCount;
 
         max_count = roomInfo.MaxCount;
-    }
 
-    public void OnClickReady()
-    {
+        titleText.text = $"[{roomNumber}] {titleName}";
 
-    }
+        playerInfos = new List<PlayerInfo>(max_count);
 
-    private void OnClickExit()
-    {
-        if (isExit) return;
+        for (int i = 0; i < max_count; i++)
+        {
+            playerInfos.Add(new PlayerInfo());  // 각 인덱스에 PlayerInfo 객체 추가
 
-        isExit = true;
+            readyImages[i].SetActive(false);
+        }
 
-        C_WaitingRoomOut roomOut = new C_WaitingRoomOut();
-
-        NetworkManager.Instance.Send(roomOut);
+        spawnSlotsOccupied = new bool[max_count];
     }
 
     public void Receive_WaitRoomOut(S_WaitingRoomOut message)
@@ -163,39 +189,56 @@ public class WaitingRoomHandler : MonoBehaviour
         isExit = false;
     }
 
-    private void SpawnCharacter(ulong playerId)
+    // MyCharacter 호출
+    private void SpawnMyCharacter()
     {
+        var myId = MercuryHelper.mercuryId;
+
         for (int i = 0; i < max_count; i++)
         {
             if (!spawnSlotsOccupied[i])
             {
-                PlayerController controller = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
-                if (controller == null)
-                {
-                    Debug.LogError("PlayerController 풀링 실패");
-                    return;
-                }
+                spawnIndex = i;
+
+                PlayerController controller = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[spawnIndex]);
+
                 controller.enabled = false;
                 controller.rb.useGravity = false;
+                controller.GetComponent<NetworkPlayerTransform>().enabled = false;
 
-                playerInfos[i].playerController = controller;
-                playerInfos[i].objectInfo.Id = playerId;
-                spawnSlotsOccupied[i] = true;
+                playerInfos[spawnIndex].playerController = controller;
+                playerInfos[spawnIndex].objectInfo.Id = myId;
+                spawnSlotsOccupied[spawnIndex] = true;
                 break;
             }
         }
-    }
 
-    // MyCharacter 호출
-    private void SpawnMyCharacter()
-    {
-        SpawnCharacter(MercuryHelper.mercuryId);
+        CheckAllPlayersReady();
     }
 
     // OtherCharacter 호출 (메시지에서 가져온 Id 사용)
     public void SpawnOtherCharacter(S_WaitingRoomEnterNotify message)
     {
-        SpawnCharacter(message.Player.Id);
+        var otherId = message.Player.Id;
+
+        for (int i = 0; i < max_count; i++)
+        {
+            if (!spawnSlotsOccupied[i])
+            {
+                PlayerController controller = ObjectPoolManager.Instance.Get<PlayerController>("Knight", spawnTransform[i]);
+
+                controller.enabled = false;
+                controller.rb.useGravity = false;
+                controller.GetComponent<NetworkPlayerTransform>().enabled = false;
+
+                playerInfos[i].playerController = controller;
+                playerInfos[i].objectInfo.Id = otherId;
+                spawnSlotsOccupied[i] = true;
+                break;
+            }
+        }
+
+        CheckAllPlayersReady();
     }
 
     public void Destroy_CharacterAtSlot(int slotIndex)
@@ -233,5 +276,124 @@ public class WaitingRoomHandler : MonoBehaviour
         character.rb.useGravity = true;
 
         ObjectPoolManager.Instance.Return(character.gameObject);
+    }
+
+    public void OnClickReady()
+    {
+        isReady = !isReady;
+
+        playerInfos[spawnIndex].isReady = isReady;
+
+        // 본인 자리 readyImage 반영
+        readyImages[spawnIndex]?.SetActive(isReady);
+
+        // 버튼 텍스트 반영
+        readyButtonText.text = isReady ? "취 소" : "준 비";
+
+        // 패킷 전송
+        C_ChangeWaitingState packet = new C_ChangeWaitingState
+        {
+            State = isReady ? EWaitingState.WaitingStateRaedy : EWaitingState.WaitingStateRaedyCancle
+        };
+
+        NetworkManager.Instance.Send(packet);
+    }
+
+    public void OnClickStart()
+    {
+        // 상태가 "게임 시작"이면 -> 시작 로직 실행
+        if (isRoomLeader && isAllReady)
+        {
+            Debug.Log("게임 시작");
+
+            readyButton.interactable = false;
+
+            gameStartButton.interactable = false;
+
+            lobbyController.OnStartGame();
+
+            return;
+        }
+    }
+
+    private void OnClickExit()
+    {
+        if (isExit) return;
+
+        isExit = true;
+
+        C_WaitingRoomOut roomOut = new C_WaitingRoomOut();
+
+        NetworkManager.Instance.Send(roomOut);
+    }
+
+    /// <summary>
+    /// 내가 쏘면 나한테 옴.
+    /// </summary>
+    /// <param name="message"></param>
+    private void OnReceiveChangeWaitingState(S_ChangeWaitingState message)
+    {
+        if (message.Result == EResultCode.ResultCodeSuccess)
+        {
+
+        }
+        else
+        {
+            // 실패 로직.. 
+        }
+
+        CheckAllPlayersReady();
+    }
+
+    /// <summary>
+    /// 내가 쏘면 다른 클라한테 감.
+    /// </summary>
+    /// <param name="message"></param>
+    private void OnReceiveChangeWaitingStateNotify(S_ChangeWaitingStateNotify message)
+    {
+        bool ready = (message.State == EWaitingState.WaitingStateRaedy);
+        
+        for (int i = 0; i < max_count; i++)
+        {
+            if (playerInfos[i].objectInfo.Id == message.Player.Id)
+            {
+                playerInfos[i].isReady = ready;
+                readyImages[i]?.SetActive(ready);
+                break;
+            }
+        }
+
+        CheckAllPlayersReady();
+    }
+
+    /// <summary>
+    /// 룸 리더일시 체크해야 할 것
+    /// </summary>
+    private void CheckAllPlayersReady()
+    {
+        if (!isRoomLeader)
+            return;
+        
+        int readyCount = 0;
+
+        for (int i = 0; i < max_count; i++)
+        {
+            if (playerInfos[i].playerController != null && playerInfos[i].isReady)
+            {
+                readyCount++;
+            }
+        }
+
+        if (readyCount == cur_count)
+        {
+            gameStartButton.interactable = true;
+            isAllReady = true;
+        }
+        else
+        {
+            readyButtonText.text = isReady ? "취 소" : "준 비";
+            gameStartButton.interactable = false;
+            isAllReady = false;
+        }
     }
 }

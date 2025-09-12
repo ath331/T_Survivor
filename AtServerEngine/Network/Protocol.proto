@@ -1,0 +1,243 @@
+syntax = "proto3";
+package Protocol;
+
+
+option csharp_namespace = "Protocol";
+
+
+import "Enum.proto";
+import "Struct.proto";
+
+
+// path = Login
+message C_Login
+{
+	string id = 1;
+	int32 pw = 2;
+}
+
+// path = Login
+message S_Login
+{
+	bool success = 1;
+	//repeated ObjectInfo players = 2;
+}
+
+// path = Room
+message C_EnterLobby
+{
+}
+
+message S_EnterLobby
+{
+	bool success = 1;
+	uint64 playerId = 2;
+}
+
+message C_WaitingRoomEnter
+{
+	RoomInfo roomInfo = 1;
+}
+
+message S_WaitingRoomEnter
+{
+	EResultCode result = 1;
+	RoomInfo roomInfo = 2;
+}
+
+message S_WaitingRoomEnterNotify
+{
+	ObjectInfo player = 1;
+}
+
+message C_MakeRoom
+{
+	RoomInfo roomInfo = 1;
+}
+
+message S_MakeRoom
+{
+	EResultCode result = 1;
+	RoomInfo madeRoomInfo = 2;
+}
+
+message S_DestroyRoom
+{
+	EResultCode result = 1;
+	RoomInfo roomInfo = 2;
+}
+
+message S_RequestRoomInfo
+{
+	EResultCode result = 1;
+	RoomInfo roomInfo = 2;
+}
+
+message C_RequestAllRoomInfo
+{
+}
+
+message S_RequestAllRoomInfo
+{
+	EResultCode result = 1;
+	repeated RoomInfo roomList = 2;
+}
+
+message C_WaitingRoomOut
+{
+}
+
+message S_WaitingRoomOut
+{
+	EResultCode result = 1;
+}
+
+message S_WaitingRoomOutNotify
+{
+	ObjectInfo player = 1;
+}
+
+message C_ChangeWaitingState
+{
+	EWaitingState state = 1;
+}
+
+message S_ChangeWaitingState
+{
+	EResultCode result = 1;
+	EWaitingState state = 2;
+}
+
+message S_ChangeWaitingStateNotify
+{
+	ObjectInfo player = 1;
+	EWaitingState state = 2;
+}
+
+message S_ChangeRoomLeaderNotify
+{
+	ObjectInfo player = 1;
+}
+
+// path = Game
+message C_EnterGame
+{
+}
+
+// path = Game
+message S_EnterGame
+{
+	EResultCode result = 1;
+	ObjectInfo player = 2;
+}
+
+// path = Game
+message C_EnterGameFinish
+{
+}
+
+// path = Game
+message S_EnterGameFinish
+{
+	EResultCode result = 1;
+}
+
+// path = Game
+message C_LeaveGame
+{
+}
+
+// path = Game
+message S_LeaveGame
+{
+}
+
+// path = Actor
+message C_Move
+{
+	ObjectInfo objectInfo = 1;
+}
+
+// path = Actor
+message S_Move
+{
+	EResultCode result = 1;
+	ObjectInfo objectInfo = 2;
+}
+
+// path = Spawn
+message S_Spawn
+{
+	EResultCode result = 1;
+	repeated ObjectInfo objectList = 2;
+}
+
+// path = Spawn
+message S_DeSpawn
+{
+	repeated uint64 ids = 1;
+}
+
+// path = Chat
+message C_Chat
+{
+	string msg = 1;
+}
+
+// path = Chat
+message S_Chat
+{
+	uint64 playerId = 1;
+	string msg = 2;
+}
+
+// path = Anim
+message C_AnimationEvent
+{
+    string animationType = 1;
+    EAnimationParamType paramType = 2;
+    bool boolValue = 3;
+	float floatValue = 4;        // SetFloat 용 값
+}
+
+// path = Anim
+message S_AnimationEvent
+{
+	EResultCode result = 1;
+    uint64 playerId = 2;
+    string animationType = 3;
+    EAnimationParamType paramType = 4;
+    bool boolValue = 5;
+	float floatValue = 6;        // SetFloat 용 값
+}
+
+// path = Server
+message C_ServerListRead
+{
+}
+
+message S_ServerListRead
+{
+	EResultCode result = 1;
+    repeated ServerInfo serverInfoList = 2;
+}
+
+// path = Test
+message CT_ctTest
+{
+}
+
+message ST_stTest
+{
+}
+
+// path = Login
+message CT_ServerListRead
+{
+}
+
+message ST_ServerListRead
+{
+	EResultCode result = 1;
+    repeated ServerInfo serverInfoList = 2;
+}

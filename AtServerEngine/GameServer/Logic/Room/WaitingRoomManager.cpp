@@ -9,16 +9,24 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid WaitingRoomManager::Update( Millisecond curTime )
 {
+	if ( m_waitingRoomMap.empty() )
+		return;
+
 	// INFO_LOG( "WaitingRoomManager::Update()" );
 
-	WRITE_LOCK;
+	std::set< AtInt64 > deleteRoomSet;
+	WaitingRoomMap copyRoomMap;
 
-	for ( auto iter = m_waitingRoomMap.begin(); iter != m_waitingRoomMap.end(); )
 	{
-		WaitingRoomPtr room = iter->second;
+		WRITE_LOCK;
+		copyRoomMap = m_waitingRoomMap;
+	}
+
+	for ( auto& [ roomNum, room ] : copyRoomMap )
+	{
 		if ( !room )
 		{
-			iter = m_waitingRoomMap.erase( iter );
+			deleteRoomSet.insert( roomNum );
 			continue;
 		}
 
@@ -29,7 +37,27 @@ AtVoid WaitingRoomManager::Update( Millisecond curTime )
 
 		if ( roomInfo.room_state() == ROOM_STATE_DESTROY_RESERVATION )
 		{
-			iter = m_waitingRoomMap.erase( iter );
+			deleteRoomSet.insert( roomNum );
+			continue;
+		}
+	}
+
+	{
+		WRITE_LOCK;
+		for ( auto deleteRoomNum : deleteRoomSet )
+		{
+			auto iter = m_waitingRoomMap.find( deleteRoomNum );
+			if ( iter == m_waitingRoomMap.end() )
+				continue;
+
+			WaitingRoomPtr waitingRoom = iter->second;
+			if ( !waitingRoom )
+				continue;
+
+			RoomInfo roomInfo;
+			waitingRoom->ExportTo( roomInfo );
+
+			m_waitingRoomMap.erase( iter );
 
 			S_DestroyRoom destroyRoomNotify;
 			destroyRoomNotify.set_result( EResultCode::RESULT_CODE_SUCCESS );
@@ -37,8 +65,6 @@ AtVoid WaitingRoomManager::Update( Millisecond curTime )
 
 			GLobby->Broadcast( destroyRoomNotify );
 		}
-
-		++iter;
 	}
 }
 

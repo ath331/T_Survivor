@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "Logic/Utils/Log/AtLog.h"
 #include "ClientPacketHandler.h"
-#include "Server/CT_ServerListReadHandler.h"
+#include "Login/CT_ServerListReadHandler.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

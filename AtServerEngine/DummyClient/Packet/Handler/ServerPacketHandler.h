@@ -1,5 +1,5 @@
 #pragma once
-#include "PacketId.h"
+#include "../PacketId.h"
 #include "Packet/Protocol.pb.h"
 
 

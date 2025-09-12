@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
@@ -33,54 +33,53 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     private void OnEnable()
     {
-        EnterGame_Strategy.OnEnterGameSuccess += HandleEnterGameSuccess;
+        PacketEventManager.Subscribe<S_EnterGame>(HandleEnterGameSuccess);
 
-        RoomCreate_Strategy.OnRoomCreateReceived += CreateRoom;
+        PacketEventManager.Subscribe<S_MakeRoom>(CreateRoom);
 
-        WaitRoomEnter_Strategy.OnEnterRoom += EnterRoom;
+        PacketEventManager.Subscribe<S_WaitingRoomEnter>(EnterRoom);
 
-        WaitRoomNotify_Strategy.OnNotify += NotifyPlayer;
+        PacketEventManager.Subscribe<S_WaitingRoomEnterNotify>(NotifyPlayer);
     }
 
     private void OnDisable()
     {
-        EnterGame_Strategy.OnEnterGameSuccess -= HandleEnterGameSuccess;
+        PacketEventManager.Unsubscribe<S_EnterGame>(HandleEnterGameSuccess);
 
-        RoomCreate_Strategy.OnRoomCreateReceived -= CreateRoom;
+        PacketEventManager.Unsubscribe<S_MakeRoom>(CreateRoom);
 
-        WaitRoomEnter_Strategy.OnEnterRoom -= EnterRoom;
+        PacketEventManager.Unsubscribe<S_WaitingRoomEnter>(EnterRoom);
 
-        WaitRoomNotify_Strategy.OnNotify -= NotifyPlayer;
+        PacketEventManager.Unsubscribe<S_WaitingRoomEnterNotify>(NotifyPlayer);
     }
 
     /// <summary>
-    /// ¾À ³»ºÎ ÃÊ±âÈ­¸¦ ÁøÇàÇÕ´Ï´Ù.
+    /// ì”¬ ë‚´ë¶€ ì´ˆê¸°í™”ë¥¼ ì§„í–‰í•©ë‹ˆë‹¤.
     /// </summary>
     public async UniTask InitializeAsync(IProgress<float> progress)
     {
-        Debug.Log("LobbyScene ÃÊ±âÈ­ ½ÃÀÛ");
+        Debug.Log("LobbyScene ì´ˆê¸°í™” ì‹œì‘");
 
         float currentProgress = 0f;
 
-        // 1. ObjectPoolManager ÃÊ±âÈ­ (°¡ÁßÄ¡ 0.2)
+        // 1. ObjectPoolManager ì´ˆê¸°í™” (ê°€ì¤‘ì¹˜ 0.2)
         ObjectPoolManager.Instance.Initialize();
         currentProgress += 0.2f;
         progress.Report(currentProgress);
 
         await UniTask.Delay(100);
 
-        // 2. Lobby UI ¿¡¼Â ·Îµå (°¡ÁßÄ¡ 0.3)
-        SetEnableControl(isLobby: false, isWaitRoom: false);
+        // 2. Lobby UI ì—ì…‹ ë¡œë“œ (ê°€ì¤‘ì¹˜ 0.3)
         currentProgress += 0.3f;
         progress.Report(currentProgress);
 
         await UniTask.Delay(100);
 
-        // 3. ³×Æ®¿öÅ© ¿¬°á/ÃÊ±âÈ­ (°¡ÁßÄ¡ 0.2)
+        // 3. ë„¤íŠ¸ì›Œí¬ ì—°ê²°/ì´ˆê¸°í™” (ê°€ì¤‘ì¹˜ 0.2)
 
-        // 4. Lobby µ¥ÀÌÅÍ ÃÊ±âÈ­ (°¡ÁßÄ¡ 0.3)
+        // 4. Lobby ë°ì´í„° ì´ˆê¸°í™” (ê°€ì¤‘ì¹˜ 0.3)
 
-        lobbyHandler.gameObject.SetActive(true);
+        //lobbyHandler.gameObject.SetActive(true);
 
         currentProgress += 0.3f;
         progress.Report(currentProgress);
@@ -90,12 +89,12 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         currentProgress += 0.2f;
         progress.Report(currentProgress);
 
-        Debug.Log("LobbyScene ÃÊ±âÈ­ ¿Ï·á");
+        Debug.Log("LobbyScene ì´ˆê¸°í™” ì™„ë£Œ");
     }
 
-    public void OnStartGameButtonClick()
+    public void OnStartGame()
     {
-        // Á¢¼ÓÁßÀÓÀ» ¾Ë¸®´Â ÆĞ³Î È°¼ºÈ­
+        // ì ‘ì†ì¤‘ì„ì„ ì•Œë¦¬ëŠ” íŒ¨ë„ í™œì„±í™”
         connectingPanel.SetActive(true);
 
         C_EnterGame pkt = new C_EnterGame();
@@ -104,15 +103,23 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     }
 
     /// <summary>
-    /// S_EnterGame ¼º°ø ÀÌº¥Æ® ÇÚµé·¯
+    /// S_EnterGame ì„±ê³µ ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
     /// </summary>
-    private void HandleEnterGameSuccess()
+    private void HandleEnterGameSuccess(S_EnterGame message)
     {
-        // Á¢¼ÓÁß ÆĞ³Î ºñÈ°¼ºÈ­
-        connectingPanel.SetActive(false);
+        if (message.Result == EResultCode.ResultCodeSuccess)
+        {
+            // ì ‘ì†ì¤‘ íŒ¨ë„ ë¹„í™œì„±í™”
+            connectingPanel.SetActive(false);
 
-        // °ÔÀÓ ¾ÀÀ¸·Î ÀüÈ¯
-        SwitchSceneManager.Instance.ChangeTo("Game").Forget();
+            // ê²Œì„ ì”¬ìœ¼ë¡œ ì „í™˜
+            SwitchSceneManager.Instance.ChangeTo("Game").Forget();
+        }
+        else
+        {
+            // ì‹¤íŒ¨ ì‹œ ì¶”ê°€ ì²˜ë¦¬ ê°€ëŠ¥ (ì˜ˆ: ì—ëŸ¬ ë©”ì‹œì§€ UI í‘œì‹œ)
+            Debug.LogWarning("S_EnterGame: Failure response received.");
+        }
     }
 
     public void NotifyPlayer(S_WaitingRoomEnterNotify message)
@@ -124,7 +131,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
-            Debug.Log("¹æµé¾î°¡±â ¼º°ø");
+            Debug.Log("ë°©ë“¤ì–´ê°€ê¸° ì„±ê³µ");
 
             SetEnableControl(isLobby: false, isWaitRoom: true);
 
@@ -132,7 +139,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
         else
         {
-            Debug.Log("¹æµé¾î°¡±â ½ÇÆĞ");
+            Debug.Log("ë°©ë“¤ì–´ê°€ê¸° ì‹¤íŒ¨");
 
         }
     }
@@ -141,17 +148,15 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
-            Debug.Log("¹æ¸¸µé±â ¼º°ø");
+            Debug.Log("ë°©ë§Œë“¤ê¸° ì„±ê³µ");
 
             SetEnableControl(isLobby: false, isWaitRoom: true);
 
             waitingRoomHandler.SetMaKeRoom(message.MadeRoomInfo);
-
-            waitingRoomHandler.IsOnRoomLeader();
         }
         else
         {
-            Debug.Log("¹æ¸¸µé±â ½ÇÆĞ");
+            Debug.Log("ë°©ë§Œë“¤ê¸° ì‹¤íŒ¨");
 
         }
     }

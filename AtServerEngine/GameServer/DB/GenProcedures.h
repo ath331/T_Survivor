@@ -27,13 +27,6 @@ namespace SP
     class GetGold : public DBBind<1,4>
     {
     public:
-    	GetGold(DBConnection& conn) : DBBind(conn, L"{CALL dbo.spGetGold(?)}") { }
-    	void In_Gold(int32& v) { BindParam(0, v); };
-    	void In_Gold(int32&& v) { _gold = std::move(v); BindParam(0, _gold); };
-    	void Out_Id(OUT int32& v) { BindCol(0, v); };
-    	void Out_Gold(OUT int32& v) { BindCol(1, v); };
-    	template<int32 N> void Out_Name(OUT WCHAR(&v)[N]) { BindCol(2, v); };
-    	void Out_CreateDate(OUT TIMESTAMP_STRUCT& v) { BindCol(3, v); };
 
     private:
     	int32 _gold = {};

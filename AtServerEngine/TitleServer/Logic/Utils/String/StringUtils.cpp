@@ -68,3 +68,19 @@ AtBool StringUtils::GetBool( AtString str )
 
 	return false;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief WCHAR를 string 문자열로 변환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtString StringUtils::ConvertToString( const WCHAR* wstr )
+{
+	if ( !wstr ) 
+		return {};
+
+	int sizeNeeded = WideCharToMultiByte( CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr );
+
+	std::string result( sizeNeeded - 1, 0 );
+	WideCharToMultiByte( CP_UTF8, 0, wstr, -1, result.data(), sizeNeeded, nullptr, nullptr );
+
+	return result;
+}
