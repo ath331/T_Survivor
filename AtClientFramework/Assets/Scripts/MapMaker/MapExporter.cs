@@ -16,38 +16,38 @@ public class MapExporter : MonoBehaviour
         sb.AppendLine( "{" );
 
         // ==== 1) Objects ====
-        sb.AppendLine( "  \"objects\": [" );
-        bool firstObj = true;
-
-        Tilemap refTilemap = Object.FindObjectOfType<Tilemap>();
-        var objs = Object.FindObjectsOfType<GameObject>();
-        foreach ( var obj in objs )
-        {
-            // Unity 시스템 오브젝트 제외
-            if ( obj.hideFlags != HideFlags.None )
-                continue;
-            if ( obj.GetComponent<Camera>() != null )
-                continue;
-            if ( obj.GetComponent<Light>() != null )
-                continue;
-
-            if ( !firstObj )
-                sb.AppendLine( "," );
-            firstObj = false;
-
-            Vector3 worldPos = obj.transform.position;
-            Vector3Int cellPos = refTilemap != null
-                ? refTilemap.WorldToCell( worldPos )
-                : Vector3Int.zero;
-
-            sb.Append( "    {" );
-            sb.Append( $"\"name\":\"{obj.name}\"," );
-            sb.Append( $"\"worldX\":{worldPos.x},\"worldY\":{worldPos.y},\"worldZ\":{worldPos.z}," );
-            sb.Append( $"\"cellX\":{cellPos.x},\"cellY\":{cellPos.y},\"cellZ\":{cellPos.z}" );
-            sb.Append( "}" );
-        }
-        sb.AppendLine();
-        sb.AppendLine( "  ]," );
+        //sb.AppendLine( "  \"objects\": [" );
+        //bool firstObj = true;
+        //
+        //Tilemap refTilemap = Object.FindObjectOfType<Tilemap>();
+        //var objs = Object.FindObjectsOfType<GameObject>();
+        //foreach ( var obj in objs )
+        //{
+        //    // Unity 시스템 오브젝트 제외
+        //    if ( obj.hideFlags != HideFlags.None )
+        //        continue;
+        //    if ( obj.GetComponent<Camera>() != null )
+        //        continue;
+        //    if ( obj.GetComponent<Light>() != null )
+        //        continue;
+        //
+        //    if ( !firstObj )
+        //        sb.AppendLine( "," );
+        //    firstObj = false;
+        //
+        //    Vector3 worldPos = obj.transform.position;
+        //    Vector3Int cellPos = refTilemap != null
+        //        ? refTilemap.WorldToCell( worldPos )
+        //        : Vector3Int.zero;
+        //
+        //    sb.Append( "    {" );
+        //    sb.Append( $"\"name\":\"{obj.name}\"," );
+        //    sb.Append( $"\"worldX\":{worldPos.x},\"worldY\":{worldPos.y},\"worldZ\":{worldPos.z}," );
+        //    sb.Append( $"\"cellX\":{cellPos.x},\"cellY\":{cellPos.y},\"cellZ\":{cellPos.z}" );
+        //    sb.Append( "}" );
+        //}
+        //sb.AppendLine();
+        //sb.AppendLine( "  ]," );
 
         // ==== 2) NavMesh ====
         NavMeshTriangulation tri = NavMesh.CalculateTriangulation();
