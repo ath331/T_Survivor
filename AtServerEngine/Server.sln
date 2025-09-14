@@ -39,6 +39,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Network", "Network\Network.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Public", "Public\Public.vcxproj", "{740313A9-596E-4D77-8564-C402EF0B8889}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scene", "Scene\Scene.vcxproj", "{544E92DD-F709-4128-A332-D01C265332B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +147,18 @@ Global
 		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|x64.Build.0 = Release|x64
 		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|x86.ActiveCfg = Release|Win32
 		{740313A9-596E-4D77-8564-C402EF0B8889}.Release|x86.Build.0 = Release|Win32
+		{544E92DD-F709-4128-A332-D01C265332B6}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Debug|Any CPU.Build.0 = Debug|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Debug|x64.ActiveCfg = Debug|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Debug|x64.Build.0 = Debug|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Debug|x86.ActiveCfg = Debug|Win32
+		{544E92DD-F709-4128-A332-D01C265332B6}.Debug|x86.Build.0 = Debug|Win32
+		{544E92DD-F709-4128-A332-D01C265332B6}.Release|Any CPU.ActiveCfg = Release|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Release|Any CPU.Build.0 = Release|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Release|x64.ActiveCfg = Release|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Release|x64.Build.0 = Release|x64
+		{544E92DD-F709-4128-A332-D01C265332B6}.Release|x86.ActiveCfg = Release|Win32
+		{544E92DD-F709-4128-A332-D01C265332B6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

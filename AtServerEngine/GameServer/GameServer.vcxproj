@@ -86,13 +86,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Network;$(SolutionDir)Public;$(ProjectDir);$(ProjectDir)\Logic;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Network;$(SolutionDir)Public;$(SolutionDir)Scene;$(ProjectDir);$(ProjectDir)\Logic;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Network;$(SolutionDir)Public;$(ProjectDir);$(ProjectDir)\Logic;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore;$(SolutionDir)Libraries\Include;$(SolutionDir)Network;$(SolutionDir)Public;$(SolutionDir)Scene;$(ProjectDir);$(ProjectDir)\Logic;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>

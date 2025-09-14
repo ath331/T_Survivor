@@ -29,6 +29,10 @@
 #include "Logic/Room/WaitingRoomManager.h"
 #include "Logic/Utils/Time/AtTime.h"
 
+
+/// Test
+#include "MapData/SceneManager.h"
+
 /// 프로세스 틱 이넘
 enum
 {
@@ -133,6 +137,9 @@ AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 	Millisecond curTime = AtTime::GetCurMillisecond();
 
 	GLobby->DoAsync( &Room::UpdateTick, curTime );
+
+	SceneManager sceneManager( dirPath + "/../../../AtClientFramework/Assets/Resources/SceneJson/Test_NavMeshMap.json");
+	sceneManager.DrawSceneMap();
 
 	GThreadManager->Join();
 
