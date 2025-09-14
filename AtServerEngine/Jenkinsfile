@@ -1,13 +1,11 @@
 pipeline {
   agent any
-
   stages {
-    stage('Build Projects') {
+    stage('Build Solution') {
       steps {
         bat """
         set MSB="C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe"
-
-        %MSB% AtServerEngine\\GameServer\\GameServer.vcxproj -p:Configuration=Release -p:Platform=x64
+        %MSB% AtServerEngine\\T_Survivor.sln -t:Rebuild -p:Configuration=Release -p:Platform=x64
         """
       }
     }
