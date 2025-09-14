@@ -1,0 +1,20 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Clean and Rebuild Solution') {
+      steps {
+        bat """
+        set MSB="C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\MSBuild.exe"
+        set SOL=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Build_GameServer\\AtServerEngine\\
+
+        rem Clean
+        %MSB% %SOL%T_Survivor.sln -t:Clean -p:Configuration=Release -p:Platform=x64
+
+        rem Rebuild (ServerCore 경로 강제 추가)
+        %MSB% %SOL%T_Survivor.sln -t:Rebuild -p:Configuration=Release -p:Platform=x64 -p:IncludePath="%SOL%ServerCore;%IncludePath%"
+        """
+      }
+    }
+  }
+}
