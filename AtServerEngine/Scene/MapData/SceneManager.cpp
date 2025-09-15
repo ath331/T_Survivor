@@ -1,23 +1,255 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
+ï»¿////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif SceneManager File
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "pch.h"
 #include "SceneManager.h"
-#include <iostream>
-#include <fstream>
-#include <json.hpp>
+#include <iomanip>
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif »ı¼ºÀÚ
+// @breif ìƒì„±ì
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 SceneManager::SceneManager( const string& path )
 {
-    std::ifstream file( path );
+	_ImportTo( path );
+	_ConverToGraph();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif ë§µì„ ì½˜ì†”ì— í‘œì‹œí•´ì¤€ë‹¤.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void SceneManager::DrawSceneMap( bool isPrintPath )
+{
+    if ( m_grid.empty() )
+    {
+        cout << "Grid is Empty()" << endl;
+        return;
+	}
+    
+	// ì½˜ì†” ì¶œë ¥ (ìœ¡ê°í˜• ì˜¤í”„ì…‹ ì ìš©)
+	for ( int z = 0; z < m_height; ++z )
+	{
+		// í™€ìˆ˜ í–‰ì€ ì™¼ìª½ì— ê³µë°±ì„ ì¶”ê°€
+		if ( z % 2 == 1 )
+			std::cout << " ";
+
+		for ( int x = 0; x < m_width; ++x )
+		{
+			if ( isPrintPath )
+			{
+				// TODO ê²½ë¡œ ë¹¨ê°„ìƒ‰ ë³„ë¡œ í‘œì‹œí•˜ê¸°?
+				std::cout << m_grid[ z ][ x ];
+			}
+			else
+			{
+				std::cout << m_grid[ z ][ x ];
+			}
+
+			std::cout << " "; // ê° ì›ì†Œë§ˆë‹¤ ê³µë°± ì¶”ê°€
+		}
+
+		std::cout << std::endl;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif ê·¸ë˜í”„ë¥¼ ì½˜ì†”ì— í‘œì‹œí•´ì¤€ë‹¤.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void SceneManager::DrawGraph( bool isPrintList, bool isPrintPath )
+{
+	if ( m_graph.nodes.empty() )
+	{
+		std::cout << "Graph is empty.\n";
+		return;
+	}
+
+	int maxId = (int)m_graph.nodes.size();
+	int widthDigits = ( maxId > 0 ) ? (int)std::log10( maxId ) + 1 : 1;
+	if ( widthDigits < 2 ) widthDigits = 2;
+
+	std::cout << "\n\nHexGraph (Node Id)\n";
+
+	for ( int y = 0; y < m_height; y++ )
+	{
+		if ( y % 2 == 1 ) std::cout << " ";  // í™€ìˆ˜ í–‰ ì˜¤í”„ì…‹
+
+		for ( int x = 0; x < m_width; x++ )
+		{
+			auto it = m_idMap.find( { x, y } );
+			if ( it == m_idMap.end() )
+			{
+				for ( int k = 0; k < widthDigits; k++ ) std::cout << ".";
+				std::cout << " ";
+			}
+			else
+			{
+				if ( isPrintPath )
+				{
+					// í‘œì‹œí•˜ë ¤ëŠ” ë…¸ë“œê°€ ìµœê·¼ì— ì¡°íšŒí•œ ê²½ë¡œë¼ë©´
+					if ( m_nodePathSet.find( it->second ) != m_nodePathSet.end() )
+					{
+						std::cout << "\033[31m"  // ë¹¨ê°„ìƒ‰ ì‹œì‘
+							<< std::setw( widthDigits ) << std::setfill( '0' ) << it->second
+							<< "\033[0m "; // ìƒ‰ìƒ ë¦¬ì…‹
+					}
+					else
+					{
+						std::cout << std::setw( widthDigits )
+							<< std::setfill( '0' )
+							<< it->second << " ";
+					}
+				}
+				else
+				{
+					std::cout << std::setw( widthDigits )
+						<< std::setfill( '0' )
+						<< it->second << " ";
+				}
+			}
+		}
+		std::cout << "\n";
+	}
+
+	if ( isPrintList )
+	{
+		std::cout << "\nì¸ì ‘ ë¦¬ìŠ¤íŠ¸:\n";
+		for ( auto& kv : m_graph.nodes )
+		{
+			int id = m_idMap[ {kv.second.x, kv.second.y} ];
+			std::cout << "Node " << id
+				<< " (" << kv.second.x << "," << kv.second.y << ") -> ";
+
+			for ( auto& nb : kv.second.neighbors )
+			{
+				auto it = m_idMap.find( nb );
+				if ( it != m_idMap.end() )
+					std::cout << it->second << " ";
+			}
+			std::cout << "\n";
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif ëª©ì ì§€ê¹Œì§€ì˜ ê²½ë¡œë¥¼ êµ¬í•œë‹¤.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+std::vector<int> SceneManager::FindPath( int startId, int goalId )
+{
+	m_nodePathSet.clear();
+
+    std::pair<int, int> start = m_coordMap[ startId ];
+    std::pair<int, int> goal  = m_coordMap[ goalId ];
+
+	if ( !m_graph.HasNode( start.first, start.second ) ||
+		 !m_graph.HasNode( goal.first, goal.second ) )
+		return {};
+
+	auto& startNode = *m_graph.GetNode( start.first, start.second );
+	auto& goalNode = *m_graph.GetNode( goal.first, goal.second );
+
+	auto heuristic = [ & ]( const HexNode& a, const HexNode& b )
+	{
+		float dx = float( a.x - b.x );
+		float dy = float( a.y - b.y );
+		return std::sqrt( dx * dx + dy * dy );
+	};
+
+	using PQItem = std::pair<float, std::pair<int, int>>; // f-score, ì¢Œí‘œ
+	std::priority_queue<PQItem, std::vector<PQItem>, std::greater<PQItem>> open;
+
+	auto key = []( int x, int y )
+	{
+		return ( (long long)x << 32 ) ^ (long long)y;
+	};
+
+	std::unordered_map<long long, PathNode> allNodes;
+	std::unordered_map<long long, bool> closed;
+
+	// ì‹œì‘ ë…¸ë“œ ì´ˆê¸°í™”
+	PathNode s;
+	s.x = start.first;
+	s.y = start.second;
+	s.g = 0.0f;
+	s.h = heuristic( startNode, goalNode );
+	s.parent = { -1, -1 };
+
+	allNodes[ key( s.x, s.y ) ] = s;
+	open.emplace( s.f(), start );
+
+	while ( !open.empty() )
+	{
+		auto [fscore, current] = open.top();
+		open.pop();
+
+		int cx = current.first;
+		int cy = current.second;
+		auto ckey = key( cx, cy );
+
+		if ( closed[ ckey ] ) continue;
+		closed[ ckey ] = true;
+
+		if ( cx == goal.first && cy == goal.second )
+		{
+			// ê²½ë¡œ ë³µì›
+			std::vector<int> path;
+			std::pair<int, int> cur = goal;
+			while ( !( cur.first == -1 && cur.second == -1 ) )
+			{
+                auto idMapKey = std::make_pair( cur.first, cur.second );
+                auto iter = m_idMap.find( idMapKey );
+                if ( iter == m_idMap.end() )
+                    continue;
+
+                path.push_back( iter->second );
+				m_nodePathSet.insert( iter->second );
+
+				cur = allNodes[ key( cur.first, cur.second ) ].parent;
+			}
+			std::reverse( path.begin(), path.end() );
+
+			return path;
+		}
+
+		const HexNode* curNode = m_graph.GetNode( cx, cy );
+		if ( !curNode ) continue;
+
+		for ( auto& nb : curNode->neighbors )
+		{
+			if ( !m_graph.HasNode( nb.first, nb.second ) ) continue;
+			const HexNode* nbNode = m_graph.GetNode( nb.first, nb.second );
+			if ( !nbNode->walkable ) continue;
+
+			float tentativeG = allNodes[ ckey ].g + heuristic( *curNode, *nbNode );
+			auto nkey = key( nb.first, nb.second );
+
+			if ( !allNodes.count( nkey ) || tentativeG < allNodes[ nkey ].g )
+			{
+				PathNode pn;
+				pn.x = nb.first;
+				pn.y = nb.second;
+				pn.g = tentativeG;
+				pn.h = heuristic( *nbNode, goalNode );
+				pn.parent = { cx, cy };
+
+				allNodes[ nkey ] = pn;
+				open.emplace( pn.f(), nb );
+			}
+		}
+	}
+
+	return {}; // ê²½ë¡œ ì—†ìŒ
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif NavMesh ë°ì´í„°ë¥¼ ì¶”ì¶œí•œë‹¤.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void SceneManager::_ImportTo( const string& path )
+{
+	std::ifstream file( path );
     if ( !file.is_open() )
-        throw std::runtime_error( "ÆÄÀÏ ¿­±â ½ÇÆĞ: " + path );
+        throw std::runtime_error( "íŒŒì¼ ì—´ê¸° ì‹¤íŒ¨: " + path );
 
     nlohmann::json j;
     file >> j;
@@ -61,86 +293,126 @@ SceneManager::SceneManager( const string& path )
     {
         m_sceneMap.navmesh.areas.push_back( a.get<int>() );
     }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif ¸ÊÀ» ÄÜ¼Ö¿¡ Ç¥½ÃÇØÁØ´Ù.
-////////////////////////////////////////////////////////////////////////////////////////////////////
-void SceneManager::DrawSceneMap()
-{
-	// ¸Ê ¹üÀ§ ±¸ÇÏ±â
-	float minX = 99999, maxX = -99999;
-	float minZ = 99999, maxZ = -99999;
 
 	for ( auto& v : m_sceneMap.navmesh.vertices )
 	{
 		minX = std::min( minX, v.x );
 		maxX = std::max( maxX, v.x );
-		minZ = std::min( minZ, v.z );
-		maxZ = std::max( maxZ, v.z );
-	}
-	for ( auto& obj : m_sceneMap.objects )
-	{
-		minX = std::min( minX, obj.worldX );
-		maxX = std::max( maxX, obj.worldX );
-		minZ = std::min( minZ, obj.worldZ );
-		maxZ = std::max( maxZ, obj.worldZ );
+		minY = std::min( minY, v.z );
+		maxY = std::max( maxY, v.z );
 	}
 
-	int width = static_cast<int>( maxX - minX ) + 1;
-	int height = static_cast<int>( maxZ - minZ ) + 1;
+	m_width  = static_cast<int>( maxX - minX ) + 1;
+	m_height = static_cast<int>( maxY - minY ) + 1;
 
-	std::vector<std::string> grid( height, std::string( width, '.' ) );
-
-	// ¿ÀºêÁ§Æ® Ç¥½Ã
-	for ( auto& obj : m_sceneMap.objects )
-	{
-		int gx = static_cast<int>( obj.worldX - minX );
-		int gz = static_cast<int>( obj.worldZ - minZ );
-		if ( gz >= 0 && gz < height && gx >= 0 && gx < width )
-			grid[ height - 1 - gz ][ gx ] = '#';
-	}
-
-	// ³×ºñ¸Ş½Ã ¿µ¿ª Ç¥½Ã
-	for ( auto& tri : m_sceneMap.navmesh.triangles )
-	{
-		auto& a = m_sceneMap.navmesh.vertices[ tri.a ];
-		auto& b = m_sceneMap.navmesh.vertices[ tri.b ];
-		auto& c = m_sceneMap.navmesh.vertices[ tri.c ];
-
-		for ( int z = 0; z < height; ++z )
-		{
-			for ( int x = 0; x < width; ++x )
-			{
-				float wx = minX + x + 0.5f;
-				float wz = minZ + z + 0.5f;
-
-				if ( _PointInTriangle2D( wx, wz, a.x, a.z, b.x, b.z, c.x, c.z ) )
-				{
-					if ( grid[ height - 1 - z ][ x ] == '.' )
-						grid[ height - 1 - z ][ x ] = '*';
-				}
-			}
-		}
-	}
-
-	// ÄÜ¼Ö Ãâ·Â (À°°¢Çü ¿ÀÇÁ¼Â Àû¿ë)
-	for ( int z = 0; z < height; ++z )
-	{
-		// È¦¼ö ÇàÀº ¿ŞÂÊ¿¡ °ø¹éÀ» Ãß°¡
-		if ( z % 2 == 1 )
-			std::cout << " ";
-
-		for ( int x = 0; x < width; ++x )
-		{
-			std::cout << grid[ z ][ x ] << " "; // °¢ ¿ø¼Ò¸¶´Ù °ø¹é Ãß°¡
-		}
-		std::cout << std::endl;
-	}
+    _BuildGrid();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif NavMesh »ï°¢Çü ¾È¿¡ Á¡ÀÌ Æ÷ÇÔµÇ´ÂÁö Ã¼Å© (´Ü¼ø 2D ÆÇÁ¤)
+// @breif ê²©ì ê·¸ë¦¬ë“œë¥¼ ìƒì„±í•œë‹¤.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void SceneManager::_BuildGrid()
+{
+    if ( m_grid.empty() )
+        m_grid.clear();
+
+    m_grid.resize( m_height, std::string( m_width, '.' ) );
+
+    // ì˜¤ë¸Œì íŠ¸ í‘œì‹œ
+    for ( auto& obj : m_sceneMap.objects )
+    {
+        int gx = static_cast<int>( obj.worldX - minX );
+        int gz = static_cast<int>( obj.worldZ - minY );
+        if ( gz >= 0 && gz < m_height && gx >= 0 && gx < m_width )
+            m_grid[ m_height - 1 - gz ][ gx ] = '#';
+    }
+
+    // ë„¤ë¹„ë©”ì‹œ ì˜ì—­ í‘œì‹œ
+    for ( auto& tri : m_sceneMap.navmesh.triangles )
+    {
+        auto& a = m_sceneMap.navmesh.vertices[ tri.a ];
+        auto& b = m_sceneMap.navmesh.vertices[ tri.b ];
+        auto& c = m_sceneMap.navmesh.vertices[ tri.c ];
+
+        for ( int z = 0; z < m_height; ++z )
+        {
+            for ( int x = 0; x < m_width; ++x )
+            {
+                float wx = minX + x + 0.5f;
+                float wz = minY + z + 0.5f;
+
+                if ( _PointInTriangle2D( wx, wz, a.x, a.z, b.x, b.z, c.x, c.z ) )
+                {
+                    if ( m_grid[ m_height - 1 - z ][ x ] == '.' )
+                        m_grid[ m_height - 1 - z ][ x ] = '*';
+                }
+            }
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif NavMesh ë°ì´í„°ë¥¼ ê·¸ë˜í”„ë¡œ ë³€í™˜í•œë‹¤.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void SceneManager::_ConverToGraph()
+{
+	int id = 0;
+
+	for ( int y = 0; y < m_height; y++ )
+	{
+		for ( int x = 0; x < m_width; x++ )
+		{
+			if ( m_grid[ y ][ x ] != '*' ) continue;
+
+			HexNode node;
+			node.id = ++id;
+			node.x = x;
+			node.y = y;   // âœ… grid ì¢Œí‘œ ê·¸ëŒ€ë¡œ ì‚¬ìš©
+
+			std::vector<std::pair<int, int>> candidates;
+
+			if ( y % 2 == 0 ) // ì§ìˆ˜ í–‰
+			{
+				candidates = {
+					{ x - 1, y }, { x + 1, y },
+					{ x, y - 1 }, { x, y + 1 },
+					{ x - 1, y - 1 }, { x - 1, y + 1 }
+				};
+			}
+			else // í™€ìˆ˜ í–‰
+			{
+				candidates = {
+					{ x - 1, y }, { x + 1, y },
+					{ x, y - 1 }, { x, y + 1 },
+					{ x + 1, y - 1 }, { x + 1, y + 1 }
+				};
+			}
+
+			for ( auto& nb : candidates )
+			{
+				int nx = nb.first;
+				int ny = nb.second;
+				if ( nx < 0 || nx >= m_width || ny < 0 || ny >= m_height ) continue;
+
+				if ( m_grid[ ny ][ nx ] == '*' )
+					node.neighbors.push_back( nb );
+			}
+
+			m_graph.nodes[ {x, y} ] = node;
+		}
+	}
+
+	for ( auto& kv : m_graph.nodes )
+	{
+		m_idMap[ {kv.second.x, kv.second.y} ] = kv.second.id;
+		m_coordMap[ kv.second.id ] = { kv.second.x, kv.second.y };
+	}
+
+	std::cout << "\n\nHexGraph built: " << m_graph.nodes.size() << " nodes\n";
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif NavMesh ì‚¼ê°í˜• ì•ˆì— ì ì´ í¬í•¨ë˜ëŠ”ì§€ ì²´í¬ (ë‹¨ìˆœ 2D íŒì •)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 bool SceneManager::_PointInTriangle2D( float px, float pz,
 									  float ax, float az,
@@ -163,3 +435,4 @@ bool SceneManager::_PointInTriangle2D( float px, float pz,
 
     return ( u >= 0 ) && ( v >= 0 ) && ( u + v < 1 );
 }
+

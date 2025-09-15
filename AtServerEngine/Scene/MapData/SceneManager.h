@@ -30,6 +30,40 @@ struct SceneMap
 	NavMeshData navmesh;
 };
 
+struct HexNode
+{
+	int id = 0;
+	int x, y;
+	std::vector<std::pair<int, int>> neighbors;
+	bool walkable = true;
+};
+
+class HexGraph
+{
+public:
+	// (x,y) → HexNode
+	std::map<std::pair<int, int>, HexNode> nodes;
+
+	bool HasNode( int x, int y ) const
+	{
+		return nodes.find( { x, y } ) != nodes.end();
+	}
+
+	const HexNode* GetNode( int x, int y ) const
+	{
+		auto it = nodes.find( { x, y } );
+		return ( it != nodes.end() ) ? &it->second : nullptr;
+	}
+};
+
+struct PathNode
+{
+	int x, y;
+	float g;   // 시작점 → 현재까지 비용
+	float h;   // 휴리스틱 (목표까지 추정 비용)
+	std::pair<int, int> parent;
+	float f() const { return g + h; }
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif SceneManager class
@@ -37,18 +71,51 @@ struct SceneMap
 class SceneManager
 {
 private:
+	int   m_width  = 0;
+	int   m_height = 0;
+	float minX = 99999, maxX = -99999;
+	float minY = 99999, maxY = -99999;
+
 	/// Map
 	SceneMap m_sceneMap;
+
+	/// 격자 Map
+	std::vector<std::string> m_grid;
+
+	/// Graph
+	HexGraph m_graph;
+
+	std::map<std::pair<int, int>, int> m_idMap;       // (x,y) → ID
+	std::map<int, std::pair<int, int>> m_coordMap;    // ID → (x,y)
+
+	/// 가장 최근에 조회한 최단 경로의 노드 모음
+	std::set< int > m_nodePathSet;
 
 public:
 	/// 생성자
 	SceneManager( const string& path );
 
 	/// 맵을 콘솔에 표시해준다.
-	void DrawSceneMap();
+	void DrawSceneMap( bool isPrintPath = false );
+
+	/// 그래프를 콘솔에 표시해준다.
+	void DrawGraph( bool isPrintList = false, bool isPrintPath = true );
+
+public:
+	/// 목적지까지의 경로를 구한다.
+	std::vector<int> FindPath( int startId, int goalId );
 
 private:
-	// NavMesh 삼각형 안에 점이 포함되는지 체크 (단순 2D 판정)
+	/// NavMesh 데이터를 추출한다.
+	void _ImportTo( const string& path );
+
+	/// 격자 그리드를 생성한다.
+	void _BuildGrid();
+
+	/// NavMesh 데이터를 그래프로 변환한다.
+	void _ConverToGraph();
+
+	/// NavMesh 삼각형 안에 점이 포함되는지 체크 (단순 2D 판정)
 	bool _PointInTriangle2D( float px, float pz,
 							float ax, float az,
 							float bx, float bz,

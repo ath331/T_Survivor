@@ -140,6 +140,12 @@ AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 
 	SceneManager sceneManager( dirPath + "/../../../AtClientFramework/Assets/Resources/SceneJson/Test_NavMeshMap.json");
 	sceneManager.DrawSceneMap();
+	auto nodePath = sceneManager.FindPath( 23, 335 );
+	sceneManager.DrawGraph();
+
+	//cout << " Path : ";
+	//for ( const auto& nodeId : nodePath )
+	//	cout << " {" << nodeId << "} ";
 
 	GThreadManager->Join();
 
