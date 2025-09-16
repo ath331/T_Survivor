@@ -135,12 +135,12 @@ void SceneManager::DrawGraph( bool isPrintList, bool isPrintPath )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 목적지까지의 경로를 구한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-std::vector<int> SceneManager::FindPath( int startId, int goalId )
+SceneManager::AStarPath SceneManager::FindPath( int startId, int goalId )
 {
 	m_nodePathSet.clear();
 
-    std::pair<int, int> start = m_coordMap[ startId ];
-    std::pair<int, int> goal  = m_coordMap[ goalId ];
+	GridPos start = m_coordMap[ startId ];
+	GridPos goal  = m_coordMap[ goalId ];
 
 	if ( !m_graph.HasNode( start.first, start.second ) ||
 		 !m_graph.HasNode( goal.first, goal.second ) )
@@ -156,8 +156,8 @@ std::vector<int> SceneManager::FindPath( int startId, int goalId )
 		return std::sqrt( dx * dx + dy * dy );
 	};
 
-	using PQItem = std::pair<float, std::pair<int, int>>; // f-score, 좌표
-	std::priority_queue<PQItem, std::vector<PQItem>, std::greater<PQItem>> open;
+	using PQItem = std::pair< float, GridPos >; // f-score, 좌표
+	std::priority_queue< PQItem, std::vector< PQItem >, std::greater<PQItem>> open;
 
 	auto key = []( int x, int y )
 	{
@@ -193,8 +193,8 @@ std::vector<int> SceneManager::FindPath( int startId, int goalId )
 		if ( cx == goal.first && cy == goal.second )
 		{
 			// 경로 복원
-			std::vector<int> path;
-			std::pair<int, int> cur = goal;
+			AStarPath path;
+			GridPos cur = goal;
 			while ( !( cur.first == -1 && cur.second == -1 ) )
 			{
                 auto idMapKey = std::make_pair( cur.first, cur.second );
@@ -202,12 +202,13 @@ std::vector<int> SceneManager::FindPath( int startId, int goalId )
                 if ( iter == m_idMap.end() )
                     continue;
 
-                path.push_back( iter->second );
+                path.insert( iter->second );
 				m_nodePathSet.insert( iter->second );
 
 				cur = allNodes[ key( cur.first, cur.second ) ].parent;
 			}
-			std::reverse( path.begin(), path.end() );
+
+			//std::reverse( path.begin(), path.end() );
 
 			return path;
 		}
