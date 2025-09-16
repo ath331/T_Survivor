@@ -71,6 +71,9 @@ struct PathNode
 class SceneManager
 {
 private:
+	/// 격자 타입 정의
+	using Grid = std::vector< std::string >;
+
 	/// 격자 좌표 타입 정의
 	using GridPos = std::pair< int, int >;
 
@@ -93,7 +96,7 @@ private:
 	SceneMap m_sceneMap;
 
 	/// 격자 Map
-	std::vector<std::string> m_grid;
+	Grid m_grid;
 
 	/// Graph
 	HexGraph m_graph;
@@ -120,6 +123,9 @@ public:
 public:
 	/// 목적지까지의 경로를 구한다.
 	AStarPath FindPath( int startId, int goalId );
+
+	/// 월드 좌표 → 노드 ID 변환
+	int GetNodeIdByWorldPos( float wx, float wz, float cellSize = 1.0f ) const;
 
 private:
 	/// NavMesh 데이터를 추출한다.

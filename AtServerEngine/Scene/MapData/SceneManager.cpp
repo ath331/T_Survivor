@@ -164,8 +164,8 @@ SceneManager::AStarPath SceneManager::FindPath( int startId, int goalId )
 		return ( (long long)x << 32 ) ^ (long long)y;
 	};
 
-	std::unordered_map<long long, PathNode> allNodes;
-	std::unordered_map<long long, bool> closed;
+	std::unordered_map< long long, PathNode > allNodes;
+	std::unordered_map< long long, bool > closed;
 
 	// 시작 노드 초기화
 	PathNode s;
@@ -241,6 +241,34 @@ SceneManager::AStarPath SceneManager::FindPath( int startId, int goalId )
 	}
 
 	return {}; // 경로 없음
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 월드 좌표 → 노드 ID 변환
+////////////////////////////////////////////////////////////////////////////////////////////////////
+int SceneManager::GetNodeIdByWorldPos( float wx, float wz, float cellSize ) const
+{
+	if ( m_width == 0 || m_height == 0 )
+		return -1;
+
+	// 월드좌표 → 격자 y
+	int gy = (int)( ( wz - minY ) / ( cellSize * 0.75f ) );
+	if ( gy < 0 || gy >= m_height ) 
+		return -1;
+
+	// 홀수행 보정
+	float offsetX = ( gy % 2 == 1 ) ? ( cellSize / 2.0f ) : 0.0f;
+
+	// 월드좌표 → 격자 x
+	int gx = (int)( ( wx - minX - offsetX ) / cellSize );
+	if ( gx < 0 || gx >= m_width )
+		return -1;
+
+	// 격자 → 노드 ID
+	if ( m_idMap[ gy ][ gx ] <= 0 )
+		return -1; // 노드 없음
+
+	return m_idMap[ gy ][ gx ];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
