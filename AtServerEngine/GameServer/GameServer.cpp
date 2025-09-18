@@ -79,6 +79,8 @@ AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 		return -1;
 	}
 
+	Environment::Add( "ExePath", dirPath );
+
 	ASSERT_CRASH( InitializeInfoManager() );
 
 	// SqlServer
@@ -137,15 +139,6 @@ AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 	Millisecond curTime = AtTime::GetCurMillisecond();
 
 	GLobby->DoAsync( &Room::UpdateTick, curTime );
-
-	SceneManager sceneManager( dirPath + "/../../../AtClientFramework/Assets/Resources/SceneJson/Test_NavMeshMap.json");
-	sceneManager.DrawSceneMap();
-	auto nodePath = sceneManager.FindPath( 23, 335 );
-	sceneManager.DrawGraph();
-
-	//cout << " Path : ";
-	//for ( const auto& nodeId : nodePath )
-	//	cout << " {" << nodeId << "} ";
 
 	GThreadManager->Join();
 

@@ -246,29 +246,70 @@ SceneManager::AStarPath SceneManager::FindPath( int startId, int goalId )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 월드 좌표 → 노드 ID 변환
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-int SceneManager::GetNodeIdByWorldPos( float wx, float wz, float cellSize ) const
+int SceneManager::GetNodeIdByWorldPos( float wx, float wz/*, float cellWidth, float cellHeight*/ ) const
 {
-	if ( m_width == 0 || m_height == 0 )
+	//if ( m_width == 0 || m_height == 0 )
+	//	return -1;
+	//
+	//// 격자 y
+	//int gy = (int)( ( wz - minY ) / ( cellHeight * 0.75f ) );
+	//if ( gy < 0 || gy >= m_height ) return -1;
+	//
+	//// 홀수 행 보정
+	//float offsetX = ( gy % 2 == 1 ) ? ( cellWidth / 2.0f ) : 0.0f;
+	//
+	//// 격자 x
+	//int gx = (int)( ( wx - minX - offsetX ) / cellWidth );
+	//if ( gx < 0 || gx >= m_width ) return -1;
+	//
+	//// 노드 ID 반환
+	//auto it = m_idMap.find( { gx, gy } );
+	//if ( it == m_idMap.end() )
+	//	return -1;
+	//
+	//return it->second;
+
+	int gx = (int)std::floor( wx - m_centerX + ( m_width / 2 ) );
+	int gy = (int)std::floor( wz - m_centerY + ( m_height / 2 ) );
+
+	if ( gx < 0 || gx >= m_width || gy < 0 || gy >= m_height )
 		return -1;
 
-	// 월드좌표 → 격자 y
-	int gy = (int)( ( wz - minY ) / ( cellSize * 0.75f ) );
-	if ( gy < 0 || gy >= m_height ) 
-		return -1;
+	auto it = m_idMap.find( { gx, gy } );
+	return ( it == m_idMap.end() ) ? -1 : it->second;
+}
 
-	// 홀수행 보정
-	float offsetX = ( gy % 2 == 1 ) ? ( cellSize / 2.0f ) : 0.0f;
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 노드 ID -> 월드 좌표
+////////////////////////////////////////////////////////////////////////////////////////////////////
+std::pair<float, float> SceneManager::GetWorldPosByNodeId( int nodeId/*, float cellWidth, float cellHeight*/ ) const
+{
+	//auto it = m_coordMap.find( nodeId );
+	//if ( it == m_coordMap.end() )
+	//	return { -1.0f, -1.0f }; // 없는 노드
+	//
+	//int gx = it->second.first;
+	//int gy = it->second.second;
+	//
+	//// 홀수/짝수 행 오프셋
+	//float offsetX = ( gy % 2 == 1 ) ? ( cellWidth / 2.0f ) : 0.0f;
+	//
+	//float worldX = minX + gx * cellWidth + offsetX;
+	//float worldZ = minY + gy * ( cellHeight * 0.75f );
+	//
+	//return { worldX, worldZ };
 
-	// 월드좌표 → 격자 x
-	int gx = (int)( ( wx - minX - offsetX ) / cellSize );
-	if ( gx < 0 || gx >= m_width )
-		return -1;
+	auto it = m_coordMap.find( nodeId );
+	if ( it == m_coordMap.end() )
+		return { -1.f, -1.f };
 
-	// 격자 → 노드 ID
-	if ( m_idMap[ gy ][ gx ] <= 0 )
-		return -1; // 노드 없음
+	int gx = it->second.first;
+	int gy = it->second.second;
 
-	return m_idMap[ gy ][ gx ];
+	float worldX = ( gx - m_width / 2 ) + 0.5f +  m_centerX;
+	float worldZ = ( gy - m_height / 2 ) + 0.5f + m_centerY;
+
+	return { worldX, worldZ };
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -334,6 +375,9 @@ void SceneManager::_ImportTo( const string& path )
 	m_width  = static_cast<int>( maxX - minX ) + 1;
 	m_height = static_cast<int>( maxY - minY ) + 1;
 
+	m_centerX = ( minX + maxX ) / 2.0f;
+	m_centerY = ( minY + maxY ) / 2.0f;
+
     _BuildGrid();
 }
 
@@ -367,8 +411,10 @@ void SceneManager::_BuildGrid()
         {
             for ( int x = 0; x < m_width; ++x )
             {
-                float wx = minX + x + 0.5f;
-                float wz = minY + z + 0.5f;
+                //float wx = minX + x + 0.5f;
+                //float wz = minY + z + 0.5f;
+				float wx = ( x - m_width / 2 ) + 0.5f +  m_centerX;
+				float wz = ( z - m_height / 2 ) + 0.5f + m_centerY;
 
                 if ( _PointInTriangle2D( wx, wz, a.x, a.z, b.x, b.z, c.x, c.z ) )
                 {

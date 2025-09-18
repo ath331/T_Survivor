@@ -79,6 +79,7 @@ AtBool AtLog::_CheckPrintPakcetType( const AtString& packetType )
 {
 	if ( packetType == "Protocol.C_Move" ) return false;
 	if ( packetType == "Protocol.C_Chat" ) return false;
+	if ( packetType == "Protocol.C_AnimationEvent" ) return false;
 
 	return true;
 }

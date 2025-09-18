@@ -25,3 +25,6 @@ MonoBehaviour:
   - name: Knight
     prefab: {fileID: 2244014083398086627, guid: d035779bf520f38499966b00a58bd75f, type: 3}
     initialCount: 5
+  - name: TempMonster
+    prefab: {fileID: 1008570438300534873, guid: 92693a5d54d1c9d49a2216f0e1483ad5, type: 3}
+    initialCount: 5

@@ -70,6 +70,10 @@ struct PathNode
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 class SceneManager
 {
+public:
+	/// 최단 경로 노드 목록 타입 정의
+	using AStarPath = std::set< int >;
+
 private:
 	/// 격자 타입 정의
 	using Grid = std::vector< std::string >;
@@ -83,12 +87,11 @@ private:
 	/// 노드Id를 키로 가지는 격자 좌표 맵 타입 정의
 	using GridPosMapByNodeId = std::map< int, GridPos >;
 
-	/// 최단 경로 노드 목록 타입 정의
-	using AStarPath = std::set< int >;
-
 private:
 	int   m_width  = 0;
 	int   m_height = 0;
+	int   m_centerX = 0;
+	int   m_centerY = 0;
 	float minX = 99999, maxX = -99999;
 	float minY = 99999, maxY = -99999;
 
@@ -125,7 +128,10 @@ public:
 	AStarPath FindPath( int startId, int goalId );
 
 	/// 월드 좌표 → 노드 ID 변환
-	int GetNodeIdByWorldPos( float wx, float wz, float cellSize = 1.0f ) const;
+	int GetNodeIdByWorldPos( float wx, float wz/*, float cellWidth = 1.7f, float cellHeight = 2.05f*/ ) const;
+
+	/// 노드 ID -> 월드 좌표
+	std::pair<float, float> GetWorldPosByNodeId( int nodeId/*, float cellWidth = 1.7f, float cellHeight = 2.05f*/ ) const;
 
 private:
 	/// NavMesh 데이터를 추출한다.

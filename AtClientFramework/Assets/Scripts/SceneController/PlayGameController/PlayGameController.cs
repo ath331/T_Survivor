@@ -83,6 +83,22 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
         float newYaw = message.ObjectInfo.PosInfo.Yaw;
 
         player.networkPlayerTransform.SetTarget(newPosition, newYaw);
+
+        // S_Move 위치 디버깅용
+        {
+            // 구체 생성
+            GameObject sphere = GameObject.CreatePrimitive( PrimitiveType.Sphere );
+            sphere.transform.position = newPosition;
+
+            // 색상(검정색) 적용
+            Renderer renderer = sphere.GetComponent<Renderer>();
+            renderer.material.color = Color.black;
+
+            // 콜라이더 끄기
+            SphereCollider collider = sphere.GetComponent<SphereCollider>();
+            if ( collider != null )
+                collider.enabled = false;
+        }
     }
 
     private void Receive_Animation(S_AnimationEvent message)

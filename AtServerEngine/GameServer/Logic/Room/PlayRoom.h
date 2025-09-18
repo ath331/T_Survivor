@@ -9,6 +9,7 @@
 
 
 class MonsterSpawnManager;
+class SceneManager;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,8 +27,19 @@ public:
 	virtual ~PlayRoom();
 
 private:
+	/// 씬 매니저
+	SceneManager* m_sceneManager;
+
 	/// 몬스터 스폰 매니저
 	MonsterSpawnManager* m_monsterSpawnManager;
+
+	/// 시작시간
+	Millisecond m_startTime;
+
+	/// temp//////////////
+	set<int> movePath;
+	AtBool m_isPrintPath = true;
+	//////////////////////
 
 public:
 	/// 룸을 업데이트한다.

@@ -22,6 +22,12 @@ private:
 	Environment() {}
 
 public:
+	/// °ª Ãß°¡
+	static AtVoid Add( const AtString& key, AtString& value )
+	{
+		data[ key ] = value;
+	}
+
 	// Function to load .ini file and parse it into the map
 	static AtBool Load( const AtString& filename )
 	{
