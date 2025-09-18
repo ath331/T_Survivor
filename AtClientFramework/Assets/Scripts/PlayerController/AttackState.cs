@@ -40,7 +40,7 @@ public class AttackState : IPlayerState
         // 공격 딜레이 같은건 따로 빼놓을 것 (ex. Weapon, PlayerController)
         if (timer >= attackDuration)
         {
-            player.ChangeState(new IdleState());
+            player.ChangeState(player.idleState);
         }
     }
 

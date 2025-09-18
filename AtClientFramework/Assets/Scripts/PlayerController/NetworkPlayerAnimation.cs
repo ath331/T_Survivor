@@ -13,24 +13,30 @@ public class NetworkPlayerAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void Set_Animation(string animationType, EAnimationParamType paramType, bool boolValue)
+    // Bool 타입 파라미터 설정
+    public void SetAnimation(string parameterName, bool value)
     {
         if (animator != null)
         {
-            switch (paramType)
-            {
-                case EAnimationParamType.AnimParamTypeBool:
-                    animator.SetBool(animationType, boolValue);
-                    break;
-                // TODO : float 추가시 고쳐야함
-                case EAnimationParamType.AnimParamTypeFloat:
-                    animator.SetFloat(animationType, 0f);
-                    break;
+            animator.SetBool(parameterName, value);
+        }
+    }
 
-                case EAnimationParamType.AnimParamTypeTrigger:
-                    animator.SetTrigger(animationType);
-                    break;
-            }
+    // Float 타입 파라미터 설정
+    public void SetAnimation(string parameterName, float value)
+    {
+        if (animator != null)
+        {
+            animator.SetFloat(parameterName, value);
+        }
+    }
+
+    // Trigger 타입 파라미터 설정
+    public void SetTrigger(string parameterName)
+    {
+        if (animator != null)
+        {
+            animator.SetTrigger(parameterName);
         }
     }
 }

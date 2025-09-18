@@ -77,14 +77,19 @@ public class TestGameController : MonoBehaviour
 
     private void Receive_Animation(S_AnimationEvent message)
     {
-        var playerId = message.PlayerId;
-        string animationType = message.AnimationType;
-        EAnimationParamType paramType = message.ParamType;
-        bool boolVal = message.BoolValue;
+        if (!PlayerListManager.Instance.TryGetPlayer(message.PlayerId, out var player)) return;
 
-        if (PlayerListManager.Instance.TryGetPlayer(playerId, out PlayerController player))
+        switch (message.ParamType)
         {
-            player.networkPlayerAnimation.Set_Animation(animationType, paramType, boolVal);
+            case EAnimationParamType.AnimParamTypeBool:
+                player.networkPlayerAnimation.SetAnimation(message.AnimationType, message.BoolValue);
+                break;
+            case EAnimationParamType.AnimParamTypeFloat:
+                player.networkPlayerAnimation.SetAnimation(message.AnimationType, message.FloatValue);
+                break;
+            case EAnimationParamType.AnimParamTypeTrigger:
+                player.networkPlayerAnimation.SetTrigger(message.AnimationType);
+                break;
         }
     }
 

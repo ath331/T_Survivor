@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public abstract class AbstractPlayGameController : MonoBehaviour, IPlayGameController
 {
     // 하위 클래스에서 반드시 구현하게 함.
-    public abstract void StartGame();
-    public abstract void EndGame();
+    public abstract UniTask StartGame();
+    public abstract UniTask EndGame();
 
     // 멀티플레이어 관련 초기화(네트워크, 플레이어 매니저 등)
     protected virtual void SetupMultiplayer()

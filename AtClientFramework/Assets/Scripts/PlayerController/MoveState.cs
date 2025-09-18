@@ -7,6 +7,9 @@ public class MoveState : IPlayerState
     private Vector3 moveDirection;
     private float moveSpeed = 5f;
     private float rotationSpeed = 20f;
+    
+    private float sendTimer;
+    private readonly float sendInterval = 0.1f;
 
     public void Enter(PlayerController player)
     {
@@ -15,6 +18,8 @@ public class MoveState : IPlayerState
         moveDirection = Vector3.zero;
 
         player.Send_Anim(EAnimationParamType.AnimParamTypeBool, "IsMoving", true);
+
+        player.Send_Move();
     }
 
     public void Exit()
@@ -24,6 +29,8 @@ public class MoveState : IPlayerState
         player.rb.velocity = Vector3.zero;
 
         player.Send_Anim(EAnimationParamType.AnimParamTypeBool, "IsMoving", false);
+
+        player.Send_Move();
     }
     public void HandleInput()
     {
@@ -35,7 +42,7 @@ public class MoveState : IPlayerState
 
         if (moveDirection == Vector3.zero)
         {
-            player.ChangeState(new IdleState());
+            player.ChangeState(player.idleState);
             return;
         }
 
@@ -47,7 +54,12 @@ public class MoveState : IPlayerState
 
     public void UpdateState()
     {
-
+        sendTimer += Time.deltaTime;
+        if (sendTimer >= sendInterval)
+        {
+            sendTimer = 0f;
+            player.Send_Move();
+        }
     }
 
     public void FixedUpdateState()

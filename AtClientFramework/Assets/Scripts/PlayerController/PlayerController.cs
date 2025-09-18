@@ -7,11 +7,6 @@ using Google.Protobuf.WellKnownTypes;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [Header("송신 설정")]
-    [Tooltip("위치 패킷을 보낼 최소 간격 (초)")]
-    [SerializeField] float sendInterval = 0.1f;
-
     [Header("이동 설정")]
     public float moveSpeed = 5f;
     public Rigidbody rb { get; private set; }
@@ -33,7 +28,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
-    float sendTimer;
+    public readonly IPlayerState idleState = new IdleState();
+    public readonly IPlayerState moveState = new MoveState();
+    public readonly IPlayerState attackState = new AttackState();
 
     private void Awake()
     {
@@ -43,7 +40,7 @@ public class PlayerController : MonoBehaviour
         networkPlayerAnimation = GetComponent<NetworkPlayerAnimation>();
 
         // 초기 상태를 IdleState로 설정
-        ChangeState(new IdleState());
+        ChangeState(idleState);
 
         targetPosition = Vector3.zero;
         targetRotation = Quaternion.identity;
@@ -58,9 +55,6 @@ public class PlayerController : MonoBehaviour
 
             // state update
             currentState.UpdateState();
-
-            // send move packet
-            Send_Move();
         }
     }
 
@@ -98,32 +92,24 @@ public class PlayerController : MonoBehaviour
     {
         if (!IsLocalPlayer) return;
 
-        // sendInterval 마다 위치 패킷 전송
-        sendTimer += Time.deltaTime;
-
-        if (sendTimer >= sendInterval)
+        C_Move pkt = new C_Move
         {
-            C_Move pkt = new C_Move
+            ObjectInfo = new ObjectInfo
             {
-                ObjectInfo = new ObjectInfo
+                Id = MercuryHelper.mercuryId,
+
+                PosInfo = new PosInfo
                 {
-                    Id = MercuryHelper.mercuryId,
+                    X = transform.position.x,
+                    Y = transform.position.y,
+                    Z = transform.position.z,
 
-                    PosInfo = new PosInfo
-                    {
-                        X = transform.position.x,
-                        Y = transform.position.y,
-                        Z = transform.position.z,
-
-                        Yaw = transform.eulerAngles.y // (0 ~ 360)
-                    }
+                    Yaw = transform.eulerAngles.y // (0 ~ 360)
                 }
-            };
+            }
+        };
 
-            NetworkManager.Instance.Send(pkt);
-
-            sendTimer = 0f;
-        }
+        NetworkManager.Instance.Send(pkt);
     }
 
     public void Send_Anim<T>(EAnimationParamType paramType, string animationType, T value = default)
