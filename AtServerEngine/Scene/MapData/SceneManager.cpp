@@ -248,27 +248,6 @@ SceneManager::AStarPath SceneManager::FindPath( int startId, int goalId )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 int SceneManager::GetNodeIdByWorldPos( float wx, float wz/*, float cellWidth, float cellHeight*/ ) const
 {
-	//if ( m_width == 0 || m_height == 0 )
-	//	return -1;
-	//
-	//// 격자 y
-	//int gy = (int)( ( wz - minY ) / ( cellHeight * 0.75f ) );
-	//if ( gy < 0 || gy >= m_height ) return -1;
-	//
-	//// 홀수 행 보정
-	//float offsetX = ( gy % 2 == 1 ) ? ( cellWidth / 2.0f ) : 0.0f;
-	//
-	//// 격자 x
-	//int gx = (int)( ( wx - minX - offsetX ) / cellWidth );
-	//if ( gx < 0 || gx >= m_width ) return -1;
-	//
-	//// 노드 ID 반환
-	//auto it = m_idMap.find( { gx, gy } );
-	//if ( it == m_idMap.end() )
-	//	return -1;
-	//
-	//return it->second;
-
 	int gx = (int)std::floor( wx - m_centerX + ( m_width / 2 ) );
 	int gy = (int)std::floor( wz - m_centerY + ( m_height / 2 ) );
 
@@ -284,21 +263,6 @@ int SceneManager::GetNodeIdByWorldPos( float wx, float wz/*, float cellWidth, fl
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 std::pair<float, float> SceneManager::GetWorldPosByNodeId( int nodeId/*, float cellWidth, float cellHeight*/ ) const
 {
-	//auto it = m_coordMap.find( nodeId );
-	//if ( it == m_coordMap.end() )
-	//	return { -1.0f, -1.0f }; // 없는 노드
-	//
-	//int gx = it->second.first;
-	//int gy = it->second.second;
-	//
-	//// 홀수/짝수 행 오프셋
-	//float offsetX = ( gy % 2 == 1 ) ? ( cellWidth / 2.0f ) : 0.0f;
-	//
-	//float worldX = minX + gx * cellWidth + offsetX;
-	//float worldZ = minY + gy * ( cellHeight * 0.75f );
-	//
-	//return { worldX, worldZ };
-
 	auto it = m_coordMap.find( nodeId );
 	if ( it == m_coordMap.end() )
 		return { -1.f, -1.f };
@@ -306,8 +270,14 @@ std::pair<float, float> SceneManager::GetWorldPosByNodeId( int nodeId/*, float c
 	int gx = it->second.first;
 	int gy = it->second.second;
 
-	float worldX = ( gx - m_width / 2 ) + 0.5f +  m_centerX;
-	float worldZ = ( gy - m_height / 2 ) + 0.5f + m_centerY;
+	float centerX = ( minX + maxX ) / 2.0f;
+	float centerY = ( minY + maxY ) / 2.0f;
+
+	// y축 반전 보정
+	int flippedGy = ( m_height - 1 ) - gy;
+
+	float worldX = ( gx - m_width / 2 ) + 0.5f + centerX;
+	float worldZ = ( flippedGy - m_height / 2 ) + 0.5f + centerY;
 
 	return { worldX, worldZ };
 }

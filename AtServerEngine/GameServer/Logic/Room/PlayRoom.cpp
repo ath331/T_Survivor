@@ -25,9 +25,9 @@ PlayRoom::PlayRoom()
 	m_monsterSpawnManager = new MonsterSpawnManager( this, spawnGroupId );
 
 	m_sceneManager = new SceneManager( Environment::Get( "ExePath" ) + "/../../../AtClientFramework/Assets/Resources/SceneJson/GameMap.json" ); // TODO : 이쁘게 수정해야할덧
-	m_sceneManager->DrawSceneMap();
-	movePath = m_sceneManager->FindPath( 270, 1945 ); // npc 움직임 보려는 임시 코드
-	m_sceneManager->DrawGraph( true, true );
+	//m_sceneManager->DrawSceneMap();
+	// movePath = m_sceneManager->FindPath( 350, 1961 ); // npc 움직임 보려는 임시 코드
+	// m_sceneManager->DrawGraph( false, true );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,9 +51,10 @@ AtVoid PlayRoom::UpdateTick( Millisecond curTime )
 	{
 		if ( m_isPrintPath )
 		{
-			for ( auto rIter = movePath.rbegin(); rIter != movePath.rend(); rIter++ )
+			//for ( auto rIter = movePath.rbegin(); rIter != movePath.rend(); rIter++ )
+			for ( auto iter = movePath.begin(); iter != movePath.end(); iter++ )
 			{
-				int nextNode = *rIter;
+				int nextNode = *iter;
 
 				auto worldPos = m_sceneManager->GetWorldPosByNodeId( nextNode );
 				cout << worldPos.first << ", " << worldPos.second << endl;
@@ -66,7 +67,7 @@ AtVoid PlayRoom::UpdateTick( Millisecond curTime )
 				move.mutable_objectinfo()->mutable_pos_info()->set_z( worldPos.second );
 
 				Broadcast( move );
-				std::this_thread::sleep_for( 1s );
+				std::this_thread::sleep_for( 0.3s );
 			}
 
 			m_isPrintPath = false;
