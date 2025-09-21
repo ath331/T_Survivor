@@ -174,22 +174,6 @@ AtVoid Room::SyncPlayers( PlayerPtr enterPlayer )
 		if ( auto session = enterPlayer->session.lock() )
 			session->Send( spawnPkt );
 	}
-
-	//Test
-	{
-		Protocol::S_Spawn spawnPkt;
-
-		Protocol::ObjectInfo* playerInfo = spawnPkt.add_objectlist();
-		playerInfo->CopyFrom( *enterPlayer->objectInfo );
-
-		playerInfo->set_id( 1000 );
-		playerInfo->mutable_pos_info()->set_id( 1000 );
-		playerInfo->mutable_pos_info()->set_x( -15 );
-		playerInfo->mutable_pos_info()->set_z( 52  );
-
-		if ( auto session = enterPlayer->session.lock() )
-			session->Send( spawnPkt );
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,7 +11,14 @@ class AIMoveAction
 	:
 	public AINode
 {
+private:
+	/// 이동 경로
+	const set<int>& m_movePath;
+
 public:
+	/// 생성자
+	AIMoveAction( const set< int >& movePath );
+
 	/// 실행한다
 	virtual AIStatus Execute( Actor* actor ) override;
 };

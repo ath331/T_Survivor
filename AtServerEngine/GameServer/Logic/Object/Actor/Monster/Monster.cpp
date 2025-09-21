@@ -6,21 +6,29 @@
 #include "pch.h"
 #include "Monster.h"
 #include "Logic/AI/AI.h"
+#include "Logic/Room/PlayRoom.h"
+#include "MapData/SceneManager.h"
 #include "Data/Monster/MonsterInfoManager.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 생성자
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-Monster::Monster( AtInt32 monsterInfoId, AtInt32 aIInfoId )
+Monster::Monster( AtInt32 monsterInfoId, AtInt32 aIInfoId, const PlayRoom* playRoom )
 	:
-	m_monsterInfo( MonsterInfoManager::GetInstance().GetInfo( monsterInfoId ) )
+	m_monsterInfo( MonsterInfoManager::GetInstance().GetInfo( monsterInfoId ) ),
+	m_room( playRoom )
 {
 	m_actorType = Protocol::EActorType::ACTOR_TYPE_MONSTER;
 
 	// TODO : AI 정보 식별자를 가지고 데이터를 어떻게 가져올건지 수정하기
 	if ( aIInfoId )
-		m_ai = new AI();
+	{
+		set< AtInt32 > movePath;
+		_GetFirstMovePath( movePath );
+
+		m_ai = new AI( movePath );
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,4 +58,21 @@ AtVoid Monster::Update()
 {
 	if ( m_ai )
 		m_ai->Update( this );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 소환시 최초 이동 경로를 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Monster::_GetFirstMovePath( set< AtInt32 >& movePath )
+{
+	if ( !m_room )
+		return;
+
+	auto sceneManager = m_room->GetSceneManager();
+	if ( !sceneManager )
+		return;
+
+	// TODO : 정보 식별자로 데이터 참조해서 경로 가져오기
+	for ( auto iter : sceneManager->FindPath( 350, 1961 ) )
+		movePath.insert( iter );
 }

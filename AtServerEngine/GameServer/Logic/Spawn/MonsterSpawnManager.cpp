@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "MonsterSpawnManager.h"
 #include "Logic/Room/Room.h"
+#include "Logic/Room/PlayRoom.h"
 #include "Logic/Object/Actor/Monster/Monster.h"
 #include "Logic/Object/Actor/Monster/MonsterTypes.h"
 #include "Data/Spawn/MonsterSpawnInfoManager.h"
@@ -16,16 +17,16 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 생성자
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-MonsterSpawnManager::MonsterSpawnManager( Room* room, AtInt32 spawnGroupId )
+MonsterSpawnManager::MonsterSpawnManager( PlayRoom* room, AtInt32 spawnGroupId )
 	:
 	m_room( room )
 {
 	// TODO : 스폰 그룹 아이디로 리스트를 가져와야하는데 아직 데이터 툴이 안 되어있어서 임시로 하나씩 생성
-	{
-		m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 1 ) );
-		m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 2 ) );
-		m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 3 ) );
-	}
+	//{
+	//	m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 1 ) );
+	//	m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 2 ) );
+	//	m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 3 ) );
+	//}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,9 +72,10 @@ AtVoid MonsterSpawnManager::_Spawn( const MonsterSpawnInfo* spawnInfo )
 	if ( !spawnInfo )
 		return;
 
-	MonsterPtr newMonster = std::make_shared< Monster >( 
+	MonsterPtr newMonster = std::make_shared< Monster >(
 		spawnInfo->GetMonsterInfoId(),
-		spawnInfo->GetAIInfoId() );
+		spawnInfo->GetAIInfoId(),
+		m_room );
 
 	newMonster->objectInfo->set_id         ( 1000 ); // TODO : 머큐리 생성기 필요
 	newMonster->objectInfo->set_infoid     ( spawnInfo->GetMonsterInfoId() );

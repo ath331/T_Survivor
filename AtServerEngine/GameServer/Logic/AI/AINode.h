@@ -24,5 +24,5 @@ public:
 	virtual ~AINode() {}
 
 	/// 실행한다
-	virtual AIStatus Execute( Actor* monster ) = 0;
+	virtual AIStatus Execute( Actor* actor ) = 0;
 };

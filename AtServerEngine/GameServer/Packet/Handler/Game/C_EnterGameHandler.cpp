@@ -42,7 +42,7 @@ AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, C_EnterGame& pkt )
 		return false;
 	}
 
-	PlayRoomPtr playRoom = PlayRoomManager::GetInstance().CreateRoom();
+	PlayRoomPtr playRoom = PlayRoomManager::GetInstance().CreateRoom( "GameMap" );
 	if ( !playRoom )
 		return false;
 

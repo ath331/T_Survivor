@@ -21,7 +21,7 @@ class PlayRoom
 {
 public:
 	/// 생성자
-	PlayRoom();
+	PlayRoom( const AtString& mapName );
 
 	/// 소멸자
 	virtual ~PlayRoom();
@@ -36,12 +36,10 @@ private:
 	/// 시작시간
 	Millisecond m_startTime;
 
-	/// temp//////////////
-	set<int> movePath;
-	AtBool m_isPrintPath = true;
-	//////////////////////
-
 public:
+	/// 보유중인 씬 매니저를 반환한다.
+	SceneManager* GetSceneManager() const;
+
 	/// 룸을 업데이트한다.
 	AtVoid UpdateTick( Millisecond curTime ) override;
 };

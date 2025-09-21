@@ -110,7 +110,7 @@ private:
 	/// 노드Id를 키로 가지는 격자 좌표 맵 타입 ID → (x,y)
 	GridPosMapByNodeId m_coordMap;
 
-	/// 가장 최근에 조회한 최단 경로의 노드 모음
+	/// 가장 최근에 조회한 최단 경로의 노드 모음 ( 디버깅용 )
 	AStarPath m_nodePathSet;
 
 public:

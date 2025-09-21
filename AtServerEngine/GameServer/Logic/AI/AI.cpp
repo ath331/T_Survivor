@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 생성자
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AI::AI()
+AI::AI( const set< AtInt32 >& movePath )
 {
     // AI 트리 구성 예제:
     // 최상위 Selector가 아래의 순서로 판단:
@@ -51,7 +51,7 @@ AI::AI()
             new AIChaseAction()
         } );
 
-    AINode* moveAction = new AIMoveAction();
+    AINode* moveAction = new AIMoveAction( movePath );
 
     root = new AISelector( { attackSequence, chaseSequence, moveAction } );
 }

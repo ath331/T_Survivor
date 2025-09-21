@@ -17,7 +17,7 @@ private:
 
 public:
     /// 持失切
-    AI();
+    AI( const set< AtInt32 >& movePath );
 
     /// 社瑚切
     ~AI();

@@ -8,6 +8,7 @@
 
 
 class AI;
+class PlayRoom;
 class MonsterInfo;
 
 
@@ -17,7 +18,7 @@ class Monster
 {
 public:
 	/// 생성자
-	Monster( AtInt32 monsterInfoId, AtInt32 aIInfoId );
+	Monster( AtInt32 monsterInfoId, AtInt32 aIInfoId, const PlayRoom* playRoom );
 
 	/// 소멸자
 	virtual ~Monster();
@@ -32,7 +33,14 @@ private:
 	/// BT 정보
 	AI* m_ai;
 
+	/// 현재 있는 룸 정보
+	const PlayRoom* m_room;
+
 public:
 	/// 업데이트
 	AtVoid Update();
+
+private:
+	/// 소환시 최초 이동 경로를 반환한다.
+	AtVoid _GetFirstMovePath( set< AtInt32 >& movePath );
 };

@@ -30,8 +30,8 @@ private:
 
 public:
 	/// 룸을 생성한다.
-	PlayRoomPtr CreateRoom();
+	PlayRoomPtr CreateRoom( const AtString& mapName );
 
 	/// 룸을 반환한다.
-	PlayRoomPtr AcquireRoom( AtInt32 roomNum );
+	PlayRoomPtr AcquireRoom( AtInt32 roomNum, const AtString& mapName );
 };

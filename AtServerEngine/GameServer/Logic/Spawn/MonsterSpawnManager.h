@@ -5,7 +5,7 @@
 #pragma once
 
 
-class Room;
+class PlayRoom;
 class MonsterSpawnInfo;
 
 
@@ -13,7 +13,7 @@ class MonsterSpawnManager
 {
 public:
 	/// 생성자
-	MonsterSpawnManager( Room* room, AtInt32 spawnGroupId );
+	MonsterSpawnManager( PlayRoom* room, AtInt32 spawnGroupId );
 
 	/// 소멸자
 	virtual ~MonsterSpawnManager();
@@ -30,7 +30,7 @@ private:
 
 private:
 	/// 룸
-	Room* m_room;
+	PlayRoom* m_room;
 
 	/// 스폰 몬스터 정보 목록
 	std::list< const MonsterSpawnInfo* > m_spawnInfoList;
