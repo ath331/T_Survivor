@@ -43,11 +43,13 @@ message S_WaitingRoomEnter
 {
 	EResultCode result = 1;
 	RoomInfo roomInfo = 2;
+	uint64 enterCount = 3;
 }
 
 message S_WaitingRoomEnterNotify
 {
 	ObjectInfo player = 1;
+	uint64 enterCount = 2;
 }
 
 message C_MakeRoom

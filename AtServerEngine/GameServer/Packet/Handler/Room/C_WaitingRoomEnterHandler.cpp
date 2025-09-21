@@ -73,20 +73,25 @@ AtBool C_WaitingRoomEnterHandler::Handle( PacketSessionPtr& session, C_WaitingRo
 								player,
 								[ waitingRoom, player ]()
 								{
+									AtInt16 enterCount = waitingRoom->GetEnterCount();
+
 									S_WaitingRoomEnter result;
 									result.set_result( EResultCode::RESULT_CODE_SUCCESS );
+									result.set_entercount( enterCount );
 									waitingRoom->ExportTo( *result.mutable_roominfo() );
 									player->Send( result );
 
 									S_WaitingRoomEnterNotify notify;
 									notify.mutable_player()->CopyFrom( *player->objectInfo );
+									notify.set_entercount( enterCount );
 									waitingRoom->Broadcast( notify, player->GetId() );
 
 									waitingRoom->ForeachPlayer(
-										[ player ]( PlayerPtr eachPlayer )
+										[ player, enterCount ]( PlayerPtr eachPlayer )
 										{
 											S_WaitingRoomEnterNotify notify;
 											notify.mutable_player()->CopyFrom( *eachPlayer->objectInfo );
+											notify.set_entercount( enterCount );
 											player->Send( notify );
 										},
 										player->GetId() );

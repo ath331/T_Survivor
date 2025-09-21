@@ -1015,6 +1015,7 @@ class S_WaitingRoomEnter final :
 
   enum : int {
     kRoomInfoFieldNumber = 2,
+    kEnterCountFieldNumber = 3,
     kResultFieldNumber = 1,
   };
   // .Protocol.RoomInfo roomInfo = 2;
@@ -1035,6 +1036,15 @@ class S_WaitingRoomEnter final :
       ::Protocol::RoomInfo* roominfo);
   ::Protocol::RoomInfo* unsafe_arena_release_roominfo();
 
+  // uint64 enterCount = 3;
+  void clear_entercount();
+  ::PROTOBUF_NAMESPACE_ID::uint64 entercount() const;
+  void set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_entercount() const;
+  void _internal_set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
   // .Protocol.EResultCode result = 1;
   void clear_result();
   ::Protocol::EResultCode result() const;
@@ -1052,6 +1062,7 @@ class S_WaitingRoomEnter final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::Protocol::RoomInfo* roominfo_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 entercount_;
   int result_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
@@ -1167,6 +1178,7 @@ class S_WaitingRoomEnterNotify final :
 
   enum : int {
     kPlayerFieldNumber = 1,
+    kEnterCountFieldNumber = 2,
   };
   // .Protocol.ObjectInfo player = 1;
   bool has_player() const;
@@ -1186,6 +1198,15 @@ class S_WaitingRoomEnterNotify final :
       ::Protocol::ObjectInfo* player);
   ::Protocol::ObjectInfo* unsafe_arena_release_player();
 
+  // uint64 enterCount = 2;
+  void clear_entercount();
+  ::PROTOBUF_NAMESPACE_ID::uint64 entercount() const;
+  void set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_entercount() const;
+  void _internal_set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.S_WaitingRoomEnterNotify)
  private:
   class _Internal;
@@ -1194,6 +1215,7 @@ class S_WaitingRoomEnterNotify final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::Protocol::ObjectInfo* player_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 entercount_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
 };
@@ -6137,6 +6159,26 @@ inline void S_WaitingRoomEnter::set_allocated_roominfo(::Protocol::RoomInfo* roo
   // @@protoc_insertion_point(field_set_allocated:Protocol.S_WaitingRoomEnter.roomInfo)
 }
 
+// uint64 enterCount = 3;
+inline void S_WaitingRoomEnter::clear_entercount() {
+  entercount_ = uint64_t{0u};
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 S_WaitingRoomEnter::_internal_entercount() const {
+  return entercount_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 S_WaitingRoomEnter::entercount() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_WaitingRoomEnter.enterCount)
+  return _internal_entercount();
+}
+inline void S_WaitingRoomEnter::_internal_set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  entercount_ = value;
+}
+inline void S_WaitingRoomEnter::set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_entercount(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_WaitingRoomEnter.enterCount)
+}
+
 // -------------------------------------------------------------------
 
 // S_WaitingRoomEnterNotify
@@ -6218,6 +6260,26 @@ inline void S_WaitingRoomEnterNotify::set_allocated_player(::Protocol::ObjectInf
   }
   player_ = player;
   // @@protoc_insertion_point(field_set_allocated:Protocol.S_WaitingRoomEnterNotify.player)
+}
+
+// uint64 enterCount = 2;
+inline void S_WaitingRoomEnterNotify::clear_entercount() {
+  entercount_ = uint64_t{0u};
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 S_WaitingRoomEnterNotify::_internal_entercount() const {
+  return entercount_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 S_WaitingRoomEnterNotify::entercount() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_WaitingRoomEnterNotify.enterCount)
+  return _internal_entercount();
+}
+inline void S_WaitingRoomEnterNotify::_internal_set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  entercount_ = value;
+}
+inline void S_WaitingRoomEnterNotify::set_entercount(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_entercount(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_WaitingRoomEnterNotify.enterCount)
 }
 
 // -------------------------------------------------------------------

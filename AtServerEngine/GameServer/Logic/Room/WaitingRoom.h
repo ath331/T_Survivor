@@ -32,6 +32,9 @@ private:
 	/// 현재 상태
 	ERoomState m_state;
 
+	/// 룸 입장 순서 카운트
+	AtInt16 m_enterCount;
+
 private:
 	/// ReadyManager
 	ReadyManager m_readyManager;
@@ -51,6 +54,9 @@ public:
 
 	/// 방에 입장할 수 있는지 확인한다.
 	AtBool CheckEnterRoom() const;
+
+	/// 방 입장 순서를 반환하고 조정한다.
+	AtInt16 GetEnterCount();
 
 // ReadyManager
 public:

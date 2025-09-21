@@ -86,6 +86,7 @@ static SendBufferPtr MakeSendBuffer( google::protobuf::Message& pkt )
 	else if ( packetTypeName == "Protocol.S_AnimationEvent" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_AnimationEvent ) );
 	else if ( packetTypeName == "Protocol.S_ServerListRead" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_S_ServerListRead ) );
 	else if ( packetTypeName == "Protocol.ST_stTest" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_ST_stTest ) );
+	else if ( packetTypeName == "Protocol.ST_ServerListRead" ) return MakeSendBuffer( pkt, (uint16)( EPacketId::PKT_ST_ServerListRead ) );
 
 	return nullptr;
 }

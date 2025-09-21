@@ -81,6 +81,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT C_WaitingRoomEnterDefaultTypeIn
 constexpr S_WaitingRoomEnter::S_WaitingRoomEnter(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : roominfo_(nullptr)
+  , entercount_(uint64_t{0u})
   , result_(0)
 {}
 struct S_WaitingRoomEnterDefaultTypeInternal {
@@ -94,7 +95,8 @@ struct S_WaitingRoomEnterDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT S_WaitingRoomEnterDefaultTypeInternal _S_WaitingRoomEnter_default_instance_;
 constexpr S_WaitingRoomEnterNotify::S_WaitingRoomEnterNotify(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : player_(nullptr){}
+  : player_(nullptr)
+  , entercount_(uint64_t{0u}){}
 struct S_WaitingRoomEnterNotifyDefaultTypeInternal {
   constexpr S_WaitingRoomEnterNotifyDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -573,12 +575,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Protocol_2eproto::offsets[] PR
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_WaitingRoomEnter, result_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_WaitingRoomEnter, roominfo_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_WaitingRoomEnter, entercount_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_WaitingRoomEnterNotify, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_WaitingRoomEnterNotify, player_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_WaitingRoomEnterNotify, entercount_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::C_MakeRoom, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -795,40 +799,40 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 18, -1, sizeof(::Protocol::S_EnterLobby)},
   { 25, -1, sizeof(::Protocol::C_WaitingRoomEnter)},
   { 31, -1, sizeof(::Protocol::S_WaitingRoomEnter)},
-  { 38, -1, sizeof(::Protocol::S_WaitingRoomEnterNotify)},
-  { 44, -1, sizeof(::Protocol::C_MakeRoom)},
-  { 50, -1, sizeof(::Protocol::S_MakeRoom)},
-  { 57, -1, sizeof(::Protocol::S_DestroyRoom)},
-  { 64, -1, sizeof(::Protocol::S_RequestRoomInfo)},
-  { 71, -1, sizeof(::Protocol::C_RequestAllRoomInfo)},
-  { 76, -1, sizeof(::Protocol::S_RequestAllRoomInfo)},
-  { 83, -1, sizeof(::Protocol::C_WaitingRoomOut)},
-  { 88, -1, sizeof(::Protocol::S_WaitingRoomOut)},
-  { 94, -1, sizeof(::Protocol::S_WaitingRoomOutNotify)},
-  { 100, -1, sizeof(::Protocol::C_ChangeWaitingState)},
-  { 106, -1, sizeof(::Protocol::S_ChangeWaitingState)},
-  { 113, -1, sizeof(::Protocol::S_ChangeWaitingStateNotify)},
-  { 120, -1, sizeof(::Protocol::S_ChangeRoomLeaderNotify)},
-  { 126, -1, sizeof(::Protocol::C_EnterGame)},
-  { 131, -1, sizeof(::Protocol::S_EnterGame)},
-  { 138, -1, sizeof(::Protocol::C_EnterGameFinish)},
-  { 143, -1, sizeof(::Protocol::S_EnterGameFinish)},
-  { 149, -1, sizeof(::Protocol::C_LeaveGame)},
-  { 154, -1, sizeof(::Protocol::S_LeaveGame)},
-  { 159, -1, sizeof(::Protocol::C_Move)},
-  { 165, -1, sizeof(::Protocol::S_Move)},
-  { 172, -1, sizeof(::Protocol::S_Spawn)},
-  { 179, -1, sizeof(::Protocol::S_DeSpawn)},
-  { 185, -1, sizeof(::Protocol::C_Chat)},
-  { 191, -1, sizeof(::Protocol::S_Chat)},
-  { 198, -1, sizeof(::Protocol::C_AnimationEvent)},
-  { 207, -1, sizeof(::Protocol::S_AnimationEvent)},
-  { 218, -1, sizeof(::Protocol::C_ServerListRead)},
-  { 223, -1, sizeof(::Protocol::S_ServerListRead)},
-  { 230, -1, sizeof(::Protocol::CT_ctTest)},
-  { 235, -1, sizeof(::Protocol::ST_stTest)},
-  { 240, -1, sizeof(::Protocol::CT_ServerListRead)},
-  { 245, -1, sizeof(::Protocol::ST_ServerListRead)},
+  { 39, -1, sizeof(::Protocol::S_WaitingRoomEnterNotify)},
+  { 46, -1, sizeof(::Protocol::C_MakeRoom)},
+  { 52, -1, sizeof(::Protocol::S_MakeRoom)},
+  { 59, -1, sizeof(::Protocol::S_DestroyRoom)},
+  { 66, -1, sizeof(::Protocol::S_RequestRoomInfo)},
+  { 73, -1, sizeof(::Protocol::C_RequestAllRoomInfo)},
+  { 78, -1, sizeof(::Protocol::S_RequestAllRoomInfo)},
+  { 85, -1, sizeof(::Protocol::C_WaitingRoomOut)},
+  { 90, -1, sizeof(::Protocol::S_WaitingRoomOut)},
+  { 96, -1, sizeof(::Protocol::S_WaitingRoomOutNotify)},
+  { 102, -1, sizeof(::Protocol::C_ChangeWaitingState)},
+  { 108, -1, sizeof(::Protocol::S_ChangeWaitingState)},
+  { 115, -1, sizeof(::Protocol::S_ChangeWaitingStateNotify)},
+  { 122, -1, sizeof(::Protocol::S_ChangeRoomLeaderNotify)},
+  { 128, -1, sizeof(::Protocol::C_EnterGame)},
+  { 133, -1, sizeof(::Protocol::S_EnterGame)},
+  { 140, -1, sizeof(::Protocol::C_EnterGameFinish)},
+  { 145, -1, sizeof(::Protocol::S_EnterGameFinish)},
+  { 151, -1, sizeof(::Protocol::C_LeaveGame)},
+  { 156, -1, sizeof(::Protocol::S_LeaveGame)},
+  { 161, -1, sizeof(::Protocol::C_Move)},
+  { 167, -1, sizeof(::Protocol::S_Move)},
+  { 174, -1, sizeof(::Protocol::S_Spawn)},
+  { 181, -1, sizeof(::Protocol::S_DeSpawn)},
+  { 187, -1, sizeof(::Protocol::C_Chat)},
+  { 193, -1, sizeof(::Protocol::S_Chat)},
+  { 200, -1, sizeof(::Protocol::C_AnimationEvent)},
+  { 209, -1, sizeof(::Protocol::S_AnimationEvent)},
+  { 220, -1, sizeof(::Protocol::C_ServerListRead)},
+  { 225, -1, sizeof(::Protocol::S_ServerListRead)},
+  { 232, -1, sizeof(::Protocol::CT_ctTest)},
+  { 237, -1, sizeof(::Protocol::ST_stTest)},
+  { 242, -1, sizeof(::Protocol::CT_ServerListRead)},
+  { 247, -1, sizeof(::Protocol::ST_ServerListRead)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -881,11 +885,12 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "_EnterLobby\"1\n\014S_EnterLobby\022\017\n\007success\030\001"
   " \001(\010\022\020\n\010playerId\030\002 \001(\004\":\n\022C_WaitingRoomE"
   "nter\022$\n\010roomInfo\030\001 \001(\0132\022.Protocol.RoomIn"
-  "fo\"a\n\022S_WaitingRoomEnter\022%\n\006result\030\001 \001(\016"
+  "fo\"u\n\022S_WaitingRoomEnter\022%\n\006result\030\001 \001(\016"
   "2\025.Protocol.EResultCode\022$\n\010roomInfo\030\002 \001("
-  "\0132\022.Protocol.RoomInfo\"@\n\030S_WaitingRoomEn"
-  "terNotify\022$\n\006player\030\001 \001(\0132\024.Protocol.Obj"
-  "ectInfo\"2\n\nC_MakeRoom\022$\n\010roomInfo\030\001 \001(\0132"
+  "\0132\022.Protocol.RoomInfo\022\022\n\nenterCount\030\003 \001("
+  "\004\"T\n\030S_WaitingRoomEnterNotify\022$\n\006player\030"
+  "\001 \001(\0132\024.Protocol.ObjectInfo\022\022\n\nenterCoun"
+  "t\030\002 \001(\004\"2\n\nC_MakeRoom\022$\n\010roomInfo\030\001 \001(\0132"
   "\022.Protocol.RoomInfo\"]\n\nS_MakeRoom\022%\n\006res"
   "ult\030\001 \001(\0162\025.Protocol.EResultCode\022(\n\014made"
   "RoomInfo\030\002 \001(\0132\022.Protocol.RoomInfo\"\\\n\rS_"
@@ -945,7 +950,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Protocol_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocol_2eproto = {
-  false, false, 2520, descriptor_table_protodef_Protocol_2eproto, "Protocol.proto", 
+  false, false, 2560, descriptor_table_protodef_Protocol_2eproto, "Protocol.proto", 
   &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 2, 40,
   schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
   file_level_metadata_Protocol_2eproto, file_level_enum_descriptors_Protocol_2eproto, file_level_service_descriptors_Protocol_2eproto,
@@ -2001,7 +2006,9 @@ S_WaitingRoomEnter::S_WaitingRoomEnter(const S_WaitingRoomEnter& from)
   } else {
     roominfo_ = nullptr;
   }
-  result_ = from.result_;
+  ::memcpy(&entercount_, &from.entercount_,
+    static_cast<size_t>(reinterpret_cast<char*>(&result_) -
+    reinterpret_cast<char*>(&entercount_)) + sizeof(result_));
   // @@protoc_insertion_point(copy_constructor:Protocol.S_WaitingRoomEnter)
 }
 
@@ -2043,7 +2050,9 @@ void S_WaitingRoomEnter::Clear() {
     delete roominfo_;
   }
   roominfo_ = nullptr;
-  result_ = 0;
+  ::memset(&entercount_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&result_) -
+      reinterpret_cast<char*>(&entercount_)) + sizeof(result_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2065,6 +2074,13 @@ const char* S_WaitingRoomEnter::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_roominfo(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint64 enterCount = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          entercount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2112,6 +2128,12 @@ failure:
         2, _Internal::roominfo(this), target, stream);
   }
 
+  // uint64 enterCount = 3;
+  if (this->entercount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_entercount(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2133,6 +2155,13 @@ size_t S_WaitingRoomEnter::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *roominfo_);
+  }
+
+  // uint64 enterCount = 3;
+  if (this->entercount() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_entercount());
   }
 
   // .Protocol.EResultCode result = 1;
@@ -2174,6 +2203,9 @@ void S_WaitingRoomEnter::MergeFrom(const S_WaitingRoomEnter& from) {
 
   if (from.has_roominfo()) {
     _internal_mutable_roominfo()->::Protocol::RoomInfo::MergeFrom(from._internal_roominfo());
+  }
+  if (from.entercount() != 0) {
+    _internal_set_entercount(from._internal_entercount());
   }
   if (from.result() != 0) {
     _internal_set_result(from._internal_result());
@@ -2246,11 +2278,15 @@ S_WaitingRoomEnterNotify::S_WaitingRoomEnterNotify(const S_WaitingRoomEnterNotif
   } else {
     player_ = nullptr;
   }
+  entercount_ = from.entercount_;
   // @@protoc_insertion_point(copy_constructor:Protocol.S_WaitingRoomEnterNotify)
 }
 
 void S_WaitingRoomEnterNotify::SharedCtor() {
-player_ = nullptr;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&player_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&entercount_) -
+    reinterpret_cast<char*>(&player_)) + sizeof(entercount_));
 }
 
 S_WaitingRoomEnterNotify::~S_WaitingRoomEnterNotify() {
@@ -2284,6 +2320,7 @@ void S_WaitingRoomEnterNotify::Clear() {
     delete player_;
   }
   player_ = nullptr;
+  entercount_ = uint64_t{0u};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2297,6 +2334,13 @@ const char* S_WaitingRoomEnterNotify::_InternalParse(const char* ptr, ::PROTOBUF
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_player(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint64 enterCount = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          entercount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2337,6 +2381,12 @@ failure:
         1, _Internal::player(this), target, stream);
   }
 
+  // uint64 enterCount = 2;
+  if (this->entercount() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_entercount(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2358,6 +2408,13 @@ size_t S_WaitingRoomEnterNotify::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *player_);
+  }
+
+  // uint64 enterCount = 2;
+  if (this->entercount() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_entercount());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2394,6 +2451,9 @@ void S_WaitingRoomEnterNotify::MergeFrom(const S_WaitingRoomEnterNotify& from) {
   if (from.has_player()) {
     _internal_mutable_player()->::Protocol::ObjectInfo::MergeFrom(from._internal_player());
   }
+  if (from.entercount() != 0) {
+    _internal_set_entercount(from._internal_entercount());
+  }
 }
 
 void S_WaitingRoomEnterNotify::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -2417,7 +2477,12 @@ bool S_WaitingRoomEnterNotify::IsInitialized() const {
 void S_WaitingRoomEnterNotify::InternalSwap(S_WaitingRoomEnterNotify* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(player_, other->player_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S_WaitingRoomEnterNotify, entercount_)
+      + sizeof(S_WaitingRoomEnterNotify::entercount_)
+      - PROTOBUF_FIELD_OFFSET(S_WaitingRoomEnterNotify, player_)>(
+          reinterpret_cast<char*>(&player_),
+          reinterpret_cast<char*>(&other->player_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_WaitingRoomEnterNotify::GetMetadata() const {
