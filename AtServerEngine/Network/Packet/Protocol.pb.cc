@@ -121,6 +121,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT C_MakeRoomDefaultTypeInternal _
 constexpr S_MakeRoom::S_MakeRoom(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : maderoominfo_(nullptr)
+  , player_(nullptr)
   , result_(0)
 {}
 struct S_MakeRoomDefaultTypeInternal {
@@ -596,6 +597,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Protocol_2eproto::offsets[] PR
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_MakeRoom, result_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_MakeRoom, maderoominfo_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_MakeRoom, player_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_DestroyRoom, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -802,37 +804,37 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 39, -1, sizeof(::Protocol::S_WaitingRoomEnterNotify)},
   { 46, -1, sizeof(::Protocol::C_MakeRoom)},
   { 52, -1, sizeof(::Protocol::S_MakeRoom)},
-  { 59, -1, sizeof(::Protocol::S_DestroyRoom)},
-  { 66, -1, sizeof(::Protocol::S_RequestRoomInfo)},
-  { 73, -1, sizeof(::Protocol::C_RequestAllRoomInfo)},
-  { 78, -1, sizeof(::Protocol::S_RequestAllRoomInfo)},
-  { 85, -1, sizeof(::Protocol::C_WaitingRoomOut)},
-  { 90, -1, sizeof(::Protocol::S_WaitingRoomOut)},
-  { 96, -1, sizeof(::Protocol::S_WaitingRoomOutNotify)},
-  { 102, -1, sizeof(::Protocol::C_ChangeWaitingState)},
-  { 108, -1, sizeof(::Protocol::S_ChangeWaitingState)},
-  { 115, -1, sizeof(::Protocol::S_ChangeWaitingStateNotify)},
-  { 122, -1, sizeof(::Protocol::S_ChangeRoomLeaderNotify)},
-  { 128, -1, sizeof(::Protocol::C_EnterGame)},
-  { 133, -1, sizeof(::Protocol::S_EnterGame)},
-  { 140, -1, sizeof(::Protocol::C_EnterGameFinish)},
-  { 145, -1, sizeof(::Protocol::S_EnterGameFinish)},
-  { 151, -1, sizeof(::Protocol::C_LeaveGame)},
-  { 156, -1, sizeof(::Protocol::S_LeaveGame)},
-  { 161, -1, sizeof(::Protocol::C_Move)},
-  { 167, -1, sizeof(::Protocol::S_Move)},
-  { 174, -1, sizeof(::Protocol::S_Spawn)},
-  { 181, -1, sizeof(::Protocol::S_DeSpawn)},
-  { 187, -1, sizeof(::Protocol::C_Chat)},
-  { 193, -1, sizeof(::Protocol::S_Chat)},
-  { 200, -1, sizeof(::Protocol::C_AnimationEvent)},
-  { 209, -1, sizeof(::Protocol::S_AnimationEvent)},
-  { 220, -1, sizeof(::Protocol::C_ServerListRead)},
-  { 225, -1, sizeof(::Protocol::S_ServerListRead)},
-  { 232, -1, sizeof(::Protocol::CT_ctTest)},
-  { 237, -1, sizeof(::Protocol::ST_stTest)},
-  { 242, -1, sizeof(::Protocol::CT_ServerListRead)},
-  { 247, -1, sizeof(::Protocol::ST_ServerListRead)},
+  { 60, -1, sizeof(::Protocol::S_DestroyRoom)},
+  { 67, -1, sizeof(::Protocol::S_RequestRoomInfo)},
+  { 74, -1, sizeof(::Protocol::C_RequestAllRoomInfo)},
+  { 79, -1, sizeof(::Protocol::S_RequestAllRoomInfo)},
+  { 86, -1, sizeof(::Protocol::C_WaitingRoomOut)},
+  { 91, -1, sizeof(::Protocol::S_WaitingRoomOut)},
+  { 97, -1, sizeof(::Protocol::S_WaitingRoomOutNotify)},
+  { 103, -1, sizeof(::Protocol::C_ChangeWaitingState)},
+  { 109, -1, sizeof(::Protocol::S_ChangeWaitingState)},
+  { 116, -1, sizeof(::Protocol::S_ChangeWaitingStateNotify)},
+  { 123, -1, sizeof(::Protocol::S_ChangeRoomLeaderNotify)},
+  { 129, -1, sizeof(::Protocol::C_EnterGame)},
+  { 134, -1, sizeof(::Protocol::S_EnterGame)},
+  { 141, -1, sizeof(::Protocol::C_EnterGameFinish)},
+  { 146, -1, sizeof(::Protocol::S_EnterGameFinish)},
+  { 152, -1, sizeof(::Protocol::C_LeaveGame)},
+  { 157, -1, sizeof(::Protocol::S_LeaveGame)},
+  { 162, -1, sizeof(::Protocol::C_Move)},
+  { 168, -1, sizeof(::Protocol::S_Move)},
+  { 175, -1, sizeof(::Protocol::S_Spawn)},
+  { 182, -1, sizeof(::Protocol::S_DeSpawn)},
+  { 188, -1, sizeof(::Protocol::C_Chat)},
+  { 194, -1, sizeof(::Protocol::S_Chat)},
+  { 201, -1, sizeof(::Protocol::C_AnimationEvent)},
+  { 210, -1, sizeof(::Protocol::S_AnimationEvent)},
+  { 221, -1, sizeof(::Protocol::C_ServerListRead)},
+  { 226, -1, sizeof(::Protocol::S_ServerListRead)},
+  { 233, -1, sizeof(::Protocol::CT_ctTest)},
+  { 238, -1, sizeof(::Protocol::ST_stTest)},
+  { 243, -1, sizeof(::Protocol::CT_ServerListRead)},
+  { 248, -1, sizeof(::Protocol::ST_ServerListRead)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -891,58 +893,59 @@ const char descriptor_table_protodef_Protocol_2eproto[] PROTOBUF_SECTION_VARIABL
   "\004\"T\n\030S_WaitingRoomEnterNotify\022$\n\006player\030"
   "\001 \001(\0132\024.Protocol.ObjectInfo\022\022\n\nenterCoun"
   "t\030\002 \001(\004\"2\n\nC_MakeRoom\022$\n\010roomInfo\030\001 \001(\0132"
-  "\022.Protocol.RoomInfo\"]\n\nS_MakeRoom\022%\n\006res"
-  "ult\030\001 \001(\0162\025.Protocol.EResultCode\022(\n\014made"
-  "RoomInfo\030\002 \001(\0132\022.Protocol.RoomInfo\"\\\n\rS_"
-  "DestroyRoom\022%\n\006result\030\001 \001(\0162\025.Protocol.E"
-  "ResultCode\022$\n\010roomInfo\030\002 \001(\0132\022.Protocol."
-  "RoomInfo\"`\n\021S_RequestRoomInfo\022%\n\006result\030"
-  "\001 \001(\0162\025.Protocol.EResultCode\022$\n\010roomInfo"
-  "\030\002 \001(\0132\022.Protocol.RoomInfo\"\026\n\024C_RequestA"
-  "llRoomInfo\"c\n\024S_RequestAllRoomInfo\022%\n\006re"
-  "sult\030\001 \001(\0162\025.Protocol.EResultCode\022$\n\010roo"
-  "mList\030\002 \003(\0132\022.Protocol.RoomInfo\"\022\n\020C_Wai"
-  "tingRoomOut\"9\n\020S_WaitingRoomOut\022%\n\006resul"
-  "t\030\001 \001(\0162\025.Protocol.EResultCode\">\n\026S_Wait"
-  "ingRoomOutNotify\022$\n\006player\030\001 \001(\0132\024.Proto"
-  "col.ObjectInfo\">\n\024C_ChangeWaitingState\022&"
-  "\n\005state\030\001 \001(\0162\027.Protocol.EWaitingState\"e"
-  "\n\024S_ChangeWaitingState\022%\n\006result\030\001 \001(\0162\025"
-  ".Protocol.EResultCode\022&\n\005state\030\002 \001(\0162\027.P"
-  "rotocol.EWaitingState\"j\n\032S_ChangeWaiting"
-  "StateNotify\022$\n\006player\030\001 \001(\0132\024.Protocol.O"
-  "bjectInfo\022&\n\005state\030\002 \001(\0162\027.Protocol.EWai"
-  "tingState\"@\n\030S_ChangeRoomLeaderNotify\022$\n"
-  "\006player\030\001 \001(\0132\024.Protocol.ObjectInfo\"\r\n\013C"
-  "_EnterGame\"Z\n\013S_EnterGame\022%\n\006result\030\001 \001("
-  "\0162\025.Protocol.EResultCode\022$\n\006player\030\002 \001(\013"
-  "2\024.Protocol.ObjectInfo\"\023\n\021C_EnterGameFin"
-  "ish\":\n\021S_EnterGameFinish\022%\n\006result\030\001 \001(\016"
-  "2\025.Protocol.EResultCode\"\r\n\013C_LeaveGame\"\r"
-  "\n\013S_LeaveGame\"2\n\006C_Move\022(\n\nobjectInfo\030\001 "
-  "\001(\0132\024.Protocol.ObjectInfo\"Y\n\006S_Move\022%\n\006r"
-  "esult\030\001 \001(\0162\025.Protocol.EResultCode\022(\n\nob"
-  "jectInfo\030\002 \001(\0132\024.Protocol.ObjectInfo\"Z\n\007"
-  "S_Spawn\022%\n\006result\030\001 \001(\0162\025.Protocol.EResu"
-  "ltCode\022(\n\nobjectList\030\002 \003(\0132\024.Protocol.Ob"
-  "jectInfo\"\030\n\tS_DeSpawn\022\013\n\003ids\030\001 \003(\004\"\025\n\006C_"
-  "Chat\022\013\n\003msg\030\001 \001(\t\"\'\n\006S_Chat\022\020\n\010playerId\030"
-  "\001 \001(\004\022\013\n\003msg\030\002 \001(\t\"\202\001\n\020C_AnimationEvent\022"
-  "\025\n\ranimationType\030\001 \001(\t\0220\n\tparamType\030\002 \001("
-  "\0162\035.Protocol.EAnimationParamType\022\021\n\tbool"
-  "Value\030\003 \001(\010\022\022\n\nfloatValue\030\004 \001(\002\"\273\001\n\020S_An"
-  "imationEvent\022%\n\006result\030\001 \001(\0162\025.Protocol."
-  "EResultCode\022\020\n\010playerId\030\002 \001(\004\022\025\n\ranimati"
-  "onType\030\003 \001(\t\0220\n\tparamType\030\004 \001(\0162\035.Protoc"
-  "ol.EAnimationParamType\022\021\n\tboolValue\030\005 \001("
-  "\010\022\022\n\nfloatValue\030\006 \001(\002\"\022\n\020C_ServerListRea"
-  "d\"g\n\020S_ServerListRead\022%\n\006result\030\001 \001(\0162\025."
-  "Protocol.EResultCode\022,\n\016serverInfoList\030\002"
-  " \003(\0132\024.Protocol.ServerInfo\"\013\n\tCT_ctTest\""
-  "\013\n\tST_stTest\"\023\n\021CT_ServerListRead\"h\n\021ST_"
-  "ServerListRead\022%\n\006result\030\001 \001(\0162\025.Protoco"
-  "l.EResultCode\022,\n\016serverInfoList\030\002 \003(\0132\024."
-  "Protocol.ServerInfoB\013\252\002\010Protocolb\006proto3"
+  "\022.Protocol.RoomInfo\"\203\001\n\nS_MakeRoom\022%\n\006re"
+  "sult\030\001 \001(\0162\025.Protocol.EResultCode\022(\n\014mad"
+  "eRoomInfo\030\002 \001(\0132\022.Protocol.RoomInfo\022$\n\006p"
+  "layer\030\003 \001(\0132\024.Protocol.ObjectInfo\"\\\n\rS_D"
+  "estroyRoom\022%\n\006result\030\001 \001(\0162\025.Protocol.ER"
+  "esultCode\022$\n\010roomInfo\030\002 \001(\0132\022.Protocol.R"
+  "oomInfo\"`\n\021S_RequestRoomInfo\022%\n\006result\030\001"
+  " \001(\0162\025.Protocol.EResultCode\022$\n\010roomInfo\030"
+  "\002 \001(\0132\022.Protocol.RoomInfo\"\026\n\024C_RequestAl"
+  "lRoomInfo\"c\n\024S_RequestAllRoomInfo\022%\n\006res"
+  "ult\030\001 \001(\0162\025.Protocol.EResultCode\022$\n\010room"
+  "List\030\002 \003(\0132\022.Protocol.RoomInfo\"\022\n\020C_Wait"
+  "ingRoomOut\"9\n\020S_WaitingRoomOut\022%\n\006result"
+  "\030\001 \001(\0162\025.Protocol.EResultCode\">\n\026S_Waiti"
+  "ngRoomOutNotify\022$\n\006player\030\001 \001(\0132\024.Protoc"
+  "ol.ObjectInfo\">\n\024C_ChangeWaitingState\022&\n"
+  "\005state\030\001 \001(\0162\027.Protocol.EWaitingState\"e\n"
+  "\024S_ChangeWaitingState\022%\n\006result\030\001 \001(\0162\025."
+  "Protocol.EResultCode\022&\n\005state\030\002 \001(\0162\027.Pr"
+  "otocol.EWaitingState\"j\n\032S_ChangeWaitingS"
+  "tateNotify\022$\n\006player\030\001 \001(\0132\024.Protocol.Ob"
+  "jectInfo\022&\n\005state\030\002 \001(\0162\027.Protocol.EWait"
+  "ingState\"@\n\030S_ChangeRoomLeaderNotify\022$\n\006"
+  "player\030\001 \001(\0132\024.Protocol.ObjectInfo\"\r\n\013C_"
+  "EnterGame\"Z\n\013S_EnterGame\022%\n\006result\030\001 \001(\016"
+  "2\025.Protocol.EResultCode\022$\n\006player\030\002 \001(\0132"
+  "\024.Protocol.ObjectInfo\"\023\n\021C_EnterGameFini"
+  "sh\":\n\021S_EnterGameFinish\022%\n\006result\030\001 \001(\0162"
+  "\025.Protocol.EResultCode\"\r\n\013C_LeaveGame\"\r\n"
+  "\013S_LeaveGame\"2\n\006C_Move\022(\n\nobjectInfo\030\001 \001"
+  "(\0132\024.Protocol.ObjectInfo\"Y\n\006S_Move\022%\n\006re"
+  "sult\030\001 \001(\0162\025.Protocol.EResultCode\022(\n\nobj"
+  "ectInfo\030\002 \001(\0132\024.Protocol.ObjectInfo\"Z\n\007S"
+  "_Spawn\022%\n\006result\030\001 \001(\0162\025.Protocol.EResul"
+  "tCode\022(\n\nobjectList\030\002 \003(\0132\024.Protocol.Obj"
+  "ectInfo\"\030\n\tS_DeSpawn\022\013\n\003ids\030\001 \003(\004\"\025\n\006C_C"
+  "hat\022\013\n\003msg\030\001 \001(\t\"\'\n\006S_Chat\022\020\n\010playerId\030\001"
+  " \001(\004\022\013\n\003msg\030\002 \001(\t\"\202\001\n\020C_AnimationEvent\022\025"
+  "\n\ranimationType\030\001 \001(\t\0220\n\tparamType\030\002 \001(\016"
+  "2\035.Protocol.EAnimationParamType\022\021\n\tboolV"
+  "alue\030\003 \001(\010\022\022\n\nfloatValue\030\004 \001(\002\"\273\001\n\020S_Ani"
+  "mationEvent\022%\n\006result\030\001 \001(\0162\025.Protocol.E"
+  "ResultCode\022\020\n\010playerId\030\002 \001(\004\022\025\n\ranimatio"
+  "nType\030\003 \001(\t\0220\n\tparamType\030\004 \001(\0162\035.Protoco"
+  "l.EAnimationParamType\022\021\n\tboolValue\030\005 \001(\010"
+  "\022\022\n\nfloatValue\030\006 \001(\002\"\022\n\020C_ServerListRead"
+  "\"g\n\020S_ServerListRead\022%\n\006result\030\001 \001(\0162\025.P"
+  "rotocol.EResultCode\022,\n\016serverInfoList\030\002 "
+  "\003(\0132\024.Protocol.ServerInfo\"\013\n\tCT_ctTest\"\013"
+  "\n\tST_stTest\"\023\n\021CT_ServerListRead\"h\n\021ST_S"
+  "erverListRead\022%\n\006result\030\001 \001(\0162\025.Protocol"
+  ".EResultCode\022,\n\016serverInfoList\030\002 \003(\0132\024.P"
+  "rotocol.ServerInfoB\013\252\002\010Protocolb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_Protocol_2eproto_deps[2] = {
   &::descriptor_table_Enum_2eproto,
@@ -950,7 +953,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Protocol_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocol_2eproto = {
-  false, false, 2560, descriptor_table_protodef_Protocol_2eproto, "Protocol.proto", 
+  false, false, 2599, descriptor_table_protodef_Protocol_2eproto, "Protocol.proto", 
   &descriptor_table_Protocol_2eproto_once, descriptor_table_Protocol_2eproto_deps, 2, 40,
   schemas, file_default_instances, TableStruct_Protocol_2eproto::offsets,
   file_level_metadata_Protocol_2eproto, file_level_enum_descriptors_Protocol_2eproto, file_level_service_descriptors_Protocol_2eproto,
@@ -2707,17 +2710,28 @@ void C_MakeRoom::InternalSwap(C_MakeRoom* other) {
 class S_MakeRoom::_Internal {
  public:
   static const ::Protocol::RoomInfo& maderoominfo(const S_MakeRoom* msg);
+  static const ::Protocol::ObjectInfo& player(const S_MakeRoom* msg);
 };
 
 const ::Protocol::RoomInfo&
 S_MakeRoom::_Internal::maderoominfo(const S_MakeRoom* msg) {
   return *msg->maderoominfo_;
 }
+const ::Protocol::ObjectInfo&
+S_MakeRoom::_Internal::player(const S_MakeRoom* msg) {
+  return *msg->player_;
+}
 void S_MakeRoom::clear_maderoominfo() {
   if (GetArenaForAllocation() == nullptr && maderoominfo_ != nullptr) {
     delete maderoominfo_;
   }
   maderoominfo_ = nullptr;
+}
+void S_MakeRoom::clear_player() {
+  if (GetArenaForAllocation() == nullptr && player_ != nullptr) {
+    delete player_;
+  }
+  player_ = nullptr;
 }
 S_MakeRoom::S_MakeRoom(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
@@ -2732,6 +2746,11 @@ S_MakeRoom::S_MakeRoom(const S_MakeRoom& from)
     maderoominfo_ = new ::Protocol::RoomInfo(*from.maderoominfo_);
   } else {
     maderoominfo_ = nullptr;
+  }
+  if (from._internal_has_player()) {
+    player_ = new ::Protocol::ObjectInfo(*from.player_);
+  } else {
+    player_ = nullptr;
   }
   result_ = from.result_;
   // @@protoc_insertion_point(copy_constructor:Protocol.S_MakeRoom)
@@ -2753,6 +2772,7 @@ S_MakeRoom::~S_MakeRoom() {
 void S_MakeRoom::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete maderoominfo_;
+  if (this != internal_default_instance()) delete player_;
 }
 
 void S_MakeRoom::ArenaDtor(void* object) {
@@ -2775,6 +2795,10 @@ void S_MakeRoom::Clear() {
     delete maderoominfo_;
   }
   maderoominfo_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && player_ != nullptr) {
+    delete player_;
+  }
+  player_ = nullptr;
   result_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -2797,6 +2821,13 @@ const char* S_MakeRoom::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_maderoominfo(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .Protocol.ObjectInfo player = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_player(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2844,6 +2875,14 @@ failure:
         2, _Internal::maderoominfo(this), target, stream);
   }
 
+  // .Protocol.ObjectInfo player = 3;
+  if (this->has_player()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::player(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2865,6 +2904,13 @@ size_t S_MakeRoom::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *maderoominfo_);
+  }
+
+  // .Protocol.ObjectInfo player = 3;
+  if (this->has_player()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *player_);
   }
 
   // .Protocol.EResultCode result = 1;
@@ -2906,6 +2952,9 @@ void S_MakeRoom::MergeFrom(const S_MakeRoom& from) {
 
   if (from.has_maderoominfo()) {
     _internal_mutable_maderoominfo()->::Protocol::RoomInfo::MergeFrom(from._internal_maderoominfo());
+  }
+  if (from.has_player()) {
+    _internal_mutable_player()->::Protocol::ObjectInfo::MergeFrom(from._internal_player());
   }
   if (from.result() != 0) {
     _internal_set_result(from._internal_result());

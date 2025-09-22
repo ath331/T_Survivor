@@ -50,6 +50,7 @@ AtBool C_MakeRoomHandler::Handle( PacketSessionPtr& session, Protocol::C_MakeRoo
 					S_MakeRoom result;
 					result.set_result( EResultCode::RESULT_CODE_SUCCESS );
 					newRoom->ExportTo( *result.mutable_maderoominfo() );
+					result.mutable_player()->CopyFrom( *player->objectInfo );
 
 					player->Send( result );
 

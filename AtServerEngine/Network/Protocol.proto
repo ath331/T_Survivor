@@ -61,6 +61,7 @@ message S_MakeRoom
 {
 	EResultCode result = 1;
 	RoomInfo madeRoomInfo = 2;
+	ObjectInfo player = 3;
 }
 
 message S_DestroyRoom
