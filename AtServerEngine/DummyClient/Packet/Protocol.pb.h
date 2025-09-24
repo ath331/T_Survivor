@@ -730,17 +730,26 @@ class S_EnterLobby final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPlayerIdFieldNumber = 2,
+    kPlayerInfoFieldNumber = 2,
     kSuccessFieldNumber = 1,
   };
-  // uint64 playerId = 2;
-  void clear_playerid();
-  ::PROTOBUF_NAMESPACE_ID::uint64 playerid() const;
-  void set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  // .Protocol.ObjectInfo playerInfo = 2;
+  bool has_playerinfo() const;
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_playerid() const;
-  void _internal_set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  bool _internal_has_playerinfo() const;
   public:
+  void clear_playerinfo();
+  const ::Protocol::ObjectInfo& playerinfo() const;
+  PROTOBUF_FUTURE_MUST_USE_RESULT ::Protocol::ObjectInfo* release_playerinfo();
+  ::Protocol::ObjectInfo* mutable_playerinfo();
+  void set_allocated_playerinfo(::Protocol::ObjectInfo* playerinfo);
+  private:
+  const ::Protocol::ObjectInfo& _internal_playerinfo() const;
+  ::Protocol::ObjectInfo* _internal_mutable_playerinfo();
+  public:
+  void unsafe_arena_set_allocated_playerinfo(
+      ::Protocol::ObjectInfo* playerinfo);
+  ::Protocol::ObjectInfo* unsafe_arena_release_playerinfo();
 
   // bool success = 1;
   void clear_success();
@@ -758,7 +767,7 @@ class S_EnterLobby final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::uint64 playerid_;
+  ::Protocol::ObjectInfo* playerinfo_;
   bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
@@ -1471,7 +1480,6 @@ class S_MakeRoom final :
 
   enum : int {
     kMadeRoomInfoFieldNumber = 2,
-    kPlayerFieldNumber = 3,
     kResultFieldNumber = 1,
   };
   // .Protocol.RoomInfo madeRoomInfo = 2;
@@ -1492,24 +1500,6 @@ class S_MakeRoom final :
       ::Protocol::RoomInfo* maderoominfo);
   ::Protocol::RoomInfo* unsafe_arena_release_maderoominfo();
 
-  // .Protocol.ObjectInfo player = 3;
-  bool has_player() const;
-  private:
-  bool _internal_has_player() const;
-  public:
-  void clear_player();
-  const ::Protocol::ObjectInfo& player() const;
-  PROTOBUF_FUTURE_MUST_USE_RESULT ::Protocol::ObjectInfo* release_player();
-  ::Protocol::ObjectInfo* mutable_player();
-  void set_allocated_player(::Protocol::ObjectInfo* player);
-  private:
-  const ::Protocol::ObjectInfo& _internal_player() const;
-  ::Protocol::ObjectInfo* _internal_mutable_player();
-  public:
-  void unsafe_arena_set_allocated_player(
-      ::Protocol::ObjectInfo* player);
-  ::Protocol::ObjectInfo* unsafe_arena_release_player();
-
   // .Protocol.EResultCode result = 1;
   void clear_result();
   ::Protocol::EResultCode result() const;
@@ -1527,7 +1517,6 @@ class S_MakeRoom final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::Protocol::RoomInfo* maderoominfo_;
-  ::Protocol::ObjectInfo* player_;
   int result_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
@@ -5973,24 +5962,83 @@ inline void S_EnterLobby::set_success(bool value) {
   // @@protoc_insertion_point(field_set:Protocol.S_EnterLobby.success)
 }
 
-// uint64 playerId = 2;
-inline void S_EnterLobby::clear_playerid() {
-  playerid_ = uint64_t{0u};
+// .Protocol.ObjectInfo playerInfo = 2;
+inline bool S_EnterLobby::_internal_has_playerinfo() const {
+  return this != internal_default_instance() && playerinfo_ != nullptr;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 S_EnterLobby::_internal_playerid() const {
-  return playerid_;
+inline bool S_EnterLobby::has_playerinfo() const {
+  return _internal_has_playerinfo();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 S_EnterLobby::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_EnterLobby.playerId)
-  return _internal_playerid();
+inline const ::Protocol::ObjectInfo& S_EnterLobby::_internal_playerinfo() const {
+  const ::Protocol::ObjectInfo* p = playerinfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::ObjectInfo&>(
+      ::Protocol::_ObjectInfo_default_instance_);
 }
-inline void S_EnterLobby::_internal_set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline const ::Protocol::ObjectInfo& S_EnterLobby::playerinfo() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_EnterLobby.playerInfo)
+  return _internal_playerinfo();
+}
+inline void S_EnterLobby::unsafe_arena_set_allocated_playerinfo(
+    ::Protocol::ObjectInfo* playerinfo) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(playerinfo_);
+  }
+  playerinfo_ = playerinfo;
+  if (playerinfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_EnterLobby.playerInfo)
+}
+inline ::Protocol::ObjectInfo* S_EnterLobby::release_playerinfo() {
   
-  playerid_ = value;
+  ::Protocol::ObjectInfo* temp = playerinfo_;
+  playerinfo_ = nullptr;
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
 }
-inline void S_EnterLobby::set_playerid(::PROTOBUF_NAMESPACE_ID::uint64 value) {
-  _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_EnterLobby.playerId)
+inline ::Protocol::ObjectInfo* S_EnterLobby::unsafe_arena_release_playerinfo() {
+  // @@protoc_insertion_point(field_release:Protocol.S_EnterLobby.playerInfo)
+  
+  ::Protocol::ObjectInfo* temp = playerinfo_;
+  playerinfo_ = nullptr;
+  return temp;
+}
+inline ::Protocol::ObjectInfo* S_EnterLobby::_internal_mutable_playerinfo() {
+  
+  if (playerinfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::ObjectInfo>(GetArenaForAllocation());
+    playerinfo_ = p;
+  }
+  return playerinfo_;
+}
+inline ::Protocol::ObjectInfo* S_EnterLobby::mutable_playerinfo() {
+  // @@protoc_insertion_point(field_mutable:Protocol.S_EnterLobby.playerInfo)
+  return _internal_mutable_playerinfo();
+}
+inline void S_EnterLobby::set_allocated_playerinfo(::Protocol::ObjectInfo* playerinfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(playerinfo_);
+  }
+  if (playerinfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(playerinfo));
+    if (message_arena != submessage_arena) {
+      playerinfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, playerinfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  playerinfo_ = playerinfo;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_EnterLobby.playerInfo)
 }
 
 // -------------------------------------------------------------------
@@ -6486,85 +6534,6 @@ inline void S_MakeRoom::set_allocated_maderoominfo(::Protocol::RoomInfo* maderoo
   }
   maderoominfo_ = maderoominfo;
   // @@protoc_insertion_point(field_set_allocated:Protocol.S_MakeRoom.madeRoomInfo)
-}
-
-// .Protocol.ObjectInfo player = 3;
-inline bool S_MakeRoom::_internal_has_player() const {
-  return this != internal_default_instance() && player_ != nullptr;
-}
-inline bool S_MakeRoom::has_player() const {
-  return _internal_has_player();
-}
-inline const ::Protocol::ObjectInfo& S_MakeRoom::_internal_player() const {
-  const ::Protocol::ObjectInfo* p = player_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::ObjectInfo&>(
-      ::Protocol::_ObjectInfo_default_instance_);
-}
-inline const ::Protocol::ObjectInfo& S_MakeRoom::player() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_MakeRoom.player)
-  return _internal_player();
-}
-inline void S_MakeRoom::unsafe_arena_set_allocated_player(
-    ::Protocol::ObjectInfo* player) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(player_);
-  }
-  player_ = player;
-  if (player) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_MakeRoom.player)
-}
-inline ::Protocol::ObjectInfo* S_MakeRoom::release_player() {
-  
-  ::Protocol::ObjectInfo* temp = player_;
-  player_ = nullptr;
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-  return temp;
-}
-inline ::Protocol::ObjectInfo* S_MakeRoom::unsafe_arena_release_player() {
-  // @@protoc_insertion_point(field_release:Protocol.S_MakeRoom.player)
-  
-  ::Protocol::ObjectInfo* temp = player_;
-  player_ = nullptr;
-  return temp;
-}
-inline ::Protocol::ObjectInfo* S_MakeRoom::_internal_mutable_player() {
-  
-  if (player_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Protocol::ObjectInfo>(GetArenaForAllocation());
-    player_ = p;
-  }
-  return player_;
-}
-inline ::Protocol::ObjectInfo* S_MakeRoom::mutable_player() {
-  // @@protoc_insertion_point(field_mutable:Protocol.S_MakeRoom.player)
-  return _internal_mutable_player();
-}
-inline void S_MakeRoom::set_allocated_player(::Protocol::ObjectInfo* player) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(player_);
-  }
-  if (player) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(player));
-    if (message_arena != submessage_arena) {
-      player = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, player, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  player_ = player;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_MakeRoom.player)
 }
 
 // -------------------------------------------------------------------

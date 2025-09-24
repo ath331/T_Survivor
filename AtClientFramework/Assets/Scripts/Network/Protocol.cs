@@ -26,74 +26,74 @@ namespace Protocol {
           string.Concat(
             "Cg5Qcm90b2NvbC5wcm90bxIIUHJvdG9jb2waCkVudW0ucHJvdG8aDFN0cnVj",
             "dC5wcm90byIhCgdDX0xvZ2luEgoKAmlkGAEgASgJEgoKAnB3GAIgASgFIhoK",
-            "B1NfTG9naW4SDwoHc3VjY2VzcxgBIAEoCCIOCgxDX0VudGVyTG9iYnkiMQoM",
-            "U19FbnRlckxvYmJ5Eg8KB3N1Y2Nlc3MYASABKAgSEAoIcGxheWVySWQYAiAB",
-            "KAQiOgoSQ19XYWl0aW5nUm9vbUVudGVyEiQKCHJvb21JbmZvGAEgASgLMhIu",
-            "UHJvdG9jb2wuUm9vbUluZm8idQoSU19XYWl0aW5nUm9vbUVudGVyEiUKBnJl",
-            "c3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2RlEiQKCHJvb21JbmZv",
-            "GAIgASgLMhIuUHJvdG9jb2wuUm9vbUluZm8SEgoKZW50ZXJDb3VudBgDIAEo",
-            "BCJUChhTX1dhaXRpbmdSb29tRW50ZXJOb3RpZnkSJAoGcGxheWVyGAEgASgL",
-            "MhQuUHJvdG9jb2wuT2JqZWN0SW5mbxISCgplbnRlckNvdW50GAIgASgEIjIK",
-            "CkNfTWFrZVJvb20SJAoIcm9vbUluZm8YASABKAsyEi5Qcm90b2NvbC5Sb29t",
-            "SW5mbyKDAQoKU19NYWtlUm9vbRIlCgZyZXN1bHQYASABKA4yFS5Qcm90b2Nv",
-            "bC5FUmVzdWx0Q29kZRIoCgxtYWRlUm9vbUluZm8YAiABKAsyEi5Qcm90b2Nv",
-            "bC5Sb29tSW5mbxIkCgZwbGF5ZXIYAyABKAsyFC5Qcm90b2NvbC5PYmplY3RJ",
-            "bmZvIlwKDVNfRGVzdHJveVJvb20SJQoGcmVzdWx0GAEgASgOMhUuUHJvdG9j",
-            "b2wuRVJlc3VsdENvZGUSJAoIcm9vbUluZm8YAiABKAsyEi5Qcm90b2NvbC5S",
-            "b29tSW5mbyJgChFTX1JlcXVlc3RSb29tSW5mbxIlCgZyZXN1bHQYASABKA4y",
-            "FS5Qcm90b2NvbC5FUmVzdWx0Q29kZRIkCghyb29tSW5mbxgCIAEoCzISLlBy",
-            "b3RvY29sLlJvb21JbmZvIhYKFENfUmVxdWVzdEFsbFJvb21JbmZvImMKFFNf",
-            "UmVxdWVzdEFsbFJvb21JbmZvEiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29s",
-            "LkVSZXN1bHRDb2RlEiQKCHJvb21MaXN0GAIgAygLMhIuUHJvdG9jb2wuUm9v",
-            "bUluZm8iEgoQQ19XYWl0aW5nUm9vbU91dCI5ChBTX1dhaXRpbmdSb29tT3V0",
-            "EiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2RlIj4KFlNf",
-            "V2FpdGluZ1Jvb21PdXROb3RpZnkSJAoGcGxheWVyGAEgASgLMhQuUHJvdG9j",
-            "b2wuT2JqZWN0SW5mbyI+ChRDX0NoYW5nZVdhaXRpbmdTdGF0ZRImCgVzdGF0",
-            "ZRgBIAEoDjIXLlByb3RvY29sLkVXYWl0aW5nU3RhdGUiZQoUU19DaGFuZ2VX",
-            "YWl0aW5nU3RhdGUSJQoGcmVzdWx0GAEgASgOMhUuUHJvdG9jb2wuRVJlc3Vs",
-            "dENvZGUSJgoFc3RhdGUYAiABKA4yFy5Qcm90b2NvbC5FV2FpdGluZ1N0YXRl",
-            "ImoKGlNfQ2hhbmdlV2FpdGluZ1N0YXRlTm90aWZ5EiQKBnBsYXllchgBIAEo",
-            "CzIULlByb3RvY29sLk9iamVjdEluZm8SJgoFc3RhdGUYAiABKA4yFy5Qcm90",
-            "b2NvbC5FV2FpdGluZ1N0YXRlIkAKGFNfQ2hhbmdlUm9vbUxlYWRlck5vdGlm",
-            "eRIkCgZwbGF5ZXIYASABKAsyFC5Qcm90b2NvbC5PYmplY3RJbmZvIg0KC0Nf",
-            "RW50ZXJHYW1lIloKC1NfRW50ZXJHYW1lEiUKBnJlc3VsdBgBIAEoDjIVLlBy",
-            "b3RvY29sLkVSZXN1bHRDb2RlEiQKBnBsYXllchgCIAEoCzIULlByb3RvY29s",
-            "Lk9iamVjdEluZm8iEwoRQ19FbnRlckdhbWVGaW5pc2giOgoRU19FbnRlckdh",
-            "bWVGaW5pc2gSJQoGcmVzdWx0GAEgASgOMhUuUHJvdG9jb2wuRVJlc3VsdENv",
-            "ZGUiDQoLQ19MZWF2ZUdhbWUiDQoLU19MZWF2ZUdhbWUiMgoGQ19Nb3ZlEigK",
-            "Cm9iamVjdEluZm8YASABKAsyFC5Qcm90b2NvbC5PYmplY3RJbmZvIlkKBlNf",
-            "TW92ZRIlCgZyZXN1bHQYASABKA4yFS5Qcm90b2NvbC5FUmVzdWx0Q29kZRIo",
-            "CgpvYmplY3RJbmZvGAIgASgLMhQuUHJvdG9jb2wuT2JqZWN0SW5mbyJaCgdT",
-            "X1NwYXduEiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2Rl",
-            "EigKCm9iamVjdExpc3QYAiADKAsyFC5Qcm90b2NvbC5PYmplY3RJbmZvIhgK",
-            "CVNfRGVTcGF3bhILCgNpZHMYASADKAQiFQoGQ19DaGF0EgsKA21zZxgBIAEo",
-            "CSInCgZTX0NoYXQSEAoIcGxheWVySWQYASABKAQSCwoDbXNnGAIgASgJIoIB",
-            "ChBDX0FuaW1hdGlvbkV2ZW50EhUKDWFuaW1hdGlvblR5cGUYASABKAkSMAoJ",
-            "cGFyYW1UeXBlGAIgASgOMh0uUHJvdG9jb2wuRUFuaW1hdGlvblBhcmFtVHlw",
-            "ZRIRCglib29sVmFsdWUYAyABKAgSEgoKZmxvYXRWYWx1ZRgEIAEoAiK7AQoQ",
-            "U19BbmltYXRpb25FdmVudBIlCgZyZXN1bHQYASABKA4yFS5Qcm90b2NvbC5F",
-            "UmVzdWx0Q29kZRIQCghwbGF5ZXJJZBgCIAEoBBIVCg1hbmltYXRpb25UeXBl",
-            "GAMgASgJEjAKCXBhcmFtVHlwZRgEIAEoDjIdLlByb3RvY29sLkVBbmltYXRp",
-            "b25QYXJhbVR5cGUSEQoJYm9vbFZhbHVlGAUgASgIEhIKCmZsb2F0VmFsdWUY",
-            "BiABKAIiEgoQQ19TZXJ2ZXJMaXN0UmVhZCJnChBTX1NlcnZlckxpc3RSZWFk",
-            "EiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2RlEiwKDnNl",
-            "cnZlckluZm9MaXN0GAIgAygLMhQuUHJvdG9jb2wuU2VydmVySW5mbyILCglD",
-            "VF9jdFRlc3QiCwoJU1Rfc3RUZXN0IhMKEUNUX1NlcnZlckxpc3RSZWFkImgK",
-            "EVNUX1NlcnZlckxpc3RSZWFkEiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29s",
-            "LkVSZXN1bHRDb2RlEiwKDnNlcnZlckluZm9MaXN0GAIgAygLMhQuUHJvdG9j",
-            "b2wuU2VydmVySW5mb0ILqgIIUHJvdG9jb2xiBnByb3RvMw=="));
+            "B1NfTG9naW4SDwoHc3VjY2VzcxgBIAEoCCIOCgxDX0VudGVyTG9iYnkiSQoM",
+            "U19FbnRlckxvYmJ5Eg8KB3N1Y2Nlc3MYASABKAgSKAoKcGxheWVySW5mbxgC",
+            "IAEoCzIULlByb3RvY29sLk9iamVjdEluZm8iOgoSQ19XYWl0aW5nUm9vbUVu",
+            "dGVyEiQKCHJvb21JbmZvGAEgASgLMhIuUHJvdG9jb2wuUm9vbUluZm8idQoS",
+            "U19XYWl0aW5nUm9vbUVudGVyEiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29s",
+            "LkVSZXN1bHRDb2RlEiQKCHJvb21JbmZvGAIgASgLMhIuUHJvdG9jb2wuUm9v",
+            "bUluZm8SEgoKZW50ZXJDb3VudBgDIAEoBCJUChhTX1dhaXRpbmdSb29tRW50",
+            "ZXJOb3RpZnkSJAoGcGxheWVyGAEgASgLMhQuUHJvdG9jb2wuT2JqZWN0SW5m",
+            "bxISCgplbnRlckNvdW50GAIgASgEIjIKCkNfTWFrZVJvb20SJAoIcm9vbUlu",
+            "Zm8YASABKAsyEi5Qcm90b2NvbC5Sb29tSW5mbyJdCgpTX01ha2VSb29tEiUK",
+            "BnJlc3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2RlEigKDG1hZGVS",
+            "b29tSW5mbxgCIAEoCzISLlByb3RvY29sLlJvb21JbmZvIlwKDVNfRGVzdHJv",
+            "eVJvb20SJQoGcmVzdWx0GAEgASgOMhUuUHJvdG9jb2wuRVJlc3VsdENvZGUS",
+            "JAoIcm9vbUluZm8YAiABKAsyEi5Qcm90b2NvbC5Sb29tSW5mbyJgChFTX1Jl",
+            "cXVlc3RSb29tSW5mbxIlCgZyZXN1bHQYASABKA4yFS5Qcm90b2NvbC5FUmVz",
+            "dWx0Q29kZRIkCghyb29tSW5mbxgCIAEoCzISLlByb3RvY29sLlJvb21JbmZv",
+            "IhYKFENfUmVxdWVzdEFsbFJvb21JbmZvImMKFFNfUmVxdWVzdEFsbFJvb21J",
+            "bmZvEiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2RlEiQK",
+            "CHJvb21MaXN0GAIgAygLMhIuUHJvdG9jb2wuUm9vbUluZm8iEgoQQ19XYWl0",
+            "aW5nUm9vbU91dCI5ChBTX1dhaXRpbmdSb29tT3V0EiUKBnJlc3VsdBgBIAEo",
+            "DjIVLlByb3RvY29sLkVSZXN1bHRDb2RlIj4KFlNfV2FpdGluZ1Jvb21PdXRO",
+            "b3RpZnkSJAoGcGxheWVyGAEgASgLMhQuUHJvdG9jb2wuT2JqZWN0SW5mbyI+",
+            "ChRDX0NoYW5nZVdhaXRpbmdTdGF0ZRImCgVzdGF0ZRgBIAEoDjIXLlByb3Rv",
+            "Y29sLkVXYWl0aW5nU3RhdGUiZQoUU19DaGFuZ2VXYWl0aW5nU3RhdGUSJQoG",
+            "cmVzdWx0GAEgASgOMhUuUHJvdG9jb2wuRVJlc3VsdENvZGUSJgoFc3RhdGUY",
+            "AiABKA4yFy5Qcm90b2NvbC5FV2FpdGluZ1N0YXRlImoKGlNfQ2hhbmdlV2Fp",
+            "dGluZ1N0YXRlTm90aWZ5EiQKBnBsYXllchgBIAEoCzIULlByb3RvY29sLk9i",
+            "amVjdEluZm8SJgoFc3RhdGUYAiABKA4yFy5Qcm90b2NvbC5FV2FpdGluZ1N0",
+            "YXRlIkAKGFNfQ2hhbmdlUm9vbUxlYWRlck5vdGlmeRIkCgZwbGF5ZXIYASAB",
+            "KAsyFC5Qcm90b2NvbC5PYmplY3RJbmZvIg0KC0NfRW50ZXJHYW1lIloKC1Nf",
+            "RW50ZXJHYW1lEiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRD",
+            "b2RlEiQKBnBsYXllchgCIAEoCzIULlByb3RvY29sLk9iamVjdEluZm8iEwoR",
+            "Q19FbnRlckdhbWVGaW5pc2giOgoRU19FbnRlckdhbWVGaW5pc2gSJQoGcmVz",
+            "dWx0GAEgASgOMhUuUHJvdG9jb2wuRVJlc3VsdENvZGUiDQoLQ19MZWF2ZUdh",
+            "bWUiDQoLU19MZWF2ZUdhbWUiMgoGQ19Nb3ZlEigKCm9iamVjdEluZm8YASAB",
+            "KAsyFC5Qcm90b2NvbC5PYmplY3RJbmZvIlkKBlNfTW92ZRIlCgZyZXN1bHQY",
+            "ASABKA4yFS5Qcm90b2NvbC5FUmVzdWx0Q29kZRIoCgpvYmplY3RJbmZvGAIg",
+            "ASgLMhQuUHJvdG9jb2wuT2JqZWN0SW5mbyJaCgdTX1NwYXduEiUKBnJlc3Vs",
+            "dBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2RlEigKCm9iamVjdExpc3QY",
+            "AiADKAsyFC5Qcm90b2NvbC5PYmplY3RJbmZvIhgKCVNfRGVTcGF3bhILCgNp",
+            "ZHMYASADKAQiFQoGQ19DaGF0EgsKA21zZxgBIAEoCSInCgZTX0NoYXQSEAoI",
+            "cGxheWVySWQYASABKAQSCwoDbXNnGAIgASgJIoIBChBDX0FuaW1hdGlvbkV2",
+            "ZW50EhUKDWFuaW1hdGlvblR5cGUYASABKAkSMAoJcGFyYW1UeXBlGAIgASgO",
+            "Mh0uUHJvdG9jb2wuRUFuaW1hdGlvblBhcmFtVHlwZRIRCglib29sVmFsdWUY",
+            "AyABKAgSEgoKZmxvYXRWYWx1ZRgEIAEoAiK7AQoQU19BbmltYXRpb25FdmVu",
+            "dBIlCgZyZXN1bHQYASABKA4yFS5Qcm90b2NvbC5FUmVzdWx0Q29kZRIQCghw",
+            "bGF5ZXJJZBgCIAEoBBIVCg1hbmltYXRpb25UeXBlGAMgASgJEjAKCXBhcmFt",
+            "VHlwZRgEIAEoDjIdLlByb3RvY29sLkVBbmltYXRpb25QYXJhbVR5cGUSEQoJ",
+            "Ym9vbFZhbHVlGAUgASgIEhIKCmZsb2F0VmFsdWUYBiABKAIiEgoQQ19TZXJ2",
+            "ZXJMaXN0UmVhZCJnChBTX1NlcnZlckxpc3RSZWFkEiUKBnJlc3VsdBgBIAEo",
+            "DjIVLlByb3RvY29sLkVSZXN1bHRDb2RlEiwKDnNlcnZlckluZm9MaXN0GAIg",
+            "AygLMhQuUHJvdG9jb2wuU2VydmVySW5mbyILCglDVF9jdFRlc3QiCwoJU1Rf",
+            "c3RUZXN0IhMKEUNUX1NlcnZlckxpc3RSZWFkImgKEVNUX1NlcnZlckxpc3RS",
+            "ZWFkEiUKBnJlc3VsdBgBIAEoDjIVLlByb3RvY29sLkVSZXN1bHRDb2RlEiwK",
+            "DnNlcnZlckluZm9MaXN0GAIgAygLMhQuUHJvdG9jb2wuU2VydmVySW5mb0IL",
+            "qgIIUHJvdG9jb2xiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Protocol.EnumReflection.Descriptor, global::Protocol.StructReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_Login), global::Protocol.C_Login.Parser, new[]{ "Id", "Pw" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_Login), global::Protocol.S_Login.Parser, new[]{ "Success" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_EnterLobby), global::Protocol.C_EnterLobby.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_EnterLobby), global::Protocol.S_EnterLobby.Parser, new[]{ "Success", "PlayerId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_EnterLobby), global::Protocol.S_EnterLobby.Parser, new[]{ "Success", "PlayerInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_WaitingRoomEnter), global::Protocol.C_WaitingRoomEnter.Parser, new[]{ "RoomInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_WaitingRoomEnter), global::Protocol.S_WaitingRoomEnter.Parser, new[]{ "Result", "RoomInfo", "EnterCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_WaitingRoomEnterNotify), global::Protocol.S_WaitingRoomEnterNotify.Parser, new[]{ "Player", "EnterCount" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_MakeRoom), global::Protocol.C_MakeRoom.Parser, new[]{ "RoomInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_MakeRoom), global::Protocol.S_MakeRoom.Parser, new[]{ "Result", "MadeRoomInfo", "Player" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_MakeRoom), global::Protocol.S_MakeRoom.Parser, new[]{ "Result", "MadeRoomInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_DestroyRoom), global::Protocol.S_DestroyRoom.Parser, new[]{ "Result", "RoomInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_RequestRoomInfo), global::Protocol.S_RequestRoomInfo.Parser, new[]{ "Result", "RoomInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_RequestAllRoomInfo), global::Protocol.C_RequestAllRoomInfo.Parser, null, null, null, null, null),
@@ -689,7 +689,7 @@ namespace Protocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public S_EnterLobby(S_EnterLobby other) : this() {
       success_ = other.success_;
-      playerId_ = other.playerId_;
+      playerInfo_ = other.playerInfo_ != null ? other.playerInfo_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -709,14 +709,14 @@ namespace Protocol {
       }
     }
 
-    /// <summary>Field number for the "playerId" field.</summary>
-    public const int PlayerIdFieldNumber = 2;
-    private ulong playerId_;
+    /// <summary>Field number for the "playerInfo" field.</summary>
+    public const int PlayerInfoFieldNumber = 2;
+    private global::Protocol.ObjectInfo playerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ulong PlayerId {
-      get { return playerId_; }
+    public global::Protocol.ObjectInfo PlayerInfo {
+      get { return playerInfo_; }
       set {
-        playerId_ = value;
+        playerInfo_ = value;
       }
     }
 
@@ -734,7 +734,7 @@ namespace Protocol {
         return true;
       }
       if (Success != other.Success) return false;
-      if (PlayerId != other.PlayerId) return false;
+      if (!object.Equals(PlayerInfo, other.PlayerInfo)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -742,7 +742,7 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (Success != false) hash ^= Success.GetHashCode();
-      if (PlayerId != 0UL) hash ^= PlayerId.GetHashCode();
+      if (playerInfo_ != null) hash ^= PlayerInfo.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -763,9 +763,9 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
-      if (PlayerId != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(PlayerId);
+      if (playerInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(PlayerInfo);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -780,9 +780,9 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteBool(Success);
       }
-      if (PlayerId != 0UL) {
-        output.WriteRawTag(16);
-        output.WriteUInt64(PlayerId);
+      if (playerInfo_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(PlayerInfo);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -796,8 +796,8 @@ namespace Protocol {
       if (Success != false) {
         size += 1 + 1;
       }
-      if (PlayerId != 0UL) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(PlayerId);
+      if (playerInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerInfo);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -813,8 +813,11 @@ namespace Protocol {
       if (other.Success != false) {
         Success = other.Success;
       }
-      if (other.PlayerId != 0UL) {
-        PlayerId = other.PlayerId;
+      if (other.playerInfo_ != null) {
+        if (playerInfo_ == null) {
+          PlayerInfo = new global::Protocol.ObjectInfo();
+        }
+        PlayerInfo.MergeFrom(other.PlayerInfo);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -834,8 +837,11 @@ namespace Protocol {
             Success = input.ReadBool();
             break;
           }
-          case 16: {
-            PlayerId = input.ReadUInt64();
+          case 18: {
+            if (playerInfo_ == null) {
+              PlayerInfo = new global::Protocol.ObjectInfo();
+            }
+            input.ReadMessage(PlayerInfo);
             break;
           }
         }
@@ -856,8 +862,11 @@ namespace Protocol {
             Success = input.ReadBool();
             break;
           }
-          case 16: {
-            PlayerId = input.ReadUInt64();
+          case 18: {
+            if (playerInfo_ == null) {
+              PlayerInfo = new global::Protocol.ObjectInfo();
+            }
+            input.ReadMessage(PlayerInfo);
             break;
           }
         }
@@ -1730,7 +1739,6 @@ namespace Protocol {
     public S_MakeRoom(S_MakeRoom other) : this() {
       result_ = other.result_;
       madeRoomInfo_ = other.madeRoomInfo_ != null ? other.madeRoomInfo_.Clone() : null;
-      player_ = other.player_ != null ? other.player_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1761,17 +1769,6 @@ namespace Protocol {
       }
     }
 
-    /// <summary>Field number for the "player" field.</summary>
-    public const int PlayerFieldNumber = 3;
-    private global::Protocol.ObjectInfo player_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::Protocol.ObjectInfo Player {
-      get { return player_; }
-      set {
-        player_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as S_MakeRoom);
@@ -1787,7 +1784,6 @@ namespace Protocol {
       }
       if (Result != other.Result) return false;
       if (!object.Equals(MadeRoomInfo, other.MadeRoomInfo)) return false;
-      if (!object.Equals(Player, other.Player)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1796,7 +1792,6 @@ namespace Protocol {
       int hash = 1;
       if (Result != global::Protocol.EResultCode.ResultCodeSuccess) hash ^= Result.GetHashCode();
       if (madeRoomInfo_ != null) hash ^= MadeRoomInfo.GetHashCode();
-      if (player_ != null) hash ^= Player.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1821,10 +1816,6 @@ namespace Protocol {
         output.WriteRawTag(18);
         output.WriteMessage(MadeRoomInfo);
       }
-      if (player_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(Player);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1842,10 +1833,6 @@ namespace Protocol {
         output.WriteRawTag(18);
         output.WriteMessage(MadeRoomInfo);
       }
-      if (player_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(Player);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1860,9 +1847,6 @@ namespace Protocol {
       }
       if (madeRoomInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MadeRoomInfo);
-      }
-      if (player_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Player);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1883,12 +1867,6 @@ namespace Protocol {
           MadeRoomInfo = new global::Protocol.RoomInfo();
         }
         MadeRoomInfo.MergeFrom(other.MadeRoomInfo);
-      }
-      if (other.player_ != null) {
-        if (player_ == null) {
-          Player = new global::Protocol.ObjectInfo();
-        }
-        Player.MergeFrom(other.Player);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1915,13 +1893,6 @@ namespace Protocol {
             input.ReadMessage(MadeRoomInfo);
             break;
           }
-          case 26: {
-            if (player_ == null) {
-              Player = new global::Protocol.ObjectInfo();
-            }
-            input.ReadMessage(Player);
-            break;
-          }
         }
       }
     #endif
@@ -1945,13 +1916,6 @@ namespace Protocol {
               MadeRoomInfo = new global::Protocol.RoomInfo();
             }
             input.ReadMessage(MadeRoomInfo);
-            break;
-          }
-          case 26: {
-            if (player_ == null) {
-              Player = new global::Protocol.ObjectInfo();
-            }
-            input.ReadMessage(Player);
             break;
           }
         }

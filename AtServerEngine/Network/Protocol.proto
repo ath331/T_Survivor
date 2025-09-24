@@ -31,7 +31,7 @@ message C_EnterLobby
 message S_EnterLobby
 {
 	bool success = 1;
-	uint64 playerId = 2;
+	ObjectInfo playerInfo = 2;
 }
 
 message C_WaitingRoomEnter
@@ -61,7 +61,6 @@ message S_MakeRoom
 {
 	EResultCode result = 1;
 	RoomInfo madeRoomInfo = 2;
-	ObjectInfo player = 3;
 }
 
 message S_DestroyRoom

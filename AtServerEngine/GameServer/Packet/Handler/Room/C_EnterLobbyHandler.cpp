@@ -32,7 +32,7 @@ AtBool C_EnterLobbyHandler::Handle( PacketSessionPtr& session, C_EnterLobby& pkt
 							  {
 								  S_EnterLobby result;
 								  result.set_success( true );
-								  result.set_playerid( player->GetId() );
+								  result.mutable_playerinfo()->CopyFrom( *player->objectInfo );
 
 								  player->OnLogin();
 								  player->Send( result );
