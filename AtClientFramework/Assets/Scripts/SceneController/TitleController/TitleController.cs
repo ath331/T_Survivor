@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.SocialPlatforms;
 
-public class TitleController : MonoBehaviour
+public class TitleController : MonoBehaviour, ISceneInitializer
 {
     public struct ServerListData
     {
@@ -46,6 +46,39 @@ public class TitleController : MonoBehaviour
     readonly string titleServer_Port = "7778";
     readonly string local_Ip = "127.0.0.1";
     readonly string local_Port = "7777";
+
+    private void Awake()
+    {
+        SceneInitializerRegistry.Register(this);
+    }
+
+    private void OnDestroy()
+    {
+        SceneInitializerRegistry.Unregister(this);
+    }
+
+    /// <summary>
+    /// 씬 내부 초기화를 진행합니다.
+    /// </summary>
+    public async UniTask InitializeAsync(IProgress<float> progress)
+    {
+        Debug.Log("TitleScene 초기화 시작");
+
+        float currentProgress = 0f;
+
+        // RoomManager 초기화 (가중치 0.2)
+        RoomManager.Instance.Initialize();
+
+        currentProgress += 0.2f;
+        progress.Report(currentProgress);
+
+        await UniTask.Delay(100);
+
+        currentProgress += 0.8f;
+        progress.Report(currentProgress);
+
+        Debug.Log("TitleScene 초기화 완료");
+    }
 
     void Start()
     {
@@ -163,14 +196,16 @@ public class TitleController : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
 
+        RoomManager.Instance.SetMyPlayerInfo(message.PlayerInfo);
+
         if (currentScene == "Test_Game")
         {
             Debug.Log("[테스트씬] 전용 로직 실행");
-            MercuryHelper.LoginProcess(message.PlayerId).Forget();
+            MercuryHelper.LoginProcess(message.PlayerInfo.Id).Forget();
         }
         else
         {
-            GameSupervisor.Instance.Test_ToLobby(message.PlayerId).Forget();
+            GameSupervisor.Instance.Test_ToLobby(message.PlayerInfo.Id).Forget();
         }
     }
 }

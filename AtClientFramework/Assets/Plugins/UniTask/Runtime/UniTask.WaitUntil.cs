@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks.Internal;
 
 namespace Cysharp.Threading.Tasks
@@ -44,6 +45,11 @@ namespace Cysharp.Threading.Tasks
             return new UniTask<U>(isUnityObject
                 ? WaitUntilValueChangedUnityObjectPromise<T, U>.Create(target, monitorFunction, equalityComparer, monitorTiming, cancellationToken, cancelImmediately, out var token)
                 : WaitUntilValueChangedStandardObjectPromise<T, U>.Create(target, monitorFunction, equalityComparer, monitorTiming, cancellationToken, cancelImmediately, out token), token);
+        }
+
+        public static async Task WaitUntil(bool isInitialized)
+        {
+            throw new NotImplementedException();
         }
 
         sealed class WaitUntilPromise : IUniTaskSource, IPlayerLoopItem, ITaskPoolNode<WaitUntilPromise>

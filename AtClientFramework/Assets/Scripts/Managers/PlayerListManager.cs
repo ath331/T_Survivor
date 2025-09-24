@@ -41,6 +41,10 @@ public class PlayerListManager
 
             // 내 캐릭터인지 확인하고 IsLocalPlayer 활성화/비활성화
             PlayerController controller = playerObject.GetComponent<PlayerController>();
+            controller.enabled = true;
+            controller.networkPlayerTransform.enabled = true;
+            controller.rb.useGravity = true;
+
             controller.IsLocalPlayer = ( playerInfo.Id == MercuryHelper.mercuryId );
 
             // 생성된 플레이어 저장

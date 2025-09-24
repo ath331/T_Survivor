@@ -19,7 +19,7 @@ public class LobbyHandler : MonoBehaviour
     {
         PacketEventManager.Subscribe<S_RequestRoomInfo>(CreateRoomHolder);
 
-        PacketEventManager.Subscribe<S_RequestAllRoomInfo>(ShowRoom);
+        PacketEventManager.Subscribe<S_RequestAllRoomInfo>(AddRoomHolder);
 
         PacketEventManager.Subscribe<S_DestroyRoom>(DestroyRoom);
 
@@ -37,7 +37,7 @@ public class LobbyHandler : MonoBehaviour
     {
         PacketEventManager.Unsubscribe<S_RequestRoomInfo>(CreateRoomHolder);
 
-        PacketEventManager.Unsubscribe<S_RequestAllRoomInfo>(ShowRoom);
+        PacketEventManager.Unsubscribe<S_RequestAllRoomInfo>(AddRoomHolder);
 
         PacketEventManager.Unsubscribe<S_DestroyRoom>(DestroyRoom);
 
@@ -81,10 +81,12 @@ public class LobbyHandler : MonoBehaviour
     /// 2. Splash -> WaitRoom 넘어왔을때 현재 만들어져있는 방들의 정보 가져올때
     /// </summary>
     /// <param name="roomInfo"></param>
-    public void ShowRoom(S_RequestAllRoomInfo roomInfo)
+    public void AddRoomHolder(S_RequestAllRoomInfo roomInfo)
     {
         foreach (var room in roomInfo.RoomList)
         {
+            if (roomHolders.Any(r => r.RoomNumber == room.Num)) return;
+
             var roomHolder = ObjectPoolManager.Instance.Get<RoomHolder>("RoomHolder", content.transform);
 
             roomHolder.SetStatus(room);

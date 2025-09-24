@@ -4,14 +4,12 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Assets.Scripts.Network;
-using System.Threading.Tasks;
-using Assets.Scripts.Network.Handler;
 using Protocol;
 
 public enum LobbyStatus
 {
     WaitRoom,
-    GameRoom,
+    Lobby,
 }
 
 public class LobbyController : MonoBehaviour, ISceneInitializer
@@ -20,6 +18,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     [SerializeField] private WaitingRoomHandler waitingRoomHandler;
     [SerializeField] private LobbyHandler lobbyHandler;
 
+    private LobbyStatus currentStatus;
 
     private void Awake()
     {
@@ -31,26 +30,24 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         SceneInitializerRegistry.Unregister(this);
     }
 
-    private void OnEnable()
+    private async void OnEnable()
     {
         PacketEventManager.Subscribe<S_EnterGame>(HandleEnterGameSuccess);
 
-        PacketEventManager.Subscribe<S_MakeRoom>(CreateRoom);
+        PacketEventManager.Subscribe<S_WaitingRoomOut>(OnReceiveWaitRoomOut);
 
-        PacketEventManager.Subscribe<S_WaitingRoomEnter>(EnterRoom);
+        await UniTask.WaitUntil(() => RoomManager.Instance.isInitialized);
 
-        PacketEventManager.Subscribe<S_WaitingRoomEnterNotify>(NotifyPlayer);
+        RoomManager.Instance.OnChangeStatus += ChangeStatus;
     }
 
     private void OnDisable()
     {
         PacketEventManager.Unsubscribe<S_EnterGame>(HandleEnterGameSuccess);
 
-        PacketEventManager.Unsubscribe<S_MakeRoom>(CreateRoom);
+        PacketEventManager.Unsubscribe<S_WaitingRoomOut>(OnReceiveWaitRoomOut);
 
-        PacketEventManager.Unsubscribe<S_WaitingRoomEnter>(EnterRoom);
-
-        PacketEventManager.Unsubscribe<S_WaitingRoomEnterNotify>(NotifyPlayer);
+        RoomManager.Instance.OnChangeStatus -= ChangeStatus;
     }
 
     /// <summary>
@@ -62,8 +59,10 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         float currentProgress = 0f;
 
-        // 1. ObjectPoolManager 초기화 (가중치 0.2)
+        // Manager 초기화 (가중치 0.2)
         ObjectPoolManager.Instance.Initialize();
+        RoomManager.Instance.Initialize();
+
         currentProgress += 0.2f;
         progress.Report(currentProgress);
 
@@ -83,6 +82,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
         currentProgress += 0.3f;
         progress.Report(currentProgress);
+
 
         await UniTask.Delay(100);
 
@@ -122,50 +122,33 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         }
     }
 
-    public void NotifyPlayer(S_WaitingRoomEnterNotify message)
+    public void ChangeStatus(LobbyStatus newStatus)
     {
-        waitingRoomHandler.NotifyEnterPlayer(message);
+        currentStatus = newStatus;
+
+        switch (currentStatus)
+        {
+            case LobbyStatus.WaitRoom:
+                lobbyHandler.gameObject.SetActive(false);
+                waitingRoomHandler.gameObject.SetActive(true);
+                break;
+            case LobbyStatus.Lobby:
+                lobbyHandler.gameObject.SetActive(true);
+                waitingRoomHandler.gameObject.SetActive(false);
+                break;
+        }
     }
 
-    public void EnterRoom(S_WaitingRoomEnter message)
+    private void OnReceiveWaitRoomOut(S_WaitingRoomOut message)
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
-            Debug.Log("방들어가기 성공");
+            // 내가 방을 나갔으므로, 로비 화면으로 전환.
+            ChangeStatus(LobbyStatus.Lobby);
 
-            SetEnableControl(isLobby: false, isWaitRoom: true);
-
-            waitingRoomHandler.SetMaKeRoom(message.RoomInfo);
+            // 방을 나갔으니 RoomManager의 데이터도 초기화.
+            RoomManager.Instance.roomModel.Clear();
         }
-        else
-        {
-            Debug.Log("방들어가기 실패");
-
-        }
-    }
-
-    public void CreateRoom(S_MakeRoom message)
-    {
-        if (message.Result == EResultCode.ResultCodeSuccess)
-        {
-            Debug.Log("방만들기 성공");
-
-            SetEnableControl(isLobby: false, isWaitRoom: true);
-
-            waitingRoomHandler.SetMaKeRoom(message.MadeRoomInfo);
-        }
-        else
-        {
-            Debug.Log("방만들기 실패");
-
-        }
-    }
-
-    public void SetEnableControl(bool isLobby, bool isWaitRoom)
-    {
-        lobbyHandler.gameObject.SetActive(isLobby);
-
-        waitingRoomHandler.gameObject.SetActive(isWaitRoom);
     }
 
     public void OnClickSetting()

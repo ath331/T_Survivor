@@ -108,6 +108,6 @@ public class TestGameController : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
 
-        MercuryHelper.LoginProcess(message.PlayerId).Forget();
+        MercuryHelper.LoginProcess(message.PlayerInfo.Id).Forget();
     }
 }
