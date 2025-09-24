@@ -14,7 +14,6 @@ public enum LobbyStatus
 
 public class LobbyController : MonoBehaviour, ISceneInitializer
 {
-    [SerializeField] private GameObject connectingPanel;
     [SerializeField] private WaitingRoomHandler waitingRoomHandler;
     [SerializeField] private LobbyHandler lobbyHandler;
 
@@ -94,9 +93,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
 
     public void OnStartGame()
     {
-        // 접속중임을 알리는 패널 활성화
-        connectingPanel.SetActive(true);
-
         C_EnterGame pkt = new C_EnterGame();
 
         NetworkManager.Instance.Send(pkt);
@@ -109,9 +105,6 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     {
         if (message.Result == EResultCode.ResultCodeSuccess)
         {
-            // 접속중 패널 비활성화
-            connectingPanel.SetActive(false);
-
             // 게임 씬으로 전환
             SwitchSceneManager.Instance.ChangeTo("Game").Forget();
         }

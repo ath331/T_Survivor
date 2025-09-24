@@ -106,7 +106,11 @@ public class WaitingRoomHandler : MonoBehaviour
         }
 
         // 4. 레디 상태 UI 동기화
-        foreach (var img in readyImages) { img.SetActive(false); }
+        foreach (var img in readyImages) 
+        { 
+            img.SetActive(false); 
+        }
+
         for (int i = 0; i < sortedPlayers.Count; i++)
         {
             if (sortedPlayers[i].IsReady)
@@ -120,26 +124,15 @@ public class WaitingRoomHandler : MonoBehaviour
         }
 
         // 5. 내 상태 및 버튼 UI 업데이트
-        var myId = MercuryHelper.mercuryId;
+        var myId = RoomManager.Instance.myPlayerInfo.Id;
 
         if (model.Players.TryGetValue(myId, out PlayerStateInfo myState))
         {
             readyButtonText.text = myState.IsReady ? "취 소" : "준 비";
 
-            // 방장일 경우 게임 시작 버튼 상태 업데이트
-            if (myState.IsLeader)
-            {
-                gameStartButton.gameObject.SetActive(true);
-                
-                // 방장을 제외한 모든 플레이어가 준비되었는지 확인
-                bool allOthersReady = model.Players.Values.Where(p => !p.IsLeader).All(p => p.IsReady);
-                
-                gameStartButton.interactable = allOthersReady;
-            }
-            else
-            {
-                gameStartButton.gameObject.SetActive(false);
-            }
+            var isLeader = myState.IsLeader;
+
+            gameStartButton.gameObject.SetActive(isLeader);
         }
     }
 
@@ -153,7 +146,9 @@ public class WaitingRoomHandler : MonoBehaviour
 
     public void OnClickReady()
     {
-        var myState = RoomManager.Instance.roomModel.Players[MercuryHelper.mercuryId];
+        var playerInfo = RoomManager.Instance.myPlayerInfo;
+
+        var myState = RoomManager.Instance.roomModel.Players[playerInfo.Id];
 
         C_ChangeWaitingState packet = new C_ChangeWaitingState
         {
@@ -165,7 +160,18 @@ public class WaitingRoomHandler : MonoBehaviour
 
     public void OnClickStart()
     {
-        lobbyController.OnStartGame();
+        var model = RoomManager.Instance.roomModel;
+
+        bool allPlayersReady = model.Players.Values.All(p => p.IsReady);
+
+        if (allPlayersReady)
+        {
+            lobbyController.OnStartGame();
+        }
+        else
+        {
+            ToastMessage.Show("모든 플레이어가 준비해야 시작할 수 있습니다.", transform);
+        }
     }
 
     private void OnClickExit()

@@ -43,6 +43,32 @@ namespace Cysharp.Threading.Tasks
             return new TweenAwaiter(tween);
         }
 
+        public static async UniTask AsUniTask(this Tween tween, CancellationToken cancellationToken = default)
+        {
+            // 이전 답변에서 사용했던 UniTaskCompletionSource를 그대로 활용합니다.
+            var utcs = new UniTaskCompletionSource();
+
+            // OnComplete 콜백: 트윈이 정상적으로 완료되면 UniTask를 완료시킵니다.
+            tween.OnComplete(() => utcs.TrySetResult());
+
+            // OnKill 콜백: 트윈이 중간에 Kill 되면 (예: 오브젝트 파괴) UniTask를 취소시킵니다.
+            tween.OnKill(() => utcs.TrySetCanceled());
+
+            // 취소 토큰을 사용하여 외부에서 UniTask를 취소할 수 있게 연결합니다.
+            if (cancellationToken != default)
+            {
+                cancellationToken.Register(() =>
+                {
+                    // UniTask가 취소되면 DOTween도 Kill 합니다.
+                    tween.Kill();
+                    utcs.TrySetCanceled();
+                });
+            }
+
+            // utcs의 Task를 기다립니다.
+            await utcs.Task;
+        }
+
         public static UniTask WithCancellation(this Tween tween, CancellationToken cancellationToken)
         {
             Error.ThrowArgumentNullException(tween, nameof(tween));

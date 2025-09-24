@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using Protocol;
 using UnityEngine;
+using System;
 
 public class PlayerListManager
 {
@@ -12,6 +12,7 @@ public class PlayerListManager
 
     private bool _isInitialized = false;
 
+    public static event Action<Transform> OnLocalPlayerSpawned;
 
     public void Initialize()
     {
@@ -44,8 +45,18 @@ public class PlayerListManager
             controller.enabled = true;
             controller.networkPlayerTransform.enabled = true;
             controller.rb.useGravity = true;
+            controller.rb.interpolation = RigidbodyInterpolation.None;
 
             controller.IsLocalPlayer = ( playerInfo.Id == MercuryHelper.mercuryId );
+
+            // 카메라 등록
+            if (controller.IsLocalPlayer)
+            {
+                // 내 캐릭터는 interpolation 적용
+                controller.rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+                OnLocalPlayerSpawned?.Invoke(controller.transform);
+            }
 
             // 생성된 플레이어 저장
             _spawnedPlayers[ playerInfo.Id ] = controller;
