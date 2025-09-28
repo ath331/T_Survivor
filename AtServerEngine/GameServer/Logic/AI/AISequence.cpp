@@ -31,11 +31,11 @@ AISequence::~AISequence()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 실행한다
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AIStatus AISequence::Execute( Actor* actor )
+AIStatus AISequence::Execute( Actor* actor, Millisecond curTime )
 {
 	for ( auto child : children )
 	{
-		AIStatus status = child->Execute( actor );
+		AIStatus status = child->Execute( actor, curTime );
 		if ( status != AIStatus::Success )
 		{
 			return status;

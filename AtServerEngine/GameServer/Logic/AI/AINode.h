@@ -24,5 +24,9 @@ public:
 	virtual ~AINode() {}
 
 	/// 실행한다
-	virtual AIStatus Execute( Actor* actor ) = 0;
+	virtual AIStatus Execute( Actor* actor, Millisecond curTime ) = 0;
+
+protected:
+	/// 가장 최근에 업데이트된 시간
+	Millisecond m_lastUpdateTime = (Millisecond)( 0 );
 };

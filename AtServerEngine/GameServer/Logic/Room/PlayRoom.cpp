@@ -28,7 +28,6 @@ PlayRoom::PlayRoom( const AtString& mapName )
 
 	const AtString& path = "/../../../AtClientFramework/Assets/Resources/SceneJson/" + mapName + ".json";
 	m_sceneManager = new SceneManager( Environment::Get( "ExePath" ) + path );
-	// movePath = m_sceneManager->FindPath( 350, 1961 ); // npc 움직임 보려는 임시 코드
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,14 +59,14 @@ SceneManager* PlayRoom::GetSceneManager() const
 AtVoid PlayRoom::UpdateTick( Millisecond curTime )
 {
 	if ( m_monsterSpawnManager )
-		m_monsterSpawnManager->Update();
+		m_monsterSpawnManager->Update( curTime );
 
 	for ( const auto& [ id, monster ] : m_monsters )
 	{
 		if ( !monster )
 			continue;
 
-		monster->Update();
+		monster->Update( curTime );
 	}
 
 	// TODO: monster들이 udpate되었으니 브로드 캐스팅 하기?

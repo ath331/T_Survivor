@@ -19,7 +19,7 @@ public:
 	virtual ~MonsterSpawnManager();
 
 	/// 업데이트
-	AtVoid Update();
+	AtVoid Update( Millisecond curTime );
 
 private:
 	/// 소환할 수 있는지 확인한다.

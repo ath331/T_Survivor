@@ -27,6 +27,9 @@ public:
 	/// 식별자를 반환한다.
 	AtInt64 GetId() { return objectInfo->id(); }
 
+	/// 목표 좌표에 있는지 확인한다.
+	AtBool IsSameNode( float destX, float destY )const;
+
 public:
 	/// 오브젝트 정보
 	Protocol::ObjectInfo* objectInfo;

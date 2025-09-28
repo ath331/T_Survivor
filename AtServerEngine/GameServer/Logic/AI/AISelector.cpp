@@ -31,11 +31,11 @@ AISelector::~AISelector()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 실행한다
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AIStatus AISelector::Execute( Actor* actor )
+AIStatus AISelector::Execute( Actor* actor, Millisecond curTime )
 {
 	for ( auto child : children )
 	{
-		AIStatus status = child->Execute( actor );
+		AIStatus status = child->Execute( actor, curTime );
 		if ( status == AIStatus::Success )
 		{
 			return AIStatus::Success;
