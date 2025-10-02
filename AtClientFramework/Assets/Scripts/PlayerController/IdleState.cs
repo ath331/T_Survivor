@@ -19,17 +19,15 @@ public class IdleState : IPlayerState
 
     public void HandleInput()
     {
-        // 이동 입력이 감지되면 이동 상태로 전환
         if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.1f)
         {
-            player.ChangeState(new MoveState());
+            player.ChangeState(player.moveState);
             return;
         }
 
-        // 공격 버튼 입력(Fire1)이 있으면 공격 상태로 전환
         if (Input.GetButtonDown("Fire1"))
         {
-            //player.ChangeState(new AttackState());
+            player.ChangeState(player.attackState);
             return;
         }
     }

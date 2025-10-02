@@ -36,9 +36,10 @@ public class NetworkPlayerTransform : MonoBehaviour
         ApplyInterpolation();
     }
 
-    public void SetTarget(Vector3 pos, float yaw)
+    public void SetTarget(float x, float y, float z, float yaw)
     {
-        targetPosition = pos;
+        targetPosition.Set(x, y, z);
+
         targetRotation = Quaternion.Euler(0, yaw, 0);
     }
 

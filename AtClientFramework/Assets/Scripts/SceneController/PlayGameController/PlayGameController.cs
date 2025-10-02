@@ -23,8 +23,6 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
     // 게임 시작 로직 구현
     public override async UniTask StartGame()
     {
-        Debug.Log("Game Started!");
-
         // 예시: 플레이어 스폰, 게임 상태 전환, 멀티플레이어 세션 시작 등
         PacketEventManager.Subscribe<S_Move>(Receive_Move);
         PacketEventManager.Subscribe<S_AnimationEvent>(Receive_Animation);
@@ -34,15 +32,11 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
         C_EnterGameFinish pkt = new C_EnterGameFinish();
 
         NetworkManager.Instance.Send(pkt);
-
-
     }
 
     // 게임 종료 로직 구현
     public override async UniTask EndGame()
     {
-        Debug.Log("Game Ended!");
-
         // 예시: 게임 결과 처리, 데이터 저장, 네트워크 종료 등
         PacketEventManager.Unsubscribe<S_Move>(Receive_Move);
         PacketEventManager.Unsubscribe<S_AnimationEvent>(Receive_Animation);
@@ -78,27 +72,25 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
 
         ulong playerId = message.ObjectInfo.Id;
 
-        Vector3 newPosition = new Vector3(message.ObjectInfo.PosInfo.X, message.ObjectInfo.PosInfo.Y, message.ObjectInfo.PosInfo.Z);
+        var posInfo = message.ObjectInfo.PosInfo;
 
-        float newYaw = message.ObjectInfo.PosInfo.Yaw;
-
-        player.networkPlayerTransform.SetTarget(newPosition, newYaw);
+        player.networkPlayerTransform.SetTarget(posInfo.X, posInfo.Y, posInfo.Z, posInfo.Yaw);
 
         // S_Move 위치 디버깅용
-        {
-            // 구체 생성
-            GameObject sphere = GameObject.CreatePrimitive( PrimitiveType.Sphere );
-            sphere.transform.position = newPosition;
+        //{
+        //    // 구체 생성
+        //    GameObject sphere = GameObject.CreatePrimitive( PrimitiveType.Sphere );
+        //    sphere.transform.position = newPosition;
 
-            // 색상(검정색) 적용
-            Renderer renderer = sphere.GetComponent<Renderer>();
-            renderer.material.color = Color.black;
+        //    // 색상(검정색) 적용
+        //    Renderer renderer = sphere.GetComponent<Renderer>();
+        //    renderer.material.color = Color.black;
 
-            // 콜라이더 끄기
-            SphereCollider collider = sphere.GetComponent<SphereCollider>();
-            if ( collider != null )
-                collider.enabled = false;
-        }
+        //    // 콜라이더 끄기
+        //    SphereCollider collider = sphere.GetComponent<SphereCollider>();
+        //    if ( collider != null )
+        //        collider.enabled = false;
+        //}
     }
 
     // Receive_Animation 수정 제안

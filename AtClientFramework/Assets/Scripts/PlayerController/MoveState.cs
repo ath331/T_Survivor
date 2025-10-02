@@ -13,7 +13,6 @@ public class MoveState : IPlayerState
 
     public void Enter(PlayerController player)
     {
-        Debug.Log("Entered Move State");
         this.player = player;
         moveDirection = Vector3.zero;
 
@@ -24,7 +23,6 @@ public class MoveState : IPlayerState
 
     public void Exit()
     {
-        Debug.Log("Exit Move State");
         moveDirection = Vector3.zero;
         player.rb.velocity = Vector3.zero;
 
@@ -34,7 +32,7 @@ public class MoveState : IPlayerState
     }
     public void HandleInput()
     {
-        if (!player.IsLocalPlayer) return; // 내 캐릭터만 입력을 받음
+        if (!player.IsLocalPlayer) return;
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -48,6 +46,7 @@ public class MoveState : IPlayerState
 
         if (Input.GetButtonDown("Fire1"))
         {
+            player.ChangeState(player.attackState);
             return;
         }
     }

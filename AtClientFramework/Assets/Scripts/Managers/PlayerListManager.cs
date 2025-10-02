@@ -36,7 +36,7 @@ public class PlayerListManager
             Vector3 spawnPosition = new Vector3( playerInfo.PosInfo.X, playerInfo.PosInfo.Y, playerInfo.PosInfo.Z );
 
             // 오브젝트 풀에서 플레이어 가져오기
-            GameObject playerObject = ObjectPoolManager.Instance.Get( "Character" );
+            GameObject playerObject = ObjectPoolManager.Instance.Get("Knight");
             playerObject.transform.position = spawnPosition;
             playerObject.SetActive( true );
 
@@ -63,24 +63,24 @@ public class PlayerListManager
             Debug.Log( $"[NetworkManager] 플레이어 {playerInfo.Id} 스폰됨." );
         }
 
-        else if ( playerInfo.Id == 1000 )
-        {
-            // 랜덤 위치 생성
-            Vector3 spawnPosition = new Vector3( playerInfo.PosInfo.X, playerInfo.PosInfo.Y, playerInfo.PosInfo.Z );
+        //else if ( playerInfo.Id == 1000 )
+        //{
+        //    // 랜덤 위치 생성
+        //    Vector3 spawnPosition = new Vector3( playerInfo.PosInfo.X, playerInfo.PosInfo.Y, playerInfo.PosInfo.Z );
 
-            // 오브젝트 풀에서 플레이어 가져오기
-            GameObject playerObject = ObjectPoolManager.Instance.Get( "TempMonster" );
-            playerObject.transform.position = spawnPosition;
-            playerObject.SetActive( true );
+        //    // 오브젝트 풀에서 플레이어 가져오기
+        //    GameObject playerObject = ObjectPoolManager.Instance.Get( "TempMonster" );
+        //    playerObject.transform.position = spawnPosition;
+        //    playerObject.SetActive( true );
 
-            // 내 캐릭터인지 확인하고 IsLocalPlayer 활성화/비활성화
-            PlayerController controller = playerObject.GetComponent<PlayerController>();
-            controller.IsLocalPlayer = false;
+        //    // 내 캐릭터인지 확인하고 IsLocalPlayer 활성화/비활성화
+        //    PlayerController controller = playerObject.GetComponent<PlayerController>();
+        //    controller.IsLocalPlayer = false;
 
-            // 생성된 플레이어 저장
-            _spawnedPlayers[ playerInfo.Id ] = controller;
-            Debug.Log( $"몬스터 스폰됨." );
-        }
+        //    // 생성된 플레이어 저장
+        //    _spawnedPlayers[ playerInfo.Id ] = controller;
+        //    Debug.Log( $"몬스터 스폰됨." );
+        //}
     }
 
     /// <summary> 플레이어 제거 (나갔을 때) </summary>

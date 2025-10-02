@@ -68,11 +68,9 @@ public class TestGameController : MonoBehaviour
 
         ulong playerId = message.ObjectInfo.Id;
 
-        Vector3 newPosition = new Vector3(message.ObjectInfo.PosInfo.X, message.ObjectInfo.PosInfo.Y, message.ObjectInfo.PosInfo.Z);
+        var posInfo = message.ObjectInfo.PosInfo;
 
-        float newYaw = message.ObjectInfo.PosInfo.Yaw;
-
-        player.networkPlayerTransform.SetTarget(newPosition, newYaw);
+        player.networkPlayerTransform.SetTarget(posInfo.X, posInfo.Y, posInfo.Z, posInfo.Yaw);
     }
 
     private void Receive_Animation(S_AnimationEvent message)

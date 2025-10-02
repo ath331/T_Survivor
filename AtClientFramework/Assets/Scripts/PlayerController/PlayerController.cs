@@ -88,6 +88,34 @@ public class PlayerController : MonoBehaviour
         return currentState;
     }
 
+    /// <summary>
+    /// Animation Event에 의해 호출될 실제 공격 판정 메서드
+    /// </summary>
+    public void OnAttackHit()
+    {
+        // weapon?.DealDamage();
+    }
+
+    /// <summary>
+    /// AttackStateBehaviour에 의해 애니메이션이 끝날 때 호출될 메서드
+    /// </summary>
+    public void OnAttackAnimationEnd()
+    {
+        // 공격이 끝나는 시점에 이동 입력이 있는지 확인
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        // 입력이 있으면 Move 상태로, 없으면 Idle 상태로 전환
+        if (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f)
+        {
+            ChangeState(moveState);
+        }
+        else
+        {
+            ChangeState(idleState);
+        }
+    }
+
     public void Send_Move()
     {
         if (!IsLocalPlayer) return;
