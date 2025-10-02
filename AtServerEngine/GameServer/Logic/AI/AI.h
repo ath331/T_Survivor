@@ -23,5 +23,5 @@ public:
     ~AI();
 
     /// 업데이트
-    AtVoid Update( Actor* actor );
+    AtVoid Update( Actor* actor, Millisecond curTime );
 };

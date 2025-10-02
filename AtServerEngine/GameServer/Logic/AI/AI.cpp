@@ -45,7 +45,7 @@ AI::AI( const set< AtInt32 >& movePath )
                 {
                     std::cout << "대상 시야 조건 검사: ";
                     // 실제 조건 로직 구현 가능 (예: 대상이 시야에 있는지)
-                    return true; // 예제에서는 조건 만족 처리
+                    return false; // 예제에서는 조건 불만족 처리
                 } ),
 
             new AIChaseAction()
@@ -68,8 +68,8 @@ AI::~AI()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 업데이트
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid AI::Update( Actor* actor )
+AtVoid AI::Update( Actor* actor, Millisecond curTime )
 {
 	if ( root )
-		root->Execute( actor );
+		root->Execute( actor, curTime );
 }

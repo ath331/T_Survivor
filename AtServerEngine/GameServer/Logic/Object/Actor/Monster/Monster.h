@@ -18,7 +18,7 @@ class Monster
 {
 public:
 	/// 생성자
-	Monster( AtInt32 monsterInfoId, AtInt32 aIInfoId, const PlayRoom* playRoom );
+	Monster( AtInt32 monsterInfoId, AtInt32 aIInfoId, PlayRoom* playRoom );
 
 	/// 소멸자
 	virtual ~Monster();
@@ -34,11 +34,11 @@ private:
 	AI* m_ai;
 
 	/// 현재 있는 룸 정보
-	const PlayRoom* m_room;
+	PlayRoom* m_room;
 
 public:
 	/// 업데이트
-	AtVoid Update();
+	AtVoid Update( Millisecond curTime );
 
 private:
 	/// 소환시 최초 이동 경로를 반환한다.

@@ -13,5 +13,5 @@ class AIAttackAction
 {
 public:
 	/// 실행한다
-	virtual AIStatus Execute( Actor* actor ) override;
+	virtual AIStatus Execute( Actor* actor, Millisecond curTime ) override;
 };

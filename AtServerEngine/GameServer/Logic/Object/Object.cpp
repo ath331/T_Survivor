@@ -5,6 +5,8 @@
 
 #include "pch.h"
 #include "Object.h"
+#include <cmath>
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,4 +31,25 @@ Object::~Object()
 		delete objectInfo;
 		objectInfo = nullptr;
 	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 목표 좌표에 있는지 확인한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool Object::IsSameNode( float destX, float destY ) const
+{
+	// 허용 오차 범위
+	float epsilon = 1e-5f;
+
+	float dx = posInfo->x() - destX;
+	float dy = posInfo->y() - destY;
+
+	// 두 좌표 사이 거리
+	float dist = std::sqrt( dx * dx + dy * dy );
+
+	// 비교 기준 (절대/상대 오차 모두 고려)
+	float maxVal = std::max( { 1.0f, std::fabs( posInfo->x() ), std::fabs( posInfo->y() ),
+							 std::fabs( destX ), std::fabs( destY ) } );
+
+	return dist <= epsilon * maxVal;
 }
