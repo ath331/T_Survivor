@@ -52,6 +52,20 @@ public class PlayerListManager
             // 카메라 등록
             if (controller.IsLocalPlayer)
             {
+                // PlayerData(선택한 직업)에서 JobType을 가져옵니다.
+                //JobType selectedJobType = _playerData.SelectedJobType;
+
+                //// DataManager에서 해당 JobType의 데이터를 가져옵니다.
+                //if (DataManager.Instance.JobDataTable.TryGetValue(selectedJobType, out JobData jobData))
+                //{
+                //    // 데이터를 기반으로 Job 인스턴스를 생성하여 설정합니다.
+                //    IJob job = new Job(jobData);
+                //    controller.SetJob(job);
+                //}
+
+                // TODO : 임시
+                controller.EquipWeapon("Sword");
+
                 // 내 캐릭터는 interpolation 적용
                 controller.rb.interpolation = RigidbodyInterpolation.Interpolate;
 

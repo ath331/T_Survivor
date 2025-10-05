@@ -523,6 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   weapon: {fileID: 0}
+  weaponHandSocket: {fileID: 8640538035317054127}
 --- !u!114 &27488415644907564
 MonoBehaviour:
   m_ObjectHideFlags: 0

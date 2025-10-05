@@ -12,15 +12,15 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb { get; private set; }
     public Animator animator { get; private set; }
 
-    [Header("정보 설정")]
-    public WeaponController weapon; // 일단 대충.. 나중에 지울것
     public NetworkPlayerTransform networkPlayerTransform { get; private set; }
     public NetworkPlayerAnimation networkPlayerAnimation { get; private set; }
-    public IJob CurrentJob { get; private set; }
     public IWeapon EquippedWeapon { get; private set; }
     public List<Skill> Skills { get; private set; } = new List<Skill>();
 
     public bool IsLocalPlayer { get; set; } // 내 캐릭터 여부 (NetworkManager에서 설정)
+
+    [SerializeField] private Transform weaponHandSocket;
+    private GameObject equippedWeaponObject;
 
     // 현재 상태 (초기에는 Idle 상태)
     private IPlayerState currentState;
@@ -89,14 +89,6 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Animation Event에 의해 호출될 실제 공격 판정 메서드
-    /// </summary>
-    public void OnAttackHit()
-    {
-        // weapon?.DealDamage();
-    }
-
-    /// <summary>
     /// AttackStateBehaviour에 의해 애니메이션이 끝날 때 호출될 메서드
     /// </summary>
     public void OnAttackAnimationEnd()
@@ -114,6 +106,20 @@ public class PlayerController : MonoBehaviour
         {
             ChangeState(idleState);
         }
+    }
+
+    public void EquipWeapon(string weapon)
+    {
+        // 기존 무기가 있다면 파괴
+        if (equippedWeaponObject != null)
+        {
+            ObjectPoolManager.Instance.Return(equippedWeaponObject);
+        }
+
+        // 새 무기 생성 및 장착
+        equippedWeaponObject = ObjectPoolManager.Instance.Get(weapon, weaponHandSocket);
+
+        EquippedWeapon = equippedWeaponObject.GetComponent<IWeapon>();
     }
 
     public void Send_Move()

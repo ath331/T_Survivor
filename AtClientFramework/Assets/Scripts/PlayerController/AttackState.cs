@@ -10,7 +10,7 @@ public class AttackState : IPlayerState
     {
         this.player = player;
 
-        player.animator.SetTrigger("Attack");
+        player.EquippedWeapon?.Attack(player);
     }
 
     public void Exit()

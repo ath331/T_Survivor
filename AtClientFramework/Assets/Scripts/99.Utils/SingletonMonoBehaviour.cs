@@ -33,7 +33,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
             if (instance == null)
             {
                 Debug.LogWarning($"No instance of {typeof(T)}, a temporary one is created.");
-                instance = new GameObject($"Temp Instance of {typeof(T)}", typeof(T)).GetComponent<T>();
+                instance = new GameObject($"{typeof(T)}", typeof(T)).GetComponent<T>();
             }
 
             if (instance == null)

@@ -22,6 +22,8 @@ public class TestGameController : MonoBehaviour
         SoundManager.Initialize();
 
         ObjectPoolManager.Instance.Initialize();
+
+        DataLoader.Instance.Initialize();
     }
 
     void Start()

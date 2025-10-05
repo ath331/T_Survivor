@@ -18,6 +18,7 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
     [SerializeField] private LobbyHandler lobbyHandler;
 
     private LobbyStatus currentStatus;
+    private bool isInitialized = false;
 
     private void Awake()
     {
@@ -59,8 +60,14 @@ public class LobbyController : MonoBehaviour, ISceneInitializer
         float currentProgress = 0f;
 
         // Manager 초기화 (가중치 0.2)
-        ObjectPoolManager.Instance.Initialize();
-        RoomManager.Instance.Initialize();
+        if (!isInitialized)
+        {
+            ObjectPoolManager.Instance.Initialize();
+            RoomManager.Instance.Initialize();
+            DataLoader.Instance.Initialize();
+
+            isInitialized = true;
+        }
 
         currentProgress += 0.2f;
         progress.Report(currentProgress);

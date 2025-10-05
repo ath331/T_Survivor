@@ -1,24 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using Protocol;
+using System.Linq;
+using System;
 
-public class DataLoader : MonoBehaviour
+public class DataLoader : SingletonMonoBehaviour<DataLoader>
 {
-    // 에디터에서 할당 (Resources 폴더 사용도 가능) 일단 대강 잡아놈
-    public TextAsset jobJson;
-    public TextAsset itemJson;
+    public Dictionary<EPlayerType, JobData> JobDataTable { get; private set; } = new Dictionary<EPlayerType, JobData>();
+    public Dictionary<int, ItemData> ItemDataTable { get; private set; } = new Dictionary<int, ItemData>();
 
-    public List<JobData> jobDataList;
-    public List<ItemData> itemDataList;
-
-    void LoadData()
+    public override void Initialize()
     {
-        JobDataList jobWrapper = JsonUtility.FromJson<JobDataList>(jobJson.text);
-        jobDataList = jobWrapper.jobs;
+        LoadJobData();
+        LoadItemData();
+    }
 
-        ItemDataList itemWrapper = JsonUtility.FromJson<ItemDataList>(itemJson.text);
-        itemDataList = itemWrapper.items;
+    private T ParseProtocolEnum<T>(JToken token) where T : struct, Enum
+    {
+        string rawValue = token["Value"].ToString();
+        string enumString = rawValue.Split("::").Last().Replace("_", "");
+        return Enum.Parse<T>(enumString, true); // true: 대소문자 무시
+    }
 
-        Debug.Log("JobData와 ItemData 로딩 완료!");
+    private void LoadJobData()
+    {
+        TextAsset jobJson = Resources.Load<TextAsset>("JsonData/ClassJson");
+        JObject root = JObject.Parse(jobJson.text);
+
+        foreach (var pair in root)
+        {
+            if (pair.Key.StartsWith("PLAYER_TYPE_"))
+            {
+                JObject jobJObject = (JObject)pair.Value;
+
+                JobData jobData = new JobData
+                {
+                    jobType = ParseProtocolEnum<EPlayerType>(jobJObject["Id"]),
+                    HP = (int)jobJObject["HP"]["Value"],
+                    MP = (int)jobJObject["MP"]["Value"],
+                    Damage = (int)jobJObject["Damage"]["Value"],
+                    MagicDamage = (int)jobJObject["MagicDamage"]["Value"]
+                };
+
+                JobDataTable[jobData.jobType] = jobData;
+            }
+        }
+
+        Debug.Log($"Job 데이터 {JobDataTable.Count}개 로드 완료.");
+    }
+
+    private void LoadItemData()
+    {
+        TextAsset itemJson = Resources.Load<TextAsset>("JsonData/ItemJson");
+        JObject root = JObject.Parse(itemJson.text);
+
+        foreach (var pair in root)
+        {
+            if (int.TryParse(pair.Key, out int itemId))
+            {
+                JObject itemJObject = (JObject)pair.Value;
+
+                ItemData itemData = new ItemData
+                {
+                    Id = (int)itemJObject["Id"]["Value"],
+                    Name = (string)itemJObject["Name"]["Value"],
+                    jobType = ParseProtocolEnum<EPlayerType>(itemJObject["ClassType"]),
+                    EquipSlotType = ParseProtocolEnum<EEquipSlotType>(itemJObject["EquipSlotType"]),
+                    Stat = ParseProtocolEnum<EStat>(itemJObject["Stat"]),
+                    StatParam = (int)itemJObject["StatParam"]["Value"]
+                };
+                ItemDataTable[itemData.Id] = itemData;
+            }
+        }
+
+        Debug.Log($"Item 데이터 {ItemDataTable.Count}개 로드 완료.");
     }
 }

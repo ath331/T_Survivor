@@ -34,3 +34,6 @@ MonoBehaviour:
   - name: ToastMessage
     prefab: {fileID: 8830413938021615801, guid: 76d7890413f6aa542a4786cc1eb7207e, type: 3}
     initialCount: 5
+  - name: Sword
+    prefab: {fileID: 919132149155446097, guid: 41a1f307346198741a383896826e6525, type: 3}
+    initialCount: 1
