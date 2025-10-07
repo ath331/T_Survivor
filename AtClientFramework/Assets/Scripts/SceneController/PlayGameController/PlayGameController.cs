@@ -119,8 +119,15 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
 
         foreach (var playerInfo in playerInfos)
         {
-            // 매니저에서 플레이어 생성 (중복 체크 포함)
-            PlayerListManager.Instance.ProcessSpawnHandler(playerInfo);
+            SpawnManager.Instance.ProcessSpawn(playerInfo);
+        }
+    }
+
+    private void Receive_Despawn(S_DeSpawn message)
+    {
+        foreach (var objectId in message.Ids)
+        {
+            PlayerListManager.Instance.UnregisterPlayer(objectId);
         }
     }
 }

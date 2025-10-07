@@ -30,13 +30,6 @@ public class WaitingRoomHandler : MonoBehaviour
     {
         RoomManager.Instance.roomModel.OnModelUpdated += RefreshUI;
 
-        // C_WaitingRoomOut 을 보내면 S_WaitingRoomOutNotify이 다른 클라한테 가고  S_WaitingRoomOut 는 본인한테 옴
-        //PacketEventManager.Subscribe<S_WaitingRoomOutNotify>(NotifyRoomOutPlayer);
-        //PacketEventManager.Subscribe<S_WaitingRoomOut>(Receive_WaitRoomOut);
-
-        //PacketEventManager.Subscribe<S_ChangeWaitingState>(OnReceiveChangeWaitingState);
-        //PacketEventManager.Subscribe<S_ChangeWaitingStateNotify>(OnReceiveChangeWaitingStateNotify);
-
         exitButton.onClick.AddListener(OnClickExit);
         readyButton.onClick.AddListener(OnClickReady);
         gameStartButton.onClick.AddListener(OnClickStart);

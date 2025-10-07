@@ -99,8 +99,7 @@ public class TestGameController : MonoBehaviour
 
         foreach (var playerInfo in playerInfos)
         {
-            // 매니저에서 플레이어 생성 (중복 체크 포함)
-            PlayerListManager.Instance.ProcessSpawnHandler(playerInfo);
+            SpawnManager.Instance.ProcessSpawn(playerInfo);
         }
     }
 
