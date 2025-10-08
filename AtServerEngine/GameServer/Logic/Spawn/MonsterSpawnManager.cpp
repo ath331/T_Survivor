@@ -21,12 +21,12 @@ MonsterSpawnManager::MonsterSpawnManager( PlayRoom* room, AtInt32 spawnGroupId )
 	:
 	m_room( room )
 {
-	// TODO : 스폰 그룹 아이디로 리스트를 가져와야하는데 아직 데이터 툴이 안 되어있어서 임시로 하나씩 생성
-	//{
-	//	m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 1 ) );
-	//	m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 2 ) );
-	//	m_spawnInfoList.push_back( MonsterSpawnInfoManager::GetInstance().GetInfo( 3 ) );
-	//}
+	{
+		// 테스트중이므로 소환은 하나만 됨
+		const MonsterSpawnInfo* monster = new MonsterSpawnInfo();
+
+		m_spawnInfoList.push_back( monster );
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,6 +61,10 @@ AtBool MonsterSpawnManager::_CheckSpawn( const MonsterSpawnInfo* spawnInfo )
 	if ( !spawnInfo )
 		return false;
 
+	auto iter = m_tempDuplicateSpawnSet.find( 1000 );
+	if ( iter != m_tempDuplicateSpawnSet.end() )
+		return false;
+
 	return true;
 }
 
@@ -74,7 +78,8 @@ AtVoid MonsterSpawnManager::_Spawn( const MonsterSpawnInfo* spawnInfo )
 
 	MonsterPtr newMonster = std::make_shared< Monster >(
 		spawnInfo->GetMonsterInfoId(),
-		spawnInfo->GetAIInfoId(),
+		// spawnInfo->GetAIInfoId(),
+		1,
 		m_room );
 
 	newMonster->objectInfo->set_id         ( 1000 ); // TODO : 머큐리 생성기 필요
@@ -85,11 +90,14 @@ AtVoid MonsterSpawnManager::_Spawn( const MonsterSpawnInfo* spawnInfo )
 	newMonster->posInfo->set_z( Utils::GetRandom( -15.f, 15.f ) ); // 좌표는 외부 데이터로?
 	newMonster->posInfo->set_y( 0.0f );
 
+	m_tempDuplicateSpawnSet.insert( 1000 );
+
 	if ( m_room )
 	{
-		m_room->DoAsync( 
-			&Room::HandleSpawnObject, 
-			newMonster->shared_from_this(), 
-			(Room::CallbackFunc)( []() {} ) );
+		m_room->DoAsync(
+			[ this, newMonster ]()
+			{
+				m_room->HandleSpawnObject( newMonster );
+			} );
 	}
 }

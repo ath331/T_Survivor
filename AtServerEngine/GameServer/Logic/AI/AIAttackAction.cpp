@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AIStatus AIAttackAction::Execute( Actor* actor, Millisecond curTime )
 {
-	std::cout << "공격 중...\n";
+	//std::cout << "공격 중...\n";
 	// 공격 로직 구현 가능
 	return AIStatus::Success;
 }

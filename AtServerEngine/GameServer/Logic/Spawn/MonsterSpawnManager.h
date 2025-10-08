@@ -34,4 +34,7 @@ private:
 
 	/// 스폰 몬스터 정보 목록
 	std::list< const MonsterSpawnInfo* > m_spawnInfoList;
+
+	/// 반복 소환 임시 막기
+	set< AtInt32 > m_tempDuplicateSpawnSet;
 };

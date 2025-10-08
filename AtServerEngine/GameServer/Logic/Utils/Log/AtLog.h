@@ -84,7 +84,7 @@ public:
 	static AtVoid TryPrintPacketData( google::protobuf::Message& pkt );
 
 	/// PacketData를 출력한다.
-	static AtVoid PrintPacketData( google::protobuf::Message& pkt );
+	static AtVoid PrintPacketData( google::protobuf::Message& pkt, AtBool isRecv = true );
 
 private:
 	/// 파일 경로에서 파일 이름만 추출하는 함수

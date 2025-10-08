@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AIStatus AIChaseAction::Execute( Actor* actor, Millisecond curTime )
 {
-	std::cout << "대상을 추격 중...\n";
+	//std::cout << "대상을 추격 중...\n";
 	// 추격 로직 구현 가능
 	return AIStatus::Success;
 }

@@ -67,6 +67,7 @@ AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 {
 #ifdef _WIN32
 	SetConsoleOutputCP( CP_UTF8 );
+	setlocale( LC_ALL, "ko_KR.UTF-8" );
 #endif
 
 	std::filesystem::path programPath( argv[ 0 ] );

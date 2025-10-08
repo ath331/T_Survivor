@@ -30,7 +30,7 @@ AI::AI( const set< AtInt32 >& movePath )
             new AICondition(
                 []( Actor* actor )
                 {
-                    std::cout << "공격 범위 조건 검사: ";
+                    //std::cout << "공격 범위 조건 검사: ";
                     // 실제 조건 로직 구현 가능 (예: 대상과의 거리가 충분히 가까운지)
                     return false; // 예제에서는 조건 불만족 처리
                 } ),
@@ -43,7 +43,7 @@ AI::AI( const set< AtInt32 >& movePath )
             new AICondition(
                 []( Actor* actor )
                 {
-                    std::cout << "대상 시야 조건 검사: ";
+                    //std::cout << "대상 시야 조건 검사: ";
                     // 실제 조건 로직 구현 가능 (예: 대상이 시야에 있는지)
                     return false; // 예제에서는 조건 불만족 처리
                 } ),

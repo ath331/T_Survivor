@@ -12,6 +12,8 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Actor::Actor()
 {
+	m_isMoveUpdate = false;
+
 	objectInfo->set_object_type( Protocol::OBJECT_TYPE_ACTOR );
 	m_actorType = Protocol::EActorType::ACTOR_TYPE_MAX;
 }

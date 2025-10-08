@@ -5,6 +5,7 @@
 
 #include "pch.h"
 #include "Monster.h"
+#include "Utils/Log/AtLog.h"
 #include "Logic/AI/AI.h"
 #include "Logic/Room/PlayRoom.h"
 #include "MapData/SceneManager.h"
@@ -59,13 +60,18 @@ AtVoid Monster::Update( Millisecond curTime )
 	if ( m_ai )
 		m_ai->Update( this, curTime );
 
-	if ( m_room )
+	if ( m_room && GetIsMoveUpdate() )
 	{
 		S_Move moveResult;
 		moveResult.set_result( EResultCode::RESULT_CODE_SUCCESS );
 		moveResult.mutable_objectinfo()->CopyFrom( *this->objectInfo );
+		moveResult.mutable_objectinfo()->mutable_pos_info()->CopyFrom( *this->posInfo );
 
 		m_room->Broadcast( moveResult );
+
+		AtLog::PrintPacketData( moveResult, false );
+
+		SetIsMoveUpdate( false );
 	}
 }
 

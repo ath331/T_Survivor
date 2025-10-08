@@ -47,12 +47,15 @@ AtVoid AtLog::TryPrintPacketData( google::protobuf::Message& pkt )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief PacketData를 출력한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid AtLog::PrintPacketData( google::protobuf::Message& pkt )
+AtVoid AtLog::PrintPacketData( google::protobuf::Message& pkt, AtBool isRecv )
 {
 	std::string jsonOutput;
 	google::protobuf::util::MessageToJsonString( pkt, &jsonOutput );
 
-	PrintNoFileMsg( "[RECV][ " + pkt.GetTypeName() + " ] "+  jsonOutput);
+	if ( isRecv )
+		PrintNoFileMsg( "[RECV][ " + pkt.GetTypeName() + " ] " + jsonOutput );
+	else
+		PrintNoFileMsg( "[SEND][ " + pkt.GetTypeName() + " ] " + jsonOutput );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

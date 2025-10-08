@@ -39,7 +39,7 @@ AIStatus AIMoveAction::Execute( Actor* actor, Millisecond curTime )
 		return AIStatus::Failure;
 
 	// 0.1s 마다 움직인다.
-	AtInt64 deltaTime = 100;
+	AtInt64 deltaTime = 3000;
 	if ( curTime.count() - m_lastUpdateTime.count() < deltaTime )
 		return AIStatus::Failure;
 
@@ -52,8 +52,6 @@ AIStatus AIMoveAction::Execute( Actor* actor, Millisecond curTime )
 	}
 	else
 	{
-		// INFO_LOG( "Move" );
-		
 		float newX = 0.0f;
 		float newY = 0.0f;
 
@@ -63,6 +61,8 @@ AIStatus AIMoveAction::Execute( Actor* actor, Millisecond curTime )
 		actor->posInfo->set_y( newY );
 
 		m_lastUpdateTime = curTime;
+		actor->SetIsMoveUpdate( true );
+
 		return AIStatus::Success;
 	}
 

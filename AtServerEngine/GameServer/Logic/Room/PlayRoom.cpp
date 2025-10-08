@@ -58,6 +58,12 @@ SceneManager* PlayRoom::GetSceneManager() const
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtVoid PlayRoom::UpdateTick( Millisecond curTime )
 {
+	if ( curTime < m_startTime )
+	{
+		Room::UpdateTick( curTime );
+		return;
+	}
+
 	if ( m_monsterSpawnManager )
 		m_monsterSpawnManager->Update( curTime );
 
