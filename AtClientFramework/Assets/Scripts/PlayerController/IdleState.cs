@@ -27,7 +27,7 @@ public class IdleState : IPlayerState
 
         if (Input.GetButtonDown("Fire1"))
         {
-            player.ChangeState(player.attackState);
+            player.Equipment.EquippedWeapon?.HandleAttackInput();
             return;
         }
     }

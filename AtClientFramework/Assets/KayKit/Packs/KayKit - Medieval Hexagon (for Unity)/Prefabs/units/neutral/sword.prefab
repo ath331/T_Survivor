@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7555904493ba2e4c922625ecb7d7b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  comboResetTime: 1.2
+  maxComboCount: 3
+  animatorOverride: {fileID: 22100000, guid: 14898963fe880c446a2543e254a28b45, type: 2}
 --- !u!65 &1724082962653589318
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -112,7 +115,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

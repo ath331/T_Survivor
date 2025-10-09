@@ -63,11 +63,11 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
         // DataManager에서 직업 기본 스탯과 기본 무기 정보를 가져와서 초기화
         if (DataLoader.Instance.JobDataTable.TryGetValue(jobType, out JobData jobData))
         {
-            // TODO: JobData에 기본 무기 ID가 정의되어 있어야 함
-            //int defaultWeaponId = 1000; // jobData.DefaultWeaponId;
-            //ItemData defaultWeapon = DataLoader.Instance.ItemDataTable[defaultWeaponId];
+            // TODO : 임시 Sword 가져오기
+            int defaultWeaponId = 1000; 
+            ItemData defaultWeapon = DataLoader.Instance.ItemDataTable[defaultWeaponId];
 
-            //controller.Initialize(jobData, defaultWeapon);
+            controller.Initialize(jobData, defaultWeapon);
         }
 
         // 컴포넌트 활성화
@@ -75,8 +75,5 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
         controller.networkPlayerTransform.enabled = true;
         controller.rb.useGravity = true;
         controller.rb.interpolation = controller.IsLocalPlayer ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
-
-        // TODO : 임시
-        controller.EquipWeapon("Sword");
     }
 }
