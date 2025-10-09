@@ -1,11 +1,13 @@
 using UnityEngine;
 using Protocol;
 using System.Collections.Generic;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class EquipmentController : MonoBehaviour
 {
     [SerializeField] private Transform weaponHandSocket;
 
+    private PlayerController _playerController;
     private StatController _statController;
     private Dictionary<EEquipSlotType, ItemData> _equippedItems = new Dictionary<EEquipSlotType, ItemData>();
     private Dictionary<EEquipSlotType, GameObject> _equippedItemObjects = new Dictionary<EEquipSlotType, GameObject>();
@@ -15,6 +17,7 @@ public class EquipmentController : MonoBehaviour
     private void Awake()
     {
         _statController = GetComponent<StatController>();
+        _playerController = GetComponent<PlayerController>();
     }
 
     public void EquipItem(ItemData newItem)
@@ -29,14 +32,21 @@ public class EquipmentController : MonoBehaviour
         _equippedItems[newItem.EquipSlotType] = newItem;
         _statController.EquipItem(newItem); // StatController에 스탯 변경 알림
 
-        // 무기일 경우, 시각적으로 장착하고 IWeapon 인터페이스 가져오기
+        // TODO : 일단 무기만 시각적으로 장착하고 IWeapon 인터페이스 가져오기
         if (newItem.EquipSlotType == EEquipSlotType.EquipSlotTypeWeapon)
         {
-            // TODO: ItemData에 프리팹 경로/이름 정보가 있어야 함
-            GameObject weaponPrefab = Resources.Load<GameObject>($"Weapons/{newItem.Name}");
-            GameObject weaponObject = Instantiate(weaponPrefab, weaponHandSocket);
+            GameObject weaponObject = ObjectPoolManager.Instance.Get(newItem.Name, weaponHandSocket);
+
             _equippedItemObjects[newItem.EquipSlotType] = weaponObject;
+
             EquippedWeapon = weaponObject.GetComponent<IWeapon>();
+
+            EquippedWeapon.OnEquip(_playerController);
+
+            if (EquippedWeapon is Sword sword)
+            {
+                _playerController.animator.runtimeAnimatorController = sword.AnimatorOverride;
+            }
         }
 
         Debug.Log($"{newItem.Name} 장착 완료.");
@@ -51,7 +61,8 @@ public class EquipmentController : MonoBehaviour
 
             if (_equippedItemObjects.TryGetValue(slot, out GameObject itemObject))
             {
-                Destroy(itemObject);
+                ObjectPoolManager.Instance.Return(itemObject);
+
                 _equippedItemObjects.Remove(slot);
             }
 
@@ -59,6 +70,7 @@ public class EquipmentController : MonoBehaviour
             {
                 EquippedWeapon = null;
             }
+
             Debug.Log($"{oldItem.Name} 장착 해제.");
         }
     }

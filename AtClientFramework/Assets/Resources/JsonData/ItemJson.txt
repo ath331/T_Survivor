@@ -18,7 +18,7 @@
         "Name" : 
         { 
             "Type" : "string",
-            "Value" : "나무 칼",
+            "Value" : "Sword",
             "Desc" : "이름"
         },
         "Level" : 

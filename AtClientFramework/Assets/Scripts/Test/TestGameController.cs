@@ -95,11 +95,9 @@ public class TestGameController : MonoBehaviour
 
     private void Receive_Spawn(S_Spawn message)
     {
-        var playerInfos = message.ObjectList;
-
-        foreach (var playerInfo in playerInfos)
+        foreach (var objectInfo in message.ObjectList)
         {
-            SpawnManager.Instance.ProcessSpawn(playerInfo);
+            SpawnManager.Instance.ProcessSpawn(objectInfo);
         }
     }
 

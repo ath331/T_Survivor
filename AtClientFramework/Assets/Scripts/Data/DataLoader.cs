@@ -71,6 +71,7 @@ public class DataLoader : SingletonMonoBehaviour<DataLoader>
                     Stat = ParseProtocolEnum<EStat>(itemJObject["Stat"]),
                     StatParam = (int)itemJObject["StatParam"]["Value"]
                 };
+
                 ItemDataTable[itemData.Id] = itemData;
             }
         }
