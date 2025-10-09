@@ -5,6 +5,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Assets.Scripts.Network;
 using Protocol;
+using Google.Protobuf.WellKnownTypes;
 
 // 구체적인 게임 컨트롤러 구현: 실제 Play 씬에서 동작할 컨트롤러
 public class PlayGameController : AbstractPlayGameController, ISceneInitializer
@@ -115,11 +116,9 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
 
     private void Receive_Spawn(S_Spawn message)
     {
-        var playerInfos = message.ObjectList;
-
-        foreach (var playerInfo in playerInfos)
+        foreach (var objectInfo in message.ObjectList)
         {
-            SpawnManager.Instance.ProcessSpawn(playerInfo);
+            SpawnManager.Instance.ProcessSpawn(objectInfo);
         }
     }
 

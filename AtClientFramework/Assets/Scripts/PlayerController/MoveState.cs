@@ -46,7 +46,7 @@ public class MoveState : IPlayerState
 
         if (Input.GetButtonDown("Fire1"))
         {
-            player.ChangeState(player.attackState);
+            player.Equipment.EquippedWeapon?.HandleAttackInput();
             return;
         }
     }

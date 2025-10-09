@@ -9,17 +9,20 @@ public class AttackState : IPlayerState
     public void Enter(PlayerController player)
     {
         this.player = player;
-
-        player.EquippedWeapon?.Attack(player);
     }
 
     public void Exit()
     {
+
     }
 
     public void HandleInput()
     {
-
+        if (Input.GetButtonDown("Fire1"))
+        {
+            player.Equipment.EquippedWeapon?.QueueNextCombo();
+            return;
+        }
     }
 
     public void UpdateState()

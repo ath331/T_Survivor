@@ -4,6 +4,7 @@ using Assets.Scripts.Network;
 using Protocol;
 using TMPro;
 using Google.Protobuf.WellKnownTypes;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,13 +15,11 @@ public class PlayerController : MonoBehaviour
 
     public NetworkPlayerTransform networkPlayerTransform { get; private set; }
     public NetworkPlayerAnimation networkPlayerAnimation { get; private set; }
-    public IWeapon EquippedWeapon { get; private set; }
+    public StatController Stats { get; private set; }
+    public EquipmentController Equipment { get; private set; }
     public List<Skill> Skills { get; private set; } = new List<Skill>();
 
     public bool IsLocalPlayer { get; set; } // 내 캐릭터 여부 (NetworkManager에서 설정)
-
-    [SerializeField] private Transform weaponHandSocket;
-    private GameObject equippedWeaponObject;
 
     // 현재 상태 (초기에는 Idle 상태)
     private IPlayerState currentState;
@@ -38,6 +37,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         networkPlayerTransform = GetComponent<NetworkPlayerTransform>();
         networkPlayerAnimation = GetComponent<NetworkPlayerAnimation>();
+        Stats = GetComponent<StatController>();
+        Equipment = GetComponent<EquipmentController>();
 
         // 초기 상태를 IdleState로 설정
         ChangeState(idleState);
@@ -93,6 +94,16 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void OnAttackAnimationEnd()
     {
+        if (Equipment.EquippedWeapon != null && Equipment.EquippedWeapon.IsComboQueued)
+        {
+            // 예약된 콤보가 있다면, 다음 공격을 실행.
+            Equipment.EquippedWeapon.HandleAttackInput();
+            return;
+        }
+
+        // 콤보 카운터를 리셋해준다.
+        Equipment.EquippedWeapon?.ComoboCounterReset();
+
         // 공격이 끝나는 시점에 이동 입력이 있는지 확인
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -108,18 +119,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void EquipWeapon(string weapon)
+    /// <summary>
+    /// [Animation Event]에서 호출할 중계 메서드.
+    /// 이 신호를 받아서 현재 장착된 무기에게 전달.
+    /// </summary>
+    public void ComboOn()
     {
-        // 기존 무기가 있다면 파괴
-        if (equippedWeaponObject != null)
-        {
-            ObjectPoolManager.Instance.Return(equippedWeaponObject);
-        }
+        Equipment.EquippedWeapon?.ComboOn();
+    }
 
-        // 새 무기 생성 및 장착
-        equippedWeaponObject = ObjectPoolManager.Instance.Get(weapon, weaponHandSocket);
+    public void ComboOff()
+    {
+        Equipment.EquippedWeapon?.ComboOff();
+    }
 
-        EquippedWeapon = equippedWeaponObject.GetComponent<IWeapon>();
+
+    public void Initialize(JobData jobData, ItemData defaultWeaponData)
+    {
+        Stats.Initialize(jobData);
+
+        Equipment.EquipItem(defaultWeaponData);
     }
 
     public void Send_Move()

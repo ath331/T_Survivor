@@ -1,12 +1,30 @@
 using UnityEngine;
 using Protocol;
+using UnityEditor.PackageManager;
 
 public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
 {
     [SerializeField] private PlayerData playerData;
     [SerializeField] private CharacterDatabase characterDatabase;
 
-    public void ProcessSpawn(ObjectInfo playerInfo)
+
+    public void ProcessSpawn(ObjectInfo actorInfo)
+    {
+        switch (actorInfo.ActorType)
+        {
+            case EActorType.ActorTypePlayer:
+                SpawnPlayer(actorInfo);
+                break;
+            case EActorType.ActorTypeNone:
+                SpawnPlayer(actorInfo);
+                break;
+            case EActorType.ActorTypeMonster:
+                SpawnMonster(actorInfo);
+                break;
+        }
+    }
+
+    public void SpawnPlayer(ObjectInfo playerInfo)
     {
         // 이미 생성된 플레이어인지 PlayerListManager에 확인
         if (PlayerListManager.Instance.TryGetPlayer(playerInfo.Id, out _))
@@ -58,16 +76,28 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
         }
     }
 
+    public void SpawnMonster(ObjectInfo monsterInfo)
+    {
+        GameObject playerObject = ObjectPoolManager.Instance.Get("TempMonster");
+        playerObject.transform.position = new Vector3(monsterInfo.PosInfo.X, monsterInfo.PosInfo.Y, monsterInfo.PosInfo.Z);
+        
+        // PlayerController 임시.
+        PlayerController controller = playerObject.GetComponent<PlayerController>();
+        controller.IsLocalPlayer = false;
+
+        MonsterListManager.Instance.RegisterMonster(monsterInfo.Id, controller);
+    }
+
     private void InitializeController(PlayerController controller, EPlayerType jobType)
     {
         // DataManager에서 직업 기본 스탯과 기본 무기 정보를 가져와서 초기화
         if (DataLoader.Instance.JobDataTable.TryGetValue(jobType, out JobData jobData))
         {
-            // TODO: JobData에 기본 무기 ID가 정의되어 있어야 함
-            //int defaultWeaponId = 1000; // jobData.DefaultWeaponId;
-            //ItemData defaultWeapon = DataLoader.Instance.ItemDataTable[defaultWeaponId];
+            // TODO : 임시 Sword 가져오기
+            int defaultWeaponId = 1000; 
+            ItemData defaultWeapon = DataLoader.Instance.ItemDataTable[defaultWeaponId];
 
-            //controller.Initialize(jobData, defaultWeapon);
+            controller.Initialize(jobData, defaultWeapon);
         }
 
         // 컴포넌트 활성화
@@ -75,8 +105,5 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
         controller.networkPlayerTransform.enabled = true;
         controller.rb.useGravity = true;
         controller.rb.interpolation = controller.IsLocalPlayer ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
-
-        // TODO : 임시
-        controller.EquipWeapon("Sword");
     }
 }
