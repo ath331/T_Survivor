@@ -21,6 +21,8 @@ Player::Player()
 
 	m_inventory = new Inventory( this );
 	m_contentsManagerContainer.Register( m_inventory );
+
+	objectInfo->set_actor_type( EActorType::ACTOR_TYPE_PLAYER );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
