@@ -387,8 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1219858a92dcb4497bcd46901779bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: d1c2addb91bbde34ca4cf3af8cd9a687, type: 2}
-  characterDatabase: {fileID: 11400000, guid: 9287e8f20518da74cbe3496808d45925, type: 2}
 --- !u!1 &137816216
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +975,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1112705201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1112705202}
+  m_Layer: 0
+  m_Name: MonsterListManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1112705202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112705201}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1687212072}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1510319099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1130,7 @@ Transform:
   m_Children:
   - {fileID: 2050613307}
   - {fileID: 96132137}
+  - {fileID: 1112705202}
   - {fileID: 137816217}
   m_Father: {fileID: 0}
   m_RootOrder: 0

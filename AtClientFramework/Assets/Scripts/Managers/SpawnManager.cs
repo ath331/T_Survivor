@@ -1,12 +1,30 @@
 using UnityEngine;
 using Protocol;
+using UnityEditor.PackageManager;
 
 public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
 {
     [SerializeField] private PlayerData playerData;
     [SerializeField] private CharacterDatabase characterDatabase;
 
-    public void ProcessSpawn(ObjectInfo playerInfo)
+
+    public void ProcessSpawn(ObjectInfo actorInfo)
+    {
+        switch (actorInfo.ActorType)
+        {
+            case EActorType.ActorTypePlayer:
+                SpawnPlayer(actorInfo);
+                break;
+            case EActorType.ActorTypeNone:
+                SpawnPlayer(actorInfo);
+                break;
+            case EActorType.ActorTypeMonster:
+                SpawnMonster(actorInfo);
+                break;
+        }
+    }
+
+    public void SpawnPlayer(ObjectInfo playerInfo)
     {
         // 이미 생성된 플레이어인지 PlayerListManager에 확인
         if (PlayerListManager.Instance.TryGetPlayer(playerInfo.Id, out _))
@@ -56,6 +74,18 @@ public class SpawnManager : SingletonMonoBehaviour<SpawnManager>
         {
             PlayerListManager.OnLocalPlayerSpawned?.Invoke(controller.transform);
         }
+    }
+
+    public void SpawnMonster(ObjectInfo monsterInfo)
+    {
+        GameObject playerObject = ObjectPoolManager.Instance.Get("TempMonster");
+        playerObject.transform.position = new Vector3(monsterInfo.PosInfo.X, monsterInfo.PosInfo.Y, monsterInfo.PosInfo.Z);
+        
+        // PlayerController 임시.
+        PlayerController controller = playerObject.GetComponent<PlayerController>();
+        controller.IsLocalPlayer = false;
+
+        MonsterListManager.Instance.RegisterMonster(monsterInfo.Id, controller);
     }
 
     private void InitializeController(PlayerController controller, EPlayerType jobType)
