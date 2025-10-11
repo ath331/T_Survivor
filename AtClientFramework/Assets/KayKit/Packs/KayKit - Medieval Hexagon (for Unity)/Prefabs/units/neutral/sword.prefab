@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboResetTime: 1.2
   maxComboCount: 3
+  attackMoveSpeed: 10
   animatorOverride: {fileID: 22100000, guid: 14898963fe880c446a2543e254a28b45, type: 2}
 --- !u!65 &1724082962653589318
 BoxCollider:
