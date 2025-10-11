@@ -13,7 +13,9 @@ public class AttackState : IPlayerState
 
     public void Exit()
     {
+        var velocity = player.rb.velocity;
 
+        player.rb.velocity = new Vector3(0, velocity.y, 0);
     }
 
     public void HandleInput()
@@ -32,6 +34,6 @@ public class AttackState : IPlayerState
 
     public void FixedUpdateState()
     {
-
+        player.Equipment.EquippedWeapon?.OnFixedUpdate();
     }
 }

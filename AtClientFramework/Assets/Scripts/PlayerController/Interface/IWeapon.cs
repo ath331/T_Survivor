@@ -11,6 +11,9 @@ public interface IWeapon
     // 공격 버튼이 눌렸을 때 PlayerController로부터 호출될 메서드.
     void HandleAttackInput();
 
+    // AttackState에 있는 동안 매 FixedUpdate마다 호출됩니다.
+    void OnFixedUpdate();
+
     void ComboOn();
     void ComboOff();
     void ComoboCounterReset();

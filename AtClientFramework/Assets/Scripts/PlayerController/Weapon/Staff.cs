@@ -51,4 +51,9 @@ public class Staff : MonoBehaviour, IWeapon
     {
 
     }
+
+    public void OnFixedUpdate()
+    {
+
+    }
 }
