@@ -46,6 +46,8 @@ public class ChatController : MonoBehaviour
 
     private void OnEndEdit(string input)
     {
+        if (ServerCheatManager.IsInputBlocked) return;
+
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Send_Message(input);
@@ -75,6 +77,8 @@ public class ChatController : MonoBehaviour
 
     public void UpdateChatUI(S_Chat message)
     {
+        if (ServerCheatManager.IsInputBlocked) return;
+
         string Msg = message.Msg;
 
         if (chatTexts.Count >= LimitChatPrefab)

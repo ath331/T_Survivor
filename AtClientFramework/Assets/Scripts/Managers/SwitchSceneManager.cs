@@ -11,7 +11,7 @@ using System.Linq;
 public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
 {
     [SerializeField] GameObject splashCanvas;
-    [SerializeField] Image splashImage;
+    [SerializeField] Image curtain;
 
     [SerializeField] GameObject loadingCanvas;
 
@@ -29,7 +29,7 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
     public override async void Initialize()
     {
         splashCanvas.SetActive(true);  // 스플래시 화면 활성화
-        splashImage.color = new Color(0, 0, 0, 1);   // 시작 시 완전 어두움 (불투명)
+        curtain.color = new Color(0, 0, 0, 1);   // 시작 시 완전 어두움 (불투명)
 
         await StartSplashSequence();
     }
@@ -40,10 +40,10 @@ public class SwitchSceneManager : SingletonMonoBehaviour<SwitchSceneManager>
     private async UniTask StartSplashSequence()
     {
         // 1. Fade In (1.5초 동안 밝아짐)
-        await splashImage.DOFade(0f, 1.5f).AsyncWaitForCompletion();
+        await curtain.DOFade(0f, 1.5f).AsyncWaitForCompletion();
 
         // 2. Fade Out (1.5초 동안 어두워짐)
-        await splashImage.DOFade(1f, 1.5f).AsyncWaitForCompletion();
+        await curtain.DOFade(1f, 1.5f).AsyncWaitForCompletion();
 
         await LoadTitleScene(); // Title 씬 로드
     }
