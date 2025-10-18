@@ -52,7 +52,8 @@ public class PlayerController : MonoBehaviour
         if (IsLocalPlayer)
         {
             // input update
-            currentState.HandleInput();
+            if (!ServerCheatManager.IsInputBlocked)
+                currentState.HandleInput();
 
             // state update
             currentState.UpdateState();
