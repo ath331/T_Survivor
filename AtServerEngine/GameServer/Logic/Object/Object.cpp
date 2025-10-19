@@ -36,20 +36,20 @@ Object::~Object()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 목표 좌표에 있는지 확인한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Object::IsSameNode( float destX, float destY ) const
+AtBool Object::IsSameNode( float destX, float destZ ) const
 {
 	// 허용 오차 범위
 	float epsilon = 1e-5f;
 
 	float dx = posInfo->x() - destX;
-	float dy = posInfo->y() - destY;
+	float dz = posInfo->z() - destZ;
 
 	// 두 좌표 사이 거리
-	float dist = std::sqrt( dx * dx + dy * dy );
+	float dist = std::sqrt( dx * dx + dz * dz );
 
 	// 비교 기준 (절대/상대 오차 모두 고려)
-	float maxVal = std::max( { 1.0f, std::fabs( posInfo->x() ), std::fabs( posInfo->y() ),
-							 std::fabs( destX ), std::fabs( destY ) } );
+	float maxVal = std::max( { 1.0f, std::fabs( posInfo->x() ), std::fabs( posInfo->z() ),
+							 std::fabs( destX ), std::fabs( destZ ) } );
 
 	return dist <= epsilon * maxVal;
 }

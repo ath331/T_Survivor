@@ -86,9 +86,11 @@ AtVoid MonsterSpawnManager::_Spawn( const MonsterSpawnInfo* spawnInfo )
 	newMonster->objectInfo->set_infoid     ( spawnInfo->GetMonsterInfoId() );
 	newMonster->objectInfo->set_object_type( Protocol::OBJECT_TYPE_ACTOR   );
 	newMonster->objectInfo->set_actor_type ( Protocol::ACTOR_TYPE_MONSTER  );
-	newMonster->posInfo->set_x( Utils::GetRandom( -15.f, 15.f ) ); // 좌표는 외부 데이터로?
-	newMonster->posInfo->set_z( Utils::GetRandom( -15.f, 15.f ) ); // 좌표는 외부 데이터로?
+	newMonster->posInfo->set_x( -19.0f ); // 좌표는 외부 데이터로?
+	newMonster->posInfo->set_z(  52.5f ); // 좌표는 외부 데이터로?
 	newMonster->posInfo->set_y( 0.0f );
+
+	newMonster->objectInfo->mutable_pos_info()->CopyFrom( *newMonster->posInfo );
 
 	m_tempDuplicateSpawnSet.insert( 1000 );
 

@@ -68,30 +68,35 @@ public class PlayGameController : AbstractPlayGameController, ISceneInitializer
 
     private void Receive_Move(S_Move message)
     {
-        if (!PlayerListManager.Instance.TryGetPlayer(message.ObjectInfo.Id, out var player)) return;
-        if (player.IsLocalPlayer) return;
-
         ulong playerId = message.ObjectInfo.Id;
-
         var posInfo = message.ObjectInfo.PosInfo;
+
+        // S_Move 위치 디버깅용
+        {
+            // 구체 생성
+            GameObject sphere = GameObject.CreatePrimitive( PrimitiveType.Sphere );
+            Vector3 pos = sphere.transform.position;
+            pos.x = posInfo.X;
+            pos.y = posInfo.Y;
+            pos.z = posInfo.Z;
+
+            sphere.transform.position = pos;
+
+            // 색상(검정색) 적용
+            Renderer renderer = sphere.GetComponent<Renderer>();
+            renderer.material.color = Color.black;
+
+            // 콜라이더 끄기
+            SphereCollider collider = sphere.GetComponent<SphereCollider>();
+            if ( collider != null )
+                collider.enabled = false;
+        }
+
+        if (!PlayerListManager.Instance.TryGetPlayer( playerId, out var player)) return;
+        if (player.IsLocalPlayer) return;
 
         player.networkPlayerTransform.SetTarget(posInfo.X, posInfo.Y, posInfo.Z, posInfo.Yaw);
 
-        // S_Move 위치 디버깅용
-        //{
-        //    // 구체 생성
-        //    GameObject sphere = GameObject.CreatePrimitive( PrimitiveType.Sphere );
-        //    sphere.transform.position = newPosition;
-
-        //    // 색상(검정색) 적용
-        //    Renderer renderer = sphere.GetComponent<Renderer>();
-        //    renderer.material.color = Color.black;
-
-        //    // 콜라이더 끄기
-        //    SphereCollider collider = sphere.GetComponent<SphereCollider>();
-        //    if ( collider != null )
-        //        collider.enabled = false;
-        //}
     }
 
     // Receive_Animation 수정 제안

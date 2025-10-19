@@ -39,7 +39,7 @@ AIStatus AIMoveAction::Execute( Actor* actor, Millisecond curTime )
 		return AIStatus::Failure;
 
 	// 0.1s 마다 움직인다.
-	AtInt64 deltaTime = 3000;
+	AtInt64 deltaTime = 100;
 	if ( curTime.count() - m_lastUpdateTime.count() < deltaTime )
 		return AIStatus::Failure;
 
@@ -53,12 +53,12 @@ AIStatus AIMoveAction::Execute( Actor* actor, Millisecond curTime )
 	else
 	{
 		float newX = 0.0f;
-		float newY = 0.0f;
+		float newZ = 0.0f;
 
-		_ExporToNextPos( actor, deltaTime, destPos.first, destPos.second, newX, newY );
+		_ExporToNextPos( actor, deltaTime, destPos.first, destPos.second, newX, newZ );
 
 		actor->posInfo->set_x( newX );
-		actor->posInfo->set_y( newY );
+		actor->posInfo->set_z( newZ );
 
 		m_lastUpdateTime = curTime;
 		actor->SetIsMoveUpdate( true );
@@ -103,25 +103,31 @@ bool AIMoveAction::_CheckMove( Actor* actor ) const
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif Actor의 다음 좌표를 내보낸다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void AIMoveAction::_ExporToNextPos( Actor* actor, float deltaTime, float destX, float destY, float& newX, float& newY )
+void AIMoveAction::_ExporToNextPos( Actor* actor, float deltaTime, float destX, float destZ, float& newX, float& newZ )
 {
-	float speed = 1.0f; // TODO : actor별로 속도 가져오기
+	float speed = 3.0f; // TODO : actor별로 속도 가져오기
 
 	float curX = actor->posInfo->x();
-	float curY = actor->posInfo->y();
+	float curZ = actor->posInfo->z();
 
 	float dx = destX - curX;
-	float dy = destY - curY;
+	float dz = destZ - curZ;
 
 	// 목표까지의 거리
-	float dist = std::sqrt( dx * dx + dy * dy );
+	float dist = std::sqrt( dx * dx + dz * dz );
+	if ( dist < 0.0001f ) // 너무 가까우면 이동 불필요
+	{
+		newX = curX;
+		newZ = curZ;
+		return;
+	}
 
 	// 단위 벡터 (정규화)
 	float nx = dx / dist;
-	float ny = dy / dist;
+	float nz = dz / dist;
 
-	// 이동 거리 (speed * deltaTime)
-	float moveDist = speed * deltaTime;
+	// 이동 거리 (speed * deltaTime) 
+	float moveDist = speed * ( deltaTime / 1000.0f );
 
 	// 목표보다 멀리 가지 않게 clamp
 	if ( moveDist > dist )
@@ -129,5 +135,5 @@ void AIMoveAction::_ExporToNextPos( Actor* actor, float deltaTime, float destX, 
 
 	// 새로운 좌표
 	newX = curX + nx * moveDist;
-	newY = curY + ny * moveDist;
+	newZ = curZ + nz * moveDist;
 }

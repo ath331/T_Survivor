@@ -39,5 +39,5 @@ private:
 	bool _CheckMove( Actor* actor ) const;
 
 	/// Actor의 다음 좌표를 내보낸다.
-	void _ExporToNextPos( Actor* actor, float deltaTime, float destX, float destY, float& newX, float& newY );
+	void _ExporToNextPos( Actor* actor, float deltaTime, float destX, float destZ, float& newX, float& newZ );
 };

@@ -20,7 +20,7 @@
 PlayRoom::PlayRoom( const AtString& mapName )
 {
 	// 대기 시간 보정
-	m_startTime = AtTime::GetCurMillisecond() + (Millisecond)( 7000 );
+	m_startTime = AtTime::GetCurMillisecond() + (Millisecond)( 5000 );
 
 	// TODO : 임시 데이터 그룹을 사용중
 	AtInt32 spawnGroupId = 100;

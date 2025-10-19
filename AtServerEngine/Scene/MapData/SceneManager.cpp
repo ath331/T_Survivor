@@ -277,9 +277,9 @@ std::pair<float, float> SceneManager::GetWorldPosByNodeId( int nodeId/*, float c
 	int flippedGy = ( m_height - 1 ) - gy;
 
 	float worldX = ( gx - m_width / 2 ) + 0.5f + centerX;
-	float worldZ = ( flippedGy - m_height / 2 ) + 0.5f + centerY;
+	float worldY = ( flippedGy - m_height / 2 ) + 0.5f + centerY;
 
-	return { worldX, worldZ };
+	return { worldX, worldY };
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

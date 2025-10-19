@@ -18,7 +18,7 @@ void BaseAllocator::Release(void* ptr)
 
 /*-------------------
 	StompAllocator
--------------------*/
+-------------------*/ 
 
 void* StompAllocator::Alloc(int32 size)
 {
