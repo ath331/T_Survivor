@@ -127,6 +127,15 @@
     <ClInclude Include="Logic\AI\AISequence.h">
       <Filter>Logic\AI</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Cheat\Cheat.h">
+      <Filter>Logic\Cheat</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Cheat\CheatChat\CheatChat.h">
+      <Filter>Logic\Cheat\CheatChat</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Cheat\CheatManager.h">
+      <Filter>Logic\Cheat</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\ContentsManager.h">
       <Filter>Logic</Filter>
     </ClInclude>
@@ -253,6 +262,9 @@
     <ClInclude Include="Packet\PacketId.h">
       <Filter>Packet</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>..\..\..\GameServer</Filter>
+    </ClInclude>
     <ClInclude Include="Session\GameSession.h">
       <Filter>Session</Filter>
     </ClInclude>
@@ -262,7 +274,6 @@
     <ClInclude Include="Session\GameSessionTypes.h">
       <Filter>Session</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Data\AI\AIInfo.cpp">
@@ -361,6 +372,9 @@
     <ClCompile Include="Data\TestInfoTemplate.cpp">
       <Filter>Data</Filter>
     </ClCompile>
+    <ClCompile Include="GameServer.cpp">
+      <Filter>..\..\..\GameServer</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\AI\AI.cpp">
       <Filter>Logic\AI</Filter>
     </ClCompile>
@@ -381,6 +395,15 @@
     </ClCompile>
     <ClCompile Include="Logic\AI\AISequence.cpp">
       <Filter>Logic\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Cheat\Cheat.cpp">
+      <Filter>Logic\Cheat</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Cheat\CheatChat\CheatChat.cpp">
+      <Filter>Logic\Cheat\CheatChat</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Cheat\CheatManager.cpp">
+      <Filter>Logic\Cheat</Filter>
     </ClCompile>
     <ClCompile Include="Logic\ContentsManager.cpp">
       <Filter>Logic</Filter>
@@ -532,14 +555,15 @@
     <ClCompile Include="Packet\Handler\Server\C_ServerListReadHandler.cpp">
       <Filter>Packet\Handler\Server</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>..\..\..\GameServer</Filter>
+    </ClCompile>
     <ClCompile Include="Session\GameSession.cpp">
       <Filter>Session</Filter>
     </ClCompile>
     <ClCompile Include="Session\GameSessionManager.cpp">
       <Filter>Session</Filter>
     </ClCompile>
-    <ClCompile Include="GameServer.cpp" />
-    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="DB\GameDB.xml">
@@ -568,6 +592,10 @@
     <Filter Include="Logic">
     </Filter>
     <Filter Include="Logic\AI">
+    </Filter>
+    <Filter Include="Logic\Cheat">
+    </Filter>
+    <Filter Include="Logic\Cheat\CheatChat">
     </Filter>
     <Filter Include="Logic\Core">
     </Filter>

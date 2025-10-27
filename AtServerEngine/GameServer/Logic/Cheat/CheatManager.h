@@ -1,0 +1,40 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief CheatManager File
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#pragma once
+#include "Logic/Core/Singleton.h"
+
+
+class Cheat;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief CheatManager Class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+class CheatManager
+	: public Singleton< CheatManager >
+{
+private:
+	/// 치트 컨테이너 타입 정의
+	using CheatMap = std::map< AtString, Cheat* >;
+
+private:
+	/// 치트 컨테이너 타입
+	CheatMap m_cheatMap;
+
+public:
+	/// 치트를 등록한다.
+	AtVoid AddCmd( const AtString& cmd, Cheat* cheat );
+
+	/// 메시지가 치트인지 확인한다.
+	AtBool IsCheat( const AtString& msg );
+
+	/// 치트를 동작한다.
+	AtVoid Run( PlayerPtr player, const AtString& msg );
+
+private:
+	/// 치트 객체를 반환한다.
+	Cheat* _GetObject( const AtString& msg );
+};

@@ -227,6 +227,9 @@
     <ClInclude Include="Logic\AI\AINode.h" />
     <ClInclude Include="Logic\AI\AISelector.h" />
     <ClInclude Include="Logic\AI\AISequence.h" />
+    <ClInclude Include="Logic\Cheat\Cheat.h" />
+    <ClInclude Include="Logic\Cheat\CheatChat\CheatChat.h" />
+    <ClInclude Include="Logic\Cheat\CheatManager.h" />
     <ClInclude Include="Logic\ContentsManager.h" />
     <ClInclude Include="Logic\Core\Environment.h" />
     <ClInclude Include="Logic\Core\Singleton.h" />
@@ -315,6 +318,9 @@
     <ClCompile Include="Logic\AI\AIMoveAction.cpp" />
     <ClCompile Include="Logic\AI\AISelector.cpp" />
     <ClCompile Include="Logic\AI\AISequence.cpp" />
+    <ClCompile Include="Logic\Cheat\Cheat.cpp" />
+    <ClCompile Include="Logic\Cheat\CheatChat\CheatChat.cpp" />
+    <ClCompile Include="Logic\Cheat\CheatManager.cpp" />
     <ClCompile Include="Logic\ContentsManager.cpp" />
     <ClCompile Include="Logic\Core\Environment.cpp" />
     <ClCompile Include="Logic\Core\Singleton.cpp" />

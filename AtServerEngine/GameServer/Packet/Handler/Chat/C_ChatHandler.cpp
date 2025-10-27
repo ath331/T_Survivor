@@ -9,6 +9,7 @@
 #include "Logic/Utils/Log/AtLog.h"
 #include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Room/Room.h"
+#include "Logic/Cheat/CheatManager.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,6 +28,12 @@ AtBool C_ChatHandler::Handle( PacketSessionPtr& session, Protocol::C_Chat& pkt )
 	RoomPtr room = player->room.load().lock();
 	if ( !room )
 		return false;
+
+	if ( CheatManager::GetInstance().IsCheat( pkt.msg() ) )
+	{
+		CheatManager::GetInstance().Run( player, pkt.msg() );
+		return true;
+	}
 
 	AtInt64 senderId = player->GetId();
 

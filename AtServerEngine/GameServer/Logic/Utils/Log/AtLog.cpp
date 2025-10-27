@@ -7,6 +7,7 @@
 #include "AtLog.h"
 #include "Logic/Utils/String/StringUtils.h"
 #include "Logic/Utils/Time/AtTime.h"
+#include <cstdlib>
 #include <google/protobuf/util/json_util.h>
 
 
@@ -17,12 +18,16 @@ AtVoid AtLog::PrintMsg(
 	const char*                 file,
 	      AtInt32               line,
 	      AtString              msg,
-	      AtStringColor::EColor color )
+	      AtStringColor::EColor color,
+	      AtBool                progamExit )
 {
 	AtStringColor stringColor( color );
 
 	const char* fileName = extractFileName( file );
 	std::cout << "[ " << AtTime::GetCurTimeFormat() << " ] " << fileName << "::" << line << ", " << msg << std::endl;
+
+	if ( progamExit )
+		std::exit( 0 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

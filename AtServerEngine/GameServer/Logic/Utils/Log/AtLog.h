@@ -13,7 +13,8 @@
 
 #define INFO_LOG( msg )    AtLog::PrintMsg( __FILE__, __LINE__, msg );
 #define INFO_LOG_GREEN( msg )    AtLog::PrintMsg( __FILE__, __LINE__, msg, AtStringColor::EColor::Green );
-#define WARNNING_LOG( msg ) AtLog::PrintMsg( __FILE__, __LINE__, msg, AtStringColor::EColor::Red );
+#define WARNNING_LOG( msg ) AtLog::PrintMsg( __FILE__, __LINE__, msg, AtStringColor::EColor::Red, false );
+#define ERROR_LOG( msg ) AtLog::PrintMsg( __FILE__, __LINE__, msg, AtStringColor::EColor::Red, true );
 
 #define INFO_LOG_NO_LINE( msg ) AtLog::PrintNoFileMsg( msg );
 #define PKT_LOG( pkt ) AtLog::TryPrintPacketData( pkt );
@@ -75,7 +76,8 @@ public:
 		const char*                 file,
 		      AtInt32               line,
 		      AtString              msg,
-		      AtStringColor::EColor color = AtStringColor::EColor::None );
+		      AtStringColor::EColor color = AtStringColor::EColor::None,
+		      AtBool                progamExit = false );
 
 	/// msg를 출력한다.
 	static AtVoid PrintNoFileMsg( AtString msg, AtStringColor::EColor color = AtStringColor::EColor::None );
