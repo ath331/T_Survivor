@@ -70,7 +70,7 @@ AtInt32 main( AtInt32 argc, AtInt8* argv[] )
 	setlocale( LC_ALL, "ko_KR.UTF-8" );
 #endif
 
-	std::cout << "Jenkins Build!!" << std::endl;
+	std::cout << "Jenkins Build!!!!" << std::endl;
 
 	std::filesystem::path programPath( argv[ 0 ] );
 	AtString fileName = programPath.stem().string();
