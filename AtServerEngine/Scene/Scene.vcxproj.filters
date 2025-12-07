@@ -1,26 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>..\..\..\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="MapData\SceneManager.h">
       <Filter>MapData</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>..\..\..\Scene</Filter>
-    </ClInclude>
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MapData\SceneManager.cpp">
       <Filter>MapData</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>..\..\..\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>..\..\..\Scene</Filter>
-    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="MapData">

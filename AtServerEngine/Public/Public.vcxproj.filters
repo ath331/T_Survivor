@@ -1,26 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>..\..\..\Public</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>..\..\..\Public</Filter>
-    </ClInclude>
     <ClInclude Include="Ptr\PtrProtectContainer.h">
       <Filter>Ptr</Filter>
     </ClInclude>
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp">
-      <Filter>..\..\..\Public</Filter>
-    </ClCompile>
     <ClCompile Include="Ptr\PtrProtectContainer.cpp">
       <Filter>Ptr</Filter>
     </ClCompile>
-    <ClCompile Include="Public.cpp">
-      <Filter>..\..\..\Public</Filter>
-    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Public.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Ptr">
