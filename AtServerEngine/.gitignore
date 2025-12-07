@@ -57,8 +57,8 @@ mono_crash.*
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
+#[Rr]elease/
+#[Rr]eleases/
 x64/
 x86/
 [Ww][Ii][Nn]32/
@@ -69,6 +69,9 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+
+GameServer.ini
+TitleServer.ini
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
