@@ -16,7 +16,7 @@
 #pragma comment(lib, "Protobuf\\Release\\libprotobuf.lib")
 #endif
 
-#include "CorePch.h"
+#include "../ServerCore/CorePch.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 #include "Logic/Utils/Utils.h"
 #include "Logic/Utils/String/StringUtils.h"
